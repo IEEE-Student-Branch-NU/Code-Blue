@@ -1,16 +1,113 @@
-# React + Vite
+# Code Blue - IEEE Student Branch NU Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, visually stunning website for the IEEE Student Branch at Nirma University, featuring interactive animations and a premium design aesthetic.
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-18+-61DAFB?style=flat-square&logo=react&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-5+-646CFF?style=flat-square&logo=vite&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-Custom-1572B6?style=flat-square&logo=css3&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **Interactive FaultyTerminal Background** - Animated terminal effect that responds to mouse movements
+- **CurvedLoop Animation** - Dynamic curved text animation with smooth scrolling effect
+- **Tubelight Navbar** - Glowing navigation bar with hover effects
+- **TextPressure Component** - Interactive text that responds to cursor pressure
+- **Glassmorphism Design** - Modern frosted glass UI elements
+- **Responsive Layout** - Optimized for all screen sizes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Tech Stack
 
-## Expanding the ESLint configuration
+- **Framework**: React 18+
+- **Build Tool**: Vite
+- **Styling**: Vanilla CSS with custom properties
+- **UI Components**: shadcn/ui
+- **Animations**: CSS animations & custom effects
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── CurvedLoop.jsx        # Animated curved loop background
+│   ├── FaultyTerminal.jsx    # Interactive terminal animation
+│   ├── TextPressure.jsx      # Pressure-sensitive text effect
+│   └── tubelight-navbar.jsx  # Glowing navigation component
+├── pages/
+│   ├── Home.jsx              # Landing page
+│   ├── About.jsx             # About IEEE SBNU
+│   └── Contact.jsx           # Contact information
+├── lib/
+│   └── utils.js              # Utility functions
+├── App.jsx                   # Main application with routing
+├── main.jsx                  # Entry point
+└── index.css                 # Global styles
+```
+
+## 🛠️ Getting Started
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/IEEE-Student-Branch-NU/Code-Blue.git
+   cd Code-Blue
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:5173) in your browser
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+```bash
+npm run preview
+```
+
+## 📝 Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm run preview` | Preview production build |
+| `npm run lint` | Run ESLint |
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is maintained by IEEE Student Branch, Nirma University.
+
+## 🔗 Links
+
+- [IEEE Student Branch NU](https://ieee.nirmauni.ac.in)
+- [IEEE Official Website](https://www.ieee.org)
+
+---
+
+Made with ❤️ by IEEE Student Branch, Nirma University
