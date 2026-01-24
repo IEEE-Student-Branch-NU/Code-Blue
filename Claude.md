@@ -151,17 +151,51 @@ If workflows exist in `.agent/workflows/`, reference them with `/command-name`.
 
 **Workspace**: `d:\IEEE\IEEE SBNU`
 
-**Tech Stack Detected**:
-- React with JSX
-- Components: `FaultyTerminal.jsx`, navigation, pages
-- CSS styling (`.css` files)
-- Likely using Vite or similar bundler
+**GitHub Repository**: [IEEE-Student-Branch-NU/Code-Blue](https://github.com/IEEE-Student-Branch-NU/Code-Blue.git)
 
-**Open Files** (as of last check):
-- `FaultyTerminal.jsx` - Interactive terminal component
-- `CurvedLoop.css` - Animation styles
-- `App.jsx` - Main application
-- `Home.jsx` - Home page component
+**Tech Stack**:
+- **Framework**: React 18+ with Vite
+- **Styling**: Vanilla CSS with custom properties
+- **Bundler**: Vite
+- **Package Manager**: npm
+- **UI Components**: shadcn/ui
+
+**Project Structure**:
+```
+IEEE SBNU/
+├── public/              # Static assets (logos, images)
+├── src/
+│   ├── components/      # Reusable React components
+│   │   ├── CurvedLoop.jsx        # Animated curved loop background
+│   │   ├── CurvedLoop.css
+│   │   ├── FaultyTerminal.jsx    # Interactive terminal animation
+│   │   ├── FaultyTerminal.css
+│   │   ├── TextPressure.jsx      # Interactive text effect
+│   │   └── tubelight-navbar.jsx  # Animated navigation bar
+│   ├── pages/           # Page components
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   └── Contact.jsx
+│   ├── lib/             # Utility functions
+│   ├── App.jsx          # Main application with routing
+│   ├── main.jsx         # Entry point
+│   └── index.css        # Global styles
+├── components.json      # shadcn/ui configuration
+├── vite.config.js       # Vite configuration
+└── package.json         # Dependencies and scripts
+```
+
+**Key Features**:
+- Interactive FaultyTerminal background animation
+- CurvedLoop animated text effect
+- Glassmorphism design elements
+- Responsive tubelight navbar with hover effects
+- Modern, premium UI design
+
+**Run Commands**:
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
 
 ---
 
