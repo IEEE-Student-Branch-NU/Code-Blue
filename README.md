@@ -99,6 +99,10 @@ npm run preview
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
+## 👥 Contributors
+
+- [GalacticVraj](https://github.com/GalacticVraj)
+
 ## 📄 License
 
 This project is maintained by IEEE Student Branch, Nirma University.
