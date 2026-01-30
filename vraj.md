@@ -1,148 +1,135 @@
 <div align="center">
 
-![Code Blue Academy](https://img.shields.io/badge/CODE_BLUE-ACADEMY-FFD700?style=for-the-badge&logo=book&logoColor=black&labelColor=black)
+![Code Blue Master Guide](https://img.shields.io/badge/CODE_BLUE-MASTER_GUIDE-000000?style=for-the-badge&logo=react&logoColor=61DAFB&labelColor=000000)
 
-# � Level 0: The Developer's Journey
-### *From "What is GitHub?" to "I just merged my first PR!"*
+# 📘 The Complete Architect's Guide
+### *From "What is a Branch?" to "How Code Blue Works"*
 
-![Beginner Friendly](https://img.shields.io/badge/Difficulty-Beginner-success?style=flat-square)
-![Interactive](https://img.shields.io/badge/Mode-Interactive-orange?style=flat-square)
-![Fun](https://img.shields.io/badge/Vibe-Immaculate-pink?style=flat-square)
+![Level](https://img.shields.io/badge/Level-Zero_to_Hero-success?style=flat-square)
+![Focus](https://img.shields.io/badge/Focus-Architecture_%26_Workflow-blue?style=flat-square)
 
-*“Everyone starts somewhere. Today, you start here.”*
+*“To build the skyscraper, you must first understand the brick.”*
 
-[🤔 What is all this?](#-chapter-1-the-concepts) • [�️ Setup Your Gear](#-chapter-2-loading-the-tools) • [⚔️ Your First Mission](#-chapter-3-your-first-quest)
+[� Part 1: The Basics](#-part-1-the-foundation-concepts) • [🏰 Part 2: Our Architecture](#-part-2-the-castle-project-structure) • [🛠️ Part 3: The Tools](#-part-3-the-toolkit-git-commands) • [🚀 Part 4: The Workflow](#-part-4-the-ritual-contribution-workflow)
 
 </div>
 
 ---
 
-## 🧠 Chapter 1: The Concepts (Explained simply)
+## � Part 1: The Foundation (Concepts)
+*Before we code, we must understand the language of collaboration.*
 
-Imagine we are building a massive LEGO castle together.
+### 1. What is a "Repository"? (The House) 🏠
+Think of the **Repository (Repo)** as the **House** we are building.
+*   It contains everything: walls (code), furniture (images), and blueprints (documentation).
+*   **Code Blue** is our House.
 
-### 1. What is Git? 💾
-**Git** is a **Time Machine**.
-*   Every time you place a LEGO brick, you take a photo.
-*   If you make a mistake (like smashing a tower), you can "load" the photo from 5 minutes ago.
-*   *In Tech:* It saves versions of your code history.
+### 2. What is a "Branch"? (The Parallel Dimensions) 🌌
+Imagine you want to paint the living room **Neon Blue**, but you're scared you'll spill paint everywhere.
+*   In Git, you create a **Branch**. This is a **copy** of the House in a parallel dimension.
+*   You paint the room in this parallel dimension. If it looks terrible, you just delete the dimension! The real house is untouched.
+*   If it looks great, you **Merge** it back into reality.
 
-### 2. What is GitHub? ☁️
-**GitHub** is the **Cloud Storage** for those photos.
-*   It's where we keep the "Master Copy" of our LEGO castle so everyone can access it.
-*   *In Tech:* It's a website that hosts your Git repositories.
-
-### 3. What is a Repository (Repo)? 📦
-The **Repo** is the **LEGO Box**.
-*   It contains all the bricks (files) and the instruction manual (README).
-
-### 4. What is a Branch? 🌿
-This is the magic. Imagine creating a **Parallel Universe**.
-*   **The `main` Universe**: The finished castle that visitors look at.
-*   **Your `feat/bridge` Universe**: You take a copy of the castle to a separate room to build a drawbridge.
-*   *Why?* If your drawbridge collapses, the `main` castle is safe! You only bring it back when it's perfect.
-
-```mermaid
-gitGraph
-   commit id: "The Castle"
-   branch your-universe
-   checkout your-universe
-   commit id: "Build Bridge"
-   commit id: "Paint Bridge"
-   checkout main
-   merge your-universe tag: "Bridge Added!"
-```
+### 3. What is a "Commit"? (The Save Point) 💾
+You just finished painting the wall. You take a photo.
+*   That photo is a **Commit**.
+*   It has a message: *"Painted wall neon blue"*.
+*   If you make a mistake later, you can look at the photo and restore the wall exactly how it was.
 
 ---
 
-## �️ Chapter 2: Loading the Tools
+## 🏰 Part 2: The Castle (Project Structure)
+*Where does everything live in Code Blue?*
 
-Before we play, we need to install the game.
+We use **React + Vite**. Here is the map of our territory:
 
-### Step 1: Tell Git who you are 🆔
-Open your terminal (PowerShell or Command Prompt) and type this:
 ```bash
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+src/
+├── 📂 components/       # The Building Blocks (LEGO Bricks)
+│   ├── FaultyTerminal.jsx  # 📟 The hacking animation on the home screen
+│   ├── CurvedLoop.jsx      # ➰ The infinite scrolling text ring
+│   ├── TextPressure.jsx    # 👆 Text that squishes when you hover
+│   └── tubelight-navbar.jsx# 💡 The glowing navigation bar
+│
+├── 📂 pages/            # The Rooms (Full Screens)
+│   ├── Home.jsx            # The Landing Page (Entry Hall)
+│   ├── About.jsx           # Team Info (Trophy Room)
+│   └── Contact.jsx         # Get in touch (Mail Room)
+│
+├── 📂 lib/              # The Tools (Utility Belt)
+│   └── utils.js            # Helper functions (glue, duct tape)
+│
+├── App.jsx              # The Skeleton (Holds pages together)
+└── main.jsx             # The Heart (Starts the app)
 ```
 
-### Step 2: Get the Castle (Clone) 🏰
-Bring the code from the cloud to your computer.
-```bash
-# This creates a folder called 'Code-Blue' on your PC
-git clone https://github.com/IEEE-Student-Branch-NU/Code-Blue.git
-cd Code-Blue
-```
+> [!TIP]
+> **Rule of Thumb**:
+> *   If it's a small piece of UI (like a button or animation), it goes in **`components/`**.
+> *   If it's a full screen users navigate to, it goes in **`pages/`**.
 
 ---
 
-## ⚔️ Chapter 3: Your First Quest
+## 🛠️ Part 3: The Toolkit (Git Commands)
+*The spells you need to cast.*
 
-**Objective**: Create a file with your name in the `dev` branch.
+| Spell (Command) | Effect |
+| :--- | :--- |
+| `git clone [url]` | **Summon**: Downloads the entire House to your computer. |
+| `git checkout -b [name]` | **Multiverse**: Creates a new parallel dimension (Branch). |
+| `git checkout [name]` | **Teleport**: Switch between dimensions. |
+| `git add .` | **Prepare**: Put your changes in the box. |
+| `git commit -m "msg"` | **Seal**: Tape the box and label it (Save Point). |
+| `git push` | **Telecast**: Send your box to the Cloud (GitHub). |
+| `git pull` | **Sync**: Download changes your teammates made. |
 
-### 🟢 Mission Start: Enter the Dev World
-We never touch the `main` code directly. We work in `dev`.
+---
+
+## � Part 4: The Ritual (Contribution Workflow)
+*How we work together without destroying the House.*
+
+### Step 1: Sync (Always start here)
+Don't build on old foundations.
 ```bash
-git checkout dev
-git pull origin dev  # Get the latest updates
+git checkout dev      # Go to the development floor
+git pull origin dev   # Update everything
 ```
 
-### 🟡 Action: Create Your Timeline (Branch)
-Let's make your personal workspace.
+### Step 2: Branch (Create your dimension)
+Naming rules: `feat` (new thing), `fix` (repair), `docs` (writing).
 ```bash
-# 'feat' means Feature. 'add-vraj' is the name.
-git checkout -b feat/add-your-name
+# Example: Adding a new gallery page
+git checkout -b feat/gallery-page
 ```
-*You are now in a safe parallel universe!*
 
-### 🔵 Action: Do the Work
-1.  Create a file named `your-name.md` (e.g., `batman.md`).
-2.  Write "I am ready to code!" inside it.
-3.  Save the file.
+### Step 3: Code (Build the brick)
+1.  Go to `src/pages/`.
+2.  Create `Gallery.jsx`.
+3.  Write your React code.
+4.  Import components from `src/components/`.
 
-### 🟣 Action: Save Progress (Commit)
-Tell Git to take a snapshot.
+### Step 4: Save (Commit)
 ```bash
 git add .
-git commit -m "feat: adding my first file!"
+git commit -m "feat: created basic gallery layout"
 ```
 
-### 🔴 Boss Fight: Upload (Push)
-Send your universe to GitHub.
+### Step 5: Share (Push)
 ```bash
-git push -u origin feat/add-your-name
+git push -u origin feat/gallery-page
 ```
 
----
-
-## 🏆 Chapter 4: The Merge (Pull Request)
-
-You built the feature. Now, let's add it to the real castle.
-
-1.  Go to **[GitHub.com/IEEE-Student-Branch-NU/Code-Blue](https://github.com/IEEE-Student-Branch-NU/Code-Blue)**.
-2.  You will see a yellow box saying **"Compare & pull request"**. Click it!
-3.  **IMPORTANT**: Make sure the arrow points to `dev` (not `main`).
-    *   `base: dev` ⬅️ `compare: feat/add-your-name`
-4.  Click **Create Pull Request**.
-
-🎉 **VICTORY!** You have successfully contributed.
-
----
-
-## 🆘 Cheat Codes (Common Commands)
-
-| Command | Why use it? |
-| :--- | :--- |
-| `git status` | "Where am I? What did I change?" (Check this often!) |
-| `git checkout dev` | "Take me back to the main lobby." |
-| `git pull` | "Update my game files." |
-| `git branch -d name` | "Delete this universe, I don't need it." |
+### Step 6: Merge (The Pull Request)
+1.  Go to GitHub.
+2.  Click **"Compare & pull request"**.
+3.  **Critical**: Merge into **`dev`** (NOT `main`).
+4.  Ask **GalacticVraj** to review.
 
 ---
 
 <div align="center">
 
-### *Ready for the next level?*
-**Ask @GalacticVraj for your next assignment.**
+### *You are now ready to build.*
+**Go forth and code.**
 
 </div>
