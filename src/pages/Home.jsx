@@ -82,18 +82,16 @@ const Home = () => {
     return (
         <div style={{ position: 'relative', minHeight: '100vh' }}>
             {/* TextPressure Content */}
-            <div
-                className="text-pressure-container"
-                style={{
-                    position: 'relative',
-                    zIndex: 1,
-                    height: '350px',
-                    padding: '25px 50px 25px 50px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    pointerEvents: 'none'
-                }}>
+            <div style={{
+                position: 'relative',
+                zIndex: 1,
+                height: '350px',
+                padding: '25px 50px 25px 50px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                pointerEvents: 'none'
+            }}>
                 <TextPressure
                     text="IEEE SBNU"
                     strokeColor="#00629b"
@@ -106,24 +104,21 @@ const Home = () => {
             </div>
 
             {/* Info Cards Section */}
-            <div
-                className="cards-section"
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    padding: '60px 20px',
-                    pointerEvents: 'auto'
-                }}>
+            <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                padding: '60px 20px',
+                pointerEvents: 'auto'
+            }}>
                 {infoCards.map((card, index) => (
                     <div
                         key={index}
                         ref={el => cardsRef.current[index] = el}
-                        className="info-card"
                         style={cardStyles.card}
                     >
-                        <h2 className="info-card-title" style={cardStyles.title}>{card.title}</h2>
-                        <p className="info-card-content" style={cardStyles.content}>{card.content}</p>
+                        <h2 style={cardStyles.title}>{card.title}</h2>
+                        <p style={cardStyles.content}>{card.content}</p>
                     </div>
                 ))}
             </div>

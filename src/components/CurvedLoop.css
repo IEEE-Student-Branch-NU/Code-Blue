@@ -21,24 +21,3 @@
   text-transform: uppercase;
   line-height: 1;
 }
-
-/* Mobile responsive adjustments */
-@media (max-width: 768px) {
-  .curved-loop-jacket {
-    min-height: 10vh;
-  }
-
-  .curved-loop-svg {
-    font-size: 2.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .curved-loop-jacket {
-    min-height: 8vh;
-  }
-
-  .curved-loop-svg {
-    font-size: 1.8rem;
-  }
-}
