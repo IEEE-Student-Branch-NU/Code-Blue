@@ -1,47 +1,51 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import TextPressure from '../components/TextPressure'
+import GridDistortion from '../components/GridDistortion'
 
 gsap.registerPlugin(ScrollTrigger)
 
 const infoCards = [
     {
-        title: "What is IEEE?",
+        title: "What is IEEE ?",
         content: "IEEE, the Institute Of Electrical and Electronics Engineers, is a premier technical and world's leading professional institution. IEEE stands for advancement of technology for the benefit of humanity, at the same time bringing members access to the industry's most essential technical information, networking opportunities, career development tools, and many other exclusive benefits. Providing students with an opportunity to interact with academicians and professionals, so as to benefit from their knowledge."
     },
     {
-        title: "Why SBNU?",
-        content: "SBNU hosts a variety of workshops, seminars, webinars, technical talks, competitions, and events throughout the semester, aiming to support its members in achieving comprehensive development aligned with the latest technological advancements."
+        title: "Why Choose IEEE SBNU ?",
+        content: "IEEE Student Branch Nirma University (SBNU) offers a dynamic platform for students to grow technically, professionally, and personally. We empower members with opportunities to learn beyond classrooms through hands-on workshops, industry interactions, technical competitions, and real-world projects. By joining IEEE SBNU, you become part of a global IEEE network, gain access to valuable learning resources, develop leadership and teamwork skills, and build a strong foundation for your future career in engineering and technology."
     }
 ]
 
 const cardStyles = {
     card: {
-        background: 'linear-gradient(135deg, rgba(0, 98, 155, 0.15) 0%, rgba(0, 50, 80, 0.25) 100%)',
-        backdropFilter: 'blur(10px)',
-        border: '1px solid rgba(0, 98, 155, 0.3)',
-        borderRadius: '20px',
+        backgroundColor: '#111',
+        border: '4px solid #fff',
+        boxShadow: '12px 12px 0px #5eb8ff',
         padding: '40px',
-        marginBottom: '30px',
+        marginBottom: '40px',
         maxWidth: '900px',
         width: '90%',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)',
+        borderRadius: '0',
         opacity: 0,
-        transform: 'translateY(60px)'
+        transform: 'translateY(60px)',
+        transition: 'transform 0.2s ease'
     },
     title: {
-        color: '#5eb8ff',
-        fontSize: '2rem',
-        fontWeight: '700',
-        marginBottom: '20px',
-        textShadow: '0 0 20px rgba(0, 98, 155, 0.5)'
+        color: '#fff',
+        fontSize: '2.2rem',
+        fontWeight: '900',
+        marginBottom: '25px',
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        display: 'inline-block',
+        borderBottom: '6px solid #5eb8ff',
+        paddingBottom: '5px'
     },
     content: {
-        color: 'rgba(255, 255, 255, 0.85)',
+        color: '#fff',
         fontSize: '1.1rem',
         lineHeight: '1.8',
-        textAlign: 'justify'
+        textAlign: 'left'
     }
 }
 
@@ -81,47 +85,89 @@ const Home = () => {
 
     return (
         <div style={{ position: 'relative', minHeight: '100vh' }}>
-            {/* TextPressure Content */}
+            {/* GridDistortion Hero Section */}
             <div style={{
                 position: 'relative',
                 zIndex: 1,
-                height: '350px',
-                padding: '25px 50px 25px 50px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                pointerEvents: 'none'
+                width: '100%',
+                height: '100vh',
+                overflow: 'hidden',
             }}>
-                <TextPressure
-                    text="IEEE SBNU"
-                    strokeColor="#00629b"
-                    textColor="#ffffff"
-                    stroke={true}
-                    width={true}
-                    weight={true}
-                    italic={true}
+                <GridDistortion
+                    imageSrc="/hero.png"
+                    grid={20}
+                    mouse={0.15}
+                    strength={0.1}
+                    relaxation={0.9}
                 />
             </div>
 
-            {/* Info Cards Section */}
+            {/* Combined Grid Section */}
             <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: '60px 20px',
-                pointerEvents: 'auto'
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                gap: '60px',
+                padding: '80px 40px',
+                backgroundColor: '#000',
+                maxWidth: '1200px',
+                margin: '0 auto',
+                pointerEvents: 'auto',
+                justifyItems: 'center'
             }}>
+                {/* Info Cards - Top Row (automatically by order) */}
                 {infoCards.map((card, index) => (
                     <div
                         key={index}
                         ref={el => cardsRef.current[index] = el}
-                        style={cardStyles.card}
+                        style={{
+                            ...cardStyles.card,
+                            width: '100%',
+                            maxWidth: '560px',
+                            margin: 0
+                        }}
                     >
                         <h2 style={cardStyles.title}>{card.title}</h2>
                         <p style={cardStyles.content}>{card.content}</p>
                     </div>
                 ))}
+
+                {/* Mission & Vision - Bottom Row */}
+                <div
+                    ref={el => cardsRef.current[infoCards.length] = el}
+                    style={{
+                        ...cardStyles.card,
+                        width: '100%',
+                        maxWidth: '560px',
+                        margin: 0
+                    }}
+                >
+                    <h4 style={cardStyles.title}>
+                        Our Mission
+                    </h4>
+                    <p style={cardStyles.content}>
+                        To cultivate a culture of innovation, technical excellence, and continuous learning among students by organizing impactful technical activities, workshops, and collaborative projects. We strive to bridge the gap between academia and industry, nurture leadership and professional skills, and encourage members to apply technology for solving real-world problems and contributing positively to society.
+                    </p>
+                </div>
+
+                <div
+                    ref={el => cardsRef.current[infoCards.length + 1] = el}
+                    style={{
+                        ...cardStyles.card,
+                        width: '100%',
+                        maxWidth: '560px',
+                        margin: 0
+                    }}
+                >
+                    <h4 style={cardStyles.title}>
+                        Our Vision
+                    </h4>
+                    <p style={cardStyles.content}>
+                        To be recognized as a leading and inclusive student technical community that fosters innovation, encourages lifelong learning, and nurtures future technology leaders. We envision creating a dynamic environment where students collaborate, explore emerging technologies, and develop solutions that address real-world challenges, making a positive and lasting impact at local, national, and global levels.
+                    </p>
+                </div>
             </div>
+
+
         </div>
     )
 }
