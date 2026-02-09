@@ -85,131 +85,90 @@ const Home = () => {
 
     return (
         <div style={{ position: 'relative', minHeight: '100vh' }}>
-<<<<<<< HEAD
-    {/* TextPressure Content */ }
-    <div
-        className="text-pressure-container"
-        style={{
-            position: 'relative',
-            zIndex: 1,
-            height: '350px',
-            padding: '25px 50px 25px 50px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-        }}>
-        <TextPressure
-            text="IEEE SBNU"
-            strokeColor="#00629b"
-            textColor="#ffffff"
-            stroke={true}
-            width={true}
-            weight={true}
-            italic={true}
-        />
-    </div>
-
-    {/* Info Cards Section */ }
-    <div
-        className="cards-section"
-        style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '60px 20px',
-            pointerEvents: 'auto'
-        }}>
-=======
             {/* GridDistortion Hero Section */}
-        <div style={{
-            position: 'relative',
-            zIndex: 1,
-            width: '100%',
-            height: '100vh',
-            overflow: 'hidden',
-        }}>
-            <GridDistortion
-                imageSrc="/hero.png"
-                grid={20}
-                mouse={0.15}
-                strength={0.1}
-                relaxation={0.9}
-            />
-        </div>
+            <div style={{
+                position: 'relative',
+                zIndex: 1,
+                width: '100%',
+                height: '100vh',
+                overflow: 'hidden',
+            }}>
+                <GridDistortion
+                    imageSrc="/hero.png"
+                    grid={20}
+                    mouse={0.15}
+                    strength={0.1}
+                    relaxation={0.9}
+                />
+            </div>
 
-        {/* Combined Grid Section */}
-        <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-            gap: '60px',
-            padding: '80px 40px',
-            backgroundColor: '#000',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            pointerEvents: 'auto',
-            justifyItems: 'center'
-        }}>
-            {/* Info Cards - Top Row (automatically by order) */}
->>>>>>> dev
-            {infoCards.map((card, index) => (
-                <div
-                    key={index}
-                    ref={el => cardsRef.current[index] = el}
-<<<<<<< HEAD
-                    className="info-card"
-                    style={cardStyles.card}
-=======
+            {/* Combined Grid Section */}
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+                gap: '60px',
+                padding: '80px 40px',
+                backgroundColor: '#000',
+                maxWidth: '1200px',
+                margin: '0 auto',
+                pointerEvents: 'auto',
+                justifyItems: 'center'
+            }}>
+                {/* Info Cards - Top Row (automatically by order) */}
+                {infoCards.map((card, index) => (
+                    <div
+                        key={index}
+                        ref={el => cardsRef.current[index] = el}
                         style={{
                             ...cardStyles.card,
                             width: '100%',
                             maxWidth: '560px',
                             margin: 0
                         }}
->>>>>>> dev
+                    >
+                        <h2 className="info-card-title" style={cardStyles.title}>{card.title}</h2>
+                        <p className="info-card-content" style={cardStyles.content}>{card.content}</p>
+                    </div>
+                ))}
+
+                {/* Mission & Vision - Bottom Row */}
+                <div
+                    ref={el => cardsRef.current[infoCards.length] = el}
+                    style={{
+                        ...cardStyles.card,
+                        width: '100%',
+                        maxWidth: '560px',
+                        margin: 0
+                    }}
                 >
-                    <h2 className="info-card-title" style={cardStyles.title}>{card.title}</h2>
-                    <p className="info-card-content" style={cardStyles.content}>{card.content}</p>
+                    <h4 style={cardStyles.title}>
+                        Our Mission
+                    </h4>
+                    <p style={cardStyles.content}>
+                        To cultivate a culture of innovation, technical excellence, and continuous learning among students by organizing impactful technical activities, workshops, and collaborative projects. We strive to bridge the gap between academia and industry, nurture leadership and professional skills, and encourage members to apply technology for solving real-world problems and contributing positively to society.
+                    </p>
                 </div>
-            ))}
 
-            {/* Mission & Vision - Bottom Row */}
-            <div
-                ref={el => cardsRef.current[infoCards.length] = el}
-                style={{
-                    ...cardStyles.card,
-                    width: '100%',
-                    maxWidth: '560px',
-                    margin: 0
-                }}
-            >
-                <h4 style={cardStyles.title}>
-                    Our Mission
-                </h4>
-                <p style={cardStyles.content}>
-                    To cultivate a culture of innovation, technical excellence, and continuous learning among students by organizing impactful technical activities, workshops, and collaborative projects. We strive to bridge the gap between academia and industry, nurture leadership and professional skills, and encourage members to apply technology for solving real-world problems and contributing positively to society.
-                </p>
+                <div
+                    ref={el => cardsRef.current[infoCards.length + 1] = el}
+                    style={{
+                        ...cardStyles.card,
+                        width: '100%',
+                        maxWidth: '560px',
+                        margin: 0
+                    }}
+                >
+                    <h4 style={cardStyles.title}>
+                        Our Vision
+                    </h4>
+                    <p style={cardStyles.content}>
+                        To be recognized as a leading and inclusive student technical community that fosters innovation, encourages lifelong learning, and nurtures future technology leaders. We envision creating a dynamic environment where students collaborate, explore emerging technologies, and develop solutions that address real-world challenges, making a positive and lasting impact at local, national, and global levels.
+                    </p>
+                </div>
             </div>
 
-            <div
-                ref={el => cardsRef.current[infoCards.length + 1] = el}
-                style={{
-                    ...cardStyles.card,
-                    width: '100%',
-                    maxWidth: '560px',
-                    margin: 0
-                }}
-            >
-                <h4 style={cardStyles.title}>
-                    Our Vision
-                </h4>
-                <p style={cardStyles.content}>
-                    To be recognized as a leading and inclusive student technical community that fosters innovation, encourages lifelong learning, and nurtures future technology leaders. We envision creating a dynamic environment where students collaborate, explore emerging technologies, and develop solutions that address real-world challenges, making a positive and lasting impact at local, national, and global levels.
-                </p>
-            </div>
+
         </div>
-
-
-    </div>
     )
 }
 
