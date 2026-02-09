@@ -25,3 +25,7 @@ dist-ssr
 
 # Build output
 build_output.txt
+
+# Lint output
+lint_output.txt
+lint_output_2.txt
