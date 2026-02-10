@@ -122,3 +122,23 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Gallery Opening Animation Revealrs */
+.revealers {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.revealer {
+  flex: 1;
+  width: 100%;
+  background-color: #000;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
