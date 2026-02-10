@@ -11,11 +11,11 @@ const Gallery = () => {
             overflow: 'hidden'
         }}>
             <DomeGallery
-                fit={0.9}
-                minRadius={450}
-                maxVerticalRotationDeg={12}
-                segments={24}
-                dragDampening={2}
+                fit={0.95}
+                minRadius={950}
+                maxVerticalRotationDeg={10}
+                segments={34}
+                dragDampening={3}
                 grayscale={false}
             />
         </div>
