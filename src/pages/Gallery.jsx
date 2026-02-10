@@ -7,9 +7,17 @@ const Gallery = () => {
             width: '100%',
             height: '100vh',
             backgroundColor: '#000',
-            pointerEvents: 'auto'
+            pointerEvents: 'auto',
+            overflow: 'hidden'
         }}>
-            <DomeGallery />
+            <DomeGallery
+                fit={0.9}
+                minRadius={450}
+                maxVerticalRotationDeg={12}
+                segments={24}
+                dragDampening={2}
+                grayscale={false}
+            />
         </div>
     )
 }
