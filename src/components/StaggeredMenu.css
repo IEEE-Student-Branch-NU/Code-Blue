@@ -23,7 +23,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   padding: 2em;
   background: transparent;
   pointer-events: none;
@@ -46,11 +46,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: #e9e9ef;
+  color: #fff !important;
+  /* Base color for blend mode */
   font-weight: 500;
   font-size: 1.1rem;
   line-height: 1;
   overflow: visible;
+  mix-blend-mode: difference;
+  z-index: 100;
 }
 
 .sm-toggle:focus-visible {

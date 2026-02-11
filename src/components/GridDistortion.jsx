@@ -148,13 +148,23 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
       vY: 0
     };
 
-    const handleMouseMove = e => {
+    const updatePosition = (clientX, clientY) => {
       const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1 - (e.clientY - rect.top) / rect.height;
+      const x = (clientX - rect.left) / rect.width;
+      const y = 1 - (clientY - rect.top) / rect.height;
       mouseState.vX = x - mouseState.prevX;
       mouseState.vY = y - mouseState.prevY;
       Object.assign(mouseState, { x, y, prevX: x, prevY: y });
+    };
+
+    const handleMouseMove = e => {
+      updatePosition(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = e => {
+      if (e.touches.length > 0) {
+        updatePosition(e.touches[0].clientX, e.touches[0].clientY);
+      }
     };
 
     const handleMouseLeave = () => {
@@ -173,6 +183,9 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
 
     container.addEventListener('mousemove', handleMouseMove);
     container.addEventListener('mouseleave', handleMouseLeave);
+    container.addEventListener('touchstart', handleTouchMove, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleMouseLeave);
 
     handleResize();
 
@@ -224,6 +237,9 @@ const GridDistortion = ({ grid = 15, mouse = 0.1, strength = 0.15, relaxation = 
 
       container.removeEventListener('mousemove', handleMouseMove);
       container.removeEventListener('mouseleave', handleMouseLeave);
+      container.removeEventListener('touchstart', handleTouchMove);
+      container.removeEventListener('touchmove', handleTouchMove);
+      container.removeEventListener('touchend', handleMouseLeave);
 
       if (renderer) {
         renderer.dispose();

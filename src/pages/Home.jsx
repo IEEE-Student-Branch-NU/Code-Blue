@@ -19,40 +19,51 @@ const infoCards = [
 const cardStyles = {
     card: {
         backgroundColor: '#111',
-        border: '4px solid #fff',
-        boxShadow: '12px 12px 0px #5eb8ff',
-        padding: '40px',
-        marginBottom: '40px',
-        maxWidth: '900px',
-        width: '90%',
+        border: '3px solid #fff',
+        boxShadow: '8px 8px 0px #5eb8ff',
+        padding: 'clamp(20px, 5vw, 40px)',
+        marginBottom: '0',
+        maxWidth: '100%',
+        width: '100%',
         borderRadius: '0',
         opacity: 0,
         transform: 'translateY(60px)',
-        transition: 'transform 0.2s ease'
+        transition: 'transform 0.2s ease',
+        display: 'flex',
+        flexDirection: 'column'
     },
     title: {
         color: '#fff',
-        fontSize: '2.2rem',
+        fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
         fontWeight: '900',
-        marginBottom: '25px',
+        marginBottom: '20px',
         textTransform: 'uppercase',
         letterSpacing: '1px',
         display: 'inline-block',
-        borderBottom: '6px solid #5eb8ff',
-        paddingBottom: '5px'
+        borderBottom: '4px solid #5eb8ff',
+        paddingBottom: '5px',
+        alignSelf: 'start'
     },
     content: {
         color: '#fff',
-        fontSize: '1.1rem',
-        lineHeight: '1.8',
+        fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
+        lineHeight: '1.6',
         textAlign: 'left'
     }
 }
 
 const Home = () => {
     const cardsRef = useRef([])
+    const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
 
     useEffect(() => {
+        const handleResize = () => {
+            setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
+        };
+        window.addEventListener('resize', handleResize);
+
+        // Initial setup
+        handleResize();
         cardsRef.current.forEach((card, index) => {
             if (!card) return
 
@@ -79,6 +90,7 @@ const Home = () => {
         })
 
         return () => {
+            window.removeEventListener('resize', handleResize);
             ScrollTrigger.getAll().forEach(trigger => trigger.kill())
         }
     }, [])
@@ -90,7 +102,7 @@ const Home = () => {
                 position: 'relative',
                 zIndex: 1,
                 width: '100%',
-                height: '100vh',
+                height: '100dvh',
                 overflow: 'hidden',
             }}>
                 <GridDistortion
@@ -105,14 +117,15 @@ const Home = () => {
             {/* Combined Grid Section */}
             <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
-                gap: '60px',
-                padding: '80px 40px',
+                gridTemplateColumns: gridCols,
+                gap: 'clamp(30px, 8vw, 60px)',
+                padding: 'clamp(40px, 10vw, 80px) clamp(20px, 5vw, 40px)',
                 backgroundColor: '#000',
-                maxWidth: '1200px',
+                maxWidth: '1300px',
                 margin: '0 auto',
                 pointerEvents: 'auto',
-                justifyItems: 'center'
+                justifyItems: 'center',
+                alignItems: 'stretch'
             }}>
                 {/* Info Cards - Top Row (automatically by order) */}
                 {infoCards.map((card, index) => (

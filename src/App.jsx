@@ -37,6 +37,8 @@ const App = () => {
         displaySocials={true}
         displayItemNumbering={true}
         logoUrl=""
+        menuButtonColor="#fff"
+        openMenuButtonColor="#fff"
       />
 
       {/* Routes */}
