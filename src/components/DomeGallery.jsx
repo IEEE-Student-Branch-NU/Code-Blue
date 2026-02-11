@@ -3,31 +3,31 @@ import { useGesture } from '@use-gesture/react';
 import './DomeGallery.css';
 
 const DEFAULT_IMAGES = [
-  {
-    src: 'https://images.unsplash.com/photo-1755331039789-7e5680e26e8f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Abstract art'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755569309049-98410b94f66d?q=80&w=772&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Modern sculpture'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755497595318-7e5e3523854f?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Digital artwork'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1755353985163-c2a0fe5ac3d8?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Contemporary art'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1745965976680-d00be7dc0377?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Geometric pattern'
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1752588975228-21f44630bb3c?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    alt: 'Textured surface'
-  },
-  { src: 'https://pbs.twimg.com/media/Gyla7NnXMAAXSo_?format=jpg&name=large', alt: 'Social media image' }
+  { src: '/docs/img1.jpg', alt: 'Gallery Image 1' },
+  { src: '/docs/img2.jpg', alt: 'Gallery Image 2' },
+  { src: '/docs/img3.jpg', alt: 'Gallery Image 3' },
+  { src: '/docs/img4.jpg', alt: 'Gallery Image 4' },
+  { src: '/docs/img5.jpg', alt: 'Gallery Image 5' },
+  { src: '/docs/img6.jpg', alt: 'Gallery Image 6' },
+  { src: '/docs/img7.jpg', alt: 'Gallery Image 7' },
+  { src: '/docs/img8.jpg', alt: 'Gallery Image 8' },
+  { src: '/docs/img9.jpg', alt: 'Gallery Image 9' },
+  { src: '/docs/img10.jpg', alt: 'Gallery Image 10' },
+  { src: '/docs/img11.jpg', alt: 'Gallery Image 11' },
+  { src: '/docs/img12.jpg', alt: 'Gallery Image 12' },
+  { src: '/docs/img13.jpg', alt: 'Gallery Image 13' },
+  { src: '/docs/img14.jpg', alt: 'Gallery Image 14' },
+  { src: '/docs/img15.jpg', alt: 'Gallery Image 15' },
+  { src: '/docs/img16.jpg', alt: 'Gallery Image 16' },
+  { src: '/docs/img17.jpg', alt: 'Gallery Image 17' },
+  { src: '/docs/img18.jpg', alt: 'Gallery Image 18' },
+  { src: '/docs/img19.jpg', alt: 'Gallery Image 19' },
+  { src: '/docs/img20.jpg', alt: 'Gallery Image 20' },
+  { src: '/docs/img21.jpg', alt: 'Gallery Image 21' },
+  { src: '/docs/img22.jpg', alt: 'Gallery Image 22' },
+  { src: '/docs/img23.jpg', alt: 'Gallery Image 23' },
+  { src: '/docs/img24.jpg', alt: 'Gallery Image 24' },
+  { src: '/docs/img25.jpg', alt: 'Gallery Image 25' },
 ];
 
 const DEFAULTS = {

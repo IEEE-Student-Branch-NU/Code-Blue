@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
+import ScrollVelocity from '../components/ScrollVelocity'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -15,6 +16,7 @@ const infoCards = [
         content: "IEEE Student Branch Nirma University (SBNU) offers a dynamic platform for students to grow technically, professionally, and personally. We empower members with opportunities to learn beyond classrooms through hands-on workshops, industry interactions, technical competitions, and real-world projects. By joining IEEE SBNU, you become part of a global IEEE network, gain access to valuable learning resources, develop leadership and teamwork skills, and build a strong foundation for your future career in engineering and technology."
     }
 ]
+
 
 const cardStyles = {
     card: {
@@ -84,7 +86,7 @@ const Home = () => {
     }, [])
 
     return (
-        <div style={{ position: 'relative', minHeight: '100vh' }}>
+        <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
             {/* GridDistortion Hero Section */}
             <div style={{
                 position: 'relative',
@@ -167,6 +169,17 @@ const Home = () => {
                 </div>
             </div>
 
+            {/* Scroll Velocity Section */}
+            <div style={{ padding: '40px 0', backgroundColor: '#000', borderTop: '1px solid #222' }}>
+                <ScrollVelocity
+                    texts={[
+                        "IEEE SBNU • OUR SUBCHAPTERS •",
+                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT •"
+                    ]}
+                    velocity={100}
+                    className="custom-scroll-text"
+                />
+            </div>
 
         </div>
     )
