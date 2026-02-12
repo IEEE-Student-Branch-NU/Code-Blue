@@ -1,16 +1,17 @@
 import React from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import StaggeredMenu from './components/StaggeredMenu'
-import CurvedLoop from './components/CurvedLoop'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
+import BoardMembers from './pages/BoardMembers'
 
 const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Contact", link: "/contact" },
+  { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
 ];
 
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/board-members" element={<BoardMembers />} />
           <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </div>
