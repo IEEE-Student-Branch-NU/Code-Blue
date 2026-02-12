@@ -103,16 +103,7 @@
 }
 
 .pc-shine {
-  mask-image: var(--icon);
-  mask-mode: luminance;
-  mask-repeat: repeat;
-  mask-size: 150%;
-  mask-position: top calc(200% - (var(--background-y) * 5)) left calc(100% - var(--background-x));
-  transition: filter 0.8s ease;
-  filter: brightness(0.66) contrast(1.33) saturate(0.33) opacity(0.5);
-  animation: holo-bg 18s linear infinite;
-  animation-play-state: running;
-  mix-blend-mode: color-dodge;
+  display: none;
 }
 
 .pc-shine,
@@ -218,14 +209,7 @@
 }
 
 .pc-glare {
-  transform: translate3d(0, 0, 1.1px);
-  overflow: hidden;
-  background-image: radial-gradient(farthest-corner circle at var(--pointer-x) var(--pointer-y),
-      hsl(248, 25%, 80%) 12%,
-      hsla(207, 40%, 30%, 0.8) 90%);
-  mix-blend-mode: overlay;
-  filter: brightness(0.8) contrast(1.2);
-  z-index: 4;
+  display: none;
 }
 
 .pc-avatar-content {
@@ -236,6 +220,8 @@
 
 .pc-avatar-content .avatar {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   position: absolute;
   left: 50%;
   transform-origin: 50% 100%;

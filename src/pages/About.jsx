@@ -20,10 +20,10 @@ const About = () => {
             </div>
 
             {/* Faculty Advisor Section */}
-            <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12">
+            <div className="flex flex-col lg:flex-row items-start justify-center gap-12 lg:gap-20">
                 <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start">
-                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-8 text-center lg:text-left w-full">
-                        Meet Our Faculty Advisor
+                    <h2 className="text-3xl md:text-5xl font-bold text-white mb-10 text-center lg:text-left w-full leading-tight">
+                        Meet Our <br className="hidden lg:block" /> Faculty Advisor
                     </h2>
                     <div className="flex justify-center lg:justify-start w-full">
                         <ProfileCard
@@ -33,25 +33,26 @@ const About = () => {
                             status="Online"
                             contactText="LinkedIn"
                             avatarUrl="/manisha-shah.png"
+                            miniAvatarUrl="/manisha-shah-mini.png"
                             showUserInfo
                             enableTilt={true}
                             enableMobileTilt
                             onContactClick={() => window.open('https://www.linkedin.com/in/manisha-shah-22b94617/', '_blank')}
                             behindGlowEnabled={false}
-                            innerGradient="linear-gradient(145deg, #1e1b4b 0%, #000000 100%)"
+                            innerGradient="transparent"
                         />
                     </div>
                 </div>
 
-                <div className="w-full lg:w-2/3 flex flex-col items-center lg:items-start text-center lg:text-left">
-                    <h3 className="text-2xl font-semibold text-blue-400 mb-4 mt-2">Manisha Shah</h3>
-                    <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                <div className="w-full lg:w-2/3 flex flex-col items-center lg:items-start text-center lg:text-left lg:pt-[190px]">
+                    <h3 className="text-3xl md:text-4xl font-semibold text-blue-400 mb-6">Manisha Shah</h3>
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-6">
                         Dr. Manisha Shah is working as an assistant professor at the department of electrical engineering, institute of technology, Nirma University. Dr. Shah has published many research papers in international / national journals and conferences.
                     </p>
-                    <p className="text-gray-400 text-lg leading-relaxed mb-6">
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-6">
                         Her areas of interest are power electronics converters, power supplies, multi-level converters, power quality improved devices and renewable source integration to grid. She is a senior member of IEEE, USA, and a life member of ISTE.
                     </p>
-                    <p className="text-gray-400 text-lg leading-relaxed">
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed">
                         She is also serving as Ex-Com member of IEEE Gujarat section from last three years.
                     </p>
                 </div>
