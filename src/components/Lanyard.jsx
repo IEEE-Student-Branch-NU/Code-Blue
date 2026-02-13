@@ -34,18 +34,32 @@ const Lanyard = () => {
 
     return (
         <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            {/* Anchor Point (Static Ring) */}
-            <div
-                style={{
-                    width: 24,
-                    height: 24,
-                    borderRadius: '50%',
-                    border: '3px solid #00aaff',
-                    background: 'transparent',
-                    zIndex: 60,
-                    position: 'relative',
-                }}
-            />
+            {/* Mount Point / Ring */}
+            <div style={{ position: 'relative', zIndex: 60 }}>
+                {/* Fixed Mounting Bracket */}
+                <div style={{
+                    width: 32,
+                    height: 8,
+                    background: '#010d1a',
+                    borderRadius: '4px 4px 0 0',
+                    border: '1px solid rgba(96, 165, 250, 0.3)',
+                    position: 'absolute',
+                    top: -4,
+                    left: -16
+                }} />
+                {/* The Ring itself */}
+                <div
+                    style={{
+                        width: 24,
+                        height: 24,
+                        borderRadius: '50%',
+                        border: '3px solid #60a5fa',
+                        background: 'transparent',
+                        position: 'relative',
+                        boxShadow: '0 0 10px rgba(96, 165, 250, 0.3)',
+                    }}
+                />
+            </div>
 
             {/* Unified Pendulum System (Thread + Card) */}
             <motion.div
@@ -55,56 +69,59 @@ const Lanyard = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    marginTop: -2, // Visual connection to ring
+                    marginTop: -4, // Visual connection to ring
                     zIndex: 50,
                 }}
-                initial={{ y: -400, opacity: 0 }}
+                initial={{ y: -600, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{
                     y: {
                         type: 'spring',
-                        stiffness: 35,
-                        damping: 12,
-                        mass: 2,
-                        restDelta: 0.001,
+                        stiffness: 40,
+                        damping: 10,
+                        mass: 1.8,
                     },
-                    opacity: { duration: 0.4 }
+                    opacity: { duration: 0.5 }
                 }}
             >
-                {/* Thread - Always visible, fixed to system */}
-                <div
-                    style={{
-                        width: 1.5,
-                        height: 280, // Substantial length as requested
-                        background: '#00aaff',
-                        opacity: 0.8,
-                        position: 'relative',
-                    }}
-                >
-                    {/* Subtle thread detail */}
-                    <div
-                        style={{
-                            position: 'absolute',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            width: 0.5,
-                            height: '100%',
-                            background: 'rgba(255,255,255,0.3)',
-                        }}
-                    />
+                {/* Looped Thread - Two parallel lines for realism */}
+                <div style={{ position: 'relative', height: 280, width: 16 }}>
+                    {/* Left Cord */}
+                    <div style={{
+                        position: 'absolute',
+                        left: 2,
+                        width: 2,
+                        height: '100%',
+                        background: 'linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)',
+                        boxShadow: '0 0 5px rgba(96, 165, 250, 0.4)'
+                    }} />
+                    {/* Right Cord */}
+                    <div style={{
+                        position: 'absolute',
+                        right: 2,
+                        width: 2,
+                        height: '100%',
+                        background: 'linear-gradient(180deg, #60a5fa 0%, #3b82f6 50%, #2563eb 100%)',
+                        boxShadow: '0 0 5px rgba(96, 165, 250, 0.4)'
+                    }} />
                 </div>
 
-                {/* Card attachment clip */}
+                {/* Card attachment clip / buckle */}
                 <div
                     style={{
-                        width: 14,
-                        height: 14,
-                        border: '2px solid #00aaff',
-                        borderTop: 'none',
-                        background: '#000814',
-                        marginTop: -1,
+                        width: 20,
+                        height: 16,
+                        border: '2px solid #60a5fa',
+                        borderRadius: '4px',
+                        background: '#030a1c',
+                        marginTop: -2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
-                />
+                >
+                    <div style={{ width: 4, height: 4, borderRadius: '50%', background: '#60a5fa' }} />
+                </div>
 
                 {/* Badge Card */}
                 <motion.div
