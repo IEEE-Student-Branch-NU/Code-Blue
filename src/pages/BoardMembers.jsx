@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer';
 
 const boardMembers = [
     {
@@ -76,6 +77,8 @@ const BoardMembers = () => {
                     </motion.div>
                 ))}
             </div>
+
+            <Footer />
         </div>
     );
 };

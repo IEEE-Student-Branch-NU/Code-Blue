@@ -1,0 +1,243 @@
+.footer {
+    background-color: #000;
+    color: #fff;
+    padding: clamp(40px, 6vw, 60px) clamp(20px, 5vw, 40px);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    border-top: 1px solid #222;
+}
+
+.footer-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    gap: clamp(30px, 6vw, 60px);
+    align-items: flex-start;
+    position: relative;
+    z-index: 2;
+}
+
+.footer-info {
+    flex: 1;
+    min-width: 300px;
+}
+
+.footer-logo {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    color: #fff;
+}
+
+.footer-logo span {
+    color: #5eb8ff;
+}
+
+.footer-tagline {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #aaa;
+    max-width: 450px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-social-item {
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 1.2rem;
+    background: #111;
+    border: 2px solid #fff;
+    box-shadow: 4px 4px 0px #5eb8ff;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-social-item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px #5eb8ff;
+    border-color: #5eb8ff;
+}
+
+.footer-nav-card {
+    flex: 1.2;
+    background: #111;
+    border: 2.5px solid #fff;
+    padding: clamp(25px, 4vw, 40px);
+    box-shadow: 8px 8px 0px #5eb8ff;
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.footer-group-label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    border-bottom: 2px solid #5eb8ff;
+    width: fit-content;
+    padding-bottom: 2px;
+}
+
+.footer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.footer-nav-list li a {
+    color: #aaa;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-nav-list li a:hover {
+    color: #5eb8ff;
+    padding-left: 4px;
+}
+
+.footer-location-text {
+    color: #aaa;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-bottom-bar {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1.5px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.footer-copy {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-legal-links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.footer-legal-links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+}
+
+.footer-legal-links a:hover {
+    color: #fff;
+}
+
+/* Tablet Resizing */
+@media (max-width: 1024px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 3rem;
+    }
+
+    .footer-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-tagline {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .footer-socials {
+        justify-content: center;
+    }
+
+    .footer-nav-card {
+        max-width: 600px;
+    }
+
+    .footer-group-label {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* Mobile Resizing */
+@media (max-width: 640px) {
+    .footer {
+        padding: 40px 1rem;
+    }
+
+    .footer-logo {
+        font-size: 1.8rem;
+    }
+
+    .footer-tagline {
+        font-size: 0.8rem;
+    }
+
+    .footer-nav-card {
+        padding: 1.5rem;
+        box-shadow: 6px 6px 0px #5eb8ff;
+    }
+
+    .footer-nav-grid {
+        gap: 1.5rem;
+        grid-template-columns: 1fr;
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        text-align: center;
+    }
+}

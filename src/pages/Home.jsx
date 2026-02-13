@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
 
+import Footer from '../components/Footer'
+
 gsap.registerPlugin(ScrollTrigger)
 
 const infoCards = [
@@ -194,6 +196,7 @@ const Home = () => {
                 />
             </div>
 
+            <Footer />
         </div>
     )
 }
