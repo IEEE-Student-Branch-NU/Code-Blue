@@ -1,5 +1,5 @@
-import { useRef } from 'react';
-import { motion, useAnimationFrame, useMotionValue, useSpring } from 'framer-motion';
+import React, { useRef } from 'react';
+import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 
 const Lanyard = () => {
     const angle = useMotionValue(0);
