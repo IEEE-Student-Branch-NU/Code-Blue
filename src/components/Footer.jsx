@@ -22,7 +22,14 @@ const Footer = () => {
                         <a href="https://www.linkedin.com/company/ieee-student-branch-nirma-university" className="footer-social-item" target="_blank" rel="noopener noreferrer">
                             LINKEDIN
                         </a>
-                        <a href="mailto:ieee@nirmauni.ac.in" className="footer-social-item">
+                        <a
+                            href="mailto:ieee@nirmauni.ac.in"
+                            className="footer-social-item"
+                            onClick={(e) => {
+                                window.location.href = "mailto:ieee@nirmauni.ac.in";
+                                e.preventDefault();
+                            }}
+                        >
                             MAIL
                         </a>
                     </div>
