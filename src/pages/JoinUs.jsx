@@ -5,7 +5,6 @@ import Lanyard from '../components/Lanyard';
 
 const JoinUs = () => {
     const containerRef = useRef(null);
-    const contentRef = useRef(null);
 
     useEffect(() => {
         const ctx = gsap.context(() => {
