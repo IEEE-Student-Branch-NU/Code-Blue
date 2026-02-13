@@ -62,9 +62,8 @@ const Footer = () => {
 
                     <div className="footer-bottom-bar">
                         <p className="footer-copy">&copy; {currentYear} IEEE SBNU. ALL RIGHTS RESERVED.</p>
-                        <div className="footer-legal-links">
-                            <Link to="/privacy">PRIVACY</Link>
-                            <Link to="/terms">TERMS</Link>
+                        <div className="footer-credit">
+                            MADE WITH PASSION BY TEAM CODE BLUE
                         </div>
                     </div>
                 </div>

@@ -156,14 +156,8 @@
     letter-spacing: 0.1vw;
 }
 
-.footer-legal-links {
-    display: flex;
-    gap: clamp(1rem, 1.5vw, 1.5vw);
-}
-
-.footer-legal-links a {
+.footer-credit {
     color: #666;
-    text-decoration: none;
     font-size: clamp(0.6rem, 0.8vw, 0.8vw);
     font-weight: 800;
     text-transform: uppercase;
@@ -171,7 +165,7 @@
     transition: color 0.2s ease;
 }
 
-.footer-legal-links a:hover {
+.footer-credit:hover {
     color: #fff;
 }
 
