@@ -2,6 +2,7 @@ import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Linkedin, Mail } from 'lucide-react';
 import LiquidEther from '../components/Backgrounds/LiquidEther/LiquidEther';
+import Footer from '../components/Footer';
 
 const boardMembers = [
     {
@@ -458,6 +459,8 @@ const BoardMembers = () => {
                     ))}
                 </div>
             </div>
+
+            <Footer />
         </div>
     );
 };

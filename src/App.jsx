@@ -6,19 +6,23 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
+import JoinUs from './pages/JoinUs'
+
 
 const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
+  { label: "Join Us", link: "/join-us" },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
 ];
 
 const socialItems = [
-  { label: "Instagram", link: "https://instagram.com" },
-  { label: "LinkedIn", link: "https://linkedin.com" },
+  { label: "Instagram", link: "https://www.instagram.com/ieeenirma" },
+  { label: "LinkedIn", link: "https://www.linkedin.com/company/ieee-student-branch-nirma-university" },
 ];
+
 
 const App = () => {
   const location = useLocation();
@@ -50,6 +54,8 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/board-members" element={<BoardMembers />} />
           <Route path="/gallery" element={<Gallery />} />
+          <Route path="/join-us" element={<JoinUs />} />
+
         </Routes>
       </div>
     </div>
