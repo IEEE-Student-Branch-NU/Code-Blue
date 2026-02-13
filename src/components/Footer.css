@@ -56,6 +56,7 @@
 .footer-social-item {
     display: flex;
     align-items: center;
+    gap: clamp(0.4rem, 0.8vw, 0.8vw);
     padding: clamp(0.5rem, 0.8vw, 0.8vw) clamp(1rem, 1.5vw, 1.5vw);
     background: #111;
     border: 0.2vw solid #fff;
@@ -67,6 +68,12 @@
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-transform: uppercase;
     letter-spacing: 0.1vw;
+}
+
+.footer-social-item svg {
+    width: clamp(14px, 1.2vw, 20px);
+    height: clamp(14px, 1.2vw, 20px);
+    color: #5eb8ff;
 }
 
 .footer-social-item:hover {
