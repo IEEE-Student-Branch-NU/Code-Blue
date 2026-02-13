@@ -26,7 +26,7 @@ const ProfileCardComponent = ({
   className = '',
   enableTilt = true,
   enableMobileTilt = false,
-  mobileTiltSensitivity = 5,
+  mobileTiltSensitivity = 12,
   miniAvatarUrl,
   name = 'Javi A. Torres',
   title = 'Software Engineer',
@@ -80,8 +80,8 @@ const ProfileCardComponent = ({
         '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
         '--pointer-from-top': `${percentY / 100}`,
         '--pointer-from-left': `${percentX / 100}`,
-        '--rotate-x': `${round(-(centerX / 5))}deg`,
-        '--rotate-y': `${round(centerY / 4)}deg`
+        '--rotate-x': `${round(-(centerX / 2.5))}deg`,
+        '--rotate-y': `${round(centerY / 2.0)}deg`
       };
 
       for (const [k, v] of Object.entries(properties)) wrap.style.setProperty(k, v);
