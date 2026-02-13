@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import StaggeredMenu from './components/StaggeredMenu'
 import Home from './pages/Home'
 import About from './pages/About'
@@ -25,8 +25,6 @@ const socialItems = [
 
 
 const App = () => {
-  const location = useLocation();
-  const isHome = location.pathname === '/';
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>

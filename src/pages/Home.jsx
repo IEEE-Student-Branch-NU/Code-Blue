@@ -101,7 +101,7 @@ const Home = () => {
             sessionStorage.setItem('hasCelebrated', 'true');
         }
 
-        cardsRef.current.forEach((card, index) => {
+        cardsRef.current.forEach((card) => {
 
             if (!card) return
 

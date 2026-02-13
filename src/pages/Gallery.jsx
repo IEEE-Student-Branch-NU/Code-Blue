@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState, useEffect } from 'react'
+import React, { useLayoutEffect, useRef, useState } from 'react'
 import DomeGallery from '../components/DomeGallery'
 import gsap from 'gsap'
 

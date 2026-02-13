@@ -1,7 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { Linkedin, Mail } from 'lucide-react';
-import LiquidEther from '../components/Backgrounds/LiquidEther/LiquidEther';
+import React from 'react';
+import { Linkedin } from 'lucide-react';
 import Footer from '../components/Footer';
 
 const boardMembers = [
@@ -66,7 +64,7 @@ const boardMembers = [
         }
     },
     {
-        id: 15,
+        id: 7,
         name: "Vraj Talati",
         role: "Technical Head",
         image: "/Board/Vraj Talati.jpeg",
@@ -76,7 +74,7 @@ const boardMembers = [
         }
     },
     {
-        id: 16,
+        id: 8,
         name: "Rudra Patel",
         role: "Technical Head",
         image: "/Board/Rudra Patel.jpeg",
@@ -86,7 +84,7 @@ const boardMembers = [
         }
     },
     {
-        id: 17,
+        id: 9,
         name: "Dharm Mankad",
         role: "Technical Head",
         image: "/Board/Dharm Mankad.jpeg",
@@ -96,7 +94,7 @@ const boardMembers = [
         }
     },
     {
-        id: 18,
+        id: 10,
         name: "Kashvi Patel",
         role: "Social Media Head",
         image: "/Board/Kashvi Patel.jpeg",
@@ -106,7 +104,7 @@ const boardMembers = [
         }
     },
     {
-        id: 19,
+        id: 11,
         name: "Anany Kelotra",
         role: "Social Media Head",
         image: "/Board/Anany Kelotra.jpeg",
@@ -116,7 +114,7 @@ const boardMembers = [
         }
     },
     {
-        id: 20,
+        id: 12,
         name: "Prathama Gajjar",
         role: "Creative Head",
         image: "/Board/Prathama.jpeg",
@@ -126,7 +124,7 @@ const boardMembers = [
         }
     },
     {
-        id: 21,
+        id: 13,
         name: "Kanak Agarwal",
         role: "Creative Head",
         image: "/Board/Kanak.jpeg",
@@ -136,7 +134,7 @@ const boardMembers = [
         }
     },
     {
-        id: 22,
+        id: 14,
         name: "Vaidehi Vora",
         role: "Creative Head",
         image: "/Board/Vaidehi.jpeg",
@@ -146,7 +144,7 @@ const boardMembers = [
         }
     },
     {
-        id: 23,
+        id: 15,
         name: "Rishwa Chhaya",
         role: "Content & Editorial Head",
         image: "/Board/Rishwa Chhaya.jpeg",
@@ -156,7 +154,7 @@ const boardMembers = [
         }
     },
     {
-        id: 24,
+        id: 16,
         name: "Divy Prajapati",
         role: "Content & Editorial Head",
         image: "/Board/Divy Prajapati.jpeg",
@@ -167,7 +165,7 @@ const boardMembers = [
         }
     },
     {
-        id: 25,
+        id: 17,
         name: "Angel Shukla",
         role: "Student Branch Representative",
         image: "/Board/Angel Shukla.jpeg",
@@ -177,7 +175,7 @@ const boardMembers = [
         }
     },
     {
-        id: 26,
+        id: 18,
         name: "Dev Shah",
         role: "Student Branch Representative",
         image: "/Board/Dev Shah.jpeg",
@@ -187,7 +185,7 @@ const boardMembers = [
         }
     },
     {
-        id: 27,
+        id: 19,
         name: "Lakshya Jain",
         role: "Membership & Sponsorship Head",
         image: "/Board/Lakshya Jain.jpeg",
@@ -197,7 +195,7 @@ const boardMembers = [
         }
     },
     {
-        id: 28,
+        id: 20,
         name: "Malhar S Ugrejeeya",
         role: "Membership & Sponsorship Head",
         image: "/Board/Malhar S Ugrejeeya.jpeg",
@@ -208,91 +206,63 @@ const boardMembers = [
     }
 ];
 
-const MemberCard = ({ member, index, isLarge = false }) => {
-    const cardRef = useRef(null);
-    const [isHovered, setIsHovered] = useState(false);
-
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    // Reduced 3D Tilt values for smoother interaction
-    const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [25, -25]), { stiffness: 300, damping: 30 });
-    const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-25, 25]), { stiffness: 300, damping: 30 });
-
-    function onMouseMove(event) {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const x = (event.clientX - rect.left) / rect.width - 0.5;
-        const y = (event.clientY - rect.top) / rect.height - 0.5;
-        mouseX.set(x);
-        mouseY.set(y);
-        const spotlightX = event.clientX - rect.left;
-        const spotlightY = event.clientY - rect.top;
-        cardRef.current.style.setProperty("--x", `${spotlightX}px`);
-        cardRef.current.style.setProperty("--y", `${spotlightY}px`);
-    }
+const MemberCard = ({ member }) => {
+    const nameParts = member.name.split(' ');
+    const firstName = nameParts[0];
+    const lastName = nameParts.slice(1).join(' ');
 
     return (
-        <div style={{ perspective: "1500px" }}>
-            <motion.div
-                ref={cardRef}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-                onMouseMove={onMouseMove}
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => {
-                    setIsHovered(false);
-                    mouseX.set(0);
-                    mouseY.set(0);
-                }}
-                className="group relative bg-white/5 backdrop-blur-xl rounded-md p-[1.5px] overflow-hidden border-[1.5px] border-white/10 transition-all duration-500 hover:border-[#7ebbce]/50 shadow-[0_0_20px_rgba(126,187,206,0.15)] hover:shadow-[0_0_40px_rgba(126,187,206,0.4)]"
-            >
-                <div
-                    className="pointer-events-none absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    style={{
-                        background: `radial-gradient(600px circle at var(--x) var(--y), rgba(126, 187, 206, 0.15), transparent 40%)`
-                    }}
-                />
+        <div className="brutalist-card group">
+            <div className="brutalist-card-inner">
+                {/* Image Section */}
+                <div className="brutalist-img-container">
+                    <img
+                        src={member.image}
+                        alt={member.name}
+                        className="brutalist-img"
+                    />
+                    <div className="brutalist-img-overlay"></div>
+                </div>
 
-                <div className="relative bg-[#050a28]/80 backdrop-blur-xl rounded-[4px] p-8 h-full flex flex-col items-center text-center z-10 overflow-hidden">
-                    <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-32 h-32 bg-[#7ebbce]/10 rounded-full blur-3xl group-hover:bg-[#7ebbce]/20 transition-colors duration-500" />
-
-                    <div className="relative mb-6" style={{ transform: "translateZ(50px)" }}>
-                        <div className={`relative ${isLarge ? "w-48 h-48" : "w-32 h-32"} rounded-sm overflow-hidden p-[2px] bg-gradient-to-br from-[#7ebbce] via-white/50 to-[#7ebbce] group-hover:scale-105 transition-transform duration-500 shadow-2xl`}>
-                            <div className="absolute inset-0 bg-[#050a28] rounded-sm" />
-                            <img
-                                src={member.image}
-                                alt={member.name}
-                                className="relative w-full h-full rounded-sm object-cover grayscale-[0.5] group-hover:grayscale-0 transition-all duration-500"
-                            />
+                {/* Content Section */}
+                <div className="brutalist-content">
+                    <div className="brutalist-header">
+                        <h3 className="brutalist-name">
+                            <span className="first-name">{firstName}</span>
+                            <span className="last-name">{lastName}</span>
+                        </h3>
+                        <div className="brutalist-role-container">
+                            <p className="brutalist-role">{member.role}</p>
                         </div>
                     </div>
 
-                    <div className="space-y-2 mb-6" style={{ transform: "translateZ(40px)" }}>
-                        <h3 className="text-2xl font-bold text-white tracking-tight group-hover:text-[#7ebbce] transition-colors duration-300">
-                            {member.name}
-                        </h3>
-                        <p className="text-[#7ebbce] font-medium text-xs uppercase tracking-[0.2em]">
-                            {member.role}
-                        </p>
+                    <div className="brutalist-desc-container">
+                        <p className="brutalist-desc">{member.description}</p>
                     </div>
 
-                    <p className="text-gray-400 text-sm leading-relaxed mb-8 line-clamp-3" style={{ transform: "translateZ(30px)" }}>
-                        {member.description}
-                    </p>
-
-                    <div className="flex items-center gap-4 mt-auto" style={{ transform: "translateZ(60px)" }}>
-                        <a href={member.socials.linkedin} className="w-10 h-10 flex items-center justify-center rounded-sm bg-white/5 border border-white/10 text-gray-400 hover:text-[#7ebbce] hover:border-[#7ebbce]/50 hover:bg-[#7ebbce]/10 transition-all duration-300">
-                            <Linkedin size={18} />
+                    <div className="brutalist-footer">
+                        <a
+                            href={member.socials.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="brutalist-social-link"
+                        >
+                            <Linkedin size={20} />
+                            <span>LinkedIn</span>
                         </a>
                     </div>
                 </div>
-            </motion.div>
+            </div>
         </div>
     );
 };
+
+const SectionHeader = ({ title }) => (
+    <div className="brutalist-section-header">
+        <h2 className="brutalist-section-title">{title}</h2>
+        <div className="brutalist-section-line"></div>
+    </div>
+);
 
 const BoardMembers = () => {
     const administrativeBoard = boardMembers.slice(0, 2);
@@ -306,158 +276,302 @@ const BoardMembers = () => {
     const membershipSponsorship = boardMembers.slice(18);
 
     return (
-        <div className="min-h-screen pt-32 pb-24 px-6 md:px-12 bg-[#020617] text-white relative overflow-hidden font-inter">
-            {/* Liquid Ether Background */}
-            <div className="fixed inset-0 z-0 opacity-40 pointer-events-none">
-                <LiquidEther
-                    colors={['#7ebbce', '#ffffff', '#e2f1f5']}
-                    autoIntensity={1.5}
-                    mouseForce={15}
-                    resolution={0.4}
-                />
-            </div>
+        <div className="brutalist-page">
+            <style>{`
+                .brutalist-page {
+                    min-height: 100vh;
+                    background-color: #000;
+                    color: #fff;
+                    padding: clamp(6rem, 10vw, 10rem) 4vw 6rem 4vw;
+                    font-family: 'Inter', sans-serif;
+                }
 
-            <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="max-w-4xl mx-auto text-center mb-16 relative z-10"
-            >
-                <motion.span
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.5 }}
-                    className="inline-block py-1 px-3 rounded-full bg-[#7ebbce]/10 border border-[#7ebbce]/20 text-[#7ebbce] text-xs font-bold tracking-widest uppercase mb-6"
-                >
-                    Management Board
-                </motion.span>
-                <h1 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
-                    The <span className="bg-clip-text text-transparent bg-gradient-to-b from-white to-[#7ebbce]">Board</span>
+                .brutalist-hero {
+                    max-width: 1200px;
+                    margin: 0 auto 8rem auto;
+                    text-align: left;
+                }
+
+                .brutalist-hero-tag {
+                    color: #5eb8ff;
+                    font-size: clamp(0.7rem, 1vw, 1vw);
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: 0.4em;
+                    margin-bottom: 1.5rem;
+                    display: block;
+                }
+
+                .brutalist-hero-title {
+                    font-size: clamp(3rem, 8vw, 8rem);
+                    font-weight: 950;
+                    line-height: 0.9;
+                    text-transform: uppercase;
+                    letter-spacing: -0.04em;
+                    margin-bottom: 2.5rem;
+                }
+
+                .brutalist-hero-title span {
+                    color: transparent;
+                    -webkit-text-stroke: 1.5px #5eb8ff;
+                }
+
+                .brutalist-hero-desc {
+                    font-size: clamp(1rem, 1.5vw, 1.5rem);
+                    color: #aaa;
+                    max-width: 650px;
+                    font-weight: 600;
+                    line-height: 1.4;
+                    text-transform: uppercase;
+                }
+
+                .brutalist-section-header {
+                    max-width: 1200px;
+                    margin: 0 auto 4rem auto;
+                    display: flex;
+                    align-items: center;
+                    gap: 2rem;
+                }
+
+                .brutalist-section-title {
+                    font-size: clamp(1.2rem, 2vw, 2vw);
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    letter-spacing: 0.2em;
+                    color: #5eb8ff;
+                    white-space: nowrap;
+                }
+
+                .brutalist-section-line {
+                    height: 2px;
+                    flex-grow: 1;
+                    background: #222;
+                }
+
+                .brutalist-grid {
+                    max-width: 1200px;
+                    margin: 0 auto 10rem auto;
+                    display: grid;
+                    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+                    gap: 3rem;
+                    justify-content: center;
+                    justify-items: center;
+                }
+
+                .brutalist-card {
+                    position: relative;
+                    background: #000;
+                    border: 2px solid #fff;
+                    box-shadow: 10px 10px 0px #5eb8ff;
+                    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                    width: 100%;
+                    max-width: 400px;
+                }
+
+                .brutalist-card:hover {
+                    transform: translate(-4px, -4px);
+                    box-shadow: 14px 14px 0px #5eb8ff;
+                    border-color: #5eb8ff;
+                }
+
+                .brutalist-card-inner {
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                }
+
+                .brutalist-img-container {
+                    position: relative;
+                    height: 400px;
+                    overflow: hidden;
+                    border-bottom: 2px solid #222;
+                    background: #111;
+                }
+
+                .brutalist-img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    filter: grayscale(100%) contrast(1.1);
+                    transition: all 0.4s ease;
+                }
+
+                .brutalist-card:hover .brutalist-img {
+                    filter: grayscale(0%) contrast(1);
+                    scale: 1.05;
+                }
+
+                .brutalist-content {
+                    padding: 2rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                }
+
+                .brutalist-name {
+                    font-size: 2rem;
+                    font-weight: 900;
+                    text-transform: uppercase;
+                    line-height: 1.1;
+                    margin-bottom: 0.5rem;
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .brutalist-name .first-name {
+                    color: #fff;
+                }
+
+                .brutalist-name .last-name {
+                    color: transparent;
+                    -webkit-text-stroke: 1px #5eb8ff;
+                }
+
+                .brutalist-role-container {
+                    height: 2.4rem; /* Standardizing for 2 lines */
+                    display: flex;
+                    align-items: flex-start;
+                    overflow: hidden;
+                }
+
+                .brutalist-role {
+                    font-size: 0.8rem;
+                    font-weight: 800;
+                    color: #5eb8ff;
+                    text-transform: uppercase;
+                    letter-spacing: 0.15em;
+                    line-height: 1.2;
+                }
+
+                .brutalist-desc-container {
+                    height: 4.5rem; /* Standardizing for 3 lines */
+                    overflow: hidden;
+                }
+
+                .brutalist-desc {
+                    font-size: 0.95rem;
+                    color: #aaa;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    display: -webkit-box;
+                    -webkit-line-clamp: 3;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;
+                }
+
+                .brutalist-footer {
+                    margin-top: auto;
+                }
+
+                .brutalist-social-link {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 1.25rem;
+                    padding: 0.8rem 1.2rem;
+                    background: #111;
+                    border: 2px solid #fff;
+                    box-shadow: 4px 4px 0px #5eb8ff;
+                    color: #fff;
+                    font-size: 1rem;
+                    font-weight: 700;
+                    text-decoration: none;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+
+                .brutalist-social-link:hover {
+                    transform: translate(-3px, -3px);
+                    box-shadow: 8px 8px 0px #5eb8ff;
+                    border-color: #5eb8ff;
+                }
+
+                .brutalist-social-link svg {
+                    color: #5eb8ff;
+                }
+
+                @media (max-width: 768px) {
+                    .brutalist-page {
+                        padding: 8rem 6vw 4rem 6vw;
+                    }
+
+                    .brutalist-grid {
+                        grid-template-columns: 1fr;
+                        gap: 4rem; /* More margin on mobile */
+                    }
+
+                    .brutalist-hero {
+                        margin-bottom: 4rem;
+                    }
+
+                    .brutalist-hero-title {
+                        font-size: 3.5rem;
+                    }
+
+                    .brutalist-img-container {
+                        height: 350px;
+                    }
+
+                    .brutalist-card {
+                        margin: 0 auto 2rem auto;
+                    }
+                }
+            `}</style>
+
+            <div className="brutalist-hero">
+                <span className="brutalist-hero-tag">Management Board</span>
+                <h1 className="brutalist-hero-title">
+                    The <span>Board</span> <br />
+                    Members
                 </h1>
-                <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-medium leading-relaxed">
+                <p className="brutalist-hero-desc">
                     Visionary leaders driving Code-Blue forward with expertise, dedication, and a passion for technology.
                 </p>
-            </motion.div>
-
-            {/* 1. Administrative Board */}
-            <div className="max-w-5xl mx-auto mb-20 relative z-10">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {administrativeBoard.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index} isLarge={true} />
-                    ))}
-                </div>
             </div>
 
-            {/* 2. Secretaries */}
-            <div className="max-w-5xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-12">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/30 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-80 px-4">Secretaries</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/30 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {secretaries.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 2} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="The Chairs" />
+            <div className="brutalist-grid">
+                {administrativeBoard.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 3. Treasurers */}
-            <div className="max-w-5xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Treasurers</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {coreCommittee.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 4} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Secretaries" />
+            <div className="brutalist-grid">
+                {secretaries.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 4. Technical Heads */}
-            <div className="max-w-7xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Technical Heads</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {technicalHeads.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 6} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Treasurers" />
+            <div className="brutalist-grid">
+                {coreCommittee.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 5. Social Media Heads */}
-            <div className="max-w-5xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Social Media Heads</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {socialMediaHeads.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 9} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Technical" />
+            <div className="brutalist-grid">
+                {technicalHeads.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 6. Creative Heads */}
-            <div className="max-w-7xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Creative Heads</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    {creativeHeads.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 11} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Social Media" />
+            <div className="brutalist-grid">
+                {socialMediaHeads.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 7. Content & Editorial Heads */}
-            <div className="max-w-5xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Content & Editorial Heads</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {editorialHeads.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 14} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Creative" />
+            <div className="brutalist-grid">
+                {creativeHeads.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 8. Student Branch Representatives */}
-            <div className="max-w-5xl mx-auto mb-24 relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4">Student Branch Representatives</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {studentReps.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 16} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="Editorial" />
+            <div className="brutalist-grid">
+                {editorialHeads.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
-            {/* 9. Membership Development and Sponsorship Operation */}
-            <div className="max-w-5xl mx-auto relative z-10">
-                <div className="flex items-center gap-4 mb-16">
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                    <span className="text-xs font-bold text-[#7ebbce] uppercase tracking-[0.4em] opacity-50 px-4 text-center">Membership Development and Sponsorship Operation</span>
-                    <div className="h-px flex-grow bg-gradient-to-r from-transparent via-[#7ebbce]/10 to-transparent" />
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 lg:px-20">
-                    {membershipSponsorship.map((member, index) => (
-                        <MemberCard key={member.id} member={member} index={index + 18} isLarge={true} />
-                    ))}
-                </div>
+            <SectionHeader title="SB Representatives" />
+            <div className="brutalist-grid">
+                {studentReps.map(member => <MemberCard key={member.id} member={member} />)}
+            </div>
+
+            <SectionHeader title="Growth" />
+            <div className="brutalist-grid">
+                {membershipSponsorship.map(member => <MemberCard key={member.id} member={member} />)}
             </div>
 
             <Footer />
