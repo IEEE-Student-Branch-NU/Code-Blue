@@ -3,6 +3,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
+import Footer from '../components/Footer'
+import confetti from 'canvas-confetti'
+
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -66,7 +69,40 @@ const Home = () => {
 
         // Initial setup
         handleResize();
+
+        // One-time celebratory confetti
+        const hasCelebrated = sessionStorage.getItem('hasCelebrated');
+        if (!hasCelebrated) {
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+            const colors = ['#bb0000', '#ffffff', '#00f7ff', '#e9ff00', '#00ff00', '#fe00f6'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 100,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 100,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+
+            sessionStorage.setItem('hasCelebrated', 'true');
+        }
+
         cardsRef.current.forEach((card, index) => {
+
             if (!card) return
 
             gsap.fromTo(card,
@@ -194,6 +230,7 @@ const Home = () => {
                 />
             </div>
 
+            <Footer />
         </div>
     )
 }

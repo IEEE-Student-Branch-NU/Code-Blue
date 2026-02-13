@@ -1,6 +1,7 @@
 import React from 'react'
 import ProfileCard from '../components/ProfileCard'
 import CircularGallery from '../components/CircularGallery'
+import Footer from '../components/Footer'
 
 const alumniImages = [
     { image: '/Alumini/alay.jpg', text: 'Alay' },
@@ -85,6 +86,8 @@ const About = () => {
                     <CircularGallery items={alumniImages} bend={0} borderRadius={0.05} />
                 </div>
             </div>
+
+            <Footer />
         </div>
     )
 }
