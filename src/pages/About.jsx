@@ -51,7 +51,7 @@ const About = () => {
                                 miniAvatarUrl="/manisha-shah.png"
                                 showUserInfo
                                 enableTilt={true}
-                                enableMobileTilt
+                                enableMobileTilt={true}
                                 onContactClick={() => window.open('https://www.linkedin.com/in/manisha-shah-22b94617/', '_blank')}
                                 behindGlowEnabled={false}
                                 innerGradient="transparent"
