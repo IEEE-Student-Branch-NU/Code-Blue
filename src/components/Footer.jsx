@@ -22,8 +22,8 @@ const Footer = () => {
                         <a href="https://www.linkedin.com/company/ieee-student-branch-nirma-university" className="footer-social-item" target="_blank" rel="noopener noreferrer">
                             LINKEDIN
                         </a>
-                        <a href="mailto:ieeesbnu.contact@gmail.com" className="footer-social-item">
-                            GMAIL
+                        <a href="mailto:ieee@nirmauni.ac.in" className="footer-social-item">
+                            MAIL
                         </a>
                     </div>
                 </div>
