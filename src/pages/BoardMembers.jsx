@@ -282,8 +282,11 @@ const BoardMembers = () => {
                     min-height: 100vh;
                     background-color: #000;
                     color: #fff;
-                    padding: clamp(6rem, 10vw, 10rem) 4vw 6rem 4vw;
                     font-family: 'Inter', sans-serif;
+                }
+
+                .brutalist-container {
+                    padding: clamp(6rem, 10vw, 10rem) 4vw 0 4vw;
                 }
 
                 .brutalist-hero {
@@ -350,7 +353,7 @@ const BoardMembers = () => {
 
                 .brutalist-grid {
                     max-width: 1200px;
-                    margin: 0 auto 10rem auto;
+                    margin: 0 auto 6rem auto;
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
                     gap: 3rem;
@@ -491,17 +494,17 @@ const BoardMembers = () => {
                 }
 
                 @media (max-width: 768px) {
-                    .brutalist-page {
-                        padding: 8rem 6vw 4rem 6vw;
+                    .brutalist-container {
+                        padding: 8rem 4vw 2rem 4vw;
                     }
 
                     .brutalist-grid {
                         grid-template-columns: 1fr;
-                        gap: 4rem; /* More margin on mobile */
+                        gap: 2.5rem;
                     }
 
                     .brutalist-hero {
-                        margin-bottom: 4rem;
+                        margin-bottom: 3.5rem;
                     }
 
                     .brutalist-hero-title {
@@ -513,65 +516,67 @@ const BoardMembers = () => {
                     }
 
                     .brutalist-card {
-                        margin: 0 auto 2rem auto;
+                        margin: 0 auto;
                     }
                 }
             `}</style>
 
-            <div className="brutalist-hero">
-                <span className="brutalist-hero-tag">Management Board</span>
-                <h1 className="brutalist-hero-title">
-                    The <span>Board</span> <br />
-                    Members
-                </h1>
-                <p className="brutalist-hero-desc">
-                    Visionary leaders driving Code-Blue forward with expertise, dedication, and a passion for technology.
-                </p>
-            </div>
+            <div className="brutalist-container">
+                <div className="brutalist-hero">
+                    <span className="brutalist-hero-tag">Management Board</span>
+                    <h1 className="brutalist-hero-title">
+                        The <span>Board</span> <br />
+                        Members
+                    </h1>
+                    <p className="brutalist-hero-desc">
+                        Visionary leaders driving Code-Blue forward with expertise, dedication, and a passion for technology.
+                    </p>
+                </div>
 
-            <SectionHeader title="The Chairs" />
-            <div className="brutalist-grid">
-                {administrativeBoard.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="The Chairs" />
+                <div className="brutalist-grid">
+                    {administrativeBoard.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Secretaries" />
-            <div className="brutalist-grid">
-                {secretaries.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Secretaries" />
+                <div className="brutalist-grid">
+                    {secretaries.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Treasurers" />
-            <div className="brutalist-grid">
-                {coreCommittee.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Treasurers" />
+                <div className="brutalist-grid">
+                    {coreCommittee.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Technical" />
-            <div className="brutalist-grid">
-                {technicalHeads.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Technical" />
+                <div className="brutalist-grid">
+                    {technicalHeads.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Social Media" />
-            <div className="brutalist-grid">
-                {socialMediaHeads.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Social Media" />
+                <div className="brutalist-grid">
+                    {socialMediaHeads.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Creative" />
-            <div className="brutalist-grid">
-                {creativeHeads.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Creative" />
+                <div className="brutalist-grid">
+                    {creativeHeads.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Editorial" />
-            <div className="brutalist-grid">
-                {editorialHeads.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="Editorial" />
+                <div className="brutalist-grid">
+                    {editorialHeads.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="SB Representatives" />
-            <div className="brutalist-grid">
-                {studentReps.map(member => <MemberCard key={member.id} member={member} />)}
-            </div>
+                <SectionHeader title="SB Representatives" />
+                <div className="brutalist-grid">
+                    {studentReps.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
 
-            <SectionHeader title="Growth" />
-            <div className="brutalist-grid">
-                {membershipSponsorship.map(member => <MemberCard key={member.id} member={member} />)}
+                <SectionHeader title="Growth" />
+                <div className="brutalist-grid">
+                    {membershipSponsorship.map(member => <MemberCard key={member.id} member={member} />)}
+                </div>
             </div>
 
             <Footer />
