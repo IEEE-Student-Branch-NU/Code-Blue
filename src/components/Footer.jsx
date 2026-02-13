@@ -13,12 +13,13 @@ const Footer = () => {
                         IEEE <span>SBNU</span>
                     </h2>
                     <p className="footer-tagline">
-                        SOPHISTICATED GLASSMORPHISM & BOLD BRUTALISM.
-                        ENGINEERING THE FUTURE OF DIGITAL IDENTITY.
+                        ADVANCING TECHNOLOGY FOR HUMANITY.
+                        EMPOWERING INNOVATORS, BUILDING THE FUTURE.
                     </p>
 
+
                     <div className="footer-socials">
-                        <a href="https://linkedin.com" className="footer-social-item" target="_blank" rel="noopener noreferrer">
+                        <a href="https://www.linkedin.com/company/ieee-student-branch-nirma-university" className="footer-social-item" target="_blank" rel="noopener noreferrer">
                             LINKEDIN
                         </a>
                         <a href="mailto:ieeesbnu.contact@gmail.com" className="footer-social-item">
@@ -34,6 +35,8 @@ const Footer = () => {
                             <ul className="footer-nav-list">
                                 <li><Link to="/">HOME</Link></li>
                                 <li><Link to="/about">ABOUT</Link></li>
+                                <li><Link to="/join-us">JOIN US</Link></li>
+
                                 <li><Link to="/board-members">BOARD MEMBERS</Link></li>
                                 <li><Link to="/gallery">GALLERY</Link></li>
                                 <li><Link to="/contact">CONTACT</Link></li>
