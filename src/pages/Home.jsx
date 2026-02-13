@@ -187,8 +187,7 @@ const Home = () => {
                 <ScrollVelocity
                     texts={[
                         "IEEE SBNU • OUR SUBCHAPTERS •",
-                        "IEEE SPS • IEEE ITSS •",
-                        "IEEE CS • IEEE SIGHT •"
+                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"

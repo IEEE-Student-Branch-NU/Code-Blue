@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 
-const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg,#60496e8c 0%,#71C4FF44 100%)';
+const DEFAULT_INNER_GRADIENT = 'rgba(10, 25, 50, 0.6)';
 
 const ANIMATION_CONFIG = {
   INITIAL_DURATION: 1200,
@@ -20,13 +20,13 @@ const ProfileCardComponent = ({
   iconUrl = '<Placeholder for icon URL>',
   grainUrl = '<Placeholder for grain URL>',
   innerGradient,
-  behindGlowEnabled = true,
+  behindGlowEnabled = false,
   behindGlowColor,
   behindGlowSize,
   className = '',
   enableTilt = true,
   enableMobileTilt = false,
-  mobileTiltSensitivity = 12,
+  mobileTiltSensitivity = 5,
   miniAvatarUrl,
   name = 'Javi A. Torres',
   title = 'Software Engineer',
@@ -80,8 +80,8 @@ const ProfileCardComponent = ({
         '--pointer-from-center': `${clamp(Math.hypot(percentY - 50, percentX - 50) / 50, 0, 1)}`,
         '--pointer-from-top': `${percentY / 100}`,
         '--pointer-from-left': `${percentX / 100}`,
-        '--rotate-x': `${round(-(centerX / 2.5))}deg`,
-        '--rotate-y': `${round(centerY / 2.0)}deg`
+        '--rotate-x': `${round(-(centerX / 5))}deg`,
+        '--rotate-y': `${round(centerY / 4)}deg`
       };
 
       for (const [k, v] of Object.entries(properties)) wrap.style.setProperty(k, v);
@@ -245,7 +245,7 @@ const ProfileCardComponent = ({
     shell.addEventListener('pointerleave', pointerLeaveHandler);
 
     const handleClick = () => {
-      if (!enableMobileTilt) return;
+      if (!enableMobileTilt || location.protocol !== 'https:') return;
       const anyMotion = window.DeviceMotionEvent;
       if (anyMotion && typeof anyMotion.requestPermission === 'function') {
         anyMotion

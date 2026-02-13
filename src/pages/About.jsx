@@ -21,7 +21,7 @@ const About = () => {
             <div className="max-w-7xl mx-auto px-4 md:px-8">
                 {/* About IEEE SBNU Section */}
                 <div className="mb-20 text-center lg:text-left">
-                    <h1 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-6">
+                    <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 mb-6">
                         About IEEE SBNU
                     </h1>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -37,7 +37,7 @@ const About = () => {
                 {/* Faculty Advisor Section */}
                 <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 lg:gap-16">
                     <div className="w-full lg:w-[40%] flex flex-col items-center lg:items-start">
-                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-10 text-center lg:text-left w-full leading-tight">
+                        <h2 className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tighter text-white mb-10 text-center lg:text-left w-full leading-tight">
                             Meet Our <br className="hidden lg:block" /> Faculty Advisor
                         </h2>
                         <div className="flex justify-center lg:justify-start w-full">
@@ -77,7 +77,7 @@ const About = () => {
             {/* Our Alumni Section */}
             <div className="mt-32 mb-20 w-full">
                 <div className="max-w-7xl mx-auto px-4 md:px-8 mb-12">
-                    <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 text-center">
+                    <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300 text-center">
                         Our Alumni
                     </h2>
                 </div>

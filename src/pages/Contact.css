@@ -221,9 +221,23 @@
     }
 
     .contact-form-card {
-        max-width: 100%;
-        padding: 2rem 1.5rem;
+        max-width: 550px;
+        padding: 1.5rem 1.25rem;
         box-shadow: 8px 8px 0px #5eb8ff;
+    }
+
+    .contact-form-card .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .contact-form-card input,
+    .contact-form-card textarea {
+        padding: 0.8rem;
+    }
+
+    .contact-form-card .submit-btn {
+        padding: 0.8rem;
+        font-size: 1.1rem;
     }
 }
 

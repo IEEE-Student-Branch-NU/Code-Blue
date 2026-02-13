@@ -38,16 +38,7 @@
 }
 
 .pc-behind {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: radial-gradient(circle at var(--pointer-x) var(--pointer-y),
-      var(--behind-glow-color) 0%,
-      transparent var(--behind-glow-size));
-  filter: blur(50px) saturate(1.1);
-  opacity: calc(0.8 * var(--card-opacity));
-  transition: opacity 200ms ease;
+  display: none;
 }
 
 .pc-card-wrapper:hover,
@@ -67,7 +58,9 @@
   box-shadow: rgba(0, 0, 0, 0.8) calc((var(--pointer-from-left) * 10px) - 3px) calc((var(--pointer-from-top) * 20px) - 6px) 20px -5px;
   transition: transform 1s ease;
   transform: translateZ(0) rotateX(0deg) rotateY(0deg);
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(10, 20, 40, 0.75);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   backface-visibility: hidden;
   overflow: hidden;
 }
@@ -98,7 +91,7 @@
   inset: 0;
   position: absolute;
   background-image: var(--inner-gradient);
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: transparent;
   transform: none;
 }
 
@@ -192,7 +185,6 @@
     calc(var(--pointer-x) * 0.01) calc(var(--pointer-y) * 0.01);
   background-blend-mode: color-dodge;
   filter: brightness(calc(2 - var(--pointer-from-center))) contrast(calc(var(--pointer-from-center) + 2)) saturate(calc(0.5 + var(--pointer-from-center)));
-  mix-blend-mode: luminosity;
 }
 
 .pc-shine::after {
@@ -220,12 +212,11 @@
 
 .pc-avatar-content .avatar {
   width: 100%;
-  height: auto;
   position: absolute;
   left: 50%;
   transform-origin: 50% 100%;
-  transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 15px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
-  bottom: 0;
+  transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0) scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
+  bottom: -1px;
   backface-visibility: hidden;
   will-change: transform;
   transition: transform 120ms ease-out;
@@ -251,8 +242,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transform: translateZ(40px);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(30px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
@@ -292,23 +282,23 @@
 .pc-handle {
   font-size: 14px;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
+  color: #000;
   line-height: 1;
 }
 
 .pc-status {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #000;
   line-height: 1;
 }
 
 .pc-contact-btn {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 12px 16px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: #000;
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
@@ -325,8 +315,8 @@
   overflow: hidden;
   text-align: center;
   position: relative;
-  transform: translate3d(calc(var(--pointer-from-left) * -30px + 15px),
-      calc(var(--pointer-from-top) * -30px + 15px),
+  transform: translate3d(calc(var(--pointer-from-left) * -6px + 3px),
+      calc(var(--pointer-from-top) * -6px + 3px),
       0.1px);
   z-index: 5;
 }
@@ -344,11 +334,7 @@
   margin: 0;
   font-size: min(5svh, 3em);
   margin: 0;
-  background-image: linear-gradient(to bottom, #fff, #6f6fbe);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: #fff;
 }
 
 .pc-details p {
@@ -359,11 +345,7 @@
   font-size: 16px;
   margin: 0 auto;
   width: min-content;
-  background-image: linear-gradient(to bottom, #fff, #4a4ac0);
-  background-size: 1em 1.5em;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  -webkit-background-clip: text;
+  color: #5eb8ff;
 }
 
 @keyframes glow-bg {
