@@ -320,9 +320,7 @@ const BoardMembers = () => {
                 }
 
                 .brutalist-hero-title span.outline {
-                    color: transparent;
-                    -webkit-text-stroke: 1.5px #5eb8ff;
-                    paint-order: stroke fill;
+                    color: #5eb8ff;
                 }
 
                 .brutalist-hero-title span.stagger {
@@ -443,9 +441,7 @@ const BoardMembers = () => {
                 }
 
                 .brutalist-name .last-name {
-                    color: transparent;
-                    -webkit-text-stroke: 1.5px #5eb8ff;
-                    paint-order: stroke fill;
+                    color: #5eb8ff;
                 }
 
                 .brutalist-role-container {
