@@ -24,22 +24,22 @@ const infoCards = [
 const subChapterCards = [
     {
         title: "IEEE Computer Society (CS)",
-        logo: "/IEEE CS Logo.jpeg",
+        logo: "/ieee-cs-logo.jpeg",
         content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards."
     },
     {
         title: "IEEE SIGHT",
-        logo: "/IEEE SIGHT Logo.jpeg",
+        logo: "/ieee-sight-logo.jpeg",
         content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide."
     },
     {
         title: "IEEE Signal Processing Society (SPS)",
-        logo: "/IEEE SPS Logo.jpeg",
+        logo: "/ieee-sps-logo.jpeg",
         content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems."
     },
     {
         title: "IEEE ITSS",
-        logo: "/IEEE ITSS Logo.jpeg",
+        logo: "/ieee-itss-logo.jpg",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety."
     }
 ]
