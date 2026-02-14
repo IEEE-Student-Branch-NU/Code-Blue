@@ -5,6 +5,7 @@ import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from '../components/Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
+import SubChapterCard from '../components/SubchapterCard'
 import confetti from 'canvas-confetti'
 
 
@@ -25,22 +26,26 @@ const subChapterCards = [
     {
         title: "IEEE Computer Society (CS)",
         logo: "/ieee-cs-logo.jpeg",
-        content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards."
+        content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards.",
+        variant: "cs"
     },
     {
-        title: "IEEE SIGHT",
+        title: "IEEE Special Interest Group on Humanitarian Technology (SIGHT)",
         logo: "/ieee-sight-logo.jpeg",
-        content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide."
+        content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide.",
+        variant: "sight"
     },
     {
         title: "IEEE Signal Processing Society (SPS)",
         logo: "/ieee-sps-logo.jpeg",
-        content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems."
+        content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems.",
+        variant: "sps"
     },
     {
-        title: "IEEE ITSS",
+        title: "IEEE Intelligent Transportation Systems Society (ITSS)",
         logo: "/ieee-itss-logo.jpg",
-        content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety."
+        content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
+        variant: "itss"
     }
 ]
 
@@ -315,25 +320,19 @@ const Home = () => {
                             key={index}
                             ref={el => cardsRef.current[infoCards.length + 2 + index] = el}
                             style={{
-                                ...cardStyles.card,
                                 width: '100%',
                                 maxWidth: '560px',
-                                margin: 0
+                                margin: 0,
+                                opacity: 0, // Initial state for GSAP
+                                transform: 'translateY(60px)' // Initial state for GSAP
                             }}
                         >
-                            <div style={cardStyles.logoContainer}>
-                                <img
-                                    src={card.logo}
-                                    alt={`${card.title} Logo`}
-                                    style={cardStyles.logo}
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                        e.target.parentElement.innerHTML = '<span style="color: #5eb8ff; font-weight: 900;">LOGO</span>';
-                                    }}
-                                />
-                            </div>
-                            <h2 style={{ ...cardStyles.title, fontSize: 'clamp(1.2rem, 3vw, 1.8rem)' }}>{card.title}</h2>
-                            <p style={cardStyles.content}>{card.content}</p>
+                            <SubChapterCard
+                                title={card.title}
+                                logo={card.logo}
+                                content={card.content}
+                                variant={card.variant}
+                            />
                         </div>
                     ))}
                 </div>
