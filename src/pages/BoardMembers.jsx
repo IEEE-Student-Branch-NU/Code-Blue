@@ -319,7 +319,7 @@ const BoardMembers = () => {
                     margin-bottom: 2.5rem;
                 }
 
-                .brutalist-hero-title span.outline {
+                .brutalist-hero-title span.accent {
                     color: #5eb8ff;
                 }
 
@@ -550,7 +550,7 @@ const BoardMembers = () => {
                 <div className="brutalist-hero">
                     <span className="brutalist-hero-tag">/// MANAGEMENT BOARD</span>
                     <h1 className="brutalist-hero-title">
-                        The <span className="outline">Board</span> <br />
+                        The <span className="accent">Board</span> <br />
                         <span className="stagger">Members</span>
                     </h1>
                     <p className="brutalist-hero-desc">
