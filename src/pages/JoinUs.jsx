@@ -178,8 +178,7 @@ const JoinUs = () => {
                         <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter text-white uppercase">
                             Join
                         </h1>
-                        <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter text-transparent uppercase ml-[5vw] md:ml-20"
-                            style={{ WebkitTextStroke: "clamp(0.5px, 0.15vw, 2px) rgba(255,255,255,0.8)" }}>
+                        <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter uppercase ml-[5vw] md:ml-20 hollow-text-white-soft">
                             The Team
                         </h1>
                     </div>
@@ -212,7 +211,7 @@ const JoinUs = () => {
                 <div className="py-24 border-t border-white/20">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
-                            Why <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>Join?</span>
+                            Why <br /> <span className="hollow-text">Join?</span>
                         </h2>
                         <div className="text-left md:text-right">
                             <p className="text-brand-blue font-mono text-sm tracking-widest whitespace-nowrap">/// PERKS OF MEMBERSHIP</p>
@@ -245,7 +244,7 @@ const JoinUs = () => {
                 <div className="py-24 border-t border-white/20 roadmap-container">
                     <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
-                            Your <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>Journey</span>
+                            Your <br /> <span className="hollow-text">Journey</span>
                         </h2>
                         <p className="text-brand-blue max-w-md font-mono text-sm uppercase whitespace-nowrap">/// FOUR STEPS TO SUCCESS</p>
                     </div>

@@ -149,3 +149,56 @@
   padding-left: clamp(1rem, 4vw, 3rem);
   padding-right: clamp(1rem, 4vw, 3rem);
 }
+
+/* ============================================
+   HOLLOW TEXT SYSTEM
+   Robust outlined text that works on all devices.
+   Uses paint-order: stroke fill for clean rendering.
+   Fixed px breakpoints instead of unreliable clamp().
+   ============================================ */
+
+.hollow-text {
+  color: transparent;
+  -webkit-text-stroke-color: white;
+  -webkit-text-stroke-width: 1.5px;
+  paint-order: stroke fill;
+}
+
+.hollow-text-blue {
+  color: transparent;
+  -webkit-text-stroke-color: #5eb8ff;
+  -webkit-text-stroke-width: 1.5px;
+  paint-order: stroke fill;
+}
+
+.hollow-text-white-soft {
+  color: transparent;
+  -webkit-text-stroke-color: rgba(255, 255, 255, 0.8);
+  -webkit-text-stroke-width: 1.5px;
+  paint-order: stroke fill;
+}
+
+/* Desktop: thinner strokes look elegant on large screens */
+@media (min-width: 768px) {
+
+  .hollow-text,
+  .hollow-text-white-soft {
+    -webkit-text-stroke-width: 1.5px;
+  }
+
+  .hollow-text-blue {
+    -webkit-text-stroke-width: 1.5px;
+  }
+}
+
+@media (min-width: 1280px) {
+
+  .hollow-text,
+  .hollow-text-white-soft {
+    -webkit-text-stroke-width: 2px;
+  }
+
+  .hollow-text-blue {
+    -webkit-text-stroke-width: 2px;
+  }
+}

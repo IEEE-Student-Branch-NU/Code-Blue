@@ -149,48 +149,86 @@ If workflows exist in `.agent/workflows/`, reference them with `/command-name`.
 
 ## Current Project Context
 
-**Workspace**: `d:\IEEE\IEEE SBNU`
+**Workspace**: `d:\Demo\Code-Blue`
 
 **GitHub Repository**: [IEEE-Student-Branch-NU/Code-Blue](https://github.com/IEEE-Student-Branch-NU/Code-Blue.git)
 
 **Tech Stack**:
-- **Framework**: React 18+ with Vite
-- **Styling**: Vanilla CSS with custom properties
+- **Framework**: React 18 with Vite 6
+- **Styling**: TailwindCSS 4 + Vanilla CSS (hybrid approach)
+- **Animations**: GSAP 3, Framer Motion 12
+- **3D/WebGL**: Three.js, @react-three/fiber, @react-three/drei, OGL
+- **Smooth Scrolling**: Lenis
+- **Routing**: React Router DOM 7
+- **Icons**: Lucide React
 - **Bundler**: Vite
 - **Package Manager**: npm
-- **UI Components**: shadcn/ui
+- **Deployment**: Vercel
 
 **Project Structure**:
 ```
-IEEE SBNU/
-├── public/              # Static assets (logos, images)
+Code-Blue/
+├── public/                  # Static assets
+│   ├── Alumini/             # Alumni photos for gallery
+│   ├── Board/               # Board member photos
+│   ├── Docs/                # Documents
+│   ├── hero.png             # Hero background image
+│   ├── ieee logo.png        # IEEE branding
+│   ├── ieee mb blue.png     # IEEE membership badge
+│   ├── manisha-shah*.png    # Faculty advisor photos
+│   └── Experience.mp3       # Gallery audio experience
 ├── src/
-│   ├── components/      # Reusable React components
-│   │   ├── CurvedLoop.jsx        # Animated curved loop background
-│   │   ├── CurvedLoop.css
-│   │   ├── FaultyTerminal.jsx    # Interactive terminal animation
-│   │   ├── FaultyTerminal.css
-│   │   ├── TextPressure.jsx      # Interactive text effect
-│   │   └── tubelight-navbar.jsx  # Animated navigation bar
-│   ├── pages/           # Page components
-│   │   ├── Home.jsx
-│   │   ├── About.jsx
-│   │   └── Contact.jsx
-│   ├── lib/             # Utility functions
-│   ├── App.jsx          # Main application with routing
-│   ├── main.jsx         # Entry point
-│   └── index.css        # Global styles
-├── components.json      # shadcn/ui configuration
-├── vite.config.js       # Vite configuration
-└── package.json         # Dependencies and scripts
+│   ├── components/
+│   │   ├── Backgrounds/
+│   │   │   └── Squares/     # Animated squares grid background
+│   │   ├── CircularGallery  # Alumni circular carousel (.jsx + .css)
+│   │   ├── DomeGallery      # Immersive 3D dome gallery (.jsx + .css)
+│   │   ├── Footer           # Site-wide footer (.jsx + .css)
+│   │   ├── GridDistortion   # WebGL grid distortion effect (.jsx + .css)
+│   │   ├── ProfileCard      # 3D tilt profile card (.jsx + .css)
+│   │   ├── ScrollVelocity   # Scroll-speed text effect (.jsx + .css)
+│   │   └── StaggeredMenu    # Full-screen navigation menu (.jsx + .css)
+│   ├── pages/
+│   │   ├── Home.jsx         # Landing page with hero, cards, scroll effects
+│   │   ├── About.jsx        # IEEE SBNU info, objectives, faculty, alumni
+│   │   ├── JoinUs.jsx       # Membership benefits, journey, FAQ accordion
+│   │   ├── Contact.jsx      # Contact form and social links (.jsx + .css)
+│   │   ├── BoardMembers.jsx # Management board with brutalist card grid
+│   │   └── Gallery.jsx      # Immersive 3D photo gallery with audio
+│   ├── lib/                 # Utility functions
+│   ├── App.jsx              # Main application with routing & StaggeredMenu
+│   ├── main.jsx             # Entry point
+│   └── index.css            # Global styles, Tailwind theme, brand tokens
+├── Claude.md                # AI assistant guide
+├── DESIGN_DNA.md            # Design specification
+├── components.json          # shadcn/ui configuration
+├── vite.config.js           # Vite configuration
+└── package.json             # Dependencies and scripts
 ```
 
+**Design System**:
+- **Brand Blue**: `#5eb8ff` (defined as `brand-blue` in Tailwind theme)
+- **Aesthetic**: Neo-brutalist with thick borders, offset shadows, bold typography
+- **Typography**: System font stack, uppercase headings, mono-spaced tags (`///` prefix)
+- **Backgrounds**: Animated `Squares` grid on all primary pages
+
 **Key Features**:
-- Interactive FaultyTerminal background animation
-- CurvedLoop animated text effect
-- Glassmorphism design elements
-- Responsive tubelight navbar with hover effects
-- Modern, premium UI design
+- StaggeredMenu full-screen navigation with GSAP animations
+- GridDistortion WebGL hero effect on Home page
+- ProfileCard with 3D tilt and device orientation support
+- DomeGallery immersive 3D photo experience with audio
+- CircularGallery alumni carousel with auto-scroll
+- ScrollVelocity text animation driven by scroll speed
+- Single-open FAQ accordion with hover interaction and auto-close on scroll
+- Responsive brutalist card system across all pages
+
+**Navigation** (6 routes):
+- `/` → Home
+- `/about` → About
+- `/join-us` → Join Us
+- `/contact` → Contact
+- `/board-members` → Board Members
+- `/gallery` → Gallery
 
 **Run Commands**:
 - `npm run dev` - Start development server
