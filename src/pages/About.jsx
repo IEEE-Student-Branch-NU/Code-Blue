@@ -146,10 +146,10 @@ const About = () => {
                 />
             </div>
 
-            <div className="relative z-10 max-w-[1800px] mx-auto px-4 sm:px-6 md:px-12 pt-24 md:pt-32 pb-0">
+            <div className="relative z-10 max-w-[1800px] mx-auto px-4 sm:px-6 md:px-12 pt-32 md:pt-32 pb-0">
 
                 {/* HERO SECTION */}
-                <div className="min-h-[70vh] md:min-h-[85vh] flex flex-col justify-center relative mb-12 md:mb-20">
+                <div className="relative mb-8 md:mb-12">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -160,8 +160,7 @@ const About = () => {
                         <h1 className="text-[18vw] md:text-[14vw] leading-[0.8] font-black tracking-tighter text-white mix-blend-difference">
                             IEEE
                         </h1>
-                        <h1 className="text-[18vw] md:text-[14vw] leading-[0.8] font-black tracking-tighter text-transparent ml-[10vw] md:ml-32"
-                            style={{ WebkitTextStroke: "clamp(0.5px, 0.15vw, 1px) rgba(255,255,255,0.8)" }}>
+                        <h1 className="text-[18vw] md:text-[14vw] leading-[0.8] font-black tracking-tighter text-brand-blue ml-[10vw] md:ml-32">
                             SBNU
                         </h1>
                     </motion.div>
@@ -173,13 +172,13 @@ const About = () => {
                                 Est. 2000.
                             </p>
                         </div>
-                        <div className="grid grid-cols-2 gap-8 text-left md:text-right w-full md:w-auto">
+                        <div className="grid grid-cols-2 gap-2 md:gap-12 text-right w-fit ml-auto md:w-auto">
                             <div>
                                 <h3 className="text-3xl md:text-4xl font-black text-white">24<span className="text-brand-blue/80">+</span></h3>
                                 <p className="text-xs font-mono text-gray-500 uppercase">Years</p>
                             </div>
                             <div>
-                                <h3 className="text-3xl md:text-4xl font-black text-white">3<span className="text-brand-blue/80">+</span></h3>
+                                <h3 className="text-3xl md:text-4xl font-black text-white">4<span className="text-brand-blue/80">+</span></h3>
                                 <p className="text-xs font-mono text-gray-500 uppercase">Depts</p>
                             </div>
                         </div>
@@ -187,13 +186,13 @@ const About = () => {
                 </div>
 
                 {/* UNIQUE OBJECTIVES */}
-                <div className="py-12 md:py-32 relative">
-                    <div className="mb-12 md:mb-16 flex items-end justify-between">
+                <div className="pt-8 md:pt-12 pb-12 md:pb-32 relative">
+                    <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <h2 className="text-5xl md:text-8xl font-black text-white leading-none">
                             OUR <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>OBJECTIVES</span>
                         </h2>
-                        <div className="hidden md:block text-right">
-                            <p className="text-brand-blue font-mono text-sm tracking-widest">/// CORE_PRINCIPLES</p>
+                        <div className="text-left md:text-right">
+                            <p className="text-brand-blue font-mono text-sm tracking-widest whitespace-nowrap">/// CORE PRINCIPLES</p>
                         </div>
                     </div>
 
@@ -250,8 +249,8 @@ const About = () => {
                 </div>
 
                 {/* ALUMNI CAROUSEL */}
-                <div className="py-16 md:py-20 border-t border-white/10 relative overflow-hidden">
-                    <div className="mb-12 text-center">
+                <div className="full-bleed py-16 md:py-20 border-t border-white/10 relative overflow-hidden">
+                    <div className="full-bleed-content mb-12 text-center">
                         <h2 className="text-4xl md:text-7xl font-black text-white mb-2">
                             OUR <span className="text-brand-blue">ALUMNI</span>
                         </h2>

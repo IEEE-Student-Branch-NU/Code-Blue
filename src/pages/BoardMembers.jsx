@@ -288,14 +288,14 @@ const BoardMembers = () => {
                 }
 
                 .brutalist-container {
-                    padding: clamp(6rem, 10vw, 10rem) 4vw 0 4vw;
+                    padding: clamp(6rem, 8rem, 8rem) 4vw 0 4vw;
                     position: relative;
                     z-index: 10;
                 }
 
                 .brutalist-hero {
-                    max-width: 1200px;
-                    margin: 0 auto 8rem auto;
+                    width: 100%;
+                    margin: 0 0 8rem 0;
                     text-align: left;
                 }
 
@@ -307,6 +307,7 @@ const BoardMembers = () => {
                     letter-spacing: 0.4em;
                     margin-bottom: 1.5rem;
                     display: block;
+                    white-space: nowrap;
                 }
 
                 .brutalist-hero-title {
@@ -318,9 +319,20 @@ const BoardMembers = () => {
                     margin-bottom: 2.5rem;
                 }
 
-                .brutalist-hero-title span {
+                .brutalist-hero-title span.outline {
                     color: transparent;
                     -webkit-text-stroke: clamp(0.5px, 0.15vw, 1.5px) #5eb8ff;
+                }
+
+                .brutalist-hero-title span.stagger {
+                    display: block;
+                    margin-left: 10vw;
+                }
+
+                @media (min-width: 768px) {
+                    .brutalist-hero-title span.stagger {
+                        margin-left: 9vw;
+                    }
                 }
 
                 .brutalist-hero-desc {
@@ -511,8 +523,8 @@ const BoardMembers = () => {
                         margin-bottom: 3.5rem;
                     }
 
-                    .brutalist-hero-title {
-                        font-size: 3.5rem;
+                    .brutalist-hero-title span.stagger {
+                        margin-left: 10vw;
                     }
 
                     .brutalist-img-container {
@@ -538,10 +550,10 @@ const BoardMembers = () => {
 
             <div className="brutalist-container relative z-10">
                 <div className="brutalist-hero">
-                    <span className="brutalist-hero-tag">Management Board</span>
+                    <span className="brutalist-hero-tag">/// MANAGEMENT BOARD</span>
                     <h1 className="brutalist-hero-title">
-                        The <span>Board</span> <br />
-                        Members
+                        The <span className="outline">Board</span> <br />
+                        <span className="stagger">Members</span>
                     </h1>
                     <p className="brutalist-hero-desc">
                         Visionary leaders driving Code-Blue forward with expertise, dedication, and a passion for technology.

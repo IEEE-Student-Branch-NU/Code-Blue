@@ -145,7 +145,7 @@ const Home = () => {
                 overflow: 'hidden',
             }}>
                 <GridDistortion
-                    imageSrc="/hero-2.png"
+                    imageSrc="/hero.png"
                     grid={20}
                     mouse={0.15}
                     strength={0.1}
