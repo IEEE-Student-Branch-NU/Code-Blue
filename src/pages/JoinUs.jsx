@@ -108,7 +108,7 @@ const JoinUs = () => {
     ];
 
     return (
-        <div ref={containerRef} className="relative min-h-screen bg-black text-white selection:bg-cyan-500 selection:text-black">
+        <div ref={containerRef} className="relative min-h-screen bg-black text-white selection:bg-[#5eb8ff] selection:text-black">
 
             {/* Background */}
             <div className="fixed inset-0 z-0">
@@ -130,7 +130,7 @@ const JoinUs = () => {
                             Join
                         </h1>
                         <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter text-transparent uppercase ml-[5vw] md:ml-20"
-                            style={{ WebkitTextStroke: "2px rgba(255,255,255,0.8)" }}>
+                            style={{ WebkitTextStroke: "clamp(0.5px, 0.15vw, 2px) rgba(255,255,255,0.8)" }}>
                             The Team
                         </h1>
                     </div>
@@ -138,11 +138,11 @@ const JoinUs = () => {
                     <div className="mt-16 border-t border-white/20 pt-12 flex flex-col lg:flex-row gap-12 justify-between items-start">
                         <div className="max-w-2xl reveal-text">
                             <p className="text-xl md:text-3xl font-light text-white leading-tight mb-8">
-                                Become part of the world's largest <span className="text-cyan-400 font-bold uppercase underline decoration-2 underline-offset-8">technical community</span>. Advance technology for humanity.
+                                Become part of the world's largest <span className="text-brand-blue font-bold uppercase underline decoration-2 underline-offset-8">technical community</span>. Advance technology for humanity.
                             </p>
                             <button
                                 onClick={() => window.open('https://www.ieee.org/membership/join/index.html', '_blank')}
-                                className="group relative px-10 py-5 bg-cyan-500 text-black font-black uppercase tracking-widest text-lg hover:bg-white transition-all duration-300"
+                                className="group relative px-10 py-5 bg-brand-blue text-black font-black uppercase tracking-widest text-lg hover:bg-white transition-all duration-300"
                                 style={{ borderRadius: '0' }}
                             >
                                 Become a Member
@@ -151,7 +151,7 @@ const JoinUs = () => {
                         </div>
 
                         <div className="hidden lg:block text-right reveal-text">
-                            <p className="text-cyan-500 font-mono text-sm tracking-[0.5em] uppercase">/// CORE_NETWORK</p>
+                            <p className="text-brand-blue font-mono text-sm tracking-[0.5em] uppercase">/// CORE_NETWORK</p>
                             <div className="mt-4 flex flex-col items-end gap-2">
                                 <span className="text-4xl font-black italic">400K+</span>
                                 <span className="text-xs font-mono text-gray-400">GLOBAL MEMBERS</span>
@@ -164,10 +164,10 @@ const JoinUs = () => {
                 <div className="py-24 border-t border-white/20">
                     <div className="flex items-end justify-between mb-16">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
-                            Why <br /> <span className="text-transparent" style={{ WebkitTextStroke: "1px white" }}>Join?</span>
+                            Why <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>Join?</span>
                         </h2>
                         <div className="hidden md:block text-right">
-                            <p className="text-cyan-500 font-mono text-sm tracking-widest">/// PERKS_OF_MEMBERSHIP</p>
+                            <p className="text-brand-blue font-mono text-sm tracking-widest">/// PERKS_OF_MEMBERSHIP</p>
                         </div>
                     </div>
 
@@ -177,10 +177,10 @@ const JoinUs = () => {
                                 className="reveal-card p-10 md:p-12 bg-[#111] border-[3px] border-white shadow-[8px_8px_0px_#5eb8ff] hover:shadow-[12px_12px_0px_white] hover:-translate-x-1 hover:-translate-y-1 transition-all duration-300 group"
                             >
                                 <div className="text-5xl mb-8 grayscale group-hover:grayscale-0 transition-all">{benefit.icon}</div>
-                                <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter group-hover:text-cyan-500 transition-colors">
+                                <h3 className="text-3xl font-black text-white mb-4 uppercase tracking-tighter group-hover:text-brand-blue transition-colors">
                                     {benefit.title}
                                 </h3>
-                                <div className="w-16 h-1 bg-cyan-500 group-hover:w-full transition-all duration-500 mb-6"></div>
+                                <div className="w-16 h-1 bg-brand-blue group-hover:w-full transition-all duration-500 mb-6"></div>
                                 <p className="text-gray-400 text-lg leading-relaxed font-medium">
                                     {benefit.desc}
                                 </p>
@@ -193,17 +193,17 @@ const JoinUs = () => {
                 <div className="py-24 border-t border-white/20 roadmap-container">
                     <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
-                            Your <br /> <span className="text-transparent" style={{ WebkitTextStroke: "1px white" }}>Journey</span>
+                            Your <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>Journey</span>
                         </h2>
                         <p className="text-gray-400 max-w-md font-mono text-sm uppercase">/// FOUR_STEPS_TO_SUCCESS</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {steps.map((step, i) => (
-                            <div key={i} className="roadmap-step p-1 border-2 border-white/10 hover:border-cyan-500 transition-colors group relative h-full">
+                            <div key={i} className="roadmap-step p-1 border-2 border-white/10 hover:border-brand-blue transition-colors group relative h-full">
                                 <div className="p-8 h-full bg-[#050505] flex flex-col">
-                                    <span className="text-6xl font-black text-white/5 mb-4 group-hover:text-cyan-500/10 transition-colors">0{i + 1}</span>
-                                    <h3 className={`text-2xl font-black mb-4 uppercase tracking-tight ${step.color === 'cyan' ? 'text-cyan-500' : 'text-white'}`}>
+                                    <span className="text-6xl font-black text-white/5 mb-4 group-hover:text-brand-blue/10 transition-colors">0{i + 1}</span>
+                                    <h3 className={`text-2xl font-black mb-4 uppercase tracking-tight ${step.color === 'brand-blue' ? 'text-brand-blue' : 'text-white'}`}>
                                         {step.title}
                                     </h3>
                                     <p className="text-gray-400 text-sm leading-relaxed mt-auto font-medium">

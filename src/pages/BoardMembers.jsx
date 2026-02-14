@@ -1,6 +1,7 @@
 import React from 'react';
 import { Linkedin } from 'lucide-react';
 import Footer from '../components/Footer';
+import Squares from '../components/Backgrounds/Squares/Squares';
 
 const boardMembers = [
     {
@@ -283,10 +284,13 @@ const BoardMembers = () => {
                     background-color: #000;
                     color: #fff;
                     font-family: 'Inter', sans-serif;
+                    position: relative;
                 }
 
                 .brutalist-container {
                     padding: clamp(6rem, 10vw, 10rem) 4vw 0 4vw;
+                    position: relative;
+                    z-index: 10;
                 }
 
                 .brutalist-hero {
@@ -316,7 +320,7 @@ const BoardMembers = () => {
 
                 .brutalist-hero-title span {
                     color: transparent;
-                    -webkit-text-stroke: 1.5px #5eb8ff;
+                    -webkit-text-stroke: clamp(0.5px, 0.15vw, 1.5px) #5eb8ff;
                 }
 
                 .brutalist-hero-desc {
@@ -427,7 +431,7 @@ const BoardMembers = () => {
 
                 .brutalist-name .last-name {
                     color: transparent;
-                    -webkit-text-stroke: 1px #5eb8ff;
+                    -webkit-text-stroke: clamp(0.5px, 0.1vw, 1px) #5eb8ff;
                 }
 
                 .brutalist-role-container {
@@ -521,7 +525,18 @@ const BoardMembers = () => {
                 }
             `}</style>
 
-            <div className="brutalist-container">
+            {/* Background */}
+            <div className="fixed inset-0 z-0">
+                <Squares
+                    direction="diagonal"
+                    speed={0.15}
+                    borderColor="#333"
+                    squareSize={50}
+                    hoverFillColor="#222"
+                />
+            </div>
+
+            <div className="brutalist-container relative z-10">
                 <div className="brutalist-hero">
                     <span className="brutalist-hero-tag">Management Board</span>
                     <h1 className="brutalist-hero-title">

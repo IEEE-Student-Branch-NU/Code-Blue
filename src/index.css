@@ -42,6 +42,9 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Brand Colors */
+  --color-brand-blue: #5eb8ff;
 }
 
 :root {
@@ -136,9 +139,17 @@
   pointer-events: none;
 }
 
-.revealer {
-  flex: 1;
-  width: 100%;
-  background-color: #000;
-  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+
+.full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  position: relative;
+}
+
+.full-bleed-content {
+  max-width: 1800px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(1rem, 4vw, 3rem);
+  padding-right: clamp(1rem, 4vw, 3rem);
 }

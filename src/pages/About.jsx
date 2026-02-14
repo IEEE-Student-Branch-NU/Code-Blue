@@ -59,10 +59,10 @@ const ObjectiveStrip = ({ obj, index, hovered, setHovered }) => {
             onMouseLeave={() => setHovered(null)}
             onClick={() => setHovered(isHovered ? null : index)} // Mobile tap interaction
         >
-            <div className={`absolute inset-0 transition-colors duration-500 ${isHovered ? 'bg-cyan-500' : 'bg-transparent'}`}></div>
+            <div className={`absolute inset-0 transition-colors duration-500 ${isHovered ? 'bg-brand-blue' : 'bg-transparent'}`}></div>
 
             <div className="relative z-10 p-6 md:p-12 flex flex-col md:flex-row items-baseline md:items-center gap-4 md:gap-16">
-                <span className={`text-base md:text-xl font-mono transition-colors duration-300 ${isHovered ? 'text-black' : 'text-cyan-500'}`}>
+                <span className={`text-base md:text-xl font-mono transition-colors duration-300 ${isHovered ? 'text-black' : 'text-brand-blue'}`}>
                     {obj.id}
                 </span>
 
@@ -70,12 +70,37 @@ const ObjectiveStrip = ({ obj, index, hovered, setHovered }) => {
                     {obj.title}
                 </h3>
 
-                <AnimatePresence>
+                <AnimatePresence mode="wait">
                     {isHovered && (
                         <motion.div
                             initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
+                            animate={{
+                                opacity: 1,
+                                height: 'auto',
+                                transition: {
+                                    height: {
+                                        duration: 0.4,
+                                        ease: [0.04, 0.62, 0.23, 0.98]
+                                    },
+                                    opacity: {
+                                        duration: 0.25,
+                                        delay: 0.05
+                                    }
+                                }
+                            }}
+                            exit={{
+                                opacity: 0,
+                                height: 0,
+                                transition: {
+                                    height: {
+                                        duration: 0.3,
+                                        ease: [0.04, 0.62, 0.23, 0.98]
+                                    },
+                                    opacity: {
+                                        duration: 0.2
+                                    }
+                                }
+                            }}
                             className="md:ml-auto max-w-lg overflow-hidden"
                         >
                             <p className="text-black font-medium text-base md:text-lg leading-relaxed pt-2 md:pt-0">
@@ -108,7 +133,7 @@ const About = () => {
     const yHero = useTransform(scrollYProgress, [0, 0.2], [0, 100]);
 
     return (
-        <div ref={containerRef} className="relative min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-cyan-500 selection:text-black">
+        <div ref={containerRef} className="relative min-h-screen bg-black text-white overflow-hidden font-sans selection:bg-[#5eb8ff] selection:text-black">
 
             {/* FIXED BACKGROUND */}
             <div className="fixed inset-0 z-0">
@@ -136,7 +161,7 @@ const About = () => {
                             IEEE
                         </h1>
                         <h1 className="text-[18vw] md:text-[14vw] leading-[0.8] font-black tracking-tighter text-transparent ml-[10vw] md:ml-32"
-                            style={{ WebkitTextStroke: "1px rgba(255,255,255,0.8)" }}>
+                            style={{ WebkitTextStroke: "clamp(0.5px, 0.15vw, 1px) rgba(255,255,255,0.8)" }}>
                             SBNU
                         </h1>
                     </motion.div>
@@ -144,17 +169,17 @@ const About = () => {
                     <div className="mt-12 md:mt-24 border-t border-white/20 pt-8 flex flex-col md:flex-row gap-8 justify-between items-start">
                         <div className="max-w-2xl">
                             <p className="text-xl md:text-3xl font-light text-white leading-tight mb-4 md:mb-6">
-                                The Student Branch of <span className="text-cyan-400 font-bold">Nirma University</span>.
+                                The Student Branch of <span className="text-brand-blue font-bold">Nirma University</span>.
                                 Est. 2000.
                             </p>
                         </div>
                         <div className="grid grid-cols-2 gap-8 text-left md:text-right w-full md:w-auto">
                             <div>
-                                <h3 className="text-3xl md:text-4xl font-black text-white">24<span className="text-cyan-500">+</span></h3>
+                                <h3 className="text-3xl md:text-4xl font-black text-white">24<span className="text-brand-blue/80">+</span></h3>
                                 <p className="text-xs font-mono text-gray-500 uppercase">Years</p>
                             </div>
                             <div>
-                                <h3 className="text-3xl md:text-4xl font-black text-white">3<span className="text-cyan-500">+</span></h3>
+                                <h3 className="text-3xl md:text-4xl font-black text-white">3<span className="text-brand-blue/80">+</span></h3>
                                 <p className="text-xs font-mono text-gray-500 uppercase">Depts</p>
                             </div>
                         </div>
@@ -165,10 +190,10 @@ const About = () => {
                 <div className="py-12 md:py-32 relative">
                     <div className="mb-12 md:mb-16 flex items-end justify-between">
                         <h2 className="text-5xl md:text-8xl font-black text-white leading-none">
-                            OUR <br /> <span className="text-transparent" style={{ WebkitTextStroke: "1px white" }}>OBJECTIVES</span>
+                            OUR <br /> <span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) white" }}>OBJECTIVES</span>
                         </h2>
                         <div className="hidden md:block text-right">
-                            <p className="text-cyan-500 font-mono text-sm tracking-widest">/// CORE_PRINCIPLES</p>
+                            <p className="text-brand-blue font-mono text-sm tracking-widest">/// CORE_PRINCIPLES</p>
                         </div>
                     </div>
 
@@ -186,38 +211,40 @@ const About = () => {
                 </div>
 
                 {/* FACULTY SECTION */}
-                <div className="py-12 md:py-32 border-t border-white/10 bg-[#050505] relative">
-                    <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-cyan-900/10 to-transparent pointer-events-none"></div>
-                    <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative z-10">
-                        <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
-                            <div className="w-full max-w-[320px] md:max-w-[420px]">
-                                <ProfileCard
-                                    name="MANISHA SHAH"
-                                    title="FACULTY ADVISOR"
-                                    handle="manishashah"
-                                    status="MENTOR"
-                                    contactText="Connect"
-                                    avatarUrl="/manisha-shah-card.png"
-                                    miniAvatarUrl="/manisha-shah.png"
-                                    showUserInfo
-                                    enableTilt={true}
-                                    behindGlowEnabled={true}
-                                    behindGlowColor="rgba(6,182,212,0.3)"
-                                    onContactClick={() => window.open('https://www.linkedin.com/in/manisha-shah-22b94617/', '_blank')}
-                                    innerGradient="linear-gradient(135deg, #111 0%, #000 100%)"
-                                />
+                <div className="full-bleed py-12 md:py-32 border-t border-white/10 bg-[#050505] relative">
+                    <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-[#5eb8ff]/5 to-transparent pointer-events-none"></div>
+                    <div className="full-bleed-content">
+                        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24 relative z-10">
+                            <div className="w-full lg:w-1/2 flex justify-center lg:justify-end">
+                                <div className="w-full max-w-[320px] md:max-w-[420px]">
+                                    <ProfileCard
+                                        name="MANISHA SHAH"
+                                        title="FACULTY ADVISOR"
+                                        handle="manishashah"
+                                        status="MENTOR"
+                                        contactText="Connect"
+                                        avatarUrl="/manisha-shah-card.png"
+                                        miniAvatarUrl="/manisha-shah.png"
+                                        showUserInfo
+                                        enableTilt={true}
+                                        behindGlowEnabled={true}
+                                        behindGlowColor="rgba(94,184,255,0.3)"
+                                        onContactClick={() => window.open('https://www.linkedin.com/in/manisha-shah-22b94617/', '_blank')}
+                                        innerGradient="linear-gradient(135deg, #111 0%, #000 100%)"
+                                    />
+                                </div>
                             </div>
-                        </div>
-                        <div className="w-full lg:w-1/2 text-center lg:text-left">
-                            <div className="inline-block px-3 py-1 border border-cyan-500/30 rounded-full mb-6">
-                                <p className="text-cyan-400 font-mono text-xs tracking-widest uppercase">Leadership</p>
+                            <div className="w-full lg:w-1/2 text-center lg:text-left">
+                                <div className="inline-block px-3 py-1 border border-brand-blue/30 rounded-full mb-6">
+                                    <p className="text-brand-blue/80 font-mono text-xs tracking-widest uppercase">Leadership</p>
+                                </div>
+                                <h2 className="text-4xl md:text-7xl font-black text-white mb-6 leading-none">
+                                    DR. MANISHA <br /><span className="text-transparent" style={{ WebkitTextStroke: "clamp(0.5px, 0.1vw, 1px) #fff" }}>SHAH</span>
+                                </h2>
+                                <p className="text-base md:text-xl text-gray-300 font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
+                                    "Senior Member, IEEE. Since 2000, she has been the cornerstone of our chapter, guiding students towards technical excellence and professional integrity."
+                                </p>
                             </div>
-                            <h2 className="text-4xl md:text-7xl font-black text-white mb-6 leading-none">
-                                DR. MANISHA <br /><span className="text-transparent" style={{ WebkitTextStroke: "1px #fff" }}>SHAH</span>
-                            </h2>
-                            <p className="text-base md:text-xl text-gray-300 font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
-                                "Senior Member, IEEE. Since 2000, she has been the cornerstone of our chapter, guiding students towards technical excellence and professional integrity."
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -226,9 +253,8 @@ const About = () => {
                 <div className="py-16 md:py-20 border-t border-white/10 relative overflow-hidden">
                     <div className="mb-12 text-center">
                         <h2 className="text-4xl md:text-7xl font-black text-white mb-2">
-                            OUR <span className="text-cyan-500">LEGACY</span>
+                            OUR <span className="text-brand-blue">ALUMNI</span>
                         </h2>
-                        <p className="text-gray-500 text-sm font-mono tracking-widest">HALL OF FAME</p>
                     </div>
 
                     <div className="w-full h-[500px] md:h-[600px] relative">
@@ -242,9 +268,9 @@ const About = () => {
                         />
                     </div>
                 </div>
-
-                <Footer />
             </div>
+
+            <Footer />
         </div>
     )
 }

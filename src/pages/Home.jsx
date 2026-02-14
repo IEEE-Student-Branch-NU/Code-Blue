@@ -4,6 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from '../components/Footer'
+import Squares from '../components/Backgrounds/Squares/Squares'
 import confetti from 'canvas-confetti'
 
 
@@ -153,23 +154,51 @@ const Home = () => {
             </div>
 
             {/* Combined Grid Section */}
-            <div style={{
-                display: 'grid',
-                gridTemplateColumns: gridCols,
-                gap: 'clamp(30px, 8vw, 60px)',
-                padding: 'clamp(40px, 10vw, 80px) clamp(20px, 5vw, 40px)',
-                backgroundColor: '#000',
-                maxWidth: '1300px',
-                margin: '0 auto',
-                pointerEvents: 'auto',
-                justifyItems: 'center',
-                alignItems: 'stretch'
-            }}>
-                {/* Info Cards - Top Row (automatically by order) */}
-                {infoCards.map((card, index) => (
+            <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden' }}>
+                {/* Section Background */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+                    <Squares
+                        direction="diagonal"
+                        speed={0.15}
+                        borderColor="#333"
+                        squareSize={40}
+                        hoverFillColor="#111"
+                    />
+                </div>
+
+                <div style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    display: 'grid',
+                    gridTemplateColumns: gridCols,
+                    gap: 'clamp(30px, 8vw, 60px)',
+                    padding: 'clamp(40px, 10vw, 80px) clamp(20px, 5vw, 40px)',
+                    maxWidth: '1300px',
+                    margin: '0 auto',
+                    pointerEvents: 'auto',
+                    justifyItems: 'center',
+                    alignItems: 'stretch'
+                }}>
+                    {/* Info Cards - Top Row (automatically by order) */}
+                    {infoCards.map((card, index) => (
+                        <div
+                            key={index}
+                            ref={el => cardsRef.current[index] = el}
+                            style={{
+                                ...cardStyles.card,
+                                width: '100%',
+                                maxWidth: '560px',
+                                margin: 0
+                            }}
+                        >
+                            <h2 className="info-card-title" style={cardStyles.title}>{card.title}</h2>
+                            <p className="info-card-content" style={cardStyles.content}>{card.content}</p>
+                        </div>
+                    ))}
+
+                    {/* Mission & Vision - Bottom Row */}
                     <div
-                        key={index}
-                        ref={el => cardsRef.current[index] = el}
+                        ref={el => cardsRef.current[infoCards.length] = el}
                         style={{
                             ...cardStyles.card,
                             width: '100%',
@@ -177,49 +206,35 @@ const Home = () => {
                             margin: 0
                         }}
                     >
-                        <h2 className="info-card-title" style={cardStyles.title}>{card.title}</h2>
-                        <p className="info-card-content" style={cardStyles.content}>{card.content}</p>
+                        <h4 style={cardStyles.title}>
+                            Our Mission
+                        </h4>
+                        <p style={cardStyles.content}>
+                            To cultivate a culture of innovation, technical excellence, and continuous learning among students by organizing impactful technical activities, workshops, and collaborative projects. We strive to bridge the gap between academia and industry, nurture leadership and professional skills, and encourage members to apply technology for solving real-world problems and contributing positively to society.
+                        </p>
                     </div>
-                ))}
 
-                {/* Mission & Vision - Bottom Row */}
-                <div
-                    ref={el => cardsRef.current[infoCards.length] = el}
-                    style={{
-                        ...cardStyles.card,
-                        width: '100%',
-                        maxWidth: '560px',
-                        margin: 0
-                    }}
-                >
-                    <h4 style={cardStyles.title}>
-                        Our Mission
-                    </h4>
-                    <p style={cardStyles.content}>
-                        To cultivate a culture of innovation, technical excellence, and continuous learning among students by organizing impactful technical activities, workshops, and collaborative projects. We strive to bridge the gap between academia and industry, nurture leadership and professional skills, and encourage members to apply technology for solving real-world problems and contributing positively to society.
-                    </p>
-                </div>
-
-                <div
-                    ref={el => cardsRef.current[infoCards.length + 1] = el}
-                    style={{
-                        ...cardStyles.card,
-                        width: '100%',
-                        maxWidth: '560px',
-                        margin: 0
-                    }}
-                >
-                    <h4 style={cardStyles.title}>
-                        Our Vision
-                    </h4>
-                    <p style={cardStyles.content}>
-                        To be recognized as a leading and inclusive student technical community that fosters innovation, encourages lifelong learning, and nurtures future technology leaders. We envision creating a dynamic environment where students collaborate, explore emerging technologies, and develop solutions that address real-world challenges, making a positive and lasting impact at local, national, and global levels.
-                    </p>
+                    <div
+                        ref={el => cardsRef.current[infoCards.length + 1] = el}
+                        style={{
+                            ...cardStyles.card,
+                            width: '100%',
+                            maxWidth: '560px',
+                            margin: 0
+                        }}
+                    >
+                        <h4 style={cardStyles.title}>
+                            Our Vision
+                        </h4>
+                        <p style={cardStyles.content}>
+                            To be recognized as a leading and inclusive student technical community that fosters innovation, encourages lifelong learning, and nurtures future technology leaders. We envision creating a dynamic environment where students collaborate, explore emerging technologies, and develop solutions that address real-world challenges, making a positive and lasting impact at local, national, and global levels.
+                        </p>
+                    </div>
                 </div>
             </div>
 
             {/* Scroll Velocity Section */}
-            <div style={{ padding: '40px 0', backgroundColor: '#000', borderTop: '1px solid #222' }}>
+            <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
                         "IEEE SBNU • OUR SUBCHAPTERS •",

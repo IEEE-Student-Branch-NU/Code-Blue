@@ -1,11 +1,13 @@
 .footer {
     background-color: #000;
     color: #fff;
-    padding: 4vw 3vw;
+    padding: clamp(3rem, 5vw, 5vw) 3vw;
     font-family: 'Inter', sans-serif;
     position: relative;
-    border-top: 1px solid #222;
+    z-index: 10;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     overflow: hidden;
+    width: 100%;
 }
 
 .footer-container {
