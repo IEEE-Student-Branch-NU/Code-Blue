@@ -189,7 +189,7 @@ const About = () => {
                 <div className="pt-8 md:pt-12 pb-12 md:pb-32 relative">
                     <div className="mb-12 md:mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <h2 className="text-5xl md:text-8xl font-black text-white leading-none">
-                            OUR <br /> <span className="hollow-text">OBJECTIVES</span>
+                            OUR <br /> <span className="blue-text">OBJECTIVES</span>
                         </h2>
                         <div className="text-left md:text-right">
                             <p className="text-brand-blue font-mono text-sm tracking-widest whitespace-nowrap">/// CORE PRINCIPLES</p>
@@ -238,7 +238,7 @@ const About = () => {
                                     <p className="text-brand-blue/80 font-mono text-xs tracking-widest uppercase">Leadership</p>
                                 </div>
                                 <h2 className="text-4xl md:text-7xl font-black text-white mb-6 leading-none">
-                                    DR. MANISHA <br /><span className="hollow-text">SHAH</span>
+                                    DR. MANISHA <br /><span className="blue-text">SHAH</span>
                                 </h2>
                                 <p className="text-base md:text-xl text-gray-300 font-light leading-relaxed max-w-xl mx-auto lg:mx-0">
                                     "Senior Member, IEEE. Since 2000, she has been the cornerstone of our chapter, guiding students towards technical excellence and professional integrity."
