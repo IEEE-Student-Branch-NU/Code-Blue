@@ -21,6 +21,29 @@ const infoCards = [
     }
 ]
 
+const subChapterCards = [
+    {
+        title: "IEEE Computer Society (CS)",
+        logo: "/IEEE CS Logo.jpeg",
+        content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards."
+    },
+    {
+        title: "IEEE SIGHT",
+        logo: "/IEEE SIGHT Logo.jpeg",
+        content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide."
+    },
+    {
+        title: "IEEE Signal Processing Society (SPS)",
+        logo: "/IEEE SPS Logo.jpeg",
+        content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems."
+    },
+    {
+        title: "IEEE ITSS",
+        logo: "/IEEE ITSS Logo.jpeg",
+        content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety."
+    }
+]
+
 
 const cardStyles = {
     card: {
@@ -37,6 +60,22 @@ const cardStyles = {
         transition: 'transform 0.2s ease',
         display: 'flex',
         flexDirection: 'column'
+    },
+    logoContainer: {
+        width: '80px',
+        height: '80px',
+        backgroundColor: '#222',
+        border: '2px solid #5eb8ff',
+        marginBottom: '20px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden'
+    },
+    logo: {
+        maxWidth: '90%',
+        maxHeight: '90%',
+        objectFit: 'contain'
     },
     title: {
         color: '#fff',
@@ -239,6 +278,73 @@ const Home = () => {
                     texts={[
                         "IEEE SBNU • OUR SUBCHAPTERS •",
                         "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT •"
+                    ]}
+                    velocity={100}
+                    className="custom-scroll-text"
+                />
+            </div>
+
+            {/* Sub-Chapters Section */}
+            <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden', paddingBottom: '80px', paddingTop: '40px' }}>
+                {/* Section Background (Same as top section) */}
+                <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+                    <Squares
+                        direction="diagonal"
+                        speed={0.15}
+                        borderColor="#333"
+                        squareSize={40}
+                        hoverFillColor="#111"
+                    />
+                </div>
+
+                <div style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    display: 'grid',
+                    gridTemplateColumns: gridCols,
+                    gap: 'clamp(30px, 8vw, 60px)',
+                    padding: '0 clamp(20px, 5vw, 40px)',
+                    maxWidth: '1300px',
+                    margin: '0 auto',
+                    pointerEvents: 'auto',
+                    justifyItems: 'center',
+                    alignItems: 'stretch'
+                }}>
+                    {subChapterCards.map((card, index) => (
+                        <div
+                            key={index}
+                            ref={el => cardsRef.current[infoCards.length + 2 + index] = el}
+                            style={{
+                                ...cardStyles.card,
+                                width: '100%',
+                                maxWidth: '560px',
+                                margin: 0
+                            }}
+                        >
+                            <div style={cardStyles.logoContainer}>
+                                <img
+                                    src={card.logo}
+                                    alt={`${card.title} Logo`}
+                                    style={cardStyles.logo}
+                                    onError={(e) => {
+                                        e.target.style.display = 'none';
+                                        e.target.parentElement.innerHTML = '<span style="color: #5eb8ff; font-weight: 900;">LOGO</span>';
+                                    }}
+                                />
+                            </div>
+                            <h2 style={{ ...cardStyles.title, fontSize: 'clamp(1.2rem, 3vw, 1.8rem)' }}>{card.title}</h2>
+                            <p style={cardStyles.content}>{card.content}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            {/* Final Scroll Velocity Section */}
+            <div style={{ padding: '0 0 60px 0', backgroundColor: '#000' }}>
+                <ScrollVelocity
+                    texts={[
+                        "LIVE IN FUTURE • JOIN THE REVOLUTION •",
+                        "IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"
