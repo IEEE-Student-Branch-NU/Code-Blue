@@ -19,6 +19,8 @@
 .sub-chapter-card:hover {
     box-shadow: 12px 12px 0px #5eb8ff;
     transform: translate(-2px, -2px);
+    border-color: #5eb8ff;
+    /* Border turns blue on hover */
 }
 
 /* Logo Container */
@@ -33,10 +35,13 @@
     justify-content: center;
     position: relative;
     z-index: 1;
+    transition: transform 0.3s ease;
 }
 
 .sub-chapter-card:hover .sc-logo-container {
     background: #1a1a2e;
+    transform: scale(1.05);
+    /* Subtle pop */
 }
 
 .sc-logo {
@@ -61,10 +66,79 @@
 }
 
 .sc-content {
-    color: #fff;
+    color: #e0e0e0;
     font-size: clamp(0.95rem, 2.5vw, 1.1rem);
     line-height: 1.6;
     text-align: left;
     z-index: 1;
     position: relative;
+}
+
+/* ─── Tech Corner Brackets ───────────────────────────────────── */
+.corner-bracket {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-color: #5eb8ff;
+    border-style: solid;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Top Left */
+.corner-tl {
+    top: 10px;
+    left: 10px;
+    border-width: 2px 0 0 2px;
+}
+
+/* Top Right */
+.corner-tr {
+    top: 10px;
+    right: 10px;
+    border-width: 2px 2px 0 0;
+}
+
+/* Bottom Left */
+.corner-bl {
+    bottom: 10px;
+    left: 10px;
+    border-width: 0 0 2px 2px;
+}
+
+/* Bottom Right */
+.corner-br {
+    bottom: 10px;
+    right: 10px;
+    border-width: 0 2px 2px 0;
+}
+
+/* Hover State for Brackets */
+.sub-chapter-card:hover .corner-bracket {
+    opacity: 1;
+    width: 25px;
+    height: 25px;
+    top: 6px;
+    left: 6px;
+}
+
+.sub-chapter-card:hover .corner-tr {
+    top: 6px;
+    right: 6px;
+    left: auto;
+}
+
+.sub-chapter-card:hover .corner-bl {
+    bottom: 6px;
+    left: 6px;
+    top: auto;
+}
+
+.sub-chapter-card:hover .corner-br {
+    bottom: 6px;
+    right: 6px;
+    top: auto;
+    left: auto;
 }

@@ -46,77 +46,75 @@ const objectivesData = [
 ];
 
 const ObjectiveStrip = ({ obj, index, hovered, setHovered }) => {
-    const isHovered = hovered === index;
+    const isOpen = hovered === index;
 
     return (
         <motion.div
-            className="border-t border-white/20 relative overflow-hidden cursor-pointer group"
+            className="border-t border-white/20 relative overflow-hidden cursor-pointer"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            onMouseEnter={() => setHovered(index)}
-            onMouseLeave={() => setHovered(null)}
-            onClick={() => setHovered(isHovered ? null : index)} // Mobile tap interaction
+            onClick={() => setHovered(isOpen ? null : index)}
         >
-            <div className={`absolute inset-0 transition-colors duration-500 ${isHovered ? 'bg-brand-blue' : 'bg-transparent'}`}></div>
+            {/* Row header */}
+            <div className="relative z-10 flex items-center justify-between"
+                style={{ padding: 'clamp(1rem, 3vw, 2rem) 0' }}
+            >
+                <div className="flex items-center gap-4 md:gap-8 min-w-0">
+                    <span className="text-sm md:text-lg font-mono text-brand-blue flex-shrink-0" style={{ minWidth: '2rem' }}>
+                        {obj.id}
+                    </span>
+                    <h3 className={`text-xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter transition-colors duration-300 ${isOpen ? 'text-brand-blue' : 'text-white'}`}
+                        style={{ lineHeight: 1.1 }}
+                    >
+                        {obj.title}
+                    </h3>
+                </div>
 
-            <div className="relative z-10 p-6 md:p-12 flex flex-col md:flex-row items-baseline md:items-center gap-4 md:gap-16">
-                <span className={`text-base md:text-xl font-mono transition-colors duration-300 ${isHovered ? 'text-black' : 'text-brand-blue'}`}>
-                    {obj.id}
-                </span>
-
-                <h3 className={`text-3xl md:text-6xl font-black uppercase tracking-tighter transition-transform duration-300 ${isHovered ? 'text-black md:translate-x-4' : 'text-white'}`}>
-                    {obj.title}
-                </h3>
-
-                <AnimatePresence mode="wait">
-                    {isHovered && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{
-                                opacity: 1,
-                                height: 'auto',
-                                transition: {
-                                    height: {
-                                        duration: 0.4,
-                                        ease: [0.04, 0.62, 0.23, 0.98]
-                                    },
-                                    opacity: {
-                                        duration: 0.25,
-                                        delay: 0.05
-                                    }
-                                }
-                            }}
-                            exit={{
-                                opacity: 0,
-                                height: 0,
-                                transition: {
-                                    height: {
-                                        duration: 0.3,
-                                        ease: [0.04, 0.62, 0.23, 0.98]
-                                    },
-                                    opacity: {
-                                        duration: 0.2
-                                    }
-                                }
-                            }}
-                            className="md:ml-auto max-w-lg overflow-hidden"
-                        >
-                            <p className="text-black font-medium text-base md:text-lg leading-relaxed pt-2 md:pt-0">
-                                {obj.desc}
-                            </p>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Arrow Icon */}
-                <div className={`ml-auto hidden md:block transition-transform duration-500 ${isHovered ? 'rotate-[-45deg] text-black' : 'text-white'}`}>
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                    </svg>
+                {/* Plus/Minus toggle */}
+                <div className="flex-shrink-0 ml-4" style={{
+                    transition: 'transform 0.3s ease',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}>
+                    {isOpen
+                        ? <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#5eb8ff" strokeWidth="2.5"><path d="M5 12h14" /></svg>
+                        : <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5"><path d="M12 5v14M5 12h14" /></svg>
+                    }
                 </div>
             </div>
+
+            {/* Expandable description */}
+            <AnimatePresence mode="wait">
+                {isOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{
+                            opacity: 1,
+                            height: 'auto',
+                            transition: {
+                                height: { duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] },
+                                opacity: { duration: 0.25, delay: 0.05 }
+                            }
+                        }}
+                        exit={{
+                            opacity: 0,
+                            height: 0,
+                            transition: {
+                                height: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
+                                opacity: { duration: 0.2 }
+                            }
+                        }}
+                        className="overflow-hidden"
+                    >
+                        <div style={{ paddingLeft: 'clamp(2.5rem, 5vw, 4.5rem)', paddingBottom: 'clamp(1rem, 2vw, 1.5rem)', paddingRight: '1rem' }}>
+                            <p className="text-gray-400 font-medium leading-relaxed" style={{ fontSize: 'clamp(0.9rem, 1.3vw, 1.1rem)', maxWidth: '600px' }}>
+                                {obj.desc}
+                            </p>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     )
 }
@@ -192,7 +190,7 @@ const About = () => {
                             OUR <br /> <span className="blue-text">OBJECTIVES</span>
                         </h2>
                         <div className="text-left md:text-right">
-                            <p className="text-brand-blue font-mono text-sm tracking-widest whitespace-nowrap">/// CORE PRINCIPLES</p>
+                            <p className="text-brand-blue font-mono text-xs sm:text-sm tracking-widest">/// CORE PRINCIPLES</p>
                         </div>
                     </div>
 

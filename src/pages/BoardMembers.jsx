@@ -27,15 +27,25 @@ const boardMembers = [
     {
         id: 3,
         name: "Prachit Bhavsar",
-        role: "General Secretary",
+        role: "Executive Chair",
         image: "/Board/Prachit.PNG",
-        description: "Overseeing general administration and coordinating between various departments.",
+        description: "Steering executive operations and driving cross-functional coordination for the branch.",
         socials: {
             linkedin: "https://www.linkedin.com/in/prachitbhavsar"
         }
     },
     {
         id: 4,
+        name: "Anushka Singh",
+        role: "General Secretary",
+        image: "/Board/Anushka Singh.jpeg",
+        description: "Overseeing general administration and coordinating between various departments.",
+        socials: {
+            linkedin: "#"
+        }
+    },
+    {
+        id: 5,
         name: "Tanay Vora",
         role: "Joint Secretary",
         image: "/Board/Tanay Vora.jpeg",
@@ -45,7 +55,7 @@ const boardMembers = [
         }
     },
     {
-        id: 5,
+        id: 6,
         name: "Tanay Parikh",
         role: "Treasurer",
         image: "/Board/Tanay Parikh.jpeg",
@@ -55,7 +65,7 @@ const boardMembers = [
         }
     },
     {
-        id: 6,
+        id: 7,
         name: "Dweep Patel",
         role: "Joint Treasurer",
         image: "/Board/Dweep Patel.jpeg",
@@ -65,7 +75,7 @@ const boardMembers = [
         }
     },
     {
-        id: 7,
+        id: 8,
         name: "Vraj Talati",
         role: "Technical Head",
         image: "/Board/Vraj Talati.jpeg",
@@ -75,7 +85,7 @@ const boardMembers = [
         }
     },
     {
-        id: 8,
+        id: 9,
         name: "Rudra Patel",
         role: "Technical Head",
         image: "/Board/Rudra Patel.jpeg",
@@ -85,7 +95,7 @@ const boardMembers = [
         }
     },
     {
-        id: 9,
+        id: 10,
         name: "Dharm Mankad",
         role: "Technical Head",
         image: "/Board/Dharm Mankad.jpeg",
@@ -95,7 +105,7 @@ const boardMembers = [
         }
     },
     {
-        id: 10,
+        id: 11,
         name: "Kashvi Patel",
         role: "Social Media Head",
         image: "/Board/Kashvi Patel.jpeg",
@@ -105,7 +115,7 @@ const boardMembers = [
         }
     },
     {
-        id: 11,
+        id: 12,
         name: "Anany Kelotra",
         role: "Social Media Head",
         image: "/Board/Anany Kelotra.jpeg",
@@ -115,7 +125,7 @@ const boardMembers = [
         }
     },
     {
-        id: 12,
+        id: 13,
         name: "Prathama Gajjar",
         role: "Creative Head",
         image: "/Board/Prathama.jpeg",
@@ -125,7 +135,7 @@ const boardMembers = [
         }
     },
     {
-        id: 13,
+        id: 14,
         name: "Kanak Agarwal",
         role: "Creative Head",
         image: "/Board/Kanak.jpeg",
@@ -135,7 +145,7 @@ const boardMembers = [
         }
     },
     {
-        id: 14,
+        id: 15,
         name: "Vaidehi Vora",
         role: "Creative Head",
         image: "/Board/Vaidehi.jpeg",
@@ -145,7 +155,7 @@ const boardMembers = [
         }
     },
     {
-        id: 15,
+        id: 16,
         name: "Rishwa Chhaya",
         role: "Content & Editorial Head",
         image: "/Board/Rishwa Chhaya.jpeg",
@@ -155,7 +165,7 @@ const boardMembers = [
         }
     },
     {
-        id: 16,
+        id: 17,
         name: "Divy Prajapati",
         role: "Content & Editorial Head",
         image: "/Board/Divy Prajapati.jpeg",
@@ -166,7 +176,7 @@ const boardMembers = [
         }
     },
     {
-        id: 17,
+        id: 18,
         name: "Angel Shukla",
         role: "Student Branch Representative",
         image: "/Board/Angel Shukla.jpeg",
@@ -176,7 +186,7 @@ const boardMembers = [
         }
     },
     {
-        id: 18,
+        id: 19,
         name: "Dev Shah",
         role: "Student Branch Representative",
         image: "/Board/Dev Shah.jpeg",
@@ -186,7 +196,7 @@ const boardMembers = [
         }
     },
     {
-        id: 19,
+        id: 20,
         name: "Lakshya Jain",
         role: "Membership & Sponsorship Head",
         image: "/Board/Lakshya Jain.jpeg",
@@ -196,7 +206,7 @@ const boardMembers = [
         }
     },
     {
-        id: 20,
+        id: 21,
         name: "Malhar S Ugrejeeya",
         role: "Membership & Sponsorship Head",
         image: "/Board/Malhar S Ugrejeeya.jpeg",
@@ -266,15 +276,15 @@ const SectionHeader = ({ title }) => (
 );
 
 const BoardMembers = () => {
-    const administrativeBoard = boardMembers.slice(0, 2);
-    const secretaries = boardMembers.slice(2, 4);
-    const coreCommittee = boardMembers.slice(4, 6);
-    const technicalHeads = boardMembers.slice(6, 9);
-    const socialMediaHeads = boardMembers.slice(9, 11);
-    const creativeHeads = boardMembers.slice(11, 14);
-    const editorialHeads = boardMembers.slice(14, 16);
-    const studentReps = boardMembers.slice(16, 18);
-    const membershipSponsorship = boardMembers.slice(18);
+    const administrativeBoard = boardMembers.slice(0, 3);
+    const secretaries = boardMembers.slice(3, 5);
+    const coreCommittee = boardMembers.slice(5, 7);
+    const technicalHeads = boardMembers.slice(7, 10);
+    const socialMediaHeads = boardMembers.slice(10, 12);
+    const creativeHeads = boardMembers.slice(12, 15);
+    const editorialHeads = boardMembers.slice(15, 17);
+    const studentReps = boardMembers.slice(17, 19);
+    const membershipSponsorship = boardMembers.slice(19);
 
     return (
         <div className="brutalist-page">

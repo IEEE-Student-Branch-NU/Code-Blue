@@ -6,84 +6,113 @@ import {
     Book,
     Briefcase,
     Users,
-    UserPlus,
-    ShieldCheck,
-    CreditCard,
-    MapPin,
-    ArrowRight
+    ArrowRight,
+    Linkedin,
+    Plus,
+    Minus
 } from 'lucide-react';
 import Footer from '../components/Footer';
 import Squares from '../components/Backgrounds/Squares/Squares';
 
 gsap.registerPlugin(ScrollTrigger);
 
+/* ─── FAQ Accordion Item ────────────────────────────────────────── */
 const FAQItem = ({ question, answer, index, isOpen, onToggle }) => {
-    const containerRef = useRef(null);
+    const contentRef = useRef(null);
     const itemRef = useRef(null);
 
     useEffect(() => {
-        if (!containerRef.current) return;
+        if (!contentRef.current) return;
 
         if (isOpen) {
-            gsap.to(containerRef.current, {
+            gsap.to(contentRef.current, {
                 height: 'auto',
-                duration: 0.4,
+                opacity: 1,
+                duration: 0.5,
                 ease: 'power3.out',
-                opacity: 1
             });
         } else {
-            gsap.to(containerRef.current, {
+            gsap.to(contentRef.current, {
                 height: 0,
-                duration: 0.3,
+                opacity: 0,
+                duration: 0.35,
                 ease: 'power3.in',
-                opacity: 0
             });
         }
     }, [isOpen]);
 
-    useEffect(() => {
-        const trigger = ScrollTrigger.create({
-            trigger: itemRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            onLeave: () => {
-                if (isOpen) onToggle(null);
-            },
-            onLeaveBack: () => {
-                if (isOpen) onToggle(null);
-            }
-        });
-
-        return () => trigger.kill();
-    }, [isOpen, onToggle]);
-
     return (
         <div
             ref={itemRef}
-            className="border-t border-white/20 overflow-hidden"
-            onMouseEnter={() => onToggle(index)}
+            style={{
+                borderTop: '2px solid rgba(255,255,255,0.1)',
+                overflow: 'hidden',
+            }}
         >
+            {/* Question row — click to toggle */}
             <div
-                className={`w-full flex items-center justify-between p-8 md:p-12 transition-all duration-500 group cursor-default ${isOpen ? 'bg-brand-blue text-black' : ''}`}
+                onClick={() => onToggle(isOpen ? null : index)}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: 'clamp(1.2rem, 3vw, 2rem) 0',
+                    cursor: 'pointer',
+                    transition: 'color 0.3s ease',
+                    color: isOpen ? '#5eb8ff' : '#fff',
+                }}
             >
-                <div className="flex items-center gap-6">
-                    <span className={`font-mono transition-colors ${isOpen ? 'text-black' : 'text-brand-blue'}`}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+                    <span style={{
+                        fontFamily: "'Space Mono', monospace",
+                        fontSize: '0.85rem',
+                        color: '#5eb8ff',
+                        minWidth: '2rem',
+                    }}>
                         {String(index + 1).padStart(2, '0')}
                     </span>
-                    <h3 className="text-2xl md:text-4xl font-black uppercase tracking-tighter text-left">{question}</h3>
+                    <h3 style={{
+                        fontSize: 'clamp(1.1rem, 2.5vw, 1.6rem)',
+                        fontWeight: 900,
+                        textTransform: 'uppercase',
+                        letterSpacing: '-0.02em',
+                        lineHeight: 1.2,
+                        margin: 0,
+                    }}>
+                        {question}
+                    </h3>
                 </div>
-                <div className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}>
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                        <path d="M6 9l6 6 6-6" />
-                    </svg>
+                <div style={{
+                    flexShrink: 0,
+                    marginLeft: '1rem',
+                    transition: 'transform 0.3s ease',
+                    transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}>
+                    {isOpen
+                        ? <Minus size={24} color="#5eb8ff" />
+                        : <Plus size={24} color="#fff" />
+                    }
                 </div>
             </div>
+
+            {/* Answer — animated */}
             <div
-                ref={containerRef}
-                className="overflow-hidden bg-white text-black h-0 opacity-0"
+                ref={contentRef}
+                style={{ height: 0, opacity: 0, overflow: 'hidden' }}
             >
-                <div className="pl-24 pr-12 pb-12 pt-4">
-                    <p className="text-xl md:text-2xl font-medium leading-relaxed max-w-4xl">
+                <div style={{
+                    paddingLeft: '3.5rem',
+                    paddingBottom: 'clamp(1.2rem, 3vw, 2rem)',
+                    paddingRight: '1rem',
+                }}>
+                    <p style={{
+                        fontSize: 'clamp(0.95rem, 1.5vw, 1.15rem)',
+                        color: '#aaa',
+                        lineHeight: 1.7,
+                        fontWeight: 500,
+                        maxWidth: '700px',
+                        margin: 0,
+                    }}>
                         {answer}
                     </p>
                 </div>
@@ -92,6 +121,7 @@ const FAQItem = ({ question, answer, index, isOpen, onToggle }) => {
     );
 };
 
+/* ─── Main Page ─────────────────────────────────────────────────── */
 const JoinUs = () => {
     const containerRef = useRef(null);
     const [openFAQIndex, setOpenFAQIndex] = useState(null);
@@ -156,6 +186,19 @@ const JoinUs = () => {
         { q: "Is it only for engineers?", a: "While primarily focused on electrical and electronics engineering, IEEE welcomes professionals and students from all technical backgrounds, including computer science and IT." }
     ];
 
+    const mdos = [
+        {
+            name: "Lakshya Jain",
+            image: "/Board/Lakshya Jain.jpeg",
+            linkedin: "https://www.linkedin.com/in/lakshya-jain-402473369",
+        },
+        {
+            name: "Malhar S Ugrejeeya",
+            image: "/Board/Malhar S Ugrejeeya.jpeg",
+            linkedin: "https://www.linkedin.com/in/malhar-ugrejeeya-b17b00279",
+        },
+    ];
+
     return (
         <div ref={containerRef} className="relative min-h-screen bg-black text-white selection:bg-[#5eb8ff] selection:text-black">
 
@@ -172,14 +215,14 @@ const JoinUs = () => {
 
             <div className="relative z-10 pt-32 pb-20 max-w-[1800px] mx-auto px-6 sm:px-8 md:px-12">
 
-                {/* Hero section */}
-                <div className="mb-32">
+                {/* ── Hero ──────────────────────────────────────── */}
+                <div className="mb-16 md:mb-24">
                     <div className="reveal-text">
                         <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter text-white uppercase">
                             Join
                         </h1>
                         <h1 className="text-[12vw] md:text-[10vw] leading-[0.8] font-black tracking-tighter uppercase ml-[5vw] md:ml-20 blue-text-soft">
-                            The Team
+                            IEEE
                         </h1>
                     </div>
 
@@ -198,7 +241,7 @@ const JoinUs = () => {
                         </div>
 
                         <div className="text-left lg:text-right reveal-text w-full lg:w-auto mt-8 lg:mt-0">
-                            <p className="text-brand-blue font-mono text-sm tracking-[0.5em] uppercase whitespace-nowrap">/// CORE NETWORK</p>
+                            <p className="text-brand-blue font-mono text-xs sm:text-sm tracking-[0.3em] sm:tracking-[0.5em] uppercase">/// CORE NETWORK</p>
                             <div className="mt-4 flex flex-col items-start lg:items-end gap-2">
                                 <span className="text-4xl font-black italic">400K+</span>
                                 <span className="text-xs font-mono text-gray-400">GLOBAL MEMBERS</span>
@@ -207,18 +250,18 @@ const JoinUs = () => {
                     </div>
                 </div>
 
-                {/* Benefits Grid */}
-                <div className="py-24 border-t border-white/20">
-                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+                {/* ── Benefits Grid ─────────────────────────────── */}
+                <div className="py-12 md:py-20 border-t border-white/20">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 md:mb-14">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
                             Why <br /> <span className="blue-text">Join?</span>
                         </h2>
                         <div className="text-left md:text-right">
-                            <p className="text-brand-blue font-mono text-sm tracking-widest whitespace-nowrap">/// PERKS OF MEMBERSHIP</p>
+                            <p className="text-brand-blue font-mono text-xs sm:text-sm tracking-widest">/// PERKS OF MEMBERSHIP</p>
                         </div>
                     </div>
 
-                    <div className="benefits-grid grid grid-cols-1 md:grid-cols-2 gap-12 pr-2 md:pr-0">
+                    <div className="benefits-grid grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 pr-2 md:pr-0">
                         {benefits.map((benefit, i) => (
                             <div key={i}
                                 className="reveal-card relative group"
@@ -240,13 +283,13 @@ const JoinUs = () => {
                     </div>
                 </div>
 
-                {/* Membership Journey (Timeline) */}
-                <div className="py-24 border-t border-white/20 roadmap-container">
-                    <div className="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+                {/* ── Journey Timeline ──────────────────────────── */}
+                <div className="py-12 md:py-20 border-t border-white/20 roadmap-container">
+                    <div className="mb-10 md:mb-14 flex flex-col md:flex-row md:items-end justify-between gap-6">
                         <h2 className="text-5xl md:text-7xl font-black text-white leading-none uppercase">
                             Your <br /> <span className="blue-text">Journey</span>
                         </h2>
-                        <p className="text-brand-blue max-w-md font-mono text-sm uppercase whitespace-nowrap">/// FOUR STEPS TO SUCCESS</p>
+                        <p className="text-brand-blue max-w-md font-mono text-xs sm:text-sm uppercase">/// FOUR STEPS TO SUCCESS</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pr-2 md:pr-0">
@@ -274,19 +317,161 @@ const JoinUs = () => {
                     </div>
                 </div>
 
-                {/* FAQ Section */}
-                <div className="py-24 border-t border-white/20">
-                    <div className="mb-16">
-                        <h2 className="text-5xl md:text-8xl font-black text-white leading-none uppercase">
-                            FAQ<span className="text-brand-blue">s</span>
+                {/* ── MDO Contact Section ───────────────────────── */}
+                <div style={{
+                    padding: 'clamp(2rem, 4vw, 4rem) 0',
+                    borderTop: '2px solid rgba(255,255,255,0.1)',
+                }}>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '1rem',
+                        marginBottom: 'clamp(2rem, 4vw, 3rem)',
+                    }}>
+                        <p style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: '0.8rem',
+                            color: '#5eb8ff',
+                            letterSpacing: '0.4em',
+                            textTransform: 'uppercase',
+                        }}>/// Need Guidance?</p>
+                        <h2 style={{
+                            fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+                            fontWeight: 900,
+                            textTransform: 'uppercase',
+                            letterSpacing: '-0.03em',
+                            lineHeight: 0.95,
+                            margin: 0,
+                        }}>
+                            Contact Our <span style={{ color: '#5eb8ff' }}>MDOs</span>
                         </h2>
-                        <p className="text-brand-blue font-mono text-sm mt-4 tracking-widest uppercase whitespace-nowrap">/// COMMONLY ASKED QUESTIONS</p>
+                        <p style={{
+                            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
+                            color: '#aaa',
+                            maxWidth: '550px',
+                            lineHeight: 1.6,
+                            fontWeight: 500,
+                        }}>
+                            Reach out to our Membership Development Officers for exclusive benefits, guidance, and support.
+                        </p>
                     </div>
 
-                    <div
-                        className="border-b border-white/20"
-                        onMouseLeave={() => setOpenFAQIndex(null)}
-                    >
+                    {/* Two MDO rows — horizontal strip style */}
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '1px' }}>
+                        {mdos.map((mdo, i) => (
+                            <a
+                                key={i}
+                                href={mdo.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: 'clamp(1rem, 3vw, 2rem)',
+                                    padding: 'clamp(1rem, 2vw, 1.5rem) clamp(1rem, 2vw, 1.5rem)',
+                                    background: '#111',
+                                    border: '1px solid #222',
+                                    textDecoration: 'none',
+                                    color: '#fff',
+                                    transition: 'all 0.3s ease',
+                                    cursor: 'pointer',
+                                }}
+                                onMouseEnter={e => {
+                                    const el = e.currentTarget;
+                                    el.style.background = '#0a0a0a';
+                                    el.style.borderColor = '#5eb8ff';
+                                    const arrow = el.querySelector('.mdo-arrow');
+                                    const img = el.querySelector('.mdo-img');
+                                    if (arrow) arrow.style.transform = 'translateX(6px)';
+                                    if (img) img.style.filter = 'grayscale(0%)';
+                                }}
+                                onMouseLeave={e => {
+                                    const el = e.currentTarget;
+                                    el.style.background = '#111';
+                                    el.style.borderColor = '#222';
+                                    const arrow = el.querySelector('.mdo-arrow');
+                                    const img = el.querySelector('.mdo-img');
+                                    if (arrow) arrow.style.transform = 'translateX(0)';
+                                    if (img) img.style.filter = 'grayscale(100%)';
+                                }}
+                            >
+                                <img
+                                    className="mdo-img"
+                                    src={mdo.image}
+                                    alt={mdo.name}
+                                    style={{
+                                        width: 'clamp(48px, 6vw, 64px)',
+                                        height: 'clamp(48px, 6vw, 64px)',
+                                        objectFit: 'cover',
+                                        borderRadius: 0,
+                                        border: '2px solid #333',
+                                        filter: 'grayscale(100%)',
+                                        transition: 'filter 0.3s ease',
+                                        flexShrink: 0,
+                                    }}
+                                />
+                                <div style={{ flex: 1, minWidth: 0 }}>
+                                    <div style={{
+                                        fontWeight: 900,
+                                        fontSize: 'clamp(1rem, 2vw, 1.3rem)',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '-0.01em',
+                                        lineHeight: 1.2,
+                                    }}>
+                                        {mdo.name}
+                                    </div>
+                                    <div style={{
+                                        fontFamily: "'Space Mono', monospace",
+                                        fontSize: 'clamp(0.6rem, 1.2vw, 0.75rem)',
+                                        color: '#5eb8ff',
+                                        letterSpacing: '0.1em',
+                                        textTransform: 'uppercase',
+                                        marginTop: '4px',
+                                    }}>
+                                        Membership Development Officer
+                                    </div>
+                                </div>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexShrink: 0 }}>
+                                    <Linkedin size={18} color="#5eb8ff" />
+                                    <ArrowRight
+                                        className="mdo-arrow"
+                                        size={20}
+                                        color="#fff"
+                                        style={{ transition: 'transform 0.3s ease' }}
+                                    />
+                                </div>
+                            </a>
+                        ))}
+                    </div>
+                </div>
+
+                {/* ── FAQs ──────────────────────────────────────── */}
+                <div style={{
+                    padding: 'clamp(2rem, 4vw, 4rem) 0',
+                    borderTop: '2px solid rgba(255,255,255,0.1)',
+                }}>
+                    <div style={{ marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
+                        <h2 style={{
+                            fontSize: 'clamp(3rem, 8vw, 6rem)',
+                            fontWeight: 900,
+                            textTransform: 'uppercase',
+                            letterSpacing: '-0.04em',
+                            lineHeight: 0.9,
+                            margin: 0,
+                        }}>
+                            FAQ<span style={{ color: '#5eb8ff' }}>s</span>
+                        </h2>
+                        <p style={{
+                            fontFamily: "'Space Mono', monospace",
+                            fontSize: '0.8rem',
+                            color: '#5eb8ff',
+                            letterSpacing: '0.4em',
+                            textTransform: 'uppercase',
+                            marginTop: '1rem',
+                        }}>/// COMMONLY ASKED QUESTIONS</p>
+                    </div>
+
+                    <div style={{ borderBottom: '2px solid rgba(255,255,255,0.1)' }}>
                         {faqs.map((faq, i) => (
                             <FAQItem
                                 key={i}
