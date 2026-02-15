@@ -41,7 +41,7 @@ const boardMembers = [
         image: "/Board/Anushka Singh.jpeg",
         description: "Overseeing general administration and coordinating between various departments.",
         socials: {
-            linkedin: "#"
+            linkedin: "https://www.linkedin.com/in/anushka-singh-893932299/"
         }
     },
     {
