@@ -5,7 +5,7 @@ import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from '../components/Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
-import SubChapterCard from '../components/SubchapterCard'
+import SubChapterCard from '../components/SubChapterCard'
 import confetti from 'canvas-confetti'
 
 
