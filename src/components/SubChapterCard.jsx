@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import SubChapterBackgrounds from './SubChapterBackgrounds';
 import './SubChapterCard.css';
 
 const SubChapterCard = ({ title, logo, content, variant }) => {
-
-    // Simple brutalist entry — slide up and fade in
+    // Simple brutalist entry
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
         visible: {
@@ -40,6 +39,12 @@ const SubChapterCard = ({ title, logo, content, variant }) => {
             {/* Subtle Background Effect */}
             <SubChapterBackgrounds variant={variant} />
 
+            {/* Tech Corner Brackets (Animated on Hover) */}
+            <div className="corner-bracket corner-tl"></div>
+            <div className="corner-bracket corner-tr"></div>
+            <div className="corner-bracket corner-bl"></div>
+            <div className="corner-bracket corner-br"></div>
+
             {/* Content */}
             <motion.div className="sc-logo-container" variants={itemVariants}>
                 <img
@@ -53,7 +58,11 @@ const SubChapterCard = ({ title, logo, content, variant }) => {
                 />
             </motion.div>
 
-            <motion.h2 className="sc-title" style={{ fontSize: 'clamp(1.2rem, 3vw, 1.8rem)' }} variants={itemVariants}>
+            <motion.h2
+                className="sc-title"
+                style={{ fontSize: 'clamp(1.2rem, 3vw, 1.8rem)', minHeight: '3rem' }}
+                variants={itemVariants}
+            >
                 {title}
             </motion.h2>
 

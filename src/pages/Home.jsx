@@ -9,6 +9,8 @@ import SubChapterCard from '../components/SubchapterCard'
 import confetti from 'canvas-confetti'
 
 
+
+
 gsap.registerPlugin(ScrollTrigger)
 
 const infoCards = [
@@ -115,12 +117,12 @@ const Home = () => {
         // Initial setup
         handleResize();
 
-        // One-time celebratory confetti
+        // One-time neon confetti blast
         const hasCelebrated = sessionStorage.getItem('hasCelebrated');
         if (!hasCelebrated) {
             const duration = 3 * 1000;
             const end = Date.now() + duration;
-            const colors = ['#bb0000', '#ffffff', '#00f7ff', '#e9ff00', '#00ff00', '#fe00f6'];
+            const colors = ['#00f7ff', '#5eb8ff', '#ff00e6', '#ff6b00', '#00ff88', '#ffffff'];
 
             (function frame() {
                 confetti({
@@ -180,6 +182,7 @@ const Home = () => {
 
     return (
         <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
+
             {/* GridDistortion Hero Section */}
             <div style={{
                 position: 'relative',
