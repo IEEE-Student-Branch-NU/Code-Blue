@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.css';
+import CodeBlueSticker from './CodeBlueSticker';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -70,7 +71,7 @@ const Footer = () => {
                     <div className="footer-bottom-bar">
                         <p className="footer-copy">&copy; {currentYear} IEEE SBNU. ALL RIGHTS RESERVED.</p>
                         <div className="footer-credit">
-                            MADE WITH PASSION BY TEAM CODE BLUE
+                            MADE WITH PASSION BY <CodeBlueSticker />
                         </div>
                     </div>
                 </div>

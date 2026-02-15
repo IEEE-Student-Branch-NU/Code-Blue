@@ -1,0 +1,136 @@
+.code-blue-sticker {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(0, 255, 65, 0.05);
+    border: 1px solid rgba(0, 255, 65, 0.2);
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    color: #00ff41;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    user-select: none;
+}
+
+.code-blue-sticker:hover {
+    background: rgba(94, 184, 255, 0.1);
+    border-color: #5eb8ff;
+    color: #5eb8ff;
+    box-shadow: 0 0 15px rgba(94, 184, 255, 0.3);
+}
+
+.sticker-status-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #00ff41;
+    border-radius: 50%;
+    box-shadow: 0 0 5px #00ff41;
+    animation: pulse-green 2s infinite;
+}
+
+.code-blue-sticker:hover .sticker-status-dot {
+    background-color: #5eb8ff;
+    box-shadow: 0 0 8px #5eb8ff;
+    animation: pulse-blue 0.5s infinite;
+}
+
+.sticker-text {
+    position: relative;
+    z-index: 2;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.sticker-glitch-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #5eb8ff;
+    opacity: 0;
+    z-index: 3;
+    font-weight: 700;
+    letter-spacing: 2px;
+    pointer-events: none;
+}
+
+.code-blue-sticker:hover .sticker-glitch-text {
+    animation: glitch-flash 0.3s infinite;
+    opacity: 1;
+}
+
+@keyframes pulse-green {
+    0% {
+        opacity: 0.5;
+        box-shadow: 0 0 0 rgba(0, 255, 65, 0);
+    }
+
+    50% {
+        opacity: 1;
+        box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+    }
+
+    100% {
+        opacity: 0.5;
+        box-shadow: 0 0 0 rgba(0, 255, 65, 0);
+    }
+}
+
+@keyframes pulse-blue {
+    0% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+
+    100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+}
+
+@keyframes glitch-flash {
+    0% {
+        clip-path: inset(20% 0 80% 0);
+        transform: translate(-2px, 1px);
+    }
+
+    20% {
+        clip-path: inset(60% 0 10% 0);
+        transform: translate(2px, -1px);
+    }
+
+    40% {
+        clip-path: inset(40% 0 50% 0);
+        transform: translate(-2px, 2px);
+    }
+
+    60% {
+        clip-path: inset(80% 0 5% 0);
+        transform: translate(2px, -2px);
+    }
+
+    80% {
+        clip-path: inset(10% 0 70% 0);
+        transform: translate(-1px, 1px);
+    }
+
+    100% {
+        clip-path: inset(30% 0 20% 0);
+        transform: translate(1px, -1px);
+    }
+}
