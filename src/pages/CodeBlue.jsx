@@ -8,9 +8,6 @@ import './CodeBlue.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Lazy-load the heavy 3D Lanyard component so it doesn't crash other routes */
-/* Lanyard removed by user request */
-
 /* ═══════════════════════════════════════════════════════════════
    GLOBAL ERROR BOUNDARY (DEBUGGING AGENT)
    ═══════════════════════════════════════════════════════════════ */
@@ -63,12 +60,57 @@ class GlobalErrorBoundary extends React.Component {
    DATA
    ═══════════════════════════════════════════════════════════════ */
 const BOARD_MEMBERS = [
-    { id: 8, name: 'Vraj Talati', role: 'Head & Tech Lead', image: '/Board/Vraj Talati.jpeg', linkedin: 'https://www.linkedin.com/in/vrajtalati', isHead: true },
-    { id: 9, name: 'Rudra Patel', role: 'Core Developer', image: '/Board/Rudra Patel.jpeg', linkedin: 'https://www.linkedin.com/in/rudra-patel-045b20335' },
-    { id: 10, name: 'Dharm Mankad', role: 'Core Developer', image: '/Board/Dharm Mankad.jpeg', linkedin: 'https://www.linkedin.com/in/dharmmankad' },
-    { id: 991, name: 'Member 4', role: 'Core Developer', image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop', linkedin: '#' },
-    { id: 992, name: 'Member 5', role: 'Core Developer', image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=1000&auto=format&fit=crop', linkedin: '#' },
-    { id: 993, name: 'Member 6', role: 'Core Developer', image: 'https://images.unsplash.com/photo-1527980965255-d3b416303d12?q=80&w=1000&auto=format&fit=crop', linkedin: '#' },
+    {
+        id: 1,
+        name: 'Vraj Talati',
+        role: 'Technical Head',
+        image: '/devTeam/Vraj.jpeg',
+        linkedin: 'https://www.linkedin.com/in/vrajtalati/',
+        isHead: true,
+        stats: ['ARCHITECT', 'FULL_STACK', 'LEADERSHIP'],
+        bioTitle: 'FULL STACK LEAD',
+        desc: "Leading the technical team and building scalable solutions for the club."
+    },
+    {
+        id: 2,
+        name: 'Priyansh Patel',
+        role: 'Core Team Lead',
+        image: '/devTeam/Priyansh.jpeg',
+        linkedin: 'https://www.linkedin.com/in/priyansh-patel-046190264/',
+        stats: ['CORE TECH', 'SYSTEMS', 'PERFORMANCE'],
+        bioTitle: 'BACKEND & SYSTEMS',
+        desc: "Developing backend infrastructure and optimizing system performance."
+    },
+    {
+        id: 3,
+        name: 'Yashi Jain',
+        role: 'UI/UX Lead',
+        image: '/devTeam/Yashi.jpeg',
+        linkedin: 'https://www.linkedin.com/in/yashi-jain-511a14372?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app',
+        stats: ['UI/UX', 'FIGMA', 'CREATIVE'],
+        bioTitle: 'DESIGN & PROTOTYPING',
+        desc: "Designing intuitive user interfaces and enhancing user experiences."
+    },
+    {
+        id: 4,
+        name: 'Nandini Rathod',
+        role: 'Management Lead',
+        image: '/devTeam/Nandini.jpeg',
+        linkedin: 'https://www.linkedin.com/in/nandini-rathod-43b18a37a', // Corrected link
+        stats: ['MANAGEMENT', 'DESIGN', 'STRATEGY'],
+        bioTitle: 'DESIGN & TECH',
+        desc: "Coordinating design assets and managing technical implementation."
+    },
+    {
+        id: 5,
+        name: 'Sukruti Sheth',
+        role: 'Content Lead',
+        image: 'https://ui-avatars.com/api/?name=Sukruti+Sheth&background=0D8ABC&color=fff',
+        linkedin: 'https://www.linkedin.com/in/sukruti-sheth-805269377?utm_source=share_via&utm_content=profile&utm_medium=member_ios',
+        stats: ['CONTENT', 'STRATEGY', 'SOCIALS'],
+        bioTitle: 'SOCIALS & STRATEGY',
+        desc: "Creating technical content and managing digital strategy."
+    },
 ];
 
 const MARQUEE_TEXT_1 = 'CODE BLUE ◆ INNOVATION ◆ IEEE SBNU ◆ TECHNICAL EXCELLENCE ◆ FULL STACK DEVELOPMENT ◆ PIXEL PERFECT ◆ CLOUD NATIVE ◆ SCALABLE SYSTEMS';
@@ -90,6 +132,7 @@ function CodeBlueContent() {
     const outroPreRef = useRef(null);
     const outroTitleRef = useRef(null);
     const outroEndRef = useRef(null);
+    const impactRef = useRef(null);
 
     // leader & squad logic
     const leader = BOARD_MEMBERS.find(m => m.isHead);
@@ -179,10 +222,10 @@ function CodeBlueContent() {
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
 
-        const rotateX = ((y - centerY) / centerY) * -10; // Max 10deg tilt
-        const rotateY = ((x - centerX) / centerX) * 10;
+        const rotateX = ((y - centerY) / centerY) * -15; // Max 15deg tilt
+        const rotateY = ((x - centerX) / centerX) * 15;
 
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
+        card.style.transform = `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
 
         // Spotlight effect
         card.style.setProperty('--mouse-x', `${x}px`);
@@ -225,6 +268,20 @@ function CodeBlueContent() {
                 },
                 once: true,
             });
+
+            // Impact Section Animation
+            gsap.fromTo(impactRef.current,
+                { scale: 0.8, opacity: 0 },
+                {
+                    scale: 1, opacity: 1, duration: 1, ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: impactRef.current,
+                        start: 'top 85%',
+                        end: 'bottom 20%',
+                        scrub: 1
+                    }
+                }
+            );
 
             cardsRef.current.forEach((card, i) => {
                 if (!card) return;
@@ -276,7 +333,7 @@ function CodeBlueContent() {
     return (
         <div className={`cb-page ${introDone ? 'cb-boot-complete' : ''}`} ref={pageRef}>
             {/* ── BACKGROUND: DIGITAL GLITCH MATRIX ── */}
-            <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.35 }}>
+            <div style={{ position: 'fixed', inset: 0, zIndex: 0, opacity: 0.55 }}>
                 <LetterGlitch
                     glitchSpeed={50}
                     centerVignette={true}
@@ -287,7 +344,6 @@ function CodeBlueContent() {
             </div>
 
             <div className="cb-grain" />
-            {/* Removed Flash */}
 
             {/* LIGHTNING STRIKE ELEMENT */}
             <div className="cb-lightning-strike" />
@@ -317,10 +373,6 @@ function CodeBlueContent() {
                     <div className="cb-hud-text cb-hud-status">SYSTEM STATUS: OPTIMAL</div>
                     <div className="cb-hud-text cb-hud-coords">30.7333° N, 76.7794° E</div>
                 </div>
-
-                {/* Removed Hero Boot Blackout & Terminal */}
-
-                {/* Background removed in favor of global LetterGlitch */}
 
                 <div className="cb-hero-content" ref={heroContentRef} style={{ opacity: 0 /* Reset to 0 for anim */ }}>
 
@@ -361,7 +413,7 @@ function CodeBlueContent() {
                         lineHeight: '1.6',
                         textAlign: 'center'
                     }} ref={el => { if (el && introDone) gsap.to(el, { opacity: 1, duration: 1, delay: 0.5 }) }}>
-                        // Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
+                    // Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
                     </p>
                 </div>
 
@@ -375,9 +427,6 @@ function CodeBlueContent() {
             <div className="cb-marquee">
                 <div className="cb-marquee-track">{renderMarqueeItems(MARQUEE_TEXT_1)}</div>
             </div>
-
-            {/* ═══════ LANYARD (REMOVED) ═══════ */}
-            {/* Lanyard section completely removed to ensure stability as per user request */}
 
             {/* ═══════ MARQUEE 2 ═══════ */}
             <div className="cb-marquee">
@@ -396,41 +445,66 @@ function CodeBlueContent() {
                 </div>
             </section>
 
+            {/* SPACER (No Glorified Text) */}
+            <div style={{ height: '4rem' }} />
+
             {/* ═══════ TEAM SECTION (LEADER + GRID) ═══════ */}
             <section className="cb-team-section" style={{ position: 'relative' }}>
-                {/* ParticleNetwork removed */}
-
                 <div className="cb-team-header">
-                    <div className="cb-team-label">// COMMAND LINK ESTABLISHED</div>
-                    <h2 className="cb-team-title">THE <span className="blue">ARCHITECTS</span></h2>
+                    {/* REMOVED TITLE AS REQUESTED */}
                 </div>
 
                 {/* LEADERSHIP UNIT */}
                 {leader && (
                     <div className="cb-leader-container">
-                        <div className="cb-leader-label">ROOT ACCESS_GRANTED</div>
                         <div
                             className="cb-card cb-head-card cb-leader-card"
                             ref={el => { cardsRef.current[0] = el; }} // Leader is 0
                             onMouseMove={(e) => handleCardMove(e, 0)}
                             onMouseLeave={() => handleCardLeave(0)}
+                            onClick={() => window.open(leader.linkedin, '_blank')} // Clickable Card
+                            style={{ cursor: 'pointer' }}
                         >
                             <div className="cb-layer-base"></div>
                             <div className="cb-layer-content">
                                 <div className="cb-card-border-glow" />
-                                <div className="cb-card-photo">
-                                    <img src={leader.image} alt={leader.name} loading="lazy" />
-                                    <div className="cb-head-tag">sudo user</div>
+                                <div className="cb-card-photo" style={{ overflow: 'hidden' }}>
+                                    <img
+                                        src={leader.image}
+                                        alt={leader.name}
+                                        loading="lazy"
+                                        className="cb-leader-img" // Added Class for Hover
+                                        style={{ objectPosition: 'top center', transition: 'transform 0.5s cubic-bezier(0.25, 1, 0.5, 1)' }}
+                                    />
+                                    <div className="cb-head-tag">TECHNICAL HEAD</div>
                                 </div>
                                 <div className="cb-card-info">
                                     <div className="cb-card-name">{leader.name}</div>
-                                    <div className="cb-card-role"><TextScramble text={leader.role} /></div>
-                                    <div className="cb-card-id">CB-ROOT-USER</div>
-                                    {leader.linkedin && (
-                                        <a href={leader.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
-                                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                        </a>
-                                    )}
+                                    <div className="cb-card-role">{leader.role}</div> {/* Removed TextScramble */}
+
+                                    {/* BIO TITLE */}
+                                    <div className="cb-bio-title" style={{
+                                        color: '#5eb8ff',
+                                        fontSize: '0.75rem',
+                                        fontWeight: '700',
+                                        letterSpacing: '0.1em',
+                                        marginBottom: '0.2rem',
+                                        marginTop: '0.8rem',
+                                    }}>{leader.bioTitle}</div>
+
+                                    <div className="cb-card-desc" style={{
+                                        fontSize: '0.95rem', /* Increased from 0.8rem */
+                                        color: '#bbb',       /* Lighter for better contrast */
+                                        fontStyle: 'italic',
+                                        marginBottom: '0.5rem',
+                                        marginTop: '0.2rem', /* Reduced margin top */
+                                        lineHeight: '1.5'
+                                    }}>"{leader.desc}"</div>
+
+                                    {/* Visual Icon Only - Click handled by Card */}
+                                    <div className="cb-card-social">
+                                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                                    </div>
                                 </div>
                             </div>
                             {/* HOLOGRAPHIC STATS LAYER */}
@@ -440,9 +514,10 @@ function CodeBlueContent() {
                                 ))}
                                 <div className="cb-holo-grid"></div>
                             </div>
-                        </div>
+                        </div >
                     </div>
-                )}
+                )
+                }
 
                 {/* SQUAD GRID */}
                 <div className="cb-team-grid">
@@ -453,23 +528,42 @@ function CodeBlueContent() {
                             ref={el => { cardsRef.current[i + 1] = el; }} // Offset indices
                             onMouseMove={(e) => handleCardMove(e, i + 1)}
                             onMouseLeave={() => handleCardLeave(i + 1)}
-                            style={{ opacity: 0, transform: 'translateY(50px)' }}
+                            onClick={() => window.open(member.linkedin, '_blank')} // Clickable Card
+                            style={{ opacity: 0, transform: 'translateY(50px)', cursor: 'pointer' }}
                         >
                             <div className="cb-layer-base"></div>
                             <div className="cb-layer-content">
                                 <div className="cb-card-border-glow" />
                                 <div className="cb-card-photo">
                                     <img src={member.image} alt={member.name} loading="lazy" />
+                                    <div className="cb-member-tag">TECHNICAL ASSOCIATE</div>
                                 </div>
                                 <div className="cb-card-info">
                                     <div className="cb-card-name">{member.name}</div>
-                                    <div className="cb-card-role"><TextScramble text={member.role} /></div>
-                                    <div className="cb-card-id">CB-DEV-{String(member.id).padStart(3, '0')}</div>
-                                    {member.linkedin && member.linkedin !== '#' && (
-                                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
-                                            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                        </a>
-                                    )}
+                                    <div className="cb-card-role">{member.role}</div> {/* Removed TextScramble */}
+
+                                    {/* BIO TITLE */}
+                                    <div className="cb-bio-title" style={{
+                                        color: '#5eb8ff',
+                                        fontSize: '0.75rem',
+                                        fontWeight: '700',
+                                        letterSpacing: '0.1em',
+                                        marginBottom: '0.2rem',
+                                        marginTop: '0.6rem',
+                                    }}>{member.bioTitle}</div>
+
+                                    <div className="cb-card-desc" style={{
+                                        fontSize: '0.9rem',  /* Increased from 0.75rem */
+                                        color: '#ccc',       /* Lighter for better contrast */
+                                        marginBottom: '0.5rem',
+                                        marginTop: '0.2rem', /* Reduced margin top */
+                                        lineHeight: '1.5'
+                                    }}>{member.desc}</div>
+
+                                    {/* Visual Icon Only - Click handled by Card */}
+                                    <div className="cb-card-social">
+                                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                                    </div>
                                 </div>
                             </div>
                             {/* HOLOGRAPHIC STATS LAYER */}
@@ -482,18 +576,18 @@ function CodeBlueContent() {
                         </div>
                     ))}
                 </div>
-            </section>
+            </section >
 
             {/* ═══════ OUTRO ═══════ */}
-            <section className="cb-outro">
+            < section className="cb-outro" >
                 <p className="cb-outro-pre" ref={outroPreRef} style={{ opacity: 0 }}>SYSTEM DESIGNED & BUILT BY</p>
                 <h2 className="cb-outro-title" ref={outroTitleRef} style={{ opacity: 0 }}>CODE <span className="blue">BLUE</span></h2>
                 <div style={{ fontFamily: 'Courier New, monospace', fontSize: '0.9rem', color: '#5eb8ff', marginBottom: '1rem' }}>
                     <span style={{ color: '#33ff00' }}>➜</span> <span style={{ color: '#fff' }}>~</span> echo "Hello, World"
                 </div>
                 <p className="cb-outro-end" ref={outroEndRef} style={{ opacity: 0 }}>&lt; END TRANSMISSION &gt;</p>
-            </section>
-        </div>
+            </section >
+        </div >
     );
 }
 

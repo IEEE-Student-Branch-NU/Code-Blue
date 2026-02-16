@@ -2,6 +2,8 @@
    CODE BLUE — ULTIMATE SIGMA EDITION
    ═══════════════════════════════════════════════════════════════ */
 
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
 /* ── LIQUID ETHER BACKGROUND (CSS ONLY) ───────────────────── */
 .cb-liquid-container {
     position: absolute;
@@ -353,50 +355,92 @@
     opacity: 0;
 }
 
-/* ══════════════════════════════════════════════════════════════
-   TEAM GRID
-   ══════════════════════════════════════════════════════════════ */
-.cb-team-section {
-    position: relative;
-    z-index: 2;
-    padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 3vw, 3rem);
+/* ── TEAM LAYOUT (HEAD + SQUAD) ────────────────────────────── */
+.cb-leader-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: clamp(3rem, 5vw, 5rem);
+    perspective: 2000px;
 }
 
-.cb-team-header {
-    text-align: center;
-    margin-bottom: clamp(3rem, 6vw, 5rem);
-}
-
-.cb-team-label {
+.cb-leader-label {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
     font-family: 'Courier New', monospace;
-    font-size: clamp(0.5rem, 0.8vw, 0.7rem);
-    letter-spacing: 0.5em;
-    color: #5eb8ff;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
+    color: #ffd700;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    white-space: nowrap;
 }
 
-.cb-team-title {
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
+.cb-head-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 215, 0, 0.8);
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 2px 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 }
 
-.cb-team-title .blue {
-    color: #5eb8ff;
-    text-shadow: 0 0 20px rgba(94, 184, 255, 0.3);
+.cb-card:hover .cb-head-tag {
+    transform: translateY(0);
 }
 
-/* Grid layout */
+.cb-member-tag {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(94, 184, 255, 0.9);
+    /* Blue background for associates */
+    color: #000;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 0.7rem;
+    text-align: center;
+    padding: 2px 0;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.cb-card:hover .cb-member-tag {
+    transform: translateY(0);
+}
+
+/* Squad Layout - Flex for perfect centering of 4 items */
+/* Squad Layout - 2x2 Grid as requested */
 .cb-team-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: clamp(1.2rem, 2vw, 2rem);
-    max-width: 1400px;
+    grid-template-columns: repeat(2, 1fr);
+    /* 2 columns for 4 members = 2x2 */
+    gap: 4rem;
+    /* Spacing between cards */
+    max-width: 900px;
+    /* Keeps the 2x2 tight and centered */
     margin: 0 auto;
     perspective: 2000px;
-    /* Essential for 3D tilt */
+    justify-items: center;
+    /* Center cards in their cells */
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .cb-team-grid {
+        grid-template-columns: 1fr;
+        /* Stack on mobile/tablet */
+        gap: 2rem;
+    }
 }
 
 /* ── LINE NUMBERS GUTTER ────────────────────────────── */
@@ -427,16 +471,29 @@
 /* ── CARD STYLES (HOLOGRAPHIC OVERHAUL) ──────────────────────────── */
 .cb-card {
     position: relative;
-    background: rgba(10, 10, 10, 0.4);
-    /* More transparent for hologram feel */
-    height: 450px;
-    width: 300px;
+    background: rgba(10, 10, 10, 0.85);
+    /* More opaque for better readability per user request */
+    height: 550px;
+    /* Increased from 480px */
+    width: 360px;
+    /* Increased from 320px */
     transition: transform 0.1s ease-out;
     /* Smooth tilt */
-    cursor: none;
+    cursor: pointer;
+    transform-style: preserve-3d;
+    will-change: transform;
     transform-style: preserve-3d;
     will-change: transform;
     backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    /* Subtle default border */
+    transition: all 0.3s ease;
+}
+
+.cb-card:hover {
+    border-color: rgba(94, 184, 255, 0.6);
+    /* Blue frame on hover */
+    box-shadow: 0 0 20px rgba(94, 184, 255, 0.2);
 }
 
 /* 3D LAYERS */
@@ -477,11 +534,15 @@
     border: 1px solid rgba(94, 184, 255, 0.3);
     clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
     /* Cyber corner */
+    display: none;
+    /* User requested removal of this blue part entirely */
 }
 
+/* 
 .cb-card:hover .cb-layer-holo {
     opacity: 1;
-}
+} 
+*/
 
 /* Floating Stat Items */
 .cb-stat-item {
@@ -558,12 +619,21 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: top center;
+    /* Focus on faces */
     transition: transform 0.5s ease;
     filter: grayscale(100%) contrast(1.1);
 }
 
 .cb-card:hover .cb-card-photo img {
     transform: scale(1.1);
+    filter: grayscale(0%) contrast(1.1);
+}
+
+/* LEADER SPECIFIC ZOOM (More dramatic) */
+.cb-leader-card:hover .cb-leader-img {
+    transform: scale(1.55);
+    /* Increased zoom for impact */
     filter: grayscale(0%) contrast(1.1);
 }
 
@@ -576,8 +646,15 @@
 }
 
 .cb-card:hover .cb-card-info {
-    /* Kept simple */
+    z-index: 10;
 }
+
+/* REMOVED HOVER COLOR CHANGE - Keeps text static */
+.cb-card:hover .cb-card-role {
+    color: #aaa;
+    text-shadow: none;
+}
+
 
 /* ── BOOT COMPLETE PERSISTENCE (Fixes disappearance) ──────────────── */
 .cb-boot-complete .cb-hero-content,
@@ -770,17 +847,23 @@
 }
 
 .cb-card-name {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Orbitron', sans-serif;
+    /* Changed to Orbitron for creative look */
+    font-size: 1.8rem;
     font-weight: 700;
-    font-size: 1.5rem;
-    color: #fff;
     margin-bottom: 0.2rem;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-shadow: 0 0 10px rgba(94, 184, 255, 0.5);
+    /* Added glow for effect */
 }
 
 .cb-card-role {
     font-family: 'Roboto Flex', sans-serif;
     color: #aaa;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    /* Increased from 0.85rem */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.5rem;
@@ -802,6 +885,9 @@
     opacity: 0;
     transform: translateX(10px);
     transition: all 0.3s ease;
+    z-index: 20;
+    /* Ensure clickable */
+    cursor: pointer;
 }
 
 .cb-card:hover .cb-card-social {

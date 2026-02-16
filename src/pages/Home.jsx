@@ -35,7 +35,8 @@ const subChapterCards = [
         title: "IEEE Special Interest Group on Humanitarian Technology (SIGHT)",
         logo: "/ieee-sight-logo.jpeg",
         content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide.",
-        variant: "sight"
+        variant: "sight",
+        link: "https://ignite-humanity-web.vercel.app/"
     },
     {
         title: "IEEE Signal Processing Society (SPS)",
@@ -335,6 +336,7 @@ const Home = () => {
                                 logo={card.logo}
                                 content={card.content}
                                 variant={card.variant}
+                                link={card.link}
                             />
                         </div>
                     ))}

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import SubChapterBackgrounds from './SubChapterBackgrounds';
 import './SubChapterCard.css';
 
-const SubChapterCard = ({ title, logo, content, variant }) => {
+const SubChapterCard = ({ title, logo, content, variant, link }) => {
     // Simple brutalist entry
     const containerVariants = {
         hidden: { opacity: 0, y: 50 },
@@ -35,6 +35,8 @@ const SubChapterCard = ({ title, logo, content, variant }) => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={containerVariants}
+            onClick={() => link && window.open(link, '_blank')}
+            style={{ cursor: link ? 'pointer' : 'default' }}
         >
             {/* Subtle Background Effect */}
             <SubChapterBackgrounds variant={variant} />
