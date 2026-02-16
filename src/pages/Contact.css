@@ -169,6 +169,70 @@
     text-align: center;
 }
 
+/* ── Success Screen ─────────────────────────── */
+.form-success {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+    min-height: 300px;
+}
+
+.success-icon {
+    width: 64px;
+    height: 64px;
+    border: 3px solid #5eb8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #5eb8ff;
+    margin-bottom: 1.5rem;
+}
+
+.form-success h3 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
+}
+
+.form-success p {
+    color: #aaa;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+}
+
+/* ── Error Message ──────────────────────────── */
+.form-error {
+    color: #ff4444;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid rgba(255, 68, 68, 0.3);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+/* ── Disabled State ─────────────────────────── */
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+    box-shadow: 6px 6px 0px #5eb8ff !important;
+}
+
+.form-group input:disabled,
+.form-group textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 @media (max-width: 1024px) {
     .contact-page {
         padding: clamp(60px, 12vw, 100px) 1.5rem 3rem;
