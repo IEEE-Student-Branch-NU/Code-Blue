@@ -399,6 +399,31 @@
     /* Essential for 3D tilt */
 }
 
+/* ── LINE NUMBERS GUTTER ────────────────────────────── */
+.cb-line-numbers {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 3rem;
+    height: 100vh;
+    z-index: 50;
+    padding-top: 50vh;
+    /* Start from centerish or just flow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.2rem;
+    pointer-events: none;
+    mix-blend-mode: difference;
+}
+
+.cb-line-number {
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    color: rgba(94, 184, 255, 0.3);
+    user-select: none;
+}
+
 /* ── LEADER SECTION ──────────────────────────────────────── */
 .cb-leader-container {
     display: flex;
@@ -411,106 +436,44 @@
 
 .cb-leader-label {
     font-family: 'Courier New', monospace;
-    color: #ffd700;
+    color: #5eb8ff;
+    /* Technical Blue, not Gold */
     font-size: 0.8rem;
     letter-spacing: 0.2em;
-    margin-bottom: 1.5rem;
-    text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    opacity: 0.8;
 }
 
 .cb-leader-card {
     width: 320px;
-    /* Bigger than standard 240px */
     height: 500px;
-    border-color: rgba(255, 215, 0, 0.4);
-    box-shadow: 0 0 30px rgba(255, 215, 0, 0.1);
+    /* Technical / Root Style */
+    border: 1px dashed rgba(94, 184, 255, 0.5);
+    box-shadow: 0 0 20px rgba(94, 184, 255, 0.1);
 }
 
-/* ── CARD STYLES ──────────────────────────────────────────── */
-.cb-card {
-    position: relative;
-    background: rgba(10, 10, 10, 0.7);
-    /* Slightly more opaque */
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    height: 450px;
-    overflow: hidden;
-    transition: box-shadow 0.3s ease;
-    cursor: none;
-    transform-style: preserve-3d;
-    will-change: transform;
-    /* REMOVED HOVER LIFT (translateY) AS REQUESTED */
-}
-
-/* Spotlight Glow Effect */
-.cb-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-            rgba(255, 255, 255, 0.4),
-            transparent 40%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    z-index: 3;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.cb-card:hover::before {
-    opacity: 1;
-}
-
-/* Head Card Special Styling */
-@keyframes goldPulse {
-    0% {
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
-        border-color: rgba(255, 215, 0, 0.3);
-    }
-
-    50% {
-        box-shadow: 0 0 50px rgba(255, 215, 0, 0.25);
-        border-color: rgba(255, 215, 0, 0.6);
-    }
-
-    100% {
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.1);
-        border-color: rgba(255, 215, 0, 0.3);
-    }
-}
-
-.cb-head-card {
-    animation: goldPulse 4s infinite ease-in-out;
-}
-
+/* Head Card Special Styling (Technical, not Royal) */
 .cb-head-card .cb-card-border-glow {
-    background: linear-gradient(to right, transparent, rgba(255, 215, 0, 0.8), transparent);
+    /* Subtle blue pulsing instead of gold */
+    background: linear-gradient(to right, transparent, rgba(94, 184, 255, 0.4), transparent);
+    opacity: 0.5;
 }
 
-.cb-head-crown {
+.cb-head-tag {
     position: absolute;
     top: 1rem;
     right: 1rem;
     background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(255, 215, 0, 0.6);
-    color: #ffd700;
-    font-size: 0.75rem;
-    font-weight: 800;
-    padding: 0.4rem 0.8rem;
-    border-radius: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(94, 184, 255, 0.4);
+    color: #5eb8ff;
+    font-family: 'Courier New', monospace;
+    font-size: 0.7rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
     z-index: 5;
     transform: translateZ(20px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
 }
 
 /* Card Photo */

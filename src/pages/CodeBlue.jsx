@@ -292,6 +292,13 @@ function CodeBlueContent() {
             {/* LIGHTNING STRIKE ELEMENT */}
             <div className="cb-lightning-strike" />
 
+            {/* ── LINE NUMBERS GUTTER ── */}
+            <div className="cb-line-numbers">
+                {Array(50).fill(0).map((_, i) => (
+                    <div key={i} className="cb-line-number">{(i + 1).toString().padStart(2, '0')}</div>
+                ))}
+            </div>
+
             {/* ═══════ HERO ═══════ */}
             <section className="cb-hero-section" ref={heroRef} style={{ justifyContent: 'center' }}>
 
@@ -354,7 +361,7 @@ function CodeBlueContent() {
                         lineHeight: '1.6',
                         textAlign: 'center'
                     }} ref={el => { if (el && introDone) gsap.to(el, { opacity: 1, duration: 1, delay: 0.5 }) }}>
-                        Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
+                        // Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
                     </p>
                 </div>
 
@@ -385,7 +392,7 @@ function CodeBlueContent() {
                     <p className="cb-attitude-text" ref={attitudeTextRef} style={{ transform: 'translateY(30px)', opacity: 0 }}>
                         WE DON&apos;T FOLLOW <span className="em">TRENDS</span>. WE SET <span className="em">THEM</span>.
                     </p>
-                    <p className="cb-attitude-sub" ref={attitudeSubRef} style={{ opacity: 0 }}>THE TECHNICAL DIVISION OF IEEE SBNU — CODE BLUE 2026</p>
+                    <p className="cb-attitude-sub" ref={attitudeSubRef} style={{ opacity: 0 }}>// THE TECHNICAL DIVISION OF IEEE SBNU — CODE BLUE 2026</p>
                 </div>
             </section>
 
@@ -401,7 +408,7 @@ function CodeBlueContent() {
                 {/* LEADERSHIP UNIT */}
                 {leader && (
                     <div className="cb-leader-container">
-                        <div className="cb-leader-label">TEAM LEAD & TECHNICAL DIRECTOR</div>
+                        <div className="cb-leader-label">ROOT ACCESS_GRANTED</div>
                         <div
                             className="cb-card cb-head-card cb-leader-card"
                             ref={el => { cardsRef.current[0] = el; }} // Leader is 0
@@ -411,12 +418,11 @@ function CodeBlueContent() {
                             <div className="cb-card-border-glow" />
                             <div className="cb-card-photo">
                                 <img src={leader.image} alt={leader.name} loading="lazy" />
-                                <div className="cb-head-crown">👑 0x1</div>
+                                <div className="cb-head-tag">sudo user</div>
                             </div>
                             <div className="cb-card-info">
                                 <div className="cb-card-name">
                                     {leader.name}
-                                    <span style={{ color: '#ffd700', marginLeft: '8px', fontSize: '0.8em' }}>★</span>
                                 </div>
                                 <div className="cb-card-role">
                                     <TextScramble text={leader.role} />
@@ -468,6 +474,9 @@ function CodeBlueContent() {
             <section className="cb-outro">
                 <p className="cb-outro-pre" ref={outroPreRef} style={{ opacity: 0 }}>SYSTEM DESIGNED & BUILT BY</p>
                 <h2 className="cb-outro-title" ref={outroTitleRef} style={{ opacity: 0 }}>CODE <span className="blue">BLUE</span></h2>
+                <div style={{ fontFamily: 'Courier New, monospace', fontSize: '0.9rem', color: '#5eb8ff', marginBottom: '1rem' }}>
+                    <span style={{ color: '#33ff00' }}>➜</span> <span style={{ color: '#fff' }}>~</span> echo "Hello, World"
+                </div>
                 <p className="cb-outro-end" ref={outroEndRef} style={{ opacity: 0 }}>&lt; END TRANSMISSION &gt;</p>
             </section>
         </div>
