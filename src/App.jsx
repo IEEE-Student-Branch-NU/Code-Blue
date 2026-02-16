@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import StaggeredMenu from './components/StaggeredMenu'
 import Home from './pages/Home'
@@ -7,6 +7,8 @@ import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
+
+const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 
 
 const menuItems = [
@@ -53,6 +55,11 @@ const App = () => {
           <Route path="/board-members" element={<BoardMembers />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/join-us" element={<JoinUs />} />
+          <Route path="/code-blue" element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+              <CodeBlue />
+            </Suspense>
+          } />
 
         </Routes>
       </div>

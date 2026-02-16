@@ -1,29 +1,23 @@
-
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CodeBlueSticker.css';
 
 const CodeBlueSticker = () => {
-    const [isHovered, setIsHovered] = useState(false);
+    const navigate = useNavigate();
+
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigate('/code-blue');
+    };
 
     return (
-        <a
-            href="https://github.com/IEEE-Student-Branch-NU/Code-Blue"
-            target="_blank"
-            rel="noopener noreferrer"
+        <button
             className="code-blue-sticker"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
+            onClick={handleClick}
+            aria-label="Enter Code Blue Experience"
         >
-            <span className="sticker-status-dot"></span>
-            <span className="sticker-text">
-                {isHovered ? "SYSTEM OVERRIDE" : "SYSTEM: STABLE"}
-            </span>
-
-            {/* Hidden Glitch Layer */}
-            <div className="sticker-glitch-text">
-                CODE BLUE
-            </div>
-        </a>
+            DEVELOPED BY CODE BLUE
+        </button>
     );
 };
 
