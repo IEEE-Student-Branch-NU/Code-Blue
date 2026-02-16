@@ -9,7 +9,7 @@ import './CodeBlue.css';
 gsap.registerPlugin(ScrollTrigger);
 
 /* Lazy-load the heavy 3D Lanyard component so it doesn't crash other routes */
-// const Lanyard = lazy(() => import('../components/Lanyard')); // DISABLED BY USER REQUEST
+/* Lanyard removed by user request */
 
 /* ═══════════════════════════════════════════════════════════════
    GLOBAL ERROR BOUNDARY (DEBUGGING AGENT)
@@ -415,24 +415,30 @@ function CodeBlueContent() {
                             onMouseMove={(e) => handleCardMove(e, 0)}
                             onMouseLeave={() => handleCardLeave(0)}
                         >
-                            <div className="cb-card-border-glow" />
-                            <div className="cb-card-photo">
-                                <img src={leader.image} alt={leader.name} loading="lazy" />
-                                <div className="cb-head-tag">sudo user</div>
+                            <div className="cb-layer-base"></div>
+                            <div className="cb-layer-content">
+                                <div className="cb-card-border-glow" />
+                                <div className="cb-card-photo">
+                                    <img src={leader.image} alt={leader.name} loading="lazy" />
+                                    <div className="cb-head-tag">sudo user</div>
+                                </div>
+                                <div className="cb-card-info">
+                                    <div className="cb-card-name">{leader.name}</div>
+                                    <div className="cb-card-role"><TextScramble text={leader.role} /></div>
+                                    <div className="cb-card-id">CB-ROOT-USER</div>
+                                    {leader.linkedin && (
+                                        <a href={leader.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
+                                            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                                        </a>
+                                    )}
+                                </div>
                             </div>
-                            <div className="cb-card-info">
-                                <div className="cb-card-name">
-                                    {leader.name}
-                                </div>
-                                <div className="cb-card-role">
-                                    <TextScramble text={leader.role} />
-                                </div>
-                                <div className="cb-card-id">CB-ROOT-USER</div>
-                                {leader.linkedin && (
-                                    <a href={leader.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
-                                        <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                    </a>
-                                )}
+                            {/* HOLOGRAPHIC STATS LAYER */}
+                            <div className="cb-layer-holo">
+                                {leader.stats?.map((stat, i) => (
+                                    <div key={i} className="cb-stat-item">{stat}</div>
+                                ))}
+                                <div className="cb-holo-grid"></div>
                             </div>
                         </div>
                     </div>
@@ -449,21 +455,29 @@ function CodeBlueContent() {
                             onMouseLeave={() => handleCardLeave(i + 1)}
                             style={{ opacity: 0, transform: 'translateY(50px)' }}
                         >
-                            <div className="cb-card-border-glow" />
-                            <div className="cb-card-photo">
-                                <img src={member.image} alt={member.name} loading="lazy" />
-                            </div>
-                            <div className="cb-card-info">
-                                <div className="cb-card-name">{member.name}</div>
-                                <div className="cb-card-role">
-                                    <TextScramble text={member.role} />
+                            <div className="cb-layer-base"></div>
+                            <div className="cb-layer-content">
+                                <div className="cb-card-border-glow" />
+                                <div className="cb-card-photo">
+                                    <img src={member.image} alt={member.name} loading="lazy" />
                                 </div>
-                                <div className="cb-card-id">CB-DEV-{String(member.id).padStart(3, '0')}</div>
-                                {member.linkedin && member.linkedin !== '#' && (
-                                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
-                                        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
-                                    </a>
-                                )}
+                                <div className="cb-card-info">
+                                    <div className="cb-card-name">{member.name}</div>
+                                    <div className="cb-card-role"><TextScramble text={member.role} /></div>
+                                    <div className="cb-card-id">CB-DEV-{String(member.id).padStart(3, '0')}</div>
+                                    {member.linkedin && member.linkedin !== '#' && (
+                                        <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="cb-card-social">
+                                            <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" /></svg>
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                            {/* HOLOGRAPHIC STATS LAYER */}
+                            <div className="cb-layer-holo">
+                                {member.stats?.map((stat, i) => (
+                                    <div key={i} className="cb-stat-item">{stat}</div>
+                                ))}
+                                <div className="cb-holo-grid"></div>
                             </div>
                         </div>
                     ))}

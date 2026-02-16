@@ -424,94 +424,159 @@
     user-select: none;
 }
 
-/* ── LEADER SECTION ──────────────────────────────────────── */
-.cb-leader-container {
+/* ── CARD STYLES (HOLOGRAPHIC OVERHAUL) ──────────────────────────── */
+.cb-card {
+    position: relative;
+    background: rgba(10, 10, 10, 0.4);
+    /* More transparent for hologram feel */
+    height: 450px;
+    width: 300px;
+    transition: transform 0.1s ease-out;
+    /* Smooth tilt */
+    cursor: none;
+    transform-style: preserve-3d;
+    will-change: transform;
+    backdrop-filter: blur(2px);
+}
+
+/* 3D LAYERS */
+.cb-layer-base,
+.cb-layer-content,
+.cb-layer-holo {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    transform-style: preserve-3d;
+}
+
+/* Base Layer: Dark backing */
+.cb-layer-base {
+    background: rgba(0, 0, 0, 0.8);
+    transform: translateZ(-20px);
+    border: 1px solid rgba(94, 184, 255, 0.1);
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+}
+
+/* Content Layer: Photo & Info */
+.cb-layer-content {
+    transform: translateZ(0px);
+    z-index: 2;
+}
+
+/* Holo Layer: Floating Stats */
+.cb-layer-holo {
+    transform: translateZ(40px);
+    z-index: 3;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 4rem;
-    position: relative;
-    z-index: 5;
+    justify-content: flex-end;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    background: linear-gradient(to top, rgba(94, 184, 255, 0.1), transparent 50%);
+    border: 1px solid rgba(94, 184, 255, 0.3);
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+    /* Cyber corner */
 }
 
-.cb-leader-label {
+.cb-card:hover .cb-layer-holo {
+    opacity: 1;
+}
+
+/* Floating Stat Items */
+.cb-stat-item {
     font-family: 'Courier New', monospace;
     color: #5eb8ff;
-    /* Technical Blue, not Gold */
-    font-size: 0.8rem;
-    letter-spacing: 0.2em;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    opacity: 0.8;
+    font-size: 0.75rem;
+    text-align: right;
+    margin-bottom: 4px;
+    text-shadow: 0 0 5px #5eb8ff;
+    letter-spacing: 0.1em;
+    transform: translateZ(20px);
+    /* Pop out even more */
 }
 
-.cb-leader-card {
-    width: 320px;
-    height: 500px;
-    /* Technical / Root Style */
-    border: 1px dashed rgba(94, 184, 255, 0.5);
-    box-shadow: 0 0 20px rgba(94, 184, 255, 0.1);
+/* Holo Grid Line */
+.cb-holo-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(94, 184, 255, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94, 184, 255, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(circle at center, black, transparent 80%);
+    opacity: 0.3;
+    z-index: -1;
 }
 
-/* Head Card Special Styling (Technical, not Royal) */
-.cb-head-card .cb-card-border-glow {
-    /* Subtle blue pulsing instead of gold */
-    background: linear-gradient(to right, transparent, rgba(94, 184, 255, 0.4), transparent);
+/* Data Stream Border Animation */
+@keyframes dataFlow {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 200% 0%;
+    }
+}
+
+.cb-card-border-glow {
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(90deg, transparent, rgba(94, 184, 255, 0.8), transparent);
+    background-size: 200% 100%;
+    animation: dataFlow 3s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
     opacity: 0.5;
 }
 
-.cb-head-tag {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(0, 0, 0, 0.8);
-    border: 1px solid rgba(94, 184, 255, 0.4);
-    color: #5eb8ff;
-    font-family: 'Courier New', monospace;
-    font-size: 0.7rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 2px;
-    letter-spacing: 0.1em;
-    z-index: 5;
-    transform: translateZ(20px);
+.cb-card:hover .cb-card-border-glow {
+    opacity: 1;
+    animation-duration: 1.5s;
+    /* Speed up on interaction */
 }
 
-/* Card Photo */
+/* Card Photo - Floating */
 .cb-card-photo {
+    /* ... existing sizing ... */
+    height: 65%;
     width: 100%;
-    height: 100%;
     position: relative;
-    filter: grayscale(100%) contrast(1.1) brightness(0.9);
-    transition: filter 0.5s ease;
-}
-
-.cb-card:hover .cb-card-photo {
-    filter: grayscale(0%) contrast(1.0) brightness(1.1);
+    overflow: hidden;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateZ(10px);
+    /* Slight pop */
 }
 
 .cb-card-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.01);
+    transition: transform 0.5s ease;
+    filter: grayscale(100%) contrast(1.1);
 }
 
-/* Card Info */
+.cb-card:hover .cb-card-photo img {
+    transform: scale(1.1);
+    filter: grayscale(0%) contrast(1.1);
+}
+
+/* Card Info - Floating */
 .cb-card-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     padding: 1.5rem;
-    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.8) 50%, rgba(0, 0, 0, 0) 100%);
-    transform: translateY(10px) translateZ(30px);
-    /* Reduced movement */
-    transition: transform 0.4s ease;
-    z-index: 4;
+    position: relative;
+    background: transparent;
+    transform: translateZ(25px);
 }
 
 .cb-card:hover .cb-card-info {
-    transform: translateY(0) translateZ(40px);
+    /* Kept simple */
 }
 
 /* ── BOOT COMPLETE PERSISTENCE (Fixes disappearance) ──────────────── */
@@ -544,6 +609,7 @@
     text-shadow: 0 0 5px rgba(51, 255, 0, 0.8);
 
     /* Typewriter Setup */
+
     overflow: hidden;
     /* Ensures the content is not revealed until the animation */
     border-right: .15em solid #33ff00;
