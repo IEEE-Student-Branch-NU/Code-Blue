@@ -1,10 +1,20 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
+import { supabase } from '../lib/supabase'
 import './Contact.css'
 
 const Contact = () => {
     const infoRef = useRef(null)
     const formRef = useRef(null)
+
+    const [formData, setFormData] = useState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        message: '',
+    })
+    const [status, setStatus] = useState('idle') // idle | loading | success | error
+    const [errorMsg, setErrorMsg] = useState('')
 
     useEffect(() => {
         const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
@@ -23,6 +33,36 @@ const Contact = () => {
             tl.kill()
         }
     }, [])
+
+    const handleChange = (e) => {
+        setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setStatus('loading')
+        setErrorMsg('')
+
+        try {
+            const { error } = await supabase
+                .from('contacts')
+                .insert([{
+                    first_name: formData.first_name.trim(),
+                    last_name: formData.last_name.trim(),
+                    email: formData.email.trim(),
+                    message: formData.message.trim(),
+                }])
+
+            if (error) throw error
+
+            setStatus('success')
+            setFormData({ first_name: '', last_name: '', email: '', message: '' })
+        } catch (err) {
+            console.error('Contact form error:', err)
+            setStatus('error')
+            setErrorMsg(err.message || 'Something went wrong. Please try again.')
+        }
+    }
 
     return (
         <div className="contact-page">
@@ -63,31 +103,86 @@ const Contact = () => {
                 </div>
 
                 <div className="contact-form-card" ref={formRef}>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <div className="form-group">
-                            <label>First Name*</label>
-                            <input type="text" placeholder="John" required />
+                    {status === 'success' ? (
+                        <div className="form-success">
+                            <div className="success-icon">✓</div>
+                            <h3>Message Sent!</h3>
+                            <p>Thanks for reaching out. We'll get back to you soon.</p>
+                            <button
+                                className="submit-btn"
+                                onClick={() => setStatus('idle')}
+                            >
+                                Send Another
+                            </button>
                         </div>
+                    ) : (
+                        <form onSubmit={handleSubmit}>
+                            <div className="form-group">
+                                <label>First Name*</label>
+                                <input
+                                    type="text"
+                                    name="first_name"
+                                    placeholder="John"
+                                    value={formData.first_name}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={status === 'loading'}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label>Last Name</label>
-                            <input type="text" placeholder="Doe" />
-                        </div>
+                            <div className="form-group">
+                                <label>Last Name</label>
+                                <input
+                                    type="text"
+                                    name="last_name"
+                                    placeholder="Doe"
+                                    value={formData.last_name}
+                                    onChange={handleChange}
+                                    disabled={status === 'loading'}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label>Email*</label>
-                            <input type="email" placeholder="johndoe@gmail.com" required />
-                        </div>
+                            <div className="form-group">
+                                <label>Email*</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    placeholder="johndoe@gmail.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={status === 'loading'}
+                                />
+                            </div>
 
-                        <div className="form-group">
-                            <label>Message*</label>
-                            <textarea rows="4" placeholder="Enter your message" required></textarea>
-                        </div>
+                            <div className="form-group">
+                                <label>Message*</label>
+                                <textarea
+                                    name="message"
+                                    rows="4"
+                                    placeholder="Enter your message"
+                                    value={formData.message}
+                                    onChange={handleChange}
+                                    required
+                                    disabled={status === 'loading'}
+                                ></textarea>
+                            </div>
 
-                        <button type="submit" className="submit-btn">Send Message</button>
+                            {status === 'error' && (
+                                <p className="form-error">{errorMsg}</p>
+                            )}
 
-                        <p className="form-footer">*Fill in the required information above</p>
-                    </form>
+                            <button
+                                type="submit"
+                                className="submit-btn"
+                                disabled={status === 'loading'}
+                            >
+                                {status === 'loading' ? 'Sending...' : 'Send Message'}
+                            </button>
+
+                            <p className="form-footer">*Fill in the required information above</p>
+                        </form>
+                    )}
                 </div>
             </div>
         </div>
