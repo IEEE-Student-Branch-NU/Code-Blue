@@ -3,6 +3,15 @@ import LetterGlitch from '../components/Backgrounds/LetterGlitch/LetterGlitch';
 
 const PreLaunch = ({ onUnlock }) => {
     const targetDate = "2026-02-17T20:00:00+05:30";
+    const startDate = "2026-02-16T20:00:00+05:30"; // 24h before launch
+
+    const calculateProgress = () => {
+        const start = +new Date(startDate);
+        const end = +new Date(targetDate);
+        const now = +new Date();
+        const prog = ((now - start) / (end - start)) * 100;
+        return Math.min(Math.max(prog, 0), 100);
+    };
 
     const calculateTimeLeft = () => {
         const difference = +new Date(targetDate) - +new Date();
@@ -20,15 +29,19 @@ const PreLaunch = ({ onUnlock }) => {
     };
 
     const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [progress, setProgress] = useState(calculateProgress());
 
     useEffect(() => {
         const timer = setInterval(() => {
             const nextTimeLeft = calculateTimeLeft();
+            const nextProgress = calculateProgress();
+
             if (new Date() >= new Date(targetDate)) {
                 onUnlock();
                 clearInterval(timer);
             } else {
                 setTimeLeft(nextTimeLeft);
+                setProgress(nextProgress);
             }
         }, 1000);
 
@@ -121,7 +134,7 @@ const PreLaunch = ({ onUnlock }) => {
 
                     <div className="internal-lc-footer">
                         <div className="internal-lc-bar-container">
-                            <div className="internal-lc-bar-fill"></div>
+                            <div className="internal-lc-bar-fill" style={{ width: `${progress}%` }}></div>
                         </div>
                         <div className="internal-lc-target-info">
                             T-MINUS INITIALIZATION... [TARGET: 17-02-2026 20:00:00 IST]
@@ -243,8 +256,8 @@ const PreLaunch = ({ onUnlock }) => {
                 .internal-lc-bar-fill {
                     height: 100%;
                     background: #5eb8ff;
-                    width: 30%; /* Visual static progress */
                     box-shadow: 0 0 10px #5eb8ff;
+                    transition: width 1s linear;
                 }
 
                 .internal-lc-target-info {
