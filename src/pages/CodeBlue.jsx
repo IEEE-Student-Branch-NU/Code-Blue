@@ -140,6 +140,15 @@ function CodeBlueContent() {
 
     // Track when the intro animation is done to enable interactions
     const [introDone, setIntroDone] = useState(false);
+    const [proximityRadius, setProximityRadius] = useState(window.innerWidth < 768 ? 100 : 180);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setProximityRadius(window.innerWidth < 768 ? 100 : 180);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     /* ── Instant Entry Sequence ───────────────────────────────── */
     useEffect(() => {
@@ -383,7 +392,7 @@ function CodeBlueContent() {
                             fromFontVariationSettings="'wght' 200, 'opsz' 8"
                             toFontVariationSettings="'wght' 1000, 'opsz' 80"
                             containerRef={heroRef}
-                            radius={180}
+                            radius={proximityRadius}
                             falloff="linear"
                             className="cb-proximity-title"
                         />
@@ -392,7 +401,7 @@ function CodeBlueContent() {
                             fromFontVariationSettings="'wght' 200, 'opsz' 8"
                             toFontVariationSettings="'wght' 1000, 'opsz' 80"
                             containerRef={heroRef}
-                            radius={180}
+                            radius={proximityRadius}
                             falloff="linear"
                             className="cb-proximity-title cb-proximity-title-blue"
                         />
@@ -403,17 +412,8 @@ function CodeBlueContent() {
                     </div>
 
                     {/* ADDED HERO DESCRIPTION */}
-                    <p className="cb-hero-desc" style={{
-                        opacity: 0,
-                        maxWidth: '600px',
-                        margin: '2rem auto 0',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '1rem',
-                        color: 'rgba(255, 255, 255, 0.6)',
-                        lineHeight: '1.6',
-                        textAlign: 'center'
-                    }} ref={el => { if (el && introDone) gsap.to(el, { opacity: 1, duration: 1, delay: 0.5 }) }}>
-                    // Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
+                    <p className="cb-hero-desc" ref={el => { if (el && introDone) gsap.to(el, { opacity: 1, duration: 1, delay: 0.5 }) }}>
+                        // Forging the digital frontier of IEEE SBNU. Code Blue constitutes the elite technical division, engineering the future line by line.
                     </p>
                 </div>
 

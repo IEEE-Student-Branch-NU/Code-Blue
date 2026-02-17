@@ -11,7 +11,7 @@ import {
     Plus,
     Minus
 } from 'lucide-react';
-import Footer from '../components/Footer';
+import Footer from './Footer';
 import Squares from '../components/Backgrounds/Squares/Squares';
 
 gsap.registerPlugin(ScrollTrigger);

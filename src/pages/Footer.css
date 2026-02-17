@@ -171,11 +171,32 @@
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.1vw;
-    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
 }
 
-.footer-credit:hover {
-    color: #fff;
+.footer-codeblue-link {
+    display: inline-flex;
+    align-items: center;
+    background: #0077b5;
+    /* LinkedIn brand blue */
+    color: #fff !important;
+    text-decoration: none;
+    padding: 2px 8px;
+    margin-left: 8px;
+    border: 1px solid #fff;
+    box-shadow: 2px 2px 0px #5eb8ff;
+    font-weight: 900;
+    font-size: clamp(0.6rem, 0.8vw, 0.8vw);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-radius: 2px;
+}
+
+.footer-codeblue-link:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0px #5eb8ff;
+    background: #fff;
+    color: #000 !important;
 }
 
 /* For extremely small screens, we ensure readability but maintain layout */

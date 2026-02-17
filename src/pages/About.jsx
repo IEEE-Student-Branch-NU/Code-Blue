@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
 import ProfileCard from '../components/ProfileCard'
 import CircularGallery from '../components/CircularGallery'
-import Footer from '../components/Footer'
+import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 
 const alumniImages = [

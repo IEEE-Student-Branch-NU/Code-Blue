@@ -1,6 +1,6 @@
 import React from 'react';
 import { Linkedin } from 'lucide-react';
-import Footer from '../components/Footer';
+import Footer from './Footer';
 import Squares from '../components/Backgrounds/Squares/Squares';
 
 const boardMembers = [
