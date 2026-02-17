@@ -123,7 +123,7 @@ const Home = () => {
         if (!hasCelebrated) {
             const duration = 3 * 1000;
             const end = Date.now() + duration;
-            const colors = ['#00f7ff', '#5eb8ff', '#ff00e6', '#ff6b00', '#00ff88', '#ffffff'];
+            const colors = ['#bb0000', '#ffffff', '#00f7ff', '#e9ff00', '#00ff00', '#fe00f6'];
 
             (function frame() {
                 confetti({
