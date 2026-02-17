@@ -173,35 +173,63 @@
     letter-spacing: 0.1vw;
     display: flex;
     align-items: center;
+    transition: all 0.3s ease;
 }
 
 .footer-codeblue-link {
     display: inline-flex;
     align-items: center;
-    background: #0077b5;
-    /* LinkedIn brand blue */
-    color: #fff !important;
+    background: #000;
+    color: #5eb8ff !important;
+    /* Blue Text */
     text-decoration: none;
-    padding: 2px 8px;
+    padding: 4px 12px;
     margin-left: 8px;
-    border: 1px solid #fff;
-    box-shadow: 2px 2px 0px #5eb8ff;
-    font-weight: 900;
-    font-size: clamp(0.6rem, 0.8vw, 0.8vw);
+    border: 2px solid #fff;
+    /* Sharp White Border like social items */
+    box-shadow: 4px 4px 0px #5eb8ff;
+    /* Blue Shadow Always */
+    font-weight: 950;
+    font-size: clamp(0.7rem, 0.8vw, 0.8vw);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 2px;
+    border-radius: 0px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 .footer-codeblue-link:hover {
-    transform: translate(-1px, -1px);
-    box-shadow: 4px 4px 0px #5eb8ff;
-    background: #fff;
-    color: #000 !important;
+    transform: translate(-3px, -3px);
+    box-shadow: 7px 7px 0px #5eb8ff;
+    /* Larger Blue Shadow on Hover */
+    background: #000;
+    /* Stays Black */
+    color: #5eb8ff !important;
+    border-color: #5eb8ff;
+    /* Border turns blue on hover */
 }
 
 /* For extremely small screens, we ensure readability but maintain layout */
-@media (max-width: 480px) {
+@media (max-width: 640px) {
     .footer {
-        padding: 8vw 4vw;
+        padding: 10vw 6vw;
+    }
+
+    .footer-bottom-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2rem;
+    }
+
+    .footer-credit {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        /* This places "MADE WITH PASSION BY" on top and button below */
+    }
+
+    .footer-codeblue-link {
+        margin-left: 0;
+        padding: 10px 20px;
+        font-size: 0.8rem;
     }
 }
