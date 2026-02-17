@@ -8,8 +8,10 @@ import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
 import PreLaunch from './pages/PreLaunch'
+import { Analytics } from "@vercel/analytics/react"
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
+
 
 const TARGET_DATE = "2026-02-17T20:00:00+05:30";
 
@@ -42,11 +44,17 @@ const App = () => {
   }, []);
 
   if (isLocked) {
-    return <PreLaunch onUnlock={() => setIsLocked(false)} />;
+    return (
+      <>
+        <PreLaunch onUnlock={() => setIsLocked(false)} />
+        <Analytics />
+      </>
+    );
   }
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+      <Analytics />
 
       {/* StaggeredMenu Navigation */}
       <StaggeredMenu
