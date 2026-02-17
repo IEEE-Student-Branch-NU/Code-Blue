@@ -11,6 +11,8 @@ import confetti from 'canvas-confetti'
 
 
 
+
+
 gsap.registerPlugin(ScrollTrigger)
 
 const infoCards = [

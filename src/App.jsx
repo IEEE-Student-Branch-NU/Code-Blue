@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import StaggeredMenu from './components/StaggeredMenu'
 import Home from './pages/Home'
@@ -7,9 +7,11 @@ import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
+import PreLaunch from './pages/PreLaunch'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 
+const TARGET_DATE = "2026-02-17T20:00:00+05:30";
 
 const menuItems = [
   { label: "Home", link: "/" },
@@ -27,6 +29,21 @@ const socialItems = [
 
 
 const App = () => {
+  const [isLocked, setIsLocked] = useState(new Date() < new Date(TARGET_DATE));
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (new Date() >= new Date(TARGET_DATE)) {
+        setIsLocked(false);
+        clearInterval(timer);
+      }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  if (isLocked) {
+    return <PreLaunch onUnlock={() => setIsLocked(false)} />;
+  }
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
