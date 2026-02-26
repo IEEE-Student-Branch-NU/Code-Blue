@@ -6,7 +6,7 @@ import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
-import confetti from 'canvas-confetti'
+
 
 
 
@@ -120,36 +120,7 @@ const Home = () => {
         // Initial setup
         handleResize();
 
-        // One-time neon confetti blast
-        const hasCelebrated = sessionStorage.getItem('hasCelebrated');
-        if (!hasCelebrated) {
-            const duration = 3 * 1000;
-            const end = Date.now() + duration;
-            const colors = ['#bb0000', '#ffffff', '#00f7ff', '#e9ff00', '#00ff00', '#fe00f6'];
 
-            (function frame() {
-                confetti({
-                    particleCount: 4,
-                    angle: 60,
-                    spread: 100,
-                    origin: { x: 0 },
-                    colors: colors
-                });
-                confetti({
-                    particleCount: 4,
-                    angle: 120,
-                    spread: 100,
-                    origin: { x: 1 },
-                    colors: colors
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-
-            sessionStorage.setItem('hasCelebrated', 'true');
-        }
 
         cardsRef.current.forEach((card) => {
 
