@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpeed = 2 }) => {
     const [displayText, setDisplayText] = useState(text);
-    const [isHovered, setIsHovered] = useState(false);
     const intervalRef = useRef(null);
 
     const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -12,7 +11,7 @@ const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpe
         clearInterval(intervalRef.current);
 
         intervalRef.current = setInterval(() => {
-            setDisplayText(prev =>
+            setDisplayText(() =>
                 text
                     .split('')
                     .map((letter, index) => {
@@ -39,12 +38,7 @@ const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpe
     }, [text]);
 
     const handleMouseEnter = () => {
-        setIsHovered(true);
         scramble();
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
     };
 
     const Component = as;
@@ -53,7 +47,6 @@ const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpe
         <Component
             className={className}
             onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
             style={{ cursor: 'default' }}
         >
             {displayText}
