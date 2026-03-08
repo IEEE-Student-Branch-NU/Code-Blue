@@ -1,16 +1,12 @@
 import React from 'react';
 import './Carnival.css';
 import ElectricBorderCard from '../components/ElectricBorder';
-import Starfield from '../components/Starfield';
+import CyberGrid from '../components/CyberGrid';
 
 const Carnival = () => {
   return (
     <div className="carnival-container">
-      <Starfield 
-        starCount={1500}
-        speed={0.07}
-        colors={['#FF00FF', '#5EB8FF', '#9933FF']}
-      />
+      <CyberGrid />
       <div className="carnival-content" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
         <ElectricBorderCard>
           <h1 className="carnival-title-new">
