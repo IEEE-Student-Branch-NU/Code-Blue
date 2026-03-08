@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Carnival.css';
-import ElectricBorderCard from '../components/ElectricBorder';
-import CyberGrid from '../components/CyberGrid';
+import Balatro from '../components/Balatro';
+import DecryptedText from '../components/DecryptedText';
 
 const Carnival = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -31,13 +31,17 @@ const Carnival = () => {
   const contentOpacity = Math.max(0, 1 - scrollProgress * 4);
   // Second page fades in at the end
   const secondPageOpacity = Math.max(0, (scrollProgress - 0.8) * 5);
-  // Parallax offset
-  const parallaxOffset = typeof window !== 'undefined' ? window.scrollY : 0;
 
   return (
     <div className="carnival-scroll-container" ref={containerRef}>
       <div className="carnival-sticky-viewport">
-        <CyberGrid parallaxOffset={parallaxOffset} />
+        <Balatro 
+          color1="#241138"
+          color2="#3A1B5C"
+          color3="#000000"
+          uContrast={3.5}
+          uSpinSpeed={0.2}
+        />
 
         <div className="carnival-container">
           <div
@@ -49,16 +53,23 @@ const Carnival = () => {
               '--portal-bg': scrollProgress > 0.5 ? '#050505' : 'transparent'
             }}
           >
-            <div className="carnival-content" style={{ '--content-opacity': contentOpacity }}>
-              <ElectricBorderCard>
-                <h1 className="carnival-title-new">
-                  <span className="ieee-pink">IEEE</span>
-                  <span className="carnival-blue">CARNIVAL</span>
-                </h1>
-                <div className="date-pill-container">
-                  <span className="date-pill">27th - 29th March</span>
-                </div>
-              </ElectricBorderCard>
+            <div className="carnival-content" style={{ '--content-opacity': contentOpacity, padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
+              <h1 className="carnival-title-new">
+                <DecryptedText
+                  text="IEEE"
+                  animateOn="view"
+                  revealDirection="center"
+                  className="ieee-pink"
+                  encryptedClassName="encrypted"
+                />
+                <DecryptedText
+                  text="CARNIVAL"
+                  animateOn="view"
+                  revealDirection="center"
+                  className="carnival-blue"
+                  encryptedClassName="encrypted"
+                />
+              </h1>
             </div>
           </div>
 
