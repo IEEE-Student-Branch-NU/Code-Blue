@@ -1,39 +1,60 @@
-/* src/components/ElectricBorder.css */
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.electric-border-container {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.electric-border-glow {
+  position: absolute;
+  inset: -20px;
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 70%,
+    rgba(255, 255, 255, 0.4) 85%,
+    transparent 100%
+  );
+  filter: blur(35px);
+  animation: border-rotate 3s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
 
 .electric-border-wrapper {
   position: relative;
-  display: inline-block;
-  padding: 2px;
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5px; /* The "thickness" of the border */
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 1;
+  display: flex;
 }
 
 .electric-border-animated {
   position: absolute;
-  top: -100%;
-  left: -100%;
-  width: 300%;
-  height: 300%;
+  inset: -250%;
   background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 120deg,
-    #ffffff 180deg,
-    transparent 240deg,
-    transparent 360deg
+    from var(--border-angle),
+    transparent 75%,
+    #ffffff 88%,
+    transparent 100%
   );
-  animation: electric-spin 3s linear infinite;
+  animation: border-rotate 3s linear infinite;
   z-index: 0;
 }
 
 .electric-border-inner {
   position: relative;
-  z-index: 1;
-  background: #0a0a0c;
-  border-radius: 10px;
-  padding: 2.5rem 4rem;
+  z-index: 2;
+  background: #060608;
+  border-radius: 11px;
+  padding: 3rem 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,8 +63,12 @@
   height: 100%;
 }
 
-@keyframes electric-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes border-rotate {
+  from {
+    --border-angle: 0deg;
+  }
+  to {
+    --border-angle: 360deg;
+  }
 }
 
