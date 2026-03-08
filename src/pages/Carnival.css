@@ -11,12 +11,8 @@
   position: relative;
   overflow: hidden;
   
-  /* Use the new tech background matching reference */
-  background-image: url('../assets/backgrounds/carnival-tech-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  /* Balatro Background will handle the dynamic visuals */
+  background-color: #050505; 
 }
 
 .carnival-content {

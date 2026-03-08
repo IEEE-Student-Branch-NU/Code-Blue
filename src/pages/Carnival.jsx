@@ -8,6 +8,13 @@ import CarnivalFlashcard from '../assets/carnival-flashcard.png';
 const Carnival = () => {
   return (
     <div className="carnival-container">
+      <Balatro 
+        color1="#FF00FF" /* Neon Pink */
+        color2="#5EB8FF" /* Light Blue */
+        color3="#442266" /* Deep Purple */
+        spinSpeed={1.0}
+        contrast={1.2}
+      />
       <div className="carnival-content" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
         <ElectricBorderCard>
           <h1 className="carnival-title-new">
