@@ -3,18 +3,26 @@ import './Carnival.css';
 import ElectricBorderCard from '../components/ElectricBorder';
 import Balatro from '../components/Balatro';
 
+import CarnivalFlashcard from '../assets/carnival-flashcard.png';
+
 const Carnival = () => {
   return (
     <div className="carnival-container">
       {/* Static Gradient Background handled in CSS */}
       <div className="carnival-content" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
         <ElectricBorderCard>
-          <h1 className="carnival-title silver-text font-gladolia" style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', marginBottom: '0.5rem', lineHeight: 1.2 }}>
-            IEEE Carnival
-          </h1>
-          <p className="carnival-subtitle silver-text" style={{ margin: 0, fontSize: '1.5rem', fontWeight: 500, opacity: 0.8 }}>
-            27, 28 and 29th March
-          </p>
+          <img 
+            src={CarnivalFlashcard} 
+            alt="IEEE Carnival Flashcard" 
+            style={{ 
+              width: '100%', 
+              maxWidth: '600px', 
+              height: 'auto',
+              borderRadius: '8px',
+              border: 'none',
+              filter: 'drop-shadow(0 0 15px rgba(255, 165, 0, 0.4))'
+            }} 
+          />
         </ElectricBorderCard>
       </div>
     </div>
