@@ -30,28 +30,11 @@
 }
 
 .carnival-title {
-  color: #fcebc4;
   margin: 0;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  
-  /* Metallic Gold Gradient Text effect from before */
-  background: linear-gradient(
-    110deg,
-    #ffe79a 0%,
-    #dca646 25%,
-    #fff3cc 50%,
-    #c18b32 75%,
-    #ffe79a 100%
-  );
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shine 6s linear infinite;
 }
 
 .carnival-dates {
