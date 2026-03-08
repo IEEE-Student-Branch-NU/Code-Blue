@@ -8,18 +8,50 @@ const Carnival = () => {
   const [activeDay, setActiveDay] = useState(null);
   const containerRef = useRef(null);
 
+  const getBarStyles = (id) => {
+    const isExpanded = activeDay === id;
+
+    let right = '0px';
+    // Use the actual CSS width of 60px
+    let width = '60px';
+    let zIndex = 10;
+
+    if (!activeDay) {
+      if (id === 1) right = '120px';
+      if (id === 2) right = '60px';
+      if (id === 3) right = '0px';
+    } else {
+      if (isExpanded) {
+        width = 'calc(100vw - 120px)'; // Account for the two shrunken bars
+        right = '120px';
+        zIndex = 20;
+      } else {
+        const shrunkenIds = [1, 2, 3].filter(x => x !== activeDay);
+        // Ensure shrunken bars maintain the 60px width or shrink naturally
+        width = '60px';
+        if (id === shrunkenIds[0]) right = '60px';
+        if (id === shrunkenIds[1]) right = '0px';
+      }
+    }
+
+    return { right, width, zIndex };
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (!containerRef.current) return;
 
       const scrollTop = window.scrollY;
-      const docHeight = containerRef.current.offsetHeight - window.innerHeight;
+      // Subtracting a bit more than innerHeight to ensure we hit 1.0 even with minor scroll bounces
+      const docHeight = Math.max(containerRef.current.offsetHeight - window.innerHeight - 10, 1);
       const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
 
       setScrollProgress(progress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    // Trigger once on mount to set initial state
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -29,8 +61,8 @@ const Carnival = () => {
   const radius = Math.max(0, 24 * (1 - scrollProgress * 5));
   // Content opacity fades out as we zoom
   const contentOpacity = Math.max(0, 1 - scrollProgress * 4);
-  // Second page fades in at the end
-  const secondPageOpacity = Math.max(0, (scrollProgress - 0.8) * 5);
+  // Second page fades in starting at 0.7 progress and reaches full opacity early (0.9)
+  const secondPageOpacity = Math.min(Math.max(0, (scrollProgress - 0.7) * 5), 1);
   // Parallax offset
   const parallaxOffset = typeof window !== 'undefined' ? window.scrollY : 0;
 
@@ -79,32 +111,40 @@ const Carnival = () => {
                 { id: 1, label: 'DAY 1', color: '#00f0ff', title: 'CYBER INCEPTION' },
                 { id: 2, label: 'DAY 2', color: '#ff00cc', title: 'NEON NEXUS' },
                 { id: 3, label: 'DAY 3', color: '#7b2fff', title: 'VIRTUAL VOID' }
-              ].map((day) => (
-                <div
-                  key={day.id}
-                  className={`neon-bar ${activeDay === day.id ? 'expanded' : ''} ${activeDay && activeDay !== day.id ? 'shrunken' : ''}`}
-                  style={{ '--bar-color': day.color }}
-                  onClick={() => setActiveDay(day.id)}
-                >
-                  <div className="bar-label">{day.label}</div>
+              ].map((day) => {
+                const styles = getBarStyles(day.id);
+                return (
+                  <div
+                    key={day.id}
+                    className={`neon-bar ${activeDay === day.id ? 'expanded' : ''} ${activeDay && activeDay !== day.id ? 'shrunken' : ''}`}
+                    style={{
+                      '--bar-color': day.color,
+                      right: styles.right,
+                      width: styles.width,
+                      zIndex: styles.zIndex
+                    }}
+                    onClick={() => setActiveDay(day.id)}
+                  >
+                    <div className="bar-label">{day.label}</div>
 
-                  <div className="bar-content-overlay">
-                    <div className="bar-close" onClick={(e) => { e.stopPropagation(); setActiveDay(null); }}>×</div>
-                    <div className="expanded-inner-content">
-                      <h2 className="expanded-title" style={{ textShadow: `0 0 20px ${day.color}` }}>{day.title}</h2>
-                      <div className="expanded-details">
-                        <p>Deep dive into the {day.label} experience of IEEE Carnival.</p>
-                        <ul className="event-list">
-                          <li>10:00 AM - Tech Keynote</li>
-                          <li>02:00 PM - Workshop Series</li>
-                          <li>06:00 PM - Neon Party</li>
-                        </ul>
+                    <div className="bar-content-overlay">
+                      <div className="bar-close" onClick={(e) => { e.stopPropagation(); setActiveDay(null); }}>×</div>
+                      <div className="expanded-inner-content">
+                        <h2 className="expanded-title" style={{ textShadow: `0 0 20px ${day.color}` }}>{day.title}</h2>
+                        <div className="expanded-details">
+                          <p>Deep dive into the {day.label} experience of IEEE Carnival.</p>
+                          <ul className="event-list">
+                            <li>10:00 AM - Tech Keynote</li>
+                            <li>02:00 PM - Workshop Series</li>
+                            <li>06:00 PM - Neon Party</li>
+                          </ul>
+                        </div>
+                        <div className="mini-grid-floor" />
                       </div>
-                      <div className="mini-grid-floor" />
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             <div className="return-button-wrapper" style={{ opacity: activeDay ? 0 : 1 }}>
