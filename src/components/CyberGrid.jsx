@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 
-const CyberGrid = () => {
+const CyberGrid = ({ parallaxOffset = 0 }) => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     let animationFrameId;
 
@@ -31,13 +32,14 @@ const CyberGrid = () => {
       const horizon = h * 0.4;
       ctx.lineWidth = 1;
 
-      // Draw horizontal lines with perspective
+      // Draw horizontal lines with perspective and parallax
       for (let i = 0; i < 20; i++) {
-        const yOffset = (i * gridSpacing + offset) % (h - horizon);
+        // Apply parallaxOffset here
+        const yOffset = (i * gridSpacing + offset + parallaxOffset * 0.5) % (h - horizon);
         const y = horizon + yOffset;
         
         // Calculate opacity based on distance from horizon
-        const progress = yOffset / (h - horizon);
+        const progress = Math.max(0, Math.min(1, yOffset / (h - horizon)));
         const opacity = Math.pow(progress, 2);
         
         ctx.strokeStyle = `rgba(153, 51, 255, ${opacity * 0.5})`; // Purple base
@@ -99,7 +101,7 @@ const CyberGrid = () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', handleResize);
     };
-  }, []);
+  }, [parallaxOffset]);
 
   return (
     <canvas
