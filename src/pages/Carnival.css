@@ -11,8 +11,12 @@
   position: relative;
   overflow: hidden;
   
-  /* Balatro Background will handle the dynamic visuals */
-  background-color: #050505; 
+  /* Use the new tech background matching reference */
+  background-image: url('../assets/backgrounds/carnival-tech-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .carnival-content {
@@ -21,25 +25,55 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 20px;
 }
 
-.carnival-title {
-  margin: 0;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.carnival-title-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
 }
 
-.carnival-dates {
-  color: #B06A3C; /* Golden Ochre */
-  margin: 0;
-  font-weight: 500;
-  font-size: 1.5rem;
-  letter-spacing: 1px;
+.ieee-pink {
+  color: #ff00ff; /* Vibrant Pink */
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.2rem;
+  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
 }
+
+.carnival-blue {
+  color: #5eb8ff; /* Light Blue */
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 400;
+  font-family: 'Times New Roman', serif; /* Serif as per reference */
+  letter-spacing: 0.1rem;
+  margin-top: -1rem;
+  text-shadow: 0 0 30px rgba(94, 184, 255, 0.4);
+}
+
+.date-pill-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.date-pill {
+  background: #ff00ff; /* Pink pill */
+  color: white;
+  padding: 0.6rem 2.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+}
+
+/* Old classes cleaned up */
+.carnival-title { display: none; }
+.carnival-dates { display: none; }
 
 @keyframes shine {
   to {
