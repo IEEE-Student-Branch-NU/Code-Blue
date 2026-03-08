@@ -10,6 +10,7 @@ import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
+const Carnival = React.lazy(() => import('./pages/Carnival'))
 
 const menuItems = [
   { label: "Home", link: "/" },
@@ -18,6 +19,7 @@ const menuItems = [
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
+  { label: "Carnival", link: "/carnival" },
 ];
 
 const socialItems = [
@@ -57,6 +59,11 @@ const App = () => {
           <Route path="/code-blue" element={
             <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
               <CodeBlue />
+            </Suspense>
+          } />
+          <Route path="/carnival" element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+              <Carnival />
             </Suspense>
           } />
 

@@ -1,0 +1,49 @@
+/* src/components/ElectricBorder.css */
+
+.electric-border-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 2px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.electric-border-animated {
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 300%;
+  height: 300%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 120deg,
+    #ffffff 180deg,
+    transparent 240deg,
+    transparent 360deg
+  );
+  animation: electric-spin 3s linear infinite;
+  z-index: 0;
+}
+
+.electric-border-inner {
+  position: relative;
+  z-index: 1;
+  background: #0a0a0c;
+  border-radius: 10px;
+  padding: 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes electric-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
