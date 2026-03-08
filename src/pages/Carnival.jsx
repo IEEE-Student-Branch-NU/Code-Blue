@@ -1,19 +1,15 @@
 import React from 'react';
 import './Carnival.css';
 import ElectricBorderCard from '../components/ElectricBorder';
-import Balatro from '../components/Balatro';
-
-import CarnivalFlashcard from '../assets/carnival-flashcard.png';
+import Starfield from '../components/Starfield';
 
 const Carnival = () => {
   return (
     <div className="carnival-container">
-      <Balatro 
-        color1="#FF00FF" /* Neon Pink */
-        color2="#5EB8FF" /* Light Blue */
-        color3="#442266" /* Deep Purple */
-        spinSpeed={1.0}
-        contrast={1.2}
+      <Starfield 
+        starCount={1500}
+        speed={0.07}
+        colors={['#FF00FF', '#5EB8FF', '#9933FF']}
       />
       <div className="carnival-content" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
         <ElectricBorderCard>
