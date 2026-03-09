@@ -47,9 +47,8 @@
   flex-direction: column;
   align-items: center;
   max-width: 900px;
-  padding: 40px;
-  background: #050505;
-  /* Black background inside the card */
+  padding: 0; /* Removed padding for the request to remove card */
+  background: transparent; /* Removed background for the request to remove card */
   border-radius: inherit;
   opacity: var(--content-opacity, 1);
 }
@@ -81,23 +80,29 @@
 }
 
 .ieee-pink {
-  color: #ff00ff;
-  /* Vibrant Pink */
+  color: #FF2E93; /* Final requested vibrant pink */
   font-size: clamp(2rem, 6vw, 4rem);
   font-weight: 900;
   letter-spacing: 0.2rem;
-  text-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+  text-shadow: 0 0 20px rgba(255, 46, 147, 0.5);
+  transition: all 0.3s ease;
 }
 
 .carnival-blue {
-  color: #5eb8ff;
-  /* Light Blue */
+  color: #FF2E93; /* Final requested vibrant pink */
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: 400;
   font-family: 'Times New Roman', serif;
   letter-spacing: 0.1rem;
   margin-top: -1rem;
-  text-shadow: 0 0 30px rgba(94, 184, 255, 0.4);
+  text-shadow: 0 0 30px rgba(255, 46, 147, 0.4);
+  transition: all 0.3s ease;
+}
+
+.encrypted {
+  color: rgba(255, 255, 255, 0.3);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+  filter: blur(1px);
 }
 
 .date-pill-container {
@@ -107,14 +112,16 @@
 }
 
 .date-pill {
-  background: #ff00ff;
-  /* Pink pill */
-  color: white;
+  color: #FF2E93; /* Match title */
   padding: 0.6rem 2.5rem;
-  border-radius: 50px;
   font-weight: 700;
-  font-size: 1.2rem;
-  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3);
+  font-size: 1.5rem;
+  text-shadow: 0 0 15px rgba(255, 46, 147, 0.3);
+}
+
+.encrypted-date {
+  color: rgba(255, 255, 255, 0.5);
+  opacity: 0.7;
 }
 
 .tech-title {
