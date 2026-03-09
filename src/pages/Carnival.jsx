@@ -2,34 +2,39 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Carnival.css';
 import Balatro from '../components/Balatro';
 import DecryptedText from '../components/DecryptedText';
+import FluidCanvas from '../components/FluidCanvas'; // Ensure you import the new component
 
 const Carnival = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [activeDay, setActiveDay] = useState(null);
+
   const containerRef = useRef(null);
+  const portalRef = useRef(null);
+  const contentRef = useRef(null);
+  const secondPageRef = useRef(null);
+
+  const rafId = useRef(null);
+  const isIntersecting = useRef(false);
 
   const getBarStyles = (id) => {
     const isExpanded = activeDay === id;
 
     let right = '0px';
-    // Use the actual CSS width of 60px
-    let width = '60px';
+    let width = '70px'; // base width (increased from 60px)
     let zIndex = 10;
 
     if (!activeDay) {
-      if (id === 1) right = '120px';
-      if (id === 2) right = '60px';
+      if (id === 1) right = '140px';
+      if (id === 2) right = '70px';
       if (id === 3) right = '0px';
     } else {
       if (isExpanded) {
-        width = 'calc(100vw - 120px)'; // Account for the two shrunken bars
-        right = '120px';
+        width = 'calc(100vw - 140px)'; // Account for the two shrunken bars (2 * 70px)
+        right = '140px';
         zIndex = 20;
       } else {
         const shrunkenIds = [1, 2, 3].filter(x => x !== activeDay);
-        // Ensure shrunken bars maintain the 60px width or shrink naturally
-        width = '60px';
-        if (id === shrunkenIds[0]) right = '60px';
+        width = '70px';
+        if (id === shrunkenIds[0]) right = '70px';
         if (id === shrunkenIds[1]) right = '0px';
       }
     }
@@ -37,38 +42,82 @@ const Carnival = () => {
     return { right, width, zIndex };
   };
 
+  // The buttery smooth requestAnimationFrame loop
+  const updateScroll = () => {
+    if (!isIntersecting.current || !containerRef.current) return;
+
+    const scrollTop = window.scrollY;
+    // Calculate document height mapping robustly
+    const docHeight = Math.max(containerRef.current.offsetHeight - window.innerHeight, 1);
+
+    // Clamp progress strictly between 0 and 1
+    const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+
+    // Calculate transforms
+    const scale = 1 + progress * 50;
+    const radius = Math.max(0, 24 * (1 - progress * 5));
+    const contentOpacity = Math.max(0, 1 - progress * 4);
+
+    // Smoothly fade in second page later in the scroll
+    const secondPageOpacity = Math.min(Math.max(0, (progress - 0.7) * 5), 1);
+
+    // Apply styles directly to refs for maximum performance (bypassing React render cycle)
+    if (portalRef.current) {
+      portalRef.current.style.transform = `scale(${scale}) translateZ(0)`;
+      portalRef.current.style.borderRadius = `${radius}px`;
+      // Darken background dynamically based on progress
+      portalRef.current.style.background = progress > 0.5 ? '#050505' : 'transparent';
+      portalRef.current.style.boxShadow = `0 0 100px rgba(0, 0, 0, ${progress * 0.8})`;
+    }
+
+    if (contentRef.current) {
+      contentRef.current.style.opacity = contentOpacity;
+    }
+
+    if (secondPageRef.current) {
+      secondPageRef.current.style.opacity = secondPageOpacity;
+      secondPageRef.current.style.pointerEvents = secondPageOpacity > 0.5 ? 'all' : 'none';
+    }
+
+    rafId.current = requestAnimationFrame(updateScroll);
+  };
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
+    // Force a scroll to top on mount so the animation starts correctly
+    window.scrollTo(0, 0);
 
-      const scrollTop = window.scrollY;
-      // Subtracting a bit more than innerHeight to ensure we hit 1.0 even with minor scroll bounces
-      const docHeight = Math.max(containerRef.current.offsetHeight - window.innerHeight - 10, 1);
-      const progress = Math.min(Math.max(scrollTop / docHeight, 0), 1);
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isIntersecting.current = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          // Kickstart the rAF loop when container is visible
+          rafId.current = requestAnimationFrame(updateScroll);
+        } else if (rafId.current) {
+          // Pause rAF when out of view
+          cancelAnimationFrame(rafId.current);
+        }
+      },
+      { threshold: 0 } // Trigger as soon as 1px is visible
+    );
 
-      setScrollProgress(progress);
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    // Force an initial update
+    isIntersecting.current = true;
+    updateScroll();
+
+    return () => {
+      observer.disconnect();
+      if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    // Trigger once on mount to set initial state
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // Scale from 1 to 50
-  const scale = 1 + scrollProgress * 50;
-  // Radius from 24 to 0
-  const radius = Math.max(0, 24 * (1 - scrollProgress * 5));
-  // Content opacity fades out as we zoom
-  const contentOpacity = Math.max(0, 1 - scrollProgress * 4);
-  // Second page fades in starting at 0.7 progress and reaches full opacity early (0.9)
-  const secondPageOpacity = Math.min(Math.max(0, (scrollProgress - 0.7) * 5), 1);
-  // Parallax offset
-  const parallaxOffset = typeof window !== 'undefined' ? window.scrollY : 0;
 
   return (
     <div className="carnival-scroll-container" ref={containerRef}>
       <div className="carnival-sticky-viewport">
+        {/* We keep Balatro as the initial entrance background */}
         <Balatro
           color1="#241138"
           color2="#3A1B5C"
@@ -80,14 +129,14 @@ const Carnival = () => {
         <div className="carnival-container">
           <div
             className="portal-card-wrapper"
-            style={{
-              '--portal-scale': scale,
-              '--portal-radius': `${radius}px`,
-              '--portal-shadow': scrollProgress * 0.8,
-              '--portal-bg': scrollProgress > 0.5 ? '#050505' : 'transparent'
-            }}
+            ref={portalRef}
+            style={{ willChange: 'transform, border-radius', transform: 'translateZ(0)' }}
           >
-            <div className="carnival-content" style={{ '--content-opacity': contentOpacity, padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
+            <div
+              className="carnival-content"
+              ref={contentRef}
+              style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none', willChange: 'opacity' }}
+            >
               <h1 className="carnival-title-new">
                 <DecryptedText
                   text="IEEE"
@@ -109,21 +158,24 @@ const Carnival = () => {
 
           <div
             className="second-page-content"
-            style={{
-              '--second-page-opacity': secondPageOpacity,
-              '--second-page-events': secondPageOpacity > 0.5 ? 'all' : 'none'
-            }}
+            ref={secondPageRef}
+            style={{ willChange: 'opacity' }}
           >
+            {/* New Fluid Marble Background Effect */}
             <div className="retro-bg-effects">
-              <div className="retro-radial-glow" />
-              <div className="retro-perspective-grid" />
+              <FluidCanvas />
+            </div>
+
+            <div className="hero-text-block">
+              <h2 className="hero-main-text">Three Days of the Extraordinary</h2>
+              <div className="hero-sub-text">27th – 29th March · IEEE Carnival</div>
             </div>
 
             <div className="schedule-bars-container">
               {[
-                { id: 1, label: 'DAY 1', color: '#00f0ff', title: 'CYBER INCEPTION' },
-                { id: 2, label: 'DAY 2', color: '#ff00cc', title: 'NEON NEXUS' },
-                { id: 3, label: 'DAY 3', color: '#7b2fff', title: 'VIRTUAL VOID' }
+                { id: 1, label: 'DAY 1', color: '#ff1a6e', title: 'CYBER INCEPTION' },
+                { id: 2, label: 'DAY 2', color: '#ff1a6e', title: 'LIQUID DREAMS' },
+                { id: 3, label: 'DAY 3', color: '#ff1a6e', title: 'VIRTUAL VOID' }
               ].map((day) => {
                 const styles = getBarStyles(day.id);
                 return (
@@ -143,7 +195,7 @@ const Carnival = () => {
                     <div className="bar-content-overlay">
                       <div className="bar-close" onClick={(e) => { e.stopPropagation(); setActiveDay(null); }}>×</div>
                       <div className="expanded-inner-content">
-                        <h2 className="expanded-title" style={{ textShadow: `0 0 20px ${day.color}` }}>{day.title}</h2>
+                        <h2 className="expanded-title">{day.title}</h2>
                         <div className="expanded-details">
                           <p>Deep dive into the {day.label} experience of IEEE Carnival.</p>
                           <ul className="event-list">
@@ -152,7 +204,14 @@ const Carnival = () => {
                             <li>06:00 PM - Neon Party</li>
                           </ul>
                         </div>
-                        <div className="mini-grid-floor" />
+                        <div className="panel-return-wrapper">
+                          <button
+                            className="return-link"
+                            onClick={(e) => { e.stopPropagation(); setActiveDay(null); }}
+                          >
+                            ← Back to Schedule
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -162,11 +221,11 @@ const Carnival = () => {
 
             <div className="return-button-wrapper" style={{ opacity: activeDay ? 0 : 1 }}>
               <button
-                className="date-pill"
+                className="return-link"
                 style={{ border: 'none', cursor: 'pointer', outline: 'none' }}
                 onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
-                Return to Entrance
+                ← Return to Entrance
               </button>
             </div>
           </div>
@@ -177,3 +236,4 @@ const Carnival = () => {
 };
 
 export default Carnival;
+
