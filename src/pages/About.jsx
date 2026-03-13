@@ -8,7 +8,7 @@ import Squares from '../components/Backgrounds/Squares/Squares'
 const alumniImages = [
     { image: '/Alumini/alay.webp', text: 'Alay' },
     { image: '/Alumini/chinmay.webp', text: 'Chinmay' },
-    { image: '/Alumini/jaival.png', text: 'Jaival' },
+    { image: '/Alumini/jaival.webp', text: 'Jaival' },
     { image: '/Alumini/kajal.webp', text: 'Kajal' },
     { image: '/Alumini/khushi-patel.webp', text: 'Khushi Patel' },
     { image: '/Alumini/khushi-shah.webp', text: 'Khushi Shah' },
@@ -220,8 +220,8 @@ const About = () => {
                                         handle="manishashah"
                                         status="MENTOR"
                                         contactText="Connect"
-                                        avatarUrl="/manisha-shah-card.png"
-                                        miniAvatarUrl="/manisha-shah.png"
+                                        avatarUrl="/manisha-shah-card.webp"
+                                        miniAvatarUrl="/manisha-shah.webp"
                                         showUserInfo
                                         enableTilt={true}
                                         behindGlowEnabled={true}

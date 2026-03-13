@@ -30,7 +30,7 @@ const SubChapterCard = ({ title, logo, content, variant, link }) => {
 
     return (
         <motion.div
-            className="sub-chapter-card"
+            className={`sub-chapter-card ${variant || ''}`}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
@@ -55,7 +55,7 @@ const SubChapterCard = ({ title, logo, content, variant, link }) => {
                     className="sc-logo"
                     onError={(e) => {
                         e.target.style.display = 'none';
-                        e.target.parentElement.innerHTML = '<span style="color: #5eb8ff; font-weight: 900;">LOGO</span>';
+                        e.target.parentElement.innerHTML = '<span style="color: var(--theme-color); font-weight: 900;">LOGO</span>';
                     }}
                 />
             </motion.div>

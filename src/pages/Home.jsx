@@ -51,6 +51,12 @@ const subChapterCards = [
         logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
         variant: "itss"
+    },
+    {
+        title: "IEEE Women in Engineering (WIE)",
+        logo: "/Docs/ieee-wie-logo.webp",
+        content: "Promotes women engineers and scientists, inspiring young women to follow their academic interests to a career in engineering.",
+        variant: "wie"
     }
 ]
 
@@ -110,10 +116,12 @@ const cardStyles = {
 const Home = () => {
     const cardsRef = useRef([])
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
+    const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
 
     useEffect(() => {
         const handleResize = () => {
             setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
+            setIsDesktop(window.innerWidth >= 1024);
         };
         window.addEventListener('resize', handleResize);
 
@@ -166,7 +174,7 @@ const Home = () => {
                 overflow: 'hidden',
             }}>
                 <GridDistortion
-                    imageSrc="/hero.png"
+                    imageSrc="/hero.webp"
                     grid={20}
                     mouse={0.15}
                     strength={0.1}
@@ -254,12 +262,13 @@ const Home = () => {
                 </div>
             </div>
 
+
             {/* Scroll Velocity Section */}
             <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
-                        "IEEE SBNU • OUR SUBCHAPTERS •",
-                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT •"
+                        "IEEE SBNU • OUR SUBCHAPTERS • IEEE SBNU • OUR SUBCHAPTERS •",
+                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT • IEEE WIE • IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT • IEEE WIE •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"
@@ -284,6 +293,7 @@ const Home = () => {
                     zIndex: 1,
                     display: 'grid',
                     gridTemplateColumns: gridCols,
+                    gridAutoRows: isDesktop ? '1fr' : 'auto',
                     gap: 'clamp(30px, 8vw, 60px)',
                     padding: '0 clamp(20px, 5vw, 40px)',
                     maxWidth: '1300px',
@@ -297,11 +307,14 @@ const Home = () => {
                             key={index}
                             ref={el => cardsRef.current[infoCards.length + 2 + index] = el}
                             style={{
-                                width: '100%',
+                                width: (isDesktop && subChapterCards.length % 2 !== 0 && index === subChapterCards.length - 1) 
+                                    ? 'calc(50% - clamp(15px, 4vw, 30px))' 
+                                    : '100%',
                                 maxWidth: '560px',
                                 margin: 0,
                                 opacity: 0, // Initial state for GSAP
-                                transform: 'translateY(60px)' // Initial state for GSAP
+                                transform: 'translateY(60px)', // Initial state for GSAP
+                                ...(isDesktop && subChapterCards.length % 2 !== 0 && index === subChapterCards.length - 1 ? { gridColumn: '1 / -1' } : {})
                             }}
                         >
                             <SubChapterCard
@@ -320,8 +333,8 @@ const Home = () => {
             <div style={{ padding: '0 0 60px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
-                        "LIVE IN FUTURE • JOIN THE REVOLUTION •",
-                        "IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY •"
+                        "LIVE IN FUTURE • JOIN THE REVOLUTION • LIVE IN FUTURE • JOIN THE REVOLUTION •",
+                        "IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY • IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"

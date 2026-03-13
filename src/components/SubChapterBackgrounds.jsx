@@ -352,6 +352,58 @@ const ITSSNetwork = () => {
     return <canvas ref={canvasRef} style={canvasStyle} />;
 };
 
+/* ─── WIE: Particle Flow ─────────────────────────────────────── */
+const WIEParticles = () => {
+    const canvasRef = useRef(null);
+
+    useEffect(() => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+
+        const resize = () => {
+            canvas.width = canvas.parentElement.offsetWidth;
+            canvas.height = canvas.parentElement.offsetHeight;
+        };
+        resize();
+        window.addEventListener('resize', resize);
+
+        const particles = Array.from({ length: 60 }, () => ({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 2 + 0.5,
+            speedX: (Math.random() - 0.5) * 0.6,
+            speedY: (Math.random() - 0.5) * 0.6,
+            opacity: Math.random() * 0.4 + 0.1
+        }));
+
+        let t = 0;
+        const draw = () => {
+            t += 0.01;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((p, i) => {
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0) p.x = canvas.width;
+                if (p.x > canvas.width) p.x = 0;
+                if (p.y < 0) p.y = canvas.height;
+                if (p.y > canvas.height) p.y = 0;
+
+                ctx.fillStyle = `rgba(113, 34, 128, ${Math.max(0, p.opacity + Math.sin(t + i) * 0.2)})`;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(draw);
+        };
+        const animId = requestAnimationFrame(draw);
+        return () => { cancelAnimationFrame(animId); window.removeEventListener('resize', resize); };
+    }, []);
+
+    return <canvas ref={canvasRef} style={canvasStyle} />;
+};
+
 /* ─── Switcher ────────────────────────────────────────────────── */
 const SubChapterBackgrounds = ({ variant }) => {
     switch (variant) {
@@ -363,6 +415,8 @@ const SubChapterBackgrounds = ({ variant }) => {
             return <SIGHTGlobe />;
         case 'itss':
             return <ITSSNetwork />;
+        case 'wie':
+            return <WIEParticles />;
         default:
             return null;
     }

@@ -28,7 +28,7 @@ const boardMembers = [
         id: 3,
         name: "Prachit Bhavsar",
         role: "Executive Chair",
-        image: "/Board/Prachit.PNG",
+        image: "/Board/Prachit.webp",
         description: "Steering executive operations and driving cross-functional coordination for the branch.",
         socials: {
             linkedin: "https://www.linkedin.com/in/prachitbhavsar"
