@@ -6,16 +6,16 @@ import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 
 const alumniImages = [
-    { image: '/Alumini/alay.jpg', text: 'Alay' },
-    { image: '/Alumini/chinmay.jpg', text: 'Chinmay' },
-    { image: '/Alumini/jaival.png', text: 'Jaival' },
-    { image: '/Alumini/kajal.jpg', text: 'Kajal' },
-    { image: '/Alumini/khushi-patel.jpg', text: 'Khushi Patel' },
-    { image: '/Alumini/khushi-shah.jpg', text: 'Khushi Shah' },
-    { image: '/Alumini/lakshin.jpg', text: 'Lakshin' },
-    { image: '/Alumini/tanisha.jpg', text: 'Tanisha' },
-    { image: '/Alumini/vartika.jpg', text: 'Vartika' },
-    { image: '/Alumini/vrushank.jpg', text: 'Vrushank' },
+    { image: '/Alumini/alay.webp', text: 'Alay' },
+    { image: '/Alumini/chinmay.webp', text: 'Chinmay' },
+    { image: '/Alumini/jaival.webp', text: 'Jaival' },
+    { image: '/Alumini/kajal.webp', text: 'Kajal' },
+    { image: '/Alumini/khushi-patel.webp', text: 'Khushi Patel' },
+    { image: '/Alumini/khushi-shah.webp', text: 'Khushi Shah' },
+    { image: '/Alumini/lakshin.webp', text: 'Lakshin' },
+    { image: '/Alumini/tanisha.webp', text: 'Tanisha' },
+    { image: '/Alumini/vartika.webp', text: 'Vartika' },
+    { image: '/Alumini/vrushank.webp', text: 'Vrushank' },
 ];
 
 const objectivesData = [
@@ -220,8 +220,8 @@ const About = () => {
                                         handle="manishashah"
                                         status="MENTOR"
                                         contactText="Connect"
-                                        avatarUrl="/manisha-shah-card.png"
-                                        miniAvatarUrl="/manisha-shah.png"
+                                        avatarUrl="/manisha-shah-card.webp"
+                                        miniAvatarUrl="/manisha-shah.webp"
                                         showUserInfo
                                         enableTilt={true}
                                         behindGlowEnabled={true}

@@ -29,32 +29,32 @@ const infoCards = [
 const subChapterCards = [
     {
         title: "IEEE Computer Society (CS)",
-        logo: "/ieee-cs-logo.jpeg",
+        logo: "/ieee-cs-logo.webp",
         content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards.",
         variant: "cs"
     },
     {
         title: "IEEE Special Interest Group on Humanitarian Technology (SIGHT)",
-        logo: "/ieee-sight-logo.jpeg",
+        logo: "/ieee-sight-logo.webp",
         content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide.",
         variant: "sight",
         link: "https://ignite-humanity-web.vercel.app/"
     },
     {
         title: "IEEE Signal Processing Society (SPS)",
-        logo: "/ieee-sps-logo.jpeg",
+        logo: "/ieee-sps-logo.webp",
         content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems.",
         variant: "sps"
     },
     {
         title: "IEEE Intelligent Transportation Systems Society (ITSS)",
-        logo: "/ieee-itss-logo.jpg",
+        logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
         variant: "itss"
     },
     {
         title: "IEEE Women in Engineering (WIE)",
-        logo: "/Docs/ieee-wie-logo.png",
+        logo: "/Docs/ieee-wie-logo.webp",
         content: "Promotes women engineers and scientists, inspiring young women to follow their academic interests to a career in engineering.",
         variant: "wie"
     }
@@ -174,7 +174,7 @@ const Home = () => {
                 overflow: 'hidden',
             }}>
                 <GridDistortion
-                    imageSrc="/hero.png"
+                    imageSrc="/hero.webp"
                     grid={20}
                     mouse={0.15}
                     strength={0.1}
