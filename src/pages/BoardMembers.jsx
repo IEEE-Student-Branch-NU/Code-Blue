@@ -8,7 +8,7 @@ const boardMembers = [
         id: 1,
         name: "Madhav Maheshwari",
         role: "Chair",
-        image: "/Board/Madhav Maheshwari.jpeg",
+        image: "/Board/Madhav Maheshwari.webp",
         description: "Leading the core committee with a focus on strategic growth and innovation.",
         socials: {
             linkedin: "https://www.linkedin.com/in/madhav-maheshwari-aa959225b"
@@ -18,7 +18,7 @@ const boardMembers = [
         id: 2,
         name: "Himay Shah",
         role: "Vice Chair",
-        image: "/Board/Himay Shah.jpeg",
+        image: "/Board/Himay Shah.webp",
         description: "Assisting the Chair in strategic operations and organizational development.",
         socials: {
             linkedin: "https://www.linkedin.com/in/himay-shah-43484a241"
@@ -38,7 +38,7 @@ const boardMembers = [
         id: 4,
         name: "Anushka Singh",
         role: "General Secretary",
-        image: "/Board/Anushka Singh.jpeg",
+        image: "/Board/Anushka Singh.webp",
         description: "Overseeing general administration and coordinating between various departments.",
         socials: {
             linkedin: "https://www.linkedin.com/in/anushka-singh-893932299/"
@@ -48,7 +48,7 @@ const boardMembers = [
         id: 5,
         name: "Tanay Vora",
         role: "Joint Secretary",
-        image: "/Board/Tanay Vora.jpeg",
+        image: "/Board/Tanay Vora.webp",
         description: "Supporting the General Secretary in administrative tasks and communication.",
         socials: {
             linkedin: "https://www.linkedin.com/in/tanay-vora-04543a288"
@@ -58,7 +58,7 @@ const boardMembers = [
         id: 6,
         name: "Tanay Parikh",
         role: "Treasurer",
-        image: "/Board/Tanay Parikh.jpeg",
+        image: "/Board/Tanay Parikh.webp",
         description: "Managing financial records and ensuring fiscal accountability for the organization.",
         socials: {
             linkedin: "https://www.linkedin.com/in/tanay-m-parikh"
@@ -68,7 +68,7 @@ const boardMembers = [
         id: 7,
         name: "Dweep Patel",
         role: "Joint Treasurer",
-        image: "/Board/Dweep Patel.jpeg",
+        image: "/Board/Dweep Patel.webp",
         description: "Assisting the Treasurer in financial planning and budget management.",
         socials: {
             linkedin: "https://www.linkedin.com/in/dweeppatel92"
@@ -78,7 +78,7 @@ const boardMembers = [
         id: 8,
         name: "Vraj Talati",
         role: "Technical Head",
-        image: "/Board/Vraj Talati.jpeg",
+        image: "/Board/Vraj Talati.webp",
         description: "Leading the technical strategy and overseeing the development of core infrastructure.",
         socials: {
             linkedin: "https://www.linkedin.com/in/vrajtalati"
@@ -88,7 +88,7 @@ const boardMembers = [
         id: 9,
         name: "Rudra Patel",
         role: "Technical Head",
-        image: "/Board/Rudra Patel.jpeg",
+        image: "/Board/Rudra Patel.webp",
         description: "Driving architectural decisions and ensuring technical excellence across projects.",
         socials: {
             linkedin: "https://www.linkedin.com/in/rudra-patel-045b20335"
@@ -98,7 +98,7 @@ const boardMembers = [
         id: 10,
         name: "Dharm Mankad",
         role: "Technical Head",
-        image: "/Board/Dharm Mankad.jpeg",
+        image: "/Board/Dharm Mankad.webp",
         description: "Managing technical teams and implementing scalable technology solutions.",
         socials: {
             linkedin: "https://www.linkedin.com/in/dharmmankad"
@@ -108,7 +108,7 @@ const boardMembers = [
         id: 11,
         name: "Kashvi Patel",
         role: "Social Media Head",
-        image: "/Board/Kashvi Patel.jpeg",
+        image: "/Board/Kashvi Patel.webp",
         description: "Leading social media strategy and enhancing the organization's digital presence.",
         socials: {
             linkedin: "https://www.linkedin.com/in/kashvi-patel-74b58b339"
@@ -118,7 +118,7 @@ const boardMembers = [
         id: 12,
         name: "Anany Kelotra",
         role: "Social Media Head",
-        image: "/Board/Anany Kelotra.jpeg",
+        image: "/Board/Anany Kelotra.webp",
         description: "Coordinating social media campaigns and engaging with our global community.",
         socials: {
             linkedin: "https://www.linkedin.com/in/anany-kelotra-49ab6a237"
@@ -128,7 +128,7 @@ const boardMembers = [
         id: 13,
         name: "Prathama Gajjar",
         role: "Creative Head",
-        image: "/Board/Prathama.jpeg",
+        image: "/Board/Prathama.webp",
         description: "Shaping the visual identity and driving creative excellence across all platforms.",
         socials: {
             linkedin: "https://www.linkedin.com/in/prathama-gajjar-523432322"
@@ -138,7 +138,7 @@ const boardMembers = [
         id: 14,
         name: "Kanak Agarwal",
         role: "Creative Head",
-        image: "/Board/Kanak.jpeg",
+        image: "/Board/Kanak.webp",
         description: "Leading design innovation and crafting immersive user experiences.",
         socials: {
             linkedin: "https://www.linkedin.com/in/kanak-agrawal-47411333a"
@@ -148,7 +148,7 @@ const boardMembers = [
         id: 15,
         name: "Vaidehi Vora",
         role: "Creative Head",
-        image: "/Board/Vaidehi.jpeg",
+        image: "/Board/Vaidehi.webp",
         description: "Managing creative workflows and ensuring brand consistency in every asset.",
         socials: {
             linkedin: "https://www.linkedin.com/in/vaidehi-vora"
@@ -158,7 +158,7 @@ const boardMembers = [
         id: 16,
         name: "Rishwa Chhaya",
         role: "Content & Editorial Head",
-        image: "/Board/Rishwa Chhaya.jpeg",
+        image: "/Board/Rishwa Chhaya.webp",
         description: "Overseeing content strategy and ensuring editorial excellence across all publications.",
         socials: {
             linkedin: "https://www.linkedin.com/in/rishwa-u-chhaya-720401334"
@@ -168,7 +168,7 @@ const boardMembers = [
         id: 17,
         name: "Divy Prajapati",
         role: "Content & Editorial Head",
-        image: "/Board/Divy Prajapati.jpeg",
+        image: "/Board/Divy Prajapati.webp",
         description: "Managing editorial workflows and delivering high-quality content for our community.",
         socials: {
             linkedin: "#",
@@ -179,7 +179,7 @@ const boardMembers = [
         id: 18,
         name: "Angel Shukla",
         role: "Student Branch Representative",
-        image: "/Board/Angel Shukla.jpeg",
+        image: "/Board/Angel Shukla.webp",
         description: "Representing the student branch and fostering engagement between students and the management board.",
         socials: {
             linkedin: "https://www.linkedin.com/in/angel-shukla-145213322"
@@ -189,7 +189,7 @@ const boardMembers = [
         id: 19,
         name: "Dev Shah",
         role: "Student Branch Representative",
-        image: "/Board/Dev Shah.jpeg",
+        image: "/Board/Dev Shah.webp",
         description: "Facilitating communication within the student branch and supporting organizational initiatives.",
         socials: {
             linkedin: "https://www.linkedin.com/in/devshah-ds"
@@ -199,7 +199,7 @@ const boardMembers = [
         id: 20,
         name: "Lakshya Jain",
         role: "Membership & Sponsorship Head",
-        image: "/Board/Lakshya Jain.jpeg",
+        image: "/Board/Lakshya Jain.webp",
         description: "Leading membership development and coordinating sponsorship operations for the organization.",
         socials: {
             linkedin: "https://www.linkedin.com/in/lakshya-jain-402473369"
@@ -209,7 +209,7 @@ const boardMembers = [
         id: 21,
         name: "Malhar S Ugrejeeya",
         role: "Membership & Sponsorship Head",
-        image: "/Board/Malhar S Ugrejeeya.jpeg",
+        image: "/Board/Malhar S Ugrejeeya.webp",
         description: "Driving growth through membership initiatives and optimizing sponsorship workflows.",
         socials: {
             linkedin: "https://www.linkedin.com/in/malhar-ugrejeeya-b17b00279"
