@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
+import GridScan from '../components/GridScan'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
@@ -117,11 +118,17 @@ const Home = () => {
     const cardsRef = useRef([])
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
+    const [gridScanHeight, setGridScanHeight] = React.useState(
+        window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
+    )
 
     useEffect(() => {
         const handleResize = () => {
             setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
             setIsDesktop(window.innerWidth >= 1024);
+            setGridScanHeight(
+                window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
+            );
         };
         window.addEventListener('resize', handleResize);
 
@@ -262,6 +269,21 @@ const Home = () => {
                 </div>
             </div>
 
+            {/* GridScan Section */}
+            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
+                <GridScan
+                    sensitivity={0.55}
+                    lineThickness={1}
+                    linesColor="#392e4e"
+                    gridScale={0.1}
+                    scanColor="#FF9FFC"
+                    scanOpacity={0.4}
+                    enablePost
+                    bloomIntensity={0.6}
+                    chromaticAberration={0.002}
+                    noiseIntensity={0.01}
+                />
+            </div>
 
             {/* Scroll Velocity Section */}
             <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>

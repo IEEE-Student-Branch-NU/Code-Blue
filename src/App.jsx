@@ -16,10 +16,10 @@ const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Join Us", link: "/join-us" },
+  { label: "Carnival", link: "/carnival", style: { color: '#9B59B6' } },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
-  { label: "Carnival", link: "/carnival" },
 ];
 
 const socialItems = [

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpeed = 2 }) => {
     const [displayText, setDisplayText] = useState(text);
@@ -6,7 +6,7 @@ const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpe
 
     const chars = '!@#$%^&*()_+-=[]{}|;:,.<>?/0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    const scramble = () => {
+    const scramble = useCallback(() => {
         let iteration = 0;
         clearInterval(intervalRef.current);
 
@@ -29,13 +29,13 @@ const TextScramble = ({ text, className = '', as = 'span', speed = 50, revealSpe
 
             iteration += 1 / revealSpeed;
         }, speed);
-    };
+    }, [text, revealSpeed, speed]);
 
     useEffect(() => {
         // Scramble on mount
         scramble();
         return () => clearInterval(intervalRef.current);
-    }, [text]);
+    }, [scramble]);
 
     const handleMouseEnter = () => {
         scramble();

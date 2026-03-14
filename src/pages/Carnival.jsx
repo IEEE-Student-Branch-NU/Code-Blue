@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './Carnival.css';
 import Balatro from '../components/Balatro';
 import DecryptedText from '../components/DecryptedText';
@@ -43,7 +43,7 @@ const Carnival = () => {
   };
 
   // The buttery smooth requestAnimationFrame loop
-  const updateScroll = () => {
+  const updateScroll = useCallback(() => {
     if (!isIntersecting.current || !containerRef.current) return;
 
     const scrollTop = window.scrollY;
@@ -80,7 +80,7 @@ const Carnival = () => {
     }
 
     rafId.current = requestAnimationFrame(updateScroll);
-  };
+  }, []);
 
   useEffect(() => {
     // Force a scroll to top on mount so the animation starts correctly
@@ -112,7 +112,7 @@ const Carnival = () => {
       observer.disconnect();
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, []);
+  }, [updateScroll]);
 
   return (
     <div className="carnival-scroll-container" ref={containerRef}>
