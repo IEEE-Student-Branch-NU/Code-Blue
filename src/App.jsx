@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/react"
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const Carnival = React.lazy(() => import('./pages/Carnival'))
+const EventDetails = React.lazy(() => import('./pages/EventDetails'))
 
 const menuItems = [
   { label: "Home", link: "/" },
@@ -64,6 +65,11 @@ const App = () => {
           <Route path="/carnival" element={
             <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
               <Carnival />
+            </Suspense>
+          } />
+          <Route path="/carnival/:eventId" element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f5eedc' }} />}>
+              <EventDetails />
             </Suspense>
           } />
 
