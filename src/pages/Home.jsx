@@ -7,6 +7,7 @@ import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
+import CarnivalEntrance from '../components/CarnivalEntrance'
 
 
 
@@ -269,7 +270,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* GridScan Section */}
+            {/* GridScan + Carnival Entrance Section */}
             <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
                 <GridScan
                     sensitivity={0.55}
@@ -283,6 +284,7 @@ const Home = () => {
                     chromaticAberration={0.002}
                     noiseIntensity={0.01}
                 />
+                <CarnivalEntrance />
             </div>
 
             {/* Scroll Velocity Section */}
