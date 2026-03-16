@@ -7,14 +7,17 @@ import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
+import { Analytics } from "@vercel/analytics/react"
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
-
+const Carnival = React.lazy(() => import('./pages/Carnival'))
+const EventDetails = React.lazy(() => import('./pages/EventDetails'))
 
 const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Join Us", link: "/join-us" },
+  { label: "Carnival", link: "/carnival", style: { color: '#9B59B6' } },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
@@ -25,11 +28,10 @@ const socialItems = [
   { label: "LinkedIn", link: "https://www.linkedin.com/company/ieee-student-branch-nirma-university" },
 ];
 
-
 const App = () => {
-
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+      <Analytics />
 
       {/* StaggeredMenu Navigation */}
       <StaggeredMenu
@@ -58,6 +60,16 @@ const App = () => {
           <Route path="/code-blue" element={
             <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
               <CodeBlue />
+            </Suspense>
+          } />
+          <Route path="/carnival" element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+              <Carnival />
+            </Suspense>
+          } />
+          <Route path="/carnival/:eventId" element={
+            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f5eedc' }} />}>
+              <EventDetails />
             </Suspense>
           } />
 

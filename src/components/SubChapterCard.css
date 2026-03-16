@@ -1,144 +1,156 @@
 .sub-chapter-card {
-    background-color: #111;
-    border: 3px solid #fff;
-    box-shadow: 8px 8px 0px #5eb8ff;
-    padding: clamp(20px, 5vw, 40px);
-    margin-bottom: 0;
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-    min-height: 280px;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  --theme-color: #5eb8ff;
+  background-color: #111;
+  border: 3px solid #fff;
+  box-shadow: 8px 8px 0px var(--theme-color);
+  padding: clamp(20px, 5vw, 40px);
+  margin-bottom: 0;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.sub-chapter-card.wie {
+  --theme-color: #712280; /* IEEE WIE Purple */
+  box-shadow: 8px 8px 0px #712280;
+}
+
+.sub-chapter-card.wie:hover {
+  box-shadow: 12px 12px 0px #712280;
 }
 
 .sub-chapter-card:hover {
-    box-shadow: 12px 12px 0px #5eb8ff;
-    transform: translate(-2px, -2px);
-    border-color: #5eb8ff;
-    /* Border turns blue on hover */
+  box-shadow: 12px 12px 0px var(--theme-color);
+  transform: translate(-2px, -2px);
+  border-color: var(--theme-color);
+  /* Border turns theme color on hover */
 }
 
 /* Logo Container */
 .sc-logo-container {
-    width: 70px;
-    height: 70px;
-    background: #222;
-    border: 2px solid #5eb8ff;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    transition: transform 0.3s ease;
+  width: 70px;
+  height: 70px;
+  background: #222;
+  border: 2px solid var(--theme-color);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
 }
 
 .sub-chapter-card:hover .sc-logo-container {
-    background: #1a1a2e;
-    transform: scale(1.05);
-    /* Subtle pop */
+  background: #1a1a2e;
+  transform: scale(1.05);
+  /* Subtle pop */
 }
 
 .sc-logo {
-    max-width: 80%;
-    max-height: 80%;
-    object-fit: contain;
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
 }
 
 /* Typography — brutalist uppercase bold */
 .sc-title {
-    color: #fff;
-    font-weight: 900;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    z-index: 1;
-    display: inline-block;
-    border-bottom: 4px solid #5eb8ff;
-    padding-bottom: 5px;
-    align-self: flex-start;
+  color: #fff;
+  font-weight: 900;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  border-bottom: 4px solid var(--theme-color);
+  padding-bottom: 5px;
+  align-self: flex-start;
 }
 
 .sc-content {
-    color: #e0e0e0;
-    font-size: clamp(0.95rem, 2.5vw, 1.1rem);
-    line-height: 1.6;
-    text-align: left;
-    z-index: 1;
-    position: relative;
+  color: #e0e0e0;
+  font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+  line-height: 1.6;
+  text-align: left;
+  z-index: 1;
+  position: relative;
 }
 
 /* ─── Tech Corner Brackets ───────────────────────────────────── */
 .corner-bracket {
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    border-color: #5eb8ff;
-    border-style: solid;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    opacity: 0;
-    z-index: 2;
-    pointer-events: none;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border-color: var(--theme-color);
+  border-style: solid;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* Top Left */
 .corner-tl {
-    top: 10px;
-    left: 10px;
-    border-width: 2px 0 0 2px;
+  top: 10px;
+  left: 10px;
+  border-width: 2px 0 0 2px;
 }
 
 /* Top Right */
 .corner-tr {
-    top: 10px;
-    right: 10px;
-    border-width: 2px 2px 0 0;
+  top: 10px;
+  right: 10px;
+  border-width: 2px 2px 0 0;
 }
 
 /* Bottom Left */
 .corner-bl {
-    bottom: 10px;
-    left: 10px;
-    border-width: 0 0 2px 2px;
+  bottom: 10px;
+  left: 10px;
+  border-width: 0 0 2px 2px;
 }
 
 /* Bottom Right */
 .corner-br {
-    bottom: 10px;
-    right: 10px;
-    border-width: 0 2px 2px 0;
+  bottom: 10px;
+  right: 10px;
+  border-width: 0 2px 2px 0;
 }
 
 /* Hover State for Brackets */
 .sub-chapter-card:hover .corner-bracket {
-    opacity: 1;
-    width: 25px;
-    height: 25px;
-    top: 6px;
-    left: 6px;
+  opacity: 1;
+  width: 25px;
+  height: 25px;
+  top: 6px;
+  left: 6px;
 }
 
 .sub-chapter-card:hover .corner-tr {
-    top: 6px;
-    right: 6px;
-    left: auto;
+  top: 6px;
+  right: 6px;
+  left: auto;
 }
 
 .sub-chapter-card:hover .corner-bl {
-    bottom: 6px;
-    left: 6px;
-    top: auto;
+  bottom: 6px;
+  left: 6px;
+  top: auto;
 }
 
 .sub-chapter-card:hover .corner-br {
-    bottom: 6px;
-    right: 6px;
-    top: auto;
-    left: auto;
+  bottom: 6px;
+  right: 6px;
+  top: auto;
+  left: auto;
 }

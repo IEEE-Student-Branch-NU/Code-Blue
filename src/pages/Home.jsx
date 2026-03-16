@@ -2,11 +2,15 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
+import GridScan from '../components/GridScan'
 import ScrollVelocity from '../components/ScrollVelocity'
-import Footer from '../components/Footer'
+import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
-import confetti from 'canvas-confetti'
+import CarnivalEntrance from '../components/CarnivalEntrance'
+
+
+
 
 
 
@@ -27,28 +31,34 @@ const infoCards = [
 const subChapterCards = [
     {
         title: "IEEE Computer Society (CS)",
-        logo: "/ieee-cs-logo.jpeg",
+        logo: "/ieee-cs-logo.webp",
         content: "Focuses on advancing computer science and technology through global collaboration, technical excellence, and professional standards.",
         variant: "cs"
     },
     {
         title: "IEEE Special Interest Group on Humanitarian Technology (SIGHT)",
-        logo: "/ieee-sight-logo.jpeg",
+        logo: "/ieee-sight-logo.webp",
         content: "Leverages technology for sustainable development and humanitarian efforts, partnering with underserved communities worldwide.",
         variant: "sight",
         link: "https://ignite-humanity-web.vercel.app/"
     },
     {
         title: "IEEE Signal Processing Society (SPS)",
-        logo: "/ieee-sps-logo.jpeg",
+        logo: "/ieee-sps-logo.webp",
         content: "Advances state-of-the-art signal processing technologies that power modern communication, healthcare, and autonomous systems.",
         variant: "sps"
     },
     {
         title: "IEEE Intelligent Transportation Systems Society (ITSS)",
-        logo: "/ieee-itss-logo.jpg",
+        logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
         variant: "itss"
+    },
+    {
+        title: "IEEE Women in Engineering (WIE)",
+        logo: "/Docs/ieee-wie-logo.webp",
+        content: "Promotes women engineers and scientists, inspiring young women to follow their academic interests to a career in engineering.",
+        variant: "wie"
     }
 ]
 
@@ -108,46 +118,25 @@ const cardStyles = {
 const Home = () => {
     const cardsRef = useRef([])
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
+    const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
+    const [gridScanHeight, setGridScanHeight] = React.useState(
+        window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
+    )
 
     useEffect(() => {
         const handleResize = () => {
             setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
+            setIsDesktop(window.innerWidth >= 1024);
+            setGridScanHeight(
+                window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
+            );
         };
         window.addEventListener('resize', handleResize);
 
         // Initial setup
         handleResize();
 
-        // One-time neon confetti blast
-        const hasCelebrated = sessionStorage.getItem('hasCelebrated');
-        if (!hasCelebrated) {
-            const duration = 3 * 1000;
-            const end = Date.now() + duration;
-            const colors = ['#00f7ff', '#5eb8ff', '#ff00e6', '#ff6b00', '#00ff88', '#ffffff'];
 
-            (function frame() {
-                confetti({
-                    particleCount: 4,
-                    angle: 60,
-                    spread: 100,
-                    origin: { x: 0 },
-                    colors: colors
-                });
-                confetti({
-                    particleCount: 4,
-                    angle: 120,
-                    spread: 100,
-                    origin: { x: 1 },
-                    colors: colors
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
-            }());
-
-            sessionStorage.setItem('hasCelebrated', 'true');
-        }
 
         cardsRef.current.forEach((card) => {
 
@@ -193,7 +182,7 @@ const Home = () => {
                 overflow: 'hidden',
             }}>
                 <GridDistortion
-                    imageSrc="/hero.png"
+                    imageSrc="/hero.webp"
                     grid={20}
                     mouse={0.15}
                     strength={0.1}
@@ -281,12 +270,29 @@ const Home = () => {
                 </div>
             </div>
 
+            {/* GridScan + Carnival Entrance Section */}
+            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
+                <GridScan
+                    sensitivity={0.55}
+                    lineThickness={1}
+                    linesColor="#392e4e"
+                    gridScale={0.1}
+                    scanColor="#FF9FFC"
+                    scanOpacity={0.4}
+                    enablePost
+                    bloomIntensity={0.6}
+                    chromaticAberration={0.002}
+                    noiseIntensity={0.01}
+                />
+                <CarnivalEntrance />
+            </div>
+
             {/* Scroll Velocity Section */}
             <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
-                        "IEEE SBNU • OUR SUBCHAPTERS •",
-                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT •"
+                        "IEEE SBNU • OUR SUBCHAPTERS • IEEE SBNU • OUR SUBCHAPTERS •",
+                        "IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT • IEEE WIE • IEEE SPS • IEEE ITSS • IEEE CS • IEEE SIGHT • IEEE WIE •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"
@@ -311,6 +317,7 @@ const Home = () => {
                     zIndex: 1,
                     display: 'grid',
                     gridTemplateColumns: gridCols,
+                    gridAutoRows: isDesktop ? '1fr' : 'auto',
                     gap: 'clamp(30px, 8vw, 60px)',
                     padding: '0 clamp(20px, 5vw, 40px)',
                     maxWidth: '1300px',
@@ -324,11 +331,14 @@ const Home = () => {
                             key={index}
                             ref={el => cardsRef.current[infoCards.length + 2 + index] = el}
                             style={{
-                                width: '100%',
+                                width: (isDesktop && subChapterCards.length % 2 !== 0 && index === subChapterCards.length - 1) 
+                                    ? 'calc(50% - clamp(15px, 4vw, 30px))' 
+                                    : '100%',
                                 maxWidth: '560px',
                                 margin: 0,
                                 opacity: 0, // Initial state for GSAP
-                                transform: 'translateY(60px)' // Initial state for GSAP
+                                transform: 'translateY(60px)', // Initial state for GSAP
+                                ...(isDesktop && subChapterCards.length % 2 !== 0 && index === subChapterCards.length - 1 ? { gridColumn: '1 / -1' } : {})
                             }}
                         >
                             <SubChapterCard
@@ -347,8 +357,8 @@ const Home = () => {
             <div style={{ padding: '0 0 60px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
-                        "LIVE IN FUTURE • JOIN THE REVOLUTION •",
-                        "IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY •"
+                        "LIVE IN FUTURE • JOIN THE REVOLUTION • LIVE IN FUTURE • JOIN THE REVOLUTION •",
+                        "IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY • IEEE SBNU • ESTD 2002 • NIRMA UNIVERSITY •"
                     ]}
                     velocity={100}
                     className="custom-scroll-text"

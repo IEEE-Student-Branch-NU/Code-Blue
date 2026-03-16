@@ -11,7 +11,7 @@ import {
     Plus,
     Minus
 } from 'lucide-react';
-import Footer from '../components/Footer';
+import Footer from './Footer';
 import Squares from '../components/Backgrounds/Squares/Squares';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -189,12 +189,12 @@ const JoinUs = () => {
     const mdos = [
         {
             name: "Lakshya Jain",
-            image: "/Board/Lakshya Jain.jpeg",
+            image: "/Board/Lakshya Jain.webp",
             linkedin: "https://www.linkedin.com/in/lakshya-jain-402473369",
         },
         {
             name: "Malhar S Ugrejeeya",
-            image: "/Board/Malhar S Ugrejeeya.jpeg",
+            image: "/Board/Malhar S Ugrejeeya.webp",
             linkedin: "https://www.linkedin.com/in/malhar-ugrejeeya-b17b00279",
         },
     ];
