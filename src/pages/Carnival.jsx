@@ -16,6 +16,7 @@ const Carnival = () => {
   };
 
   return (
+<<<<<<< Updated upstream
     <div className="carnival-page bg-[#f5eedc] min-h-screen text-[#1a1a1a] font-sans">
       
       {/* 1. Hero Section (Top) */}
@@ -34,6 +35,17 @@ const Carnival = () => {
             Join us for three unforgettable days featuring exclusive technical workshops, 
             immersive networking events, and spectacular nighttime celebrations. 
             Step right up, the future is now.
+=======
+    <div className="carnival-container">
+      <Balatro />
+      <div className="carnival-content" style={{ padding: 0, border: 'none', background: 'transparent', boxShadow: 'none' }}>
+        <ElectricBorderCard>
+          <h1 className="carnival-title silver-text font-gladolia" style={{ fontSize: 'clamp(2.5rem, 5vw, 6rem)', marginBottom: '0.5rem', lineHeight: 1.2 }}>
+            IEEE Carnival
+          </h1>
+          <p className="carnival-subtitle silver-text" style={{ margin: 0, fontSize: '1.5rem', fontWeight: 500, opacity: 0.8 }}>
+            27, 28 and 29th March
+>>>>>>> Stashed changes
           </p>
         </section>
 

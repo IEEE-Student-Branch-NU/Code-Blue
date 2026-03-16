@@ -129,7 +129,11 @@ const BOARD_MEMBERS = [
     name: "Sukruti Sheth",
     role: "Content Lead",
     image:
+<<<<<<< Updated upstream
       "/devTeam/Sukruti.webp",
+=======
+      "/devTeam/Sukruti.jpeg",
+>>>>>>> Stashed changes
     linkedin:
       "https://www.linkedin.com/in/sukruti-sheth-805269377?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     stats: ["CONTENT", "STRATEGY", "SOCIALS"],
