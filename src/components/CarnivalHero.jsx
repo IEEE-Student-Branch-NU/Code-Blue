@@ -32,7 +32,7 @@ const CarnivalHero = () => {
       
       {/* Layer 1: Background Layer */}
       <animated.img
-        src="/Carnival/layer1 (1).png"
+        src="/Carnival/layer1-v2.png"
         alt="Carnival Background Sky"
         className="parallax-layer l1-bg"
         style={{ transform: scrollY.to(y => `translateY(${y * 0.8}px)`) }}
@@ -40,7 +40,7 @@ const CarnivalHero = () => {
 
       {/* Layer 2: Midground Layer (Ferris Wheel + Tents) */}
       <animated.img
-        src="/Carnival/layer2 (1).png"
+        src="/Carnival/layer2-v2.png"
         alt="Carnival Ferris Wheel and Tents"
         className="parallax-layer l2-mid"
         style={{ transform: scrollY.to(y => `translateY(${y * 0.7}px)`) }}
@@ -52,7 +52,7 @@ const CarnivalHero = () => {
         style={{ transform: scrollY.to(y => `translateY(${y * 0.6}px)`) }}
       >
         <img
-          src="/Carnival/carnival-logo (1).png"
+          src="/Carnival/carnival-logo.png"
           alt="IEEE Carnival Logo"
           className="carnival-logo"
         />
@@ -60,7 +60,7 @@ const CarnivalHero = () => {
 
       {/* Layer 4: Foreground Layer (Popcorn cart, Ticket booth) */}
       <animated.img
-        src="/Carnival/layer3 (1).png"
+        src="/Carnival/layer3-v2.png"
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
         style={{ transform: scrollY.to(y => `translateY(${y * 0.5}px)`) }}
