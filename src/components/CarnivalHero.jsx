@@ -59,11 +59,10 @@ const CarnivalHero = () => {
       </animated.div>
 
       {/* Layer 4: Foreground Layer (Popcorn cart, Ticket booth) */}
-      <animated.img
+      <img
         src="/Carnival/layer3-v2.png"
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.5}px)`) }}
       />
     </section>
   );

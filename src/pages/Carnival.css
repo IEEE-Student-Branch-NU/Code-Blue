@@ -4,7 +4,7 @@
 .carnival-page {
   /* Prevent horizontal scroll */
   overflow-x: hidden;
-  background-color: #f5eedc; /* Quicksand lighter tone */
+  background: linear-gradient(to bottom, rgb(214, 86, 246), rgba(61, 61, 243, 1) , rgb(0, 0, 0)); /* Gradient instead of Quicksand */
 }
 
 /* Neo Brutalism Panel reusable class */
