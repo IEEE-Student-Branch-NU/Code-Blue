@@ -10,9 +10,35 @@ const Carnival = () => {
 
   // Data structure mapped directly from your wireframe
   const scheduleData = {
-    27: { label: '27th', color: 'blue', posters: [1, 2, 3, 4] },
-    28: { label: '28th', color: 'green', posters: [5, 6, 7, 8] },
-    29: { label: '29th', color: 'yellow', posters: [9, 10, 11, 12] },
+    27: { 
+      label: '27th', 
+      color: 'blue', 
+      posters: [
+        { id: 1, img: '/Carnival/ITSS.webp', title: 'ITSS' },
+        { id: 2, img: '/Carnival/LUMISENSE.webp', title: 'Lumisense' }
+      ] 
+    },
+    28: { 
+      label: '28th', 
+      color: 'green', 
+      posters: [
+        { id: 5, img: '/Carnival/FGPA WS.webp', title: 'FGPA WS' },
+        { id: 6, img: '/Carnival/DECODE THE CIRCUIT_FORGED IN WIRES.webp', title: 'Decode the Circuit' },
+        { id: 7, img: '/Carnival/AGENTVERSE.webp', title: 'Agentverse' },
+        { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie' },
+        { id: 13, img: '/Carnival/2.webp', title: 'Poster 5' }
+      ] 
+    },
+    29: { 
+      label: '29th', 
+      color: 'yellow', 
+      posters: [
+        { id: 9, img: '/Carnival/FGPA WS.webp', title: 'FGPA WS' },
+        { id: 10, img: '/Carnival/ROBOWARS.webp', title: 'Robowars' },
+        { id: 11, img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp', title: 'Hire Your Research Agent' },
+        { id: 12, img: '/Carnival/BOT-TALKS.webp', title: 'Bot Talks' }
+      ] 
+    },
   };
 
   return (
@@ -60,21 +86,29 @@ const Carnival = () => {
 
           {/* 4. Posters Grid (2x2 layout per the wireframe) */}
           <div className="posters-grid grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 w-full mx-auto">
-            {scheduleData[activeTab].posters.map((posterNum, idx) => (
+            {scheduleData[activeTab].posters.map((poster, idx) => (
               <div 
-                key={posterNum} 
-                onClick={() => navigate(`/carnival/${posterNum}`)}
-                className="poster-card relative group aspect-[1/1.414] flex flex-col items-center justify-center cursor-pointer"
+                key={poster.id} 
+                onClick={() => navigate(`/carnival/${poster.id}`)}
+                className="poster-card relative group aspect-[1/1.414] overflow-hidden flex flex-col items-center justify-center cursor-pointer"
               >
-                {/* Foreground textual content */}
-                <div className="text-center z-10 p-4 md:p-6">
-                  <h4 className="text-2xl md:text-4xl font-black text-[#1a1a1a] mb-2 tracking-wide uppercase">
-                    Poster {idx + 1}
-                  </h4>
-                  <p className="text-gray-800 font-bold tracking-wider md:tracking-widest uppercase text-sm md:text-lg bg-white border-2 border-black inline-block px-2 py-1 md:px-3 shadow-[2px_2px_0px_#1a1a1a] transform -rotate-2">
-                    Coming Soon
-                  </p>
-                </div>
+                {poster.img ? (
+                  <img 
+                    src={poster.img} 
+                    alt={poster.title} 
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                  />
+                ) : (
+                  /* Foreground textual content */
+                  <div className="text-center z-10 p-4 md:p-6">
+                    <h4 className="text-2xl md:text-4xl font-black text-[#1a1a1a] mb-2 tracking-wide uppercase">
+                      {poster.title}
+                    </h4>
+                    <p className="text-gray-800 font-bold tracking-wider md:tracking-widest uppercase text-sm md:text-lg bg-white border-2 border-black inline-block px-2 py-1 md:px-3 shadow-[2px_2px_0px_#1a1a1a] transform -rotate-2">
+                      Coming Soon
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
           </div>
