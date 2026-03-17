@@ -1,6 +1,7 @@
-import React, { Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import React, { Suspense, useState, useCallback, useEffect } from 'react'
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
 import StaggeredMenu from './components/StaggeredMenu'
+import CarnivalTransition from './components/CarnivalTransition'
 import Home from './pages/Home'
 import About from './pages/About'
 import Contact from './pages/Contact'
@@ -29,9 +30,46 @@ const socialItems = [
 ];
 
 const App = () => {
+  const [showTransition, setShowTransition] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Preload the transition video on app mount
+  useEffect(() => {
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'video';
+    link.href = '/Carnival/Transistion video.mp4';
+    document.head.appendChild(link);
+    return () => document.head.removeChild(link);
+  }, []);
+
+  // Intercept clicks on the Carnival menu link
+  useEffect(() => {
+    const handleClick = (e) => {
+      const anchor = e.target.closest('a[href="/carnival"]');
+      if (anchor && location.pathname !== '/carnival') {
+        e.preventDefault();
+        e.stopPropagation();
+        setShowTransition(true);
+      }
+    };
+
+    document.addEventListener('click', handleClick, true);
+    return () => document.removeEventListener('click', handleClick, true);
+  }, [location.pathname]);
+
+  const handleTransitionComplete = useCallback(() => {
+    setShowTransition(false);
+    navigate('/carnival');
+  }, [navigate]);
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
       <Analytics />
+
+      {/* Carnival Transition Video Overlay */}
+      <CarnivalTransition isPlaying={showTransition} onComplete={handleTransitionComplete} />
 
       {/* StaggeredMenu Navigation */}
       <StaggeredMenu
@@ -80,4 +118,5 @@ const App = () => {
 }
 
 export default App
+
 
