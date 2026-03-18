@@ -26,32 +26,44 @@ const CarnivalItineraryTable = ({ navigate }) => {
 
   if (isMobile) {
     return (
-      <div className="space-y-12">
+      <div className="space-y-16 px-2">
         {[27, 28, 29].map((day) => {
-          // Unique events per day for the list view (deduplicate by title)
           const dayEvents = Array.from(new Map(externalScheduleData[day].events.map(item => [item.title, item])).values());
+          const dayColor = day === 27 ? '#0ea5e9' : day === 28 ? '#eab308' : '#22c55e';
+          const dayBg = day === 27 ? 'rgba(14, 165, 233, 0.1)' : day === 28 ? 'rgba(234, 179, 8, 0.1)' : 'rgba(34, 197, 94, 0.1)';
           
           return (
-            <div key={day} className="space-y-6">
-              <div className={`p-5 rounded-2xl border-[4px] border-black font-black uppercase text-center text-2xl shadow-[6px_6px_0px_#1a1a1a] ${day === 27 ? 'bg-[#BAE1FF]' : day === 28 ? 'bg-[#FEF9C3]' : 'bg-[#D1FAE5]'}`}>
-                Day {day - 26} ({day}th March)
+            <div key={day} className="space-y-8">
+              <div className="relative flex flex-col items-center">
+                 <div className="absolute inset-0 blur-2xl opacity-20" style={{ backgroundColor: dayColor }}></div>
+                 <div className="relative px-8 py-3 rounded-full border-2 border-black/10 bg-white/40 backdrop-blur-md shadow-xl">
+                    <span className="font-black uppercase tracking-[0.3em] text-sm" style={{ color: dayColor }}>
+                      Day {day - 26} • {day}th March
+                    </span>
+                 </div>
               </div>
-              <div className="space-y-4">
+
+              <div className="space-y-5">
                 {dayEvents.map((evt, idx) => (
                   <div 
                     key={idx}
                     onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
-                    className={`p-5 rounded-2xl border-[3px] border-black shadow-[6px_6px_0px_#1a1a1a] flex justify-between items-center bg-white ${evt.id < 100 ? 'cursor-pointer active:scale-95 transition-all active:shadow-none translate-y-0 active:translate-y-1' : ''}`}
+                    className={`group relative p-6 rounded-[2rem] border-2 border-black/5 bg-white/60 backdrop-blur-lg shadow-sm flex justify-between items-center transition-all duration-300 ${evt.id < 100 ? 'cursor-pointer active:scale-[0.98] active:bg-white/80' : ''}`}
                   >
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] md:text-xs font-black opacity-60 uppercase tracking-widest">{evt.time}</span>
-                      <span className="font-black text-lg md:text-xl uppercase leading-tight">{evt.title}</span>
+                    <div className="flex flex-col gap-1.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: dayColor }}></span>
+                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest">{evt.time}</span>
+                      </div>
+                      <span className="font-black text-xl text-[#1a1a1a] uppercase leading-none tracking-tight">{evt.title}</span>
                     </div>
                     {evt.id < 100 && (
-                      <div className="bg-black text-white p-2 rounded-lg rotate-[5deg] shadow-[3px_3px_0px_#ff6b6b]">
+                      <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg shadow-black/10">
                         <span className="text-xl">👉</span>
                       </div>
                     )}
+                    {/* Decorative glow on hover */}
+                    {evt.id < 100 && <div className="absolute inset-0 rounded-[2rem] bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>}
                   </div>
                 ))}
               </div>
