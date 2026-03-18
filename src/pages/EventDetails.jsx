@@ -63,7 +63,7 @@ const EventDetails = () => {
       </button>
 
       {/* Main Grid Wrapper */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-14 xl:gap-20 mt-20 md:mt-0 px-4 md:px-10">
+      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 mt-12 md:mt-0 px-4 md:px-10">
         
         {/* Left Side: Poster (Wider version) */}
         <div className="w-full flex justify-center md:justify-end">
@@ -79,16 +79,16 @@ const EventDetails = () => {
         </div>
 
         {/* Right Side: Details & Register Stack */}
-        <div className="flex flex-col gap-8 md:gap-10 w-full max-w-[650px] mx-auto md:mx-0">
+        <div className="flex flex-col gap-6 md:gap-8 w-full max-w-[650px] mx-auto md:mx-0">
           
           {/* Top Panel: Event Details (White/Glassmorphism block) */}
-          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[12px_12px_0px_#1a1a1a] rounded-[2.5rem] p-8 md:p-12 flex flex-col items-start transition-all hover:shadow-[18px_18px_0px_#1a1a1a]">
+          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[12px_12px_0px_#1a1a1a] rounded-[2.5rem] p-6 md:p-8 lg:p-10 flex flex-col items-start transition-all hover:shadow-[18px_18px_0px_#1a1a1a]">
             
             <div className="inline-block bg-[#D656F6] text-white border-2 border-black px-4 py-1 font-black text-sm uppercase self-start rotate-[-2deg] shadow-[4px_4px_0px_black] mb-6">
               Official IEEE Carnival Event
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-5xl font-black uppercase mb-8 tracking-tighter leading-[1] text-[#1a1a1a]">
+            <h1 className="text-4xl md:text-5xl lg:text-5xl font-black uppercase mb-6 tracking-tighter leading-[1] text-[#1a1a1a]">
               {currentEvent ? currentEvent.title : fullEventData?.title || 'Event Details'}
             </h1>
             
@@ -118,8 +118,8 @@ const EventDetails = () => {
               </div>
             </div>
 
-            <div className="mt-12 text-left">
-              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest block mb-3">About the Event</span>
+            <div className="mt-8 lg:mt-10 text-left">
+              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest block mb-1">About the Event</span>
               <p className="text-xl font-medium text-gray-700 leading-relaxed max-w-xl">
                 {fullEventData?.description || "Get ready for an immersive experience at IEEE Carnival. Join us for a day of technical innovation and skill-building."}
               </p>
