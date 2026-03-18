@@ -191,12 +191,12 @@ const Carnival = () => {
     damping: 50,
     stiffness: 400
   });
-  const skewVelocity = useTransform(smoothVelocity, [0, 1000], [0, 5]);
+  const skewVelocity = useTransform(smoothVelocity, [0, 1000], [0, 2.5]);
   const skewSpring = useSpring(skewVelocity, {
     stiffness: 100,
     damping: 30
   });
-  const xSpring = useSpring(useTransform(smoothVelocity, [-1000, 1000], [-20, 20]), {
+  const xSpring = useSpring(useTransform(smoothVelocity, [-1000, 1000], [-8, 8]), {
     stiffness: 100,
     damping: 30
   });
