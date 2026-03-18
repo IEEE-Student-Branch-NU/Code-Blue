@@ -1,5 +1,6 @@
-import React, { Suspense, useState, useCallback, useEffect } from 'react'
+import React, { Suspense, useState, useCallback, useEffect, useRef } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { AnimatePresence } from 'framer-motion'
 import StaggeredMenu from './components/StaggeredMenu'
 import CarnivalTransition from './components/CarnivalTransition'
 import Home from './pages/Home'
@@ -33,16 +34,8 @@ const App = () => {
   const [showTransition, setShowTransition] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const menuRef = useRef(null);
 
-  // Preload the transition video on app mount
-  useEffect(() => {
-    const link = document.createElement('link');
-    link.rel = 'preload';
-    link.as = 'video';
-    link.href = '/Carnival/Transistion video.mp4';
-    document.head.appendChild(link);
-    return () => document.head.removeChild(link);
-  }, []);
 
   // Intercept clicks on the Carnival menu link
   useEffect(() => {
@@ -51,6 +44,7 @@ const App = () => {
       if (anchor && location.pathname !== '/carnival') {
         e.preventDefault();
         e.stopPropagation();
+        menuRef.current?.closeMenu();
         setShowTransition(true);
       }
     };
@@ -65,14 +59,21 @@ const App = () => {
   }, [navigate]);
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#000000', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', position: 'relative' }}>
       <Analytics />
 
-      {/* Carnival Transition Video Overlay */}
-      <CarnivalTransition isPlaying={showTransition} onComplete={handleTransitionComplete} />
+      <AnimatePresence>
+        {showTransition && (
+          <CarnivalTransition 
+            isPlaying={showTransition} 
+            onComplete={handleTransitionComplete} 
+          />
+        )}
+      </AnimatePresence>
 
       {/* StaggeredMenu Navigation */}
       <StaggeredMenu
+        ref={menuRef}
         items={menuItems}
         socialItems={socialItems}
         colors={['#00629b', '#004d7a']}

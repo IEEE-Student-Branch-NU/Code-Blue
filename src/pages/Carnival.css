@@ -48,17 +48,17 @@
   box-shadow: 7px 7px 0px #1a1a1a;
 }
 
-/* Tab Active States based on the wireframe colors (Pastel) */
+/* Tab Active States (Cyber Tech Theme) */
 .active-blue {
-  background: #93c5fd; /* Pastel UI Blue */
+  background: #cffafe; /* Electric Cyan */
 }
 
 .active-green {
-  background: #bbf7d0; /* Pastel UI Green */
+  background: #ede9fe; /* Cyber Purple */
 }
 
 .active-yellow {
-  background: #fde047; /* Pastel UI Yellow */
+  background: #ecfccb; /* Volt Green */
 }
 
 /* Poster Card styling matching the wireframe pink/red shading */

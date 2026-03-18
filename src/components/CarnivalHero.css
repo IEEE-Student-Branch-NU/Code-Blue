@@ -5,8 +5,8 @@
   overflow: hidden;
   position: relative;
   
-  /* Gradient background as requested */
-  background: linear-gradient(to bottom,rgb(1, 1, 84),  rgb(214, 86, 246)); 
+  /* Original Vibrant Hero Gradient */
+  background: linear-gradient(to bottom, rgb(1, 1, 84), rgb(214, 86, 246)); 
 }
 
 /* Base styles for parallax layers */
@@ -16,18 +16,11 @@
   left: 0;
   top: 0;
   height: 100%;
-  
-  /* Ensures images scale perfectly without distortion while covering the area */
   object-fit: cover;
   object-position: center bottom; 
-  
-  /* Performance optimization for scroll animations */
   will-change: transform;
-  
-  /* Avoid layer interfering with user interaction */
   pointer-events: none; 
 }
-
 
 /* Specialized layer for centering the logo via Flexbox */
 .parallax-logo-layer {
@@ -36,31 +29,25 @@
   left: 0;
   top: 0;
   height: 100vh;
-  
-  /* Flex properties to easily center the logo */
   display: flex;
   justify-content: center;
   align-items: center;
-  
-  /* Performance optimization */
   will-change: transform;
-  
-  /* Avoid layer interfering with user interaction */
   pointer-events: none;
 }
 
 /* Styling for the logo image */
 .carnival-logo {
   max-width: 1000px;
-  width: 90%;
+  width: 100%; /* Fix left align issue by filling wrapper */
   height: auto;
-  
-  /* Position slightly above center vertically */
   transform: translateY(-15%);
   object-fit: contain;
+  margin: 0 auto; /* Force center */
+  display: block;
 }
 
-/* Responsive adjustments for phones and smaller tablets */
+/* Responsive adjustments */
 @media (max-width: 1024px) {
   .carnival-logo {
     max-width: 80vw;
@@ -70,7 +57,28 @@
 @media (max-width: 768px) {
   .carnival-logo {
     max-width: 90vw;
-    /* On taller mobile screens, bumping it a bit higher looks better */
     transform: translateY(-20%);
   }
+}
+
+/* Transition Wrapper for Video */
+.carnival-transition-wrapper {
+  position: absolute;
+  bottom: -5vh; 
+  left: 0;
+  width: 100%;
+  height: 40vh; 
+  z-index: 20; 
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+
+.carnival-transition-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  mix-blend-mode: screen; 
+  opacity: 0.9;
 }

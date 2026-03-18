@@ -81,7 +81,6 @@ const CarnivalEntrance = () => {
           className="ce-transition-video"
           src="/Carnival/Transistion video.mp4"
           playsInline
-          muted={false}
           preload="none"
           onEnded={handleVideoEnd}
         />
