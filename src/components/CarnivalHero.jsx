@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSpring, animated } from '@react-spring/web';
 import { motion, useSpring as useFramerSpring } from 'framer-motion';
 import './CarnivalHero.css';
@@ -12,6 +12,21 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
 
   const logoRotateX = useFramerSpring(0, { stiffness: 100, damping: 30 });
   const logoRotateY = useFramerSpring(0, { stiffness: 100, damping: 30 });
+
+  const getDeviceType = () => {
+    if (window.innerWidth <= 768) return 'mobile';
+    if (window.innerWidth <= 1024) return 'tablet';
+    return 'desktop';
+  };
+
+  const [deviceType, setDeviceType] = useState(getDeviceType());
+
+  useEffect(() => {
+    const handleResize = () => setDeviceType(getDeviceType());
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +59,7 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
 
       {/* Layer 2: Midground Layer (Ferris Wheel + Tents) */}
       <animated.img
-        src="/Carnival/layer2-v2.png"
+        src={deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png"}
         alt="Carnival Ferris Wheel and Tents"
         className="parallax-layer l2-mid"
         style={{ transform: scrollY.to(y => `translateY(${y * 0.35}px)`) }}
@@ -85,9 +100,9 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
         </div>
       </animated.div>
 
-      {/* Layer 4: Foreground Layer */}
+      {/* Layer 4: Foreground Layer (Popcorn cart, Ticket booth) */}
       <animated.img
-        src="/Carnival/layer3-v2.png"
+        src={deviceType === 'mobile' ? "/Carnival/layer3-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer3-tablet.png" : "/Carnival/layer3-v2.png"}
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
         style={{ 
