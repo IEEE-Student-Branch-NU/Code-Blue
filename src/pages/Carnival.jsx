@@ -27,48 +27,84 @@ const CarnivalItineraryTable = ({ navigate }) => {
 
   if (isMobile) {
     return (
-      <div className="space-y-16 px-2">
-        {[27, 28, 29].map((day) => {
-          const dayEvents = Array.from(new Map(externalScheduleData[day].events.map(item => [item.title, item])).values());
-          const dayColor = day === 27 ? '#0ea5e9' : day === 28 ? '#eab308' : '#22c55e';
-          
-          return (
-            <div key={day} className="space-y-8">
-              <div className="relative flex flex-col items-center">
-                 <div className="absolute inset-0 blur-2xl opacity-20" style={{ backgroundColor: dayColor }}></div>
-                 <div className="relative px-8 py-3 rounded-full border-2 border-black/10 bg-white/40 backdrop-blur-md shadow-xl">
-                    <span className="font-black uppercase tracking-[0.3em] text-sm" style={{ color: dayColor }}>
-                      Day {day - 26} • {day}th March
-                    </span>
-                 </div>
-              </div>
-
-              <div className="space-y-5">
-                {dayEvents.map((evt, idx) => (
-                  <div 
-                    key={idx}
-                    onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
-                    className={`group relative p-6 rounded-[2rem] border-2 border-black/5 bg-white/60 backdrop-blur-lg shadow-sm flex justify-between items-center transition-all duration-300 ${evt.id < 100 ? 'cursor-pointer active:scale-[0.98] active:bg-white/80' : ''}`}
-                  >
-                    <div className="flex flex-col gap-1.5">
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: dayColor }}></span>
-                        <span className="text-[10px] font-bold text-black/40 uppercase tracking-widest">{evt.time}</span>
-                      </div>
-                      <span className="font-black text-xl text-[#1a1a1a] uppercase leading-none tracking-tight">{evt.title}</span>
-                    </div>
-                    {evt.id < 100 && (
-                      <div className="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center transition-transform group-hover:translate-x-1 shadow-lg shadow-black/10">
-                        <ArrowRight size={24} strokeWidth={3} />
-                      </div>
-                    )}
-                    {evt.id < 100 && <div className="absolute inset-0 rounded-[2rem] bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>}
+      <div className="relative px-4 pb-10">
+        {/* Timeline Neon Track */}
+        <div className="absolute left-[2.25rem] top-10 bottom-10 w-1 bg-gradient-to-b from-[#BAE1FF] via-[#D656F6] to-[#A7F3D0] rounded-full opacity-30"></div>
+        
+        <div className="space-y-20">
+          {[27, 28, 29].map((day) => {
+            const dayEvents = Array.from(new Map(externalScheduleData[day].events.map(item => [item.title, item])).values());
+            const dayColor = day === 27 ? '#0ea5e9' : day === 28 ? '#eab308' : '#22c55e';
+            const dayPastel = day === 27 ? '#BAE1FF' : day === 28 ? '#FEF9C3' : '#D1FAE5';
+            
+            return (
+              <div key={day} className="relative space-y-10">
+                {/* Day Marker Ticket */}
+                <div className="sticky top-20 z-20 flex items-center gap-4 -ml-2 mb-8">
+                  <div className="w-14 h-14 rounded-2xl border-4 border-black flex flex-col items-center justify-center font-black shadow-[4px_4px_0px_black] bg-white rotate-[-3deg]">
+                    <span className="text-[10px] uppercase leading-none opacity-50">Day</span>
+                    <span className="text-2xl leading-none">{day - 26}</span>
                   </div>
-                ))}
+                  <div className="px-6 py-2 rounded-xl border-[3px] border-black bg-white shadow-[6px_6px_0px_black] rotate-[1deg]">
+                    <span className="font-black text-xs uppercase tracking-[0.2em]" style={{ color: dayColor }}>
+                      {day}th March • THE {day === 27 ? 'BEGINNING' : day === 28 ? 'CORE' : 'FINALE'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="space-y-6">
+                  {dayEvents.map((evt, idx) => (
+                    <div 
+                      key={idx}
+                      onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
+                      className={`group relative flex gap-6 items-start ${evt.id < 100 ? 'cursor-pointer' : ''}`}
+                    >
+                      {/* Timeline Dot */}
+                      <div className="relative z-10 mt-6 shrink-0 w-6 h-6 rounded-full border-[3px] border-black bg-white flex items-center justify-center p-1 shadow-[2px_2px_0px_black]">
+                        <div className="w-full h-full rounded-full" style={{ backgroundColor: dayColor }}></div>
+                      </div>
+
+                      {/* Event Ticket Card */}
+                      <div className={`relative flex-grow p-5 rounded-2xl border-[3px] border-black bg-white shadow-[8px_8px_0px_black] transition-all ${evt.id < 100 ? 'active:scale-95 active:shadow-none' : 'opacity-80'}`}
+                           style={{ backgroundColor: evt.id < 100 ? 'white' : '#f9f9f9' }}>
+                        
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="px-3 py-1 rounded-full border-2 border-black bg-white text-[10px] font-black uppercase tracking-wider shadow-[2px_2px_0px_black]">
+                            {evt.time}
+                          </div>
+                          {evt.id < 100 && (
+                            <div className="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center shadow-lg">
+                              <ArrowRight size={18} strokeWidth={3} />
+                            </div>
+                          )}
+                        </div>
+
+                        <span className="block font-black text-lg text-[#1a1a1a] uppercase leading-tight tracking-tight mb-2">
+                          {evt.title}
+                        </span>
+
+                        <div className="flex gap-2">
+                          <span className={`text-[9px] font-black px-2 py-0.5 rounded border-2 border-black shadow-[2px_2px_0px_black] uppercase`}
+                                style={{ backgroundColor: evt.type === 'special' ? '#FBCFE8' : evt.type === 'break' ? '#F3F4F6' : dayPastel }}>
+                            {evt.type || 'SESSION'}
+                          </span>
+                          {evt.id < 100 && (
+                            <span className="text-[9px] font-black px-2 py-0.5 rounded border-2 border-black shadow-[2px_2px_0px_black] uppercase bg-[#A7F3D0]">
+                              Available
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Ticket Notch decoration */}
+                        <div className="absolute top-1/2 -right-[1.75px] w-3 h-6 border-[3px] border-black border-r-0 rounded-l-full bg-[#fafafa] -translate-y-1/2"></div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     );
   }
