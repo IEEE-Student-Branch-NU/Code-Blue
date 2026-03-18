@@ -344,7 +344,7 @@ const Carnival = () => {
                 <div 
                   key={poster.id} 
                   onClick={() => navigate(`/carnival/${poster.id}`)}
-                  className="poster-card relative group aspect-[1132/1600] overflow-hidden rounded-2xl md:rounded-[2rem] border-[3px] md:border-4 border-black shadow-[8px_8px_0px_#1a1a1a] hover:shadow-[16px_16px_0px_#1a1a1a] hover:scale-[1.01] transition-all cursor-pointer bg-white w-full max-w-none"
+                  className="poster-card relative group aspect-[1132/1600] overflow-hidden rounded-2xl md:rounded-[2rem] border-[3px] md:border-4 border-black shadow-[8px_8px_0px_#1a1a1a] hover:shadow-[12px_12px_24px_rgba(214,86,246,0.3)] hover:scale-[1.01] transition-all cursor-pointer bg-white w-full max-w-none"
                 >
                   <img src={poster.img} alt={poster.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">

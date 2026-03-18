@@ -63,11 +63,11 @@ const EventDetails = () => {
       </button>
 
       {/* Main Grid Wrapper */}
-      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 mt-12 md:mt-0 px-4 md:px-10">
+      <div className="w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-10 mt-6 md:mt-0 px-4 md:px-10 h-full">
         
-        {/* Left Side: Poster (Wider version) */}
-        <div className="w-full flex justify-center md:justify-end">
-          <div className="w-full max-w-[400px] lg:max-w-[440px] aspect-[1132/1600] bg-white border-4 border-[#1a1a1a] shadow-[10px_10px_0px_#1a1a1a] rounded-[2rem] flex flex-col items-center justify-center overflow-hidden transition-all hover:scale-[1.01] hover:shadow-[14px_14px_0px_#1a1a1a]">
+        {/* Left Side: Poster (Wider but controlled height) */}
+        <div className="w-full flex justify-center md:justify-end items-center">
+          <div className="w-full max-w-[420px] lg:max-w-[480px] aspect-[1132/1600] bg-white border-4 border-[#1a1a1a] shadow-[8px_8px_0px_#1a1a1a] rounded-[2rem] flex flex-col items-center justify-center overflow-hidden transition-all hover:scale-[1.01] hover:shadow-[12px_12px_0px_#BAE1FF]">
             {currentEvent && currentEvent.img ? (
               <img src={currentEvent.img} alt={currentEvent.title} className="w-full h-full object-cover" />
             ) : (
@@ -79,10 +79,10 @@ const EventDetails = () => {
         </div>
 
         {/* Right Side: Details & Register Stack */}
-        <div className="flex flex-col gap-5 md:gap-6 w-full max-w-[550px] mx-auto md:mx-0">
+        <div className="flex flex-col gap-4 md:gap-5 w-full max-w-[550px] mx-auto md:mx-0 justify-center">
           
           {/* Top Panel: Event Details (White/Glassmorphism block) */}
-          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[10px_10px_0px_#1a1a1a] rounded-[2rem] p-6 md:p-8 lg:p-10 flex flex-col items-start transition-all hover:shadow-[14px_14px_0px_#1a1a1a]">
+          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[8px_8px_0px_#1a1a1a] rounded-[2rem] p-5 md:p-6 lg:p-8 flex flex-col items-start transition-all hover:shadow-[12px_12px_0px_#D656F6]">
             
             <div className="inline-block bg-[#D656F6] text-white border-2 border-black px-4 py-1 font-black text-sm uppercase self-start rotate-[-2deg] shadow-[4px_4px_0px_black] mb-6">
               Official IEEE Carnival Event
@@ -93,35 +93,35 @@ const EventDetails = () => {
             </h1>
             
             <div className="flex flex-col gap-5 w-full">
-              <div className="flex items-center gap-5 bg-[#fdf2f8] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
-                <div className="bg-[#fbcfe8] border-2 border-black p-2 rounded-lg text-xl">📅</div>
+              <div className="flex items-center gap-4 bg-[#fdf2f8] border-[2.5px] border-black p-3.5 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#fbcfe8] border-2 border-black p-1.5 rounded-lg text-lg">📅</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
-                  <span className="text-xl md:text-2xl font-black leading-none">{fullEventData?.date || "March 27th"}</span>
+                  <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
+                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.date || "March 27th"}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-5 bg-[#eff6ff] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
-                <div className="bg-[#bfdbfe] border-2 border-black p-2 rounded-lg text-xl">⏰</div>
+              <div className="flex items-center gap-4 bg-[#eff6ff] border-[2.5px] border-black p-3.5 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#bfdbfe] border-2 border-black p-1.5 rounded-lg text-lg">⏰</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Time</span>
-                  <span className="text-xl md:text-2xl font-black leading-none">{fullEventData?.time || "TBD"}</span>
+                  <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Time</span>
+                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.time || "TBD"}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-5 bg-[#f0fdf4] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
-                <div className="bg-[#bbf7d0] border-2 border-black p-2 rounded-lg text-xl">📍</div>
+              <div className="flex items-center gap-4 bg-[#f0fdf4] border-[2.5px] border-black p-3.5 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#bbf7d0] border-2 border-black p-1.5 rounded-lg text-lg">📍</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Location</span>
-                  <span className="text-xl md:text-2xl font-black leading-none">Nirma University Campus</span>
+                  <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Location</span>
+                  <span className="text-lg md:text-xl font-black leading-none">Nirma University Campus</span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 lg:mt-10 text-left">
-              <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2 leading-none">About the Event</span>
-              <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed max-w-xl">
-                {fullEventData?.description || "Get ready for an immersive experience at IEEE Carnival. Join us for a day of technical innovation and skill-building."}
+            <div className="mt-6 lg:mt-8 text-left">
+              <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-1 leading-none">About</span>
+              <p className="text-lg font-medium text-gray-700 leading-snug max-w-xl">
+                {fullEventData?.description || "Get ready for an immersive experience at IEEE Carnival."}
               </p>
             </div>
           </div>
