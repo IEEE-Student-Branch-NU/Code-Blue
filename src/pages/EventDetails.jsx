@@ -14,9 +14,9 @@ const allEvents = [
   { id: 8, title: 'Lambda Genie', link: 'https://konfhub.com/lambda-genie' },
   { id: 13, title: 'Prompt Verse', link: 'https://konfhub.com/prompt-verse-challenge' },
   { id: 14, title: 'Ideathon', link: 'https://konfhub.com/ideathon-open-innovation' },
-  { id: 10, title: 'ROBOSUMO', link: '#' },
-  { id: 11, title: 'Hire Your Research Agent', link: '#' },
-  { id: 12, title: 'Bot Talks', link: '#' }
+  { id: 10, title: 'ROBOSUMO', link: 'https://konfhub.com/robosumo-competition' },
+  { id: 11, title: 'Hire Your Research Agent', link: 'https://konfhub.com/hire-your-first-research-agent' },
+  { id: 12, title: 'Bot Talks', link: 'https://konfhub.com/bot-talks' }
 ];
 
 const EventDetails = () => {
@@ -57,9 +57,9 @@ const EventDetails = () => {
       {/* 🔙 Back Button Sticking Out */}
       <button 
         onClick={() => navigate(-1)}
-        className="fixed top-6 left-6 md:top-8 md:left-8 z-[100] bg-white border-4 border-[#1a1a1a] shadow-[6px_6px_0px_#1a1a1a] p-4 rounded-xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
+        className="fixed top-4 left-4 md:top-8 md:left-8 z-[100] bg-white border-[3px] md:border-4 border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] p-2.5 md:p-4 rounded-xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[14px_14px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
       >
-        <Undo2 size={32} strokeWidth={3} className="text-[#1a1a1a] group-hover:scale-110 transition-transform" />
+        <Undo2 size={24} md:size={32} strokeWidth={3} className="text-[#1a1a1a] group-hover:scale-110 transition-transform md:w-8 md:h-8 w-6 h-6" />
       </button>
 
       {/* Main Grid Wrapper */}
@@ -67,7 +67,7 @@ const EventDetails = () => {
         
         {/* Left Side: Poster (Wider version) */}
         <div className="w-full flex justify-center md:justify-end">
-          <div className="w-full max-w-[480px] lg:max-w-[550px] aspect-[1132/1600] bg-white border-4 border-[#1a1a1a] shadow-[12px_12px_0px_#1a1a1a] rounded-[2.5rem] flex flex-col items-center justify-center overflow-hidden transition-all hover:scale-[1.01] hover:shadow-[18px_18px_0px_#1a1a1a]">
+          <div className="w-full max-w-[400px] lg:max-w-[440px] aspect-[1132/1600] bg-white border-4 border-[#1a1a1a] shadow-[10px_10px_0px_#1a1a1a] rounded-[2rem] flex flex-col items-center justify-center overflow-hidden transition-all hover:scale-[1.01] hover:shadow-[14px_14px_0px_#1a1a1a]">
             {currentEvent && currentEvent.img ? (
               <img src={currentEvent.img} alt={currentEvent.title} className="w-full h-full object-cover" />
             ) : (
@@ -79,10 +79,10 @@ const EventDetails = () => {
         </div>
 
         {/* Right Side: Details & Register Stack */}
-        <div className="flex flex-col gap-6 md:gap-8 w-full max-w-[650px] mx-auto md:mx-0">
+        <div className="flex flex-col gap-5 md:gap-6 w-full max-w-[550px] mx-auto md:mx-0">
           
           {/* Top Panel: Event Details (White/Glassmorphism block) */}
-          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[12px_12px_0px_#1a1a1a] rounded-[2.5rem] p-6 md:p-8 lg:p-10 flex flex-col items-start transition-all hover:shadow-[18px_18px_0px_#1a1a1a]">
+          <div className="flex-grow bg-white border-4 border-[#1a1a1a] shadow-[10px_10px_0px_#1a1a1a] rounded-[2rem] p-6 md:p-8 lg:p-10 flex flex-col items-start transition-all hover:shadow-[14px_14px_0px_#1a1a1a]">
             
             <div className="inline-block bg-[#D656F6] text-white border-2 border-black px-4 py-1 font-black text-sm uppercase self-start rotate-[-2deg] shadow-[4px_4px_0px_black] mb-6">
               Official IEEE Carnival Event
@@ -93,34 +93,34 @@ const EventDetails = () => {
             </h1>
             
             <div className="flex flex-col gap-5 w-full">
-              <div className="flex items-center gap-6 bg-[#fdf2f8] border-[3px] border-black p-5 shadow-[6px_6px_0px_black] rounded-2xl w-full">
-                <div className="bg-[#fbcfe8] border-2 border-black p-2.5 rounded-xl text-2xl">📅</div>
+              <div className="flex items-center gap-5 bg-[#fdf2f8] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#fbcfe8] border-2 border-black p-2 rounded-lg text-xl">📅</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Date</span>
-                  <span className="text-2xl font-black">{fullEventData?.date || "March 27th-29th, 2026"}</span>
+                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
+                  <span className="text-xl md:text-2xl font-black leading-none">{fullEventData?.date || "March 27th"}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 bg-[#eff6ff] border-[3px] border-black p-5 shadow-[6px_6px_0px_black] rounded-2xl w-full">
-                <div className="bg-[#bfdbfe] border-2 border-black p-2.5 rounded-xl text-2xl">⏰</div>
+              <div className="flex items-center gap-5 bg-[#eff6ff] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#bfdbfe] border-2 border-black p-2 rounded-lg text-xl">⏰</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Time</span>
-                  <span className="text-2xl font-black">{fullEventData?.time || "TBD"}</span>
+                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Time</span>
+                  <span className="text-xl md:text-2xl font-black leading-none">{fullEventData?.time || "TBD"}</span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 bg-[#f0fdf4] border-[3px] border-black p-5 shadow-[6px_6px_0px_black] rounded-2xl w-full">
-                <div className="bg-[#bbf7d0] border-2 border-black p-2.5 rounded-xl text-2xl">📍</div>
+              <div className="flex items-center gap-5 bg-[#f0fdf4] border-[2.5px] border-black p-4 shadow-[4px_4px_0px_black] rounded-xl w-full">
+                <div className="bg-[#bbf7d0] border-2 border-black p-2 rounded-lg text-xl">📍</div>
                 <div className="flex flex-col text-left">
-                  <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Location</span>
-                  <span className="text-2xl font-black">Nirma University Campus</span>
+                  <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Location</span>
+                  <span className="text-xl md:text-2xl font-black leading-none">Nirma University Campus</span>
                 </div>
               </div>
             </div>
 
             <div className="mt-8 lg:mt-10 text-left">
-              <span className="text-sm font-bold text-gray-400 uppercase tracking-widest block mb-1">About the Event</span>
-              <p className="text-xl font-medium text-gray-700 leading-relaxed max-w-xl">
+              <span className="text-[10px] md:text-xs font-bold text-gray-400 uppercase tracking-widest block mb-2 leading-none">About the Event</span>
+              <p className="text-lg md:text-xl font-medium text-gray-700 leading-relaxed max-w-xl">
                 {fullEventData?.description || "Get ready for an immersive experience at IEEE Carnival. Join us for a day of technical innovation and skill-building."}
               </p>
             </div>
