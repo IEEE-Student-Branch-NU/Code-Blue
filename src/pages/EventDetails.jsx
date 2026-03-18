@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Undo2 } from 'lucide-react';
+import { Undo2, Users, Sparkles, Ticket } from 'lucide-react';
 import { getEventById } from '../data/carnivalData';
+import TicketModal from '../components/TicketModal';
 
 // Global events data with registration links
 const allEvents = [
@@ -22,6 +23,11 @@ const allEvents = [
 const EventDetails = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+
+  // Dynamic Social Proof
+  const regCount = Math.floor(75 + (parseInt(eventId) * 12.5) % 150);
+  const seatsLeft = Math.max(5, Math.floor(40 - (parseInt(eventId) * 3.7) % 35));
 
   // Find the matching event
   const fullEventData = getEventById(eventId) || {};
@@ -126,17 +132,51 @@ const EventDetails = () => {
             </div>
           </div>
 
-          {/* Bottom Panel: Register Button (Black) */}
-          <button 
-            onClick={() => currentEvent?.link && currentEvent.link !== '#' ? window.open(currentEvent.link, '_blank') : null}
-            className="w-full bg-[#1a1a1a] text-white py-6 md:py-8 rounded-2xl md:rounded-3xl font-black text-2xl md:text-3xl tracking-widest hover:bg-[#333] hover:scale-[1.02] active:scale-95 transition-all shadow-[8px_8px_0px_#A7F3D0] relative overflow-hidden group cursor-pointer"
-          >
-            <span className="relative z-10">{currentEvent?.link && currentEvent.link !== '#' ? 'REGISTER NOW' : 'COMING SOON'}</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"></div>
-          </button>
+          {/* Social Proof Indicator */}
+          <div className="flex items-center gap-4 py-3 px-5 border-[3px] border-black bg-[#FEF3C7] shadow-[6px_6px_0px_black] rounded-2xl transform rotate-[-1deg] animate-pulse">
+             <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border border-black/10">
+               <Users className="w-4 h-4 text-orange-600" />
+             </div>
+             <div className="flex flex-col">
+               <span className="text-[9px] font-black uppercase tracking-widest text-orange-900/60 leading-none mb-1">Hype Check</span>
+               <p className="text-xs font-black uppercase leading-none">
+                 🔥 <span className="text-orange-600">{regCount}+</span> joined • <span className="text-red-600">{seatsLeft}</span> spots left!
+               </p>
+             </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 w-full">
+            {/* Bottom Panel: Register Button (Black) */}
+            <button 
+              onClick={() => currentEvent?.link && currentEvent.link !== '#' ? window.open(currentEvent.link, '_blank') : null}
+              className="flex-grow bg-[#1a1a1a] text-white py-6 rounded-2xl font-black text-xl md:text-2xl tracking-widest hover:bg-[#333] hover:scale-[1.02] active:scale-95 transition-all shadow-[8px_8px_0px_#A7F3D0] relative overflow-hidden group cursor-pointer"
+            >
+              <span className="relative z-10">{currentEvent?.link && currentEvent.link !== '#' ? 'REGISTER NOW' : 'COMING SOON'}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"></div>
+            </button>
+
+            {/* Ticket Generator Button */}
+            <button 
+              onClick={() => setIsTicketModalOpen(true)}
+              className="flex items-center justify-center gap-3 bg-[#D656F6] text-white px-8 py-6 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.05] transition-all shadow-[8px_8px_0px_black] border-[3px] border-black group"
+            >
+              <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
+              <span className="hidden sm:inline">Get Post</span>
+              <Ticket className="w-6 h-6 sm:hidden" />
+            </button>
+          </div>
           
         </div>
       </div>
+
+      <TicketModal 
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+        eventTitle={currentEvent?.title || "Carnival Event"}
+        eventDate={fullEventData?.date || "March 2026"}
+        posterImg={currentEvent?.img}
+        eventId={eventId}
+      />
 
     </div>
   );
