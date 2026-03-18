@@ -5,17 +5,18 @@ import { getEventById } from '../data/carnivalData';
 
 // Global events data with registration links
 const allEvents = [
-  { id: 1, img: '/Carnival/ITSS.webp', title: 'ITSS', link: '#' },
-  { id: 2, img: '/Carnival/LUMISENSE.webp', title: 'Lumisense', link: '#' },
-  { id: 5, img: '/Carnival/FGPA WS.webp', title: 'FPGA FORGE', link: '#' },
-  { id: 9, img: '/Carnival/FGPA WS.webp', title: 'FPGA FORGE', link: '#' },
-  { id: 6, img: '/Carnival/DECODE THE CIRCUIT_FORGED IN WIRES.webp', title: 'Decode the Circuit', link: '#' },
-  { id: 7, img: '/Carnival/AGENTVERSE.webp', title: 'Agentverse', link: '#' },
-  { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie', link: '#' },
-  { id: 10, img: '/Carnival/ROBOWARS.webp', title: 'Robowars', link: '#' },
-  { id: 11, img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp', title: 'Hire Your Research Agent', link: '#' },
-  { id: 12, img: '/Carnival/BOT-TALKS.webp', title: 'Bot Talks', link: '#' },
-  { id: 13, img: '/Carnival/2.webp', title: 'Poster 5', link: '#' }
+  { id: 1, title: 'Next Gen ITSS', link: 'https://konfhub.com/next-gen-intelligent-transportation-systems-expert-lecture' },
+  { id: 2, title: 'Lumisense', link: 'https://konfhub.com/photonic-sensors-as-a-sustainable-technology-for-humanitarian-solutions' },
+  { id: 5, title: 'FPGA FORGE', link: 'https://konfhub.com/fpga-forge' },
+  { id: 9, title: 'FPGA FORGE', link: 'https://konfhub.com/fpga-forge' },
+  { id: 6, title: 'Forged in Wire', link: 'https://konfhub.com/forged-in-wire' },
+  { id: 7, title: 'AgentVerse', link: 'https://konfhub.com/swarm-agentic-ai' },
+  { id: 8, title: 'Lambda Genie', link: 'https://konfhub.com/lambda-genie' },
+  { id: 13, title: 'Prompt Verse', link: 'https://konfhub.com/prompt-verse-challenge' },
+  { id: 14, title: 'Ideathon', link: 'https://konfhub.com/ideathon-open-innovation' },
+  { id: 10, title: 'ROBOSUMO', link: '#' },
+  { id: 11, title: 'Hire Your Research Agent', link: '#' },
+  { id: 12, title: 'Bot Talks', link: '#' }
 ];
 
 const EventDetails = () => {
@@ -115,14 +116,22 @@ const EventDetails = () => {
                 </div>
               </div>
             </div>
+
+            {/* Event Description */}
+            <div className="mt-8 text-left">
+              <span className="text-xs font-bold text-gray-500 uppercase tracking-widest block mb-2">About the Event</span>
+              <p className="text-lg font-medium text-gray-700 leading-relaxed">
+                {fullEventData?.description || "Get ready for an immersive experience at IEEE Carnival. Join us for a day of technical innovation and skill-building."}
+              </p>
+            </div>
           </div>
 
-          {/* Bottom Panel: Register Button (Yellow) */}
+          {/* Bottom Panel: Register Button (Black) */}
           <button 
-            onClick={() => currentEvent?.registration_link ? window.open(currentEvent.registration_link, '_blank') : null}
+            onClick={() => currentEvent?.link && currentEvent.link !== '#' ? window.open(currentEvent.link, '_blank') : null}
             className="w-full bg-[#1a1a1a] text-white py-6 md:py-8 rounded-2xl md:rounded-3xl font-black text-2xl md:text-3xl tracking-widest hover:bg-[#333] hover:scale-[1.02] active:scale-95 transition-all shadow-[8px_8px_0px_#A7F3D0] relative overflow-hidden group cursor-pointer"
           >
-            <span className="relative z-10">{currentEvent?.registration_link ? 'REGISTER NOW' : 'COMING SOON'}</span>
+            <span className="relative z-10">{currentEvent?.link && currentEvent.link !== '#' ? 'REGISTER NOW' : 'COMING SOON'}</span>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"></div>
           </button>
           
