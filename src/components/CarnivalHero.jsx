@@ -3,7 +3,9 @@ import { useSpring, animated } from '@react-spring/web';
 import { motion, useSpring as useFramerSpring } from 'framer-motion';
 import './CarnivalHero.css';
 
-const CarnivalHero = ({ skewSpring, xSpring }) => {
+const CarnivalHero = () => {
+  const [imagesLoaded, setImagesLoaded] = useState(false);
+  
   // Setup a spring reacting to scrollY for buttery smooth parallax
   const [{ scrollY }, api] = useSpring(() => ({ 
     scrollY: 0,
@@ -23,10 +25,34 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
 
   useEffect(() => {
     const handleResize = () => setDeviceType(getDeviceType());
-    handleResize();
     window.addEventListener('resize', handleResize);
+
+    // Preload Images
+    const imagesToPreload = [
+      "/Carnival/layer1-v2.png",
+      "/Carnival/carnival-logo.png",
+      deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png",
+      deviceType === 'mobile' ? "/Carnival/layer3-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer3-tablet.png" : "/Carnival/layer3-v2.png"
+    ];
+
+    let loadedCount = 0;
+    imagesToPreload.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === imagesToPreload.length) {
+          setImagesLoaded(true);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++; // Still move forward
+        if (loadedCount === imagesToPreload.length) setImagesLoaded(true);
+      };
+    });
+
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [deviceType]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -41,12 +67,10 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
 
   return (
     <motion.section 
-      style={{ 
-        skewY: skewSpring, x: xSpring,
-        willChange: 'transform',
-        transform: 'translate3d(0,0,0)'
-      }}
-      className="carnival-hero origin-center transition-none"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: imagesLoaded ? 1 : 0 }}
+      transition={{ duration: 0.8 }}
+      className="carnival-hero origin-center transition-none bg-black"
     >
       
       {/* Layer 1: Background Layer */}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring, useScroll, useTransform, useVelocity } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import './Carnival.css';
 import CarnivalHero from '../components/CarnivalHero';
 import Footer from './Footer';
@@ -30,7 +31,6 @@ const CarnivalItineraryTable = ({ navigate }) => {
         {[27, 28, 29].map((day) => {
           const dayEvents = Array.from(new Map(externalScheduleData[day].events.map(item => [item.title, item])).values());
           const dayColor = day === 27 ? '#0ea5e9' : day === 28 ? '#eab308' : '#22c55e';
-          const dayBg = day === 27 ? 'rgba(14, 165, 233, 0.1)' : day === 28 ? 'rgba(234, 179, 8, 0.1)' : 'rgba(34, 197, 94, 0.1)';
           
           return (
             <div key={day} className="space-y-8">
@@ -58,11 +58,10 @@ const CarnivalItineraryTable = ({ navigate }) => {
                       <span className="font-black text-xl text-[#1a1a1a] uppercase leading-none tracking-tight">{evt.title}</span>
                     </div>
                     {evt.id < 100 && (
-                      <div className="w-12 h-12 rounded-2xl bg-black flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg shadow-black/10">
-                        <span className="text-xl">👉</span>
+                      <div className="w-12 h-12 rounded-2xl bg-black text-white flex items-center justify-center transition-transform group-hover:translate-x-1 shadow-lg shadow-black/10">
+                        <ArrowRight size={24} strokeWidth={3} />
                       </div>
                     )}
-                    {/* Decorative glow on hover */}
                     {evt.id < 100 && <div className="absolute inset-0 rounded-[2rem] bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>}
                   </div>
                 ))}
@@ -196,23 +195,6 @@ const Carnival = () => {
     return () => window.removeEventListener('scroll', handleScrollSave);
   }, [activeTab]);
 
-  // Wobbly Physics
-  const { scrollY } = useScroll();
-  const scrollVelocity = useVelocity(scrollY);
-  const smoothVelocity = useSpring(scrollVelocity, {
-    damping: 50,
-    stiffness: 400
-  });
-  const skewVelocity = useTransform(smoothVelocity, [0, 1000], [0, 2.5]);
-  const skewSpring = useSpring(skewVelocity, {
-    stiffness: 100,
-    damping: 30
-  });
-  const xSpring = useSpring(useTransform(smoothVelocity, [-1000, 1000], [-8, 8]), {
-    stiffness: 100,
-    damping: 30
-  });
-
   const scheduleData = externalScheduleData;
 
   // Pro Tech Pastel Carnival Palette
@@ -257,7 +239,7 @@ const Carnival = () => {
         backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px'
       }}
     >
-      <CarnivalHero skewSpring={skewSpring} xSpring={xSpring} />
+      <CarnivalHero />
 
       <main className="max-w-7xl mx-auto px-4 py-16 md:py-24 space-y-24 md:space-y-32">
         
@@ -280,11 +262,7 @@ const Carnival = () => {
           </div>
         </section>
 
-        {/* 2. Information Section */}
-        <motion.section 
-          style={{ skewY: skewSpring, x: xSpring }}
-          className="info-section neo-panel p-4 md:p-8 bg-[#fdf2f8] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl"
-        >
+        <section className="info-section neo-panel p-4 md:p-8 bg-[#fdf2f8] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl">
           <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-black mb-6 tracking-widest text-white uppercase bg-[#ff6b6b] border-4 border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] inline-block px-6 py-2 rotate-[-1deg] mx-auto flex w-fit">
             The Extraordinary Awaits
           </h2>
@@ -294,13 +272,10 @@ const Carnival = () => {
             mind-bending robotic showdowns, this is where the brightest minds converge to 
             rewrite the future. Experience tech like never before.
           </p>
-        </motion.section>
+        </section>
 
         {/* 3. Schedule Section */}
-        <motion.section 
-          style={{ skewY: skewSpring, x: xSpring }}
-          className="schedule-section neo-panel p-3 md:p-8 bg-[#f0fbff] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl"
-        >
+        <section className="schedule-section neo-panel p-3 md:p-8 bg-[#f0fbff] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl">
           <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] text-[#1a1a1a] border-b-4 border-[#1a1a1a] inline-block pb-2">
               {activeTab === 'itinerary' ? 'Program Guide' : `Day ${activeTab - 26} Timeline`}
@@ -349,13 +324,10 @@ const Carnival = () => {
               )}
             </motion.div>
           </AnimatePresence>
-        </motion.section>
+        </section>
 
         {/* 4. Global Posters Section */}
-        <motion.section 
-          style={{ skewY: skewSpring, x: xSpring }}
-          className="posters-section neo-panel p-4 md:p-8 bg-[#fdfdf3] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl"
-        >
+        <section className="posters-section neo-panel p-4 md:p-8 bg-[#fdfdf3] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl">
           <div className="text-center mb-10">
             <h3 className="text-2xl md:text-3xl font-black uppercase tracking-[0.2em] text-[#1a1a1a] border-b-4 border-[#1a1a1a] inline-block pb-2">
               Featured Events
@@ -374,15 +346,14 @@ const Carnival = () => {
                   onClick={() => navigate(`/carnival/${poster.id}`)}
                   className="poster-card relative group aspect-[1132/1600] overflow-hidden rounded-2xl md:rounded-3xl border-[4px] border-black shadow-[8px_8px_0px_#1a1a1a] hover:shadow-[12px_12px_0px_#1a1a1a] transition-all cursor-pointer bg-white w-full max-w-none"
                 >
-                  <img src={poster.img} alt={poster.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <img src={poster.img} alt={poster.name} loading="lazy" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <span className="bg-white text-black px-6 py-2 rounded-xl font-black uppercase tracking-widest text-sm shadow-[4px_4px_0px_#1a1a1a]">View Details</span>
                   </div>
                 </div>
             ))}
           </div>
-        </motion.section>
-
+        </section>
       </main>
 
       <Footer />
