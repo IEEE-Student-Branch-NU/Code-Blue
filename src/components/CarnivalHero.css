@@ -65,6 +65,13 @@
   .carnival-logo {
     max-width: 80vw;
   }
+  
+  /* Make midground and foreground layers stick securely to the bottom without cropping */
+  .parallax-layer.l2-mid,
+  .parallax-layer.l4-fg {
+    object-fit: contain;
+    object-position: bottom;
+  }
 }
 
 @media (max-width: 768px) {
@@ -72,5 +79,12 @@
     max-width: 90vw;
     /* On taller mobile screens, bumping it a bit higher looks better */
     transform: translateY(-20%);
+  }
+  
+  /* Stick the layers perfectly on mobile too */
+  .parallax-layer.l2-mid,
+  .parallax-layer.l4-fg {
+    object-fit: contain;
+    object-position: bottom;
   }
 }
