@@ -8,6 +8,14 @@ import { scheduleData as externalScheduleData, getEventById } from '../data/carn
 
 // --- Tabular Itinerary ---
 const CarnivalItineraryTable = ({ navigate }) => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleEventClick = (id) => {
     if (id && id < 100) navigate(`/carnival/${id}`);
   };
@@ -15,6 +23,44 @@ const CarnivalItineraryTable = ({ navigate }) => {
   const cClass = "cursor-pointer hover:brightness-105 hover:scale-[1.02] active:scale-95 transition-all outline outline-0 hover:outline-4 hover:outline-black relative z-0 hover:z-10 shadow-none hover:shadow-[4px_4px_0px_#1a1a1a] shadow-inner";
   const headerClass = "border-[3px] border-[#1a1a1a] p-3 md:p-4 font-black uppercase tracking-wider text-[#1a1a1a]";
   const cellClass = "border-[3px] border-[#1a1a1a] p-2 md:p-3 text-[#1a1a1a] font-bold text-xs md:text-sm";
+
+  if (isMobile) {
+    return (
+      <div className="space-y-12">
+        {[27, 28, 29].map((day) => {
+          // Unique events per day for the list view (deduplicate by title)
+          const dayEvents = Array.from(new Map(externalScheduleData[day].events.map(item => [item.title, item])).values());
+          
+          return (
+            <div key={day} className="space-y-6">
+              <div className={`p-5 rounded-2xl border-[4px] border-black font-black uppercase text-center text-2xl shadow-[6px_6px_0px_#1a1a1a] ${day === 27 ? 'bg-[#BAE1FF]' : day === 28 ? 'bg-[#FEF9C3]' : 'bg-[#D1FAE5]'}`}>
+                Day {day - 26} ({day}th March)
+              </div>
+              <div className="space-y-4">
+                {dayEvents.map((evt, idx) => (
+                  <div 
+                    key={idx}
+                    onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
+                    className={`p-5 rounded-2xl border-[3px] border-black shadow-[6px_6px_0px_#1a1a1a] flex justify-between items-center bg-white ${evt.id < 100 ? 'cursor-pointer active:scale-95 transition-all active:shadow-none translate-y-0 active:translate-y-1' : ''}`}
+                  >
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[10px] md:text-xs font-black opacity-60 uppercase tracking-widest">{evt.time}</span>
+                      <span className="font-black text-lg md:text-xl uppercase leading-tight">{evt.title}</span>
+                    </div>
+                    {evt.id < 100 && (
+                      <div className="bg-black text-white p-2 rounded-lg rotate-[5deg] shadow-[3px_3px_0px_#ff6b6b]">
+                        <span className="text-xl">👉</span>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
       <div className="p-2 md:p-8 overflow-x-auto w-full rounded-xl md:rounded-[2rem] bg-white border-[3px] md:border-[4px] border-[#1a1a1a] shadow-[6px_6px_0px_#1a1a1a] md:shadow-[12px_12px_0px_#1a1a1a]">
@@ -166,11 +212,14 @@ const Carnival = () => {
   };
 
   // Build posters from the ACTUAL data structure: scheduleData[day].events
-  const allPosters = [
+  const rawPosters = [
     ...scheduleData[27].events.filter(e => e.id < 100).map(e => ({ ...e, day: 27, name: e.title })),
     ...scheduleData[28].events.filter(e => e.id < 100).map(e => ({ ...e, day: 28, name: e.title })),
     ...scheduleData[29].events.filter(e => e.id < 100).map(e => ({ ...e, day: 29, name: e.title }))
   ];
+  
+  // Deduplicate by name (title)
+  const allPosters = Array.from(new Map(rawPosters.map(item => [item.name, item])).values());
 
   // Build day-wise event list for timeline view
   const getDayEvents = (dayNum) => {

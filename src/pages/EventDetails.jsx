@@ -7,7 +7,8 @@ import { getEventById } from '../data/carnivalData';
 const allEvents = [
   { id: 1, img: '/Carnival/ITSS.webp', title: 'ITSS', link: '#' },
   { id: 2, img: '/Carnival/LUMISENSE.webp', title: 'Lumisense', link: '#' },
-  { id: 5, img: '/Carnival/FGPA WS.webp', title: 'FGPA WS', link: '#' },
+  { id: 5, img: '/Carnival/FGPA WS.webp', title: 'FPGA FORGE', link: '#' },
+  { id: 9, img: '/Carnival/FGPA WS.webp', title: 'FPGA FORGE', link: '#' },
   { id: 6, img: '/Carnival/DECODE THE CIRCUIT_FORGED IN WIRES.webp', title: 'Decode the Circuit', link: '#' },
   { id: 7, img: '/Carnival/AGENTVERSE.webp', title: 'Agentverse', link: '#' },
   { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie', link: '#' },
@@ -22,8 +23,12 @@ const EventDetails = () => {
   const navigate = useNavigate();
 
   // Find the matching event
-  const currentEvent = allEvents.find(e => e.id === parseInt(eventId));
   const fullEventData = getEventById(eventId) || {};
+  const currentEvent = allEvents.find(e => e.id === parseInt(eventId)) || {
+    id: parseInt(eventId),
+    img: fullEventData.img,
+    title: fullEventData.title
+  };
 
   // Scroll to top when mounted
   useEffect(() => {

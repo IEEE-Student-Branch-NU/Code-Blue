@@ -52,42 +52,34 @@ const CarnivalTransition = ({ isPlaying, onComplete }) => {
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: "easeInOut" }}
       className="carnival-transition-overlay"
-      style={{ 
-        position: 'fixed',
-        inset: 0,
-        zIndex: 9999,
-        background: '#000',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
     >
-      <video
-        ref={videoRef}
-        className="carnival-transition-video"
-        src="/Carnival/Transistion video.mp4"
-        playsInline
-        muted={isMuted}
-        preload="auto"
-        onEnded={onComplete}
-        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-      />
+      <div className="fixed inset-0 z-[999999] bg-black flex items-center justify-center overflow-hidden">
+        <video
+          ref={videoRef}
+          className="w-full h-full object-cover"
+          src="/Carnival/Transistion video.mp4"
+          playsInline
+          muted={isMuted}
+          preload="auto"
+          onEnded={onComplete}
+        />
 
-      {/* Control Buttons - Bottom Right */}
-      <div className="absolute bottom-12 right-12 flex items-center gap-6 z-[10000]">
-        <button 
-          onClick={toggleMute}
-          className="flex items-center gap-3 px-6 py-4 rounded-2xl bg-black/40 backdrop-blur-xl border-2 border-white/30 text-white hover:bg-black/60 transition-all shadow-[0_0_20px_rgba(0,0,0,0.3)] group"
-        >
-          <span className="text-sm font-black tracking-widest uppercase opacity-80 group-hover:opacity-100">{isMuted ? 'Unmute' : 'Mute'}</span>
-          {isMuted ? <VolumeX size={28} className="text-[#ff6b6b]" /> : <Volume2 size={28} className="text-[#00d2ff]" />}
-        </button>
-        <button 
-          onClick={handleSkip}
-          className="flex items-center gap-3 px-8 py-4 rounded-2xl bg-[#ff6b6b] border-2 border-white/30 text-white hover:bg-[#ff5252] hover:scale-105 transition-all font-black tracking-[0.2em] shadow-[0_0_25px_rgba(255,107,107,0.4)] uppercase text-base"
-        >
-          Skip Intro <X size={22} />
-        </button>
+        {/* Control Buttons - Bottom Right - FORCED VISIBILITY */}
+        <div className="absolute bottom-16 md:bottom-12 right-6 md:right-12 flex items-center gap-3 md:gap-6 z-[1000001] pointer-events-auto">
+          <button 
+            onClick={toggleMute}
+            className="flex items-center gap-2 md:gap-3 px-4 md:px-6 py-3 md:py-4 rounded-xl md:rounded-2xl bg-black/60 backdrop-blur-xl border-2 border-white/40 text-white hover:bg-black/80 transition-all shadow-[0_0_20px_rgba(0,0,0,0.5)] group pointer-events-auto cursor-pointer"
+          >
+            <span className="text-[10px] md:text-sm font-black tracking-widest uppercase opacity-80 group-hover:opacity-100">{isMuted ? 'Unmute' : 'Mute'}</span>
+            {isMuted ? <VolumeX size={20} className="md:w-7 md:h-7 text-[#ff6b6b]" /> : <Volume2 size={20} className="md:w-7 md:h-7 text-[#00d2ff]" />}
+          </button>
+          <button 
+            onClick={handleSkip}
+            className="flex items-center gap-2 md:gap-3 px-5 md:px-8 py-3 md:py-4 rounded-xl md:rounded-2xl bg-[#ff6b6b] border-2 border-white/40 text-white hover:bg-[#ff5252] hover:scale-105 transition-all font-black tracking-[0.1em] md:tracking-[0.2em] shadow-[0_0_25px_rgba(255,107,107,0.6)] uppercase text-xs md:text-base pointer-events-auto cursor-pointer"
+          >
+            Skip Intro <X size={18} className="md:w-5 md:h-5" />
+          </button>
+        </div>
       </div>
     </motion.div>
   );
