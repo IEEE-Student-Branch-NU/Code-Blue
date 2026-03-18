@@ -2,7 +2,7 @@ import React, { useCallback, useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import './StaggeredMenu.css';
 
-export const StaggeredMenu = ({
+export const StaggeredMenu = React.forwardRef(({
   position = 'right',
   colors = ['#B19EEF', '#5227FF'],
   items = [],
@@ -19,7 +19,7 @@ export const StaggeredMenu = ({
   closeOnClickAway = true,
   onMenuOpen,
   onMenuClose
-}) => {
+}, ref) => {
   const [open, setOpen] = useState(false);
   const openRef = useRef(false);
   const panelRef = useRef(null);
@@ -326,6 +326,10 @@ export const StaggeredMenu = ({
     }
   }, [playClose, animateIcon, animateColor, animateText, onMenuClose]);
 
+  React.useImperativeHandle(ref, () => ({
+    closeMenu
+  }));
+
   React.useEffect(() => {
     if (!closeOnClickAway || !open) return;
 
@@ -406,7 +410,7 @@ export const StaggeredMenu = ({
             {items && items.length ? (
               items.map((it, idx) => (
                 <li className="sm-panel-itemWrap" key={it.label + idx}>
-                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1}>
+                  <a className="sm-panel-item" href={it.link} aria-label={it.ariaLabel} data-index={idx + 1} style={it.style || undefined}>
                     <span className="sm-panel-itemLabel">{it.label}</span>
                   </a>
                 </li>
@@ -437,6 +441,6 @@ export const StaggeredMenu = ({
       </aside>
     </div>
   );
-};
+});
 
 export default StaggeredMenu;

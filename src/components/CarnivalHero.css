@@ -1,0 +1,98 @@
+/* Container for the parallax hero */
+.carnival-hero {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  
+  /* Original Vibrant Hero Gradient */
+  background: linear-gradient(to bottom, rgb(1, 1, 84), rgb(214, 86, 246)); 
+}
+
+/* Base styles for parallax layers */
+.parallax-layer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom; 
+  will-change: transform;
+  pointer-events: none; 
+}
+
+/* Specialized layer for centering the logo via Flexbox */
+.parallax-logo-layer {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Styling for the logo image */
+.carnival-logo {
+  max-width: 1000px;
+  width: 100%; /* Fix left align issue by filling wrapper */
+  height: auto;
+  transform: translateY(-15%);
+  object-fit: contain;
+  margin: 0 auto; /* Force center */
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .carnival-logo {
+    max-width: 80vw;
+  }
+  
+  /* Make midground and foreground layers stick securely to the bottom without cropping */
+  .parallax-layer.l2-mid,
+  .parallax-layer.l4-fg {
+    object-fit: contain;
+    object-position: bottom;
+  }
+}
+
+@media (max-width: 768px) {
+  .carnival-logo {
+    max-width: 90vw;
+    transform: translateY(-20%);
+  }
+  
+  /* Stick the layers perfectly on mobile too */
+  .parallax-layer.l2-mid,
+  .parallax-layer.l4-fg {
+    object-fit: contain;
+    object-position: bottom;
+  }
+}
+
+/* Transition Wrapper for Video */
+.carnival-transition-wrapper {
+  position: absolute;
+  bottom: -5vh; 
+  left: 0;
+  width: 100%;
+  height: 40vh; 
+  z-index: 20; 
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 70%, transparent 100%);
+}
+
+.carnival-transition-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center bottom;
+  mix-blend-mode: screen; 
+  opacity: 0.9;
+}

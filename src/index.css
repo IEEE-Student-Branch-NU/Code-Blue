@@ -1,6 +1,27 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Utilities for Silver and Gladolia effect */
+@layer utilities {
+  .font-gladolia {
+    font-family: 'Dancing Script', cursive; /* Using Dancing Script as a proxy for Gladolia if not locally hosted */
+  }
+  
+  .silver-text {
+    background: linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #a6a6a6 50%,
+      #ffffff 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

@@ -129,7 +129,7 @@ const BOARD_MEMBERS = [
     name: "Sukruti Sheth",
     role: "Content Lead",
     image:
-      "https://ui-avatars.com/api/?name=Sukruti+Sheth&background=0D8ABC&color=fff",
+      "/devTeam/Sukruti.webp",
     linkedin:
       "https://www.linkedin.com/in/sukruti-sheth-805269377?utm_source=share_via&utm_content=profile&utm_medium=member_ios",
     stats: ["CONTENT", "STRATEGY", "SOCIALS"],

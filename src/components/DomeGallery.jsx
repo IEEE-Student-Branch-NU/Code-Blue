@@ -28,6 +28,7 @@ const DEFAULT_IMAGES = [
   { src: '/Docs/img23.webp', alt: 'Gallery Image 23' },
   { src: '/Docs/img24.webp', alt: 'Gallery Image 24' },
   { src: '/Docs/img25.webp', alt: 'Gallery Image 25' },
+  { src: '/Docs/img26.webp', alt: 'Gallery Image 26' },
 ];
 
 const DEFAULTS = {
