@@ -25,10 +25,11 @@ const EventDetails = () => {
 
   // Find the matching event
   const fullEventData = getEventById(eventId) || {};
-  const currentEvent = allEvents.find(e => e.id === parseInt(eventId)) || {
-    id: parseInt(eventId),
-    img: fullEventData.img,
-    title: fullEventData.title
+  const matchingEventLink = allEvents.find(e => e.id === parseInt(eventId));
+  
+  const currentEvent = {
+    ...fullEventData,
+    link: matchingEventLink?.link || '#'
   };
 
   // Scroll to top when mounted
