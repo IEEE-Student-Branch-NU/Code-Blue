@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Undo2, Users, Sparkles, Ticket } from 'lucide-react';
+import { Undo2, Users, Ticket } from 'lucide-react';
 import { getEventById } from '../data/carnivalData';
 import TicketModal from '../components/TicketModal';
 
@@ -60,12 +60,12 @@ const EventDetails = () => {
       }}
     >
       
-      {/* 🔙 Back Button Sticking Out */}
+      {/* 🔙 COMPACT BACK BUTTON (Responsive Neo-Brutalist) */}
       <button 
         onClick={() => navigate(-1)}
-        className="fixed top-4 left-4 md:top-8 md:left-8 z-[100] bg-white border-[3px] md:border-4 border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] p-2.5 md:p-4 rounded-xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[14px_14px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
+        className="fixed top-4 left-4 md:top-8 md:left-8 z-[100] bg-white border-[3px] md:border-4 border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] p-2.5 md:p-4 rounded-xl md:rounded-2xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[14px_14px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
       >
-        <Undo2 size={24} md:size={32} strokeWidth={3} className="text-[#1a1a1a] group-hover:scale-110 transition-transform md:w-8 md:h-8 w-6 h-6" />
+        <Undo2 className="text-[#1a1a1a] group-hover:scale-110 transition-transform w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
       </button>
 
       {/* Main Grid Wrapper */}
@@ -132,19 +132,6 @@ const EventDetails = () => {
             </div>
           </div>
 
-          {/* Social Proof Indicator */}
-          <div className="flex items-center gap-4 py-3 px-5 border-[3px] border-black bg-[#FEF3C7] shadow-[6px_6px_0px_black] rounded-2xl transform rotate-[-1deg] animate-pulse">
-             <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center border border-black/10">
-               <Users className="w-4 h-4 text-orange-600" />
-             </div>
-             <div className="flex flex-col">
-               <span className="text-[9px] font-black uppercase tracking-widest text-orange-900/60 leading-none mb-1">Hype Check</span>
-               <p className="text-xs font-black uppercase leading-none">
-                 🔥 <span className="text-orange-600">{regCount}+</span> joined • <span className="text-red-600">{seatsLeft}</span> spots left!
-               </p>
-             </div>
-          </div>
-
           <div className="flex flex-col sm:flex-row gap-4 w-full">
             {/* Bottom Panel: Register Button (Black) */}
             <button 
@@ -155,14 +142,13 @@ const EventDetails = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform"></div>
             </button>
 
-            {/* Ticket Generator Button */}
+            {/* Delegate Post Generator Button (Pink Action) */}
             <button 
               onClick={() => setIsTicketModalOpen(true)}
-              className="flex items-center justify-center gap-3 bg-[#D656F6] text-white px-8 py-6 rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-[1.05] transition-all shadow-[8px_8px_0px_black] border-[3px] border-black group"
+              className="flex-shrink-0 flex items-center justify-center gap-4 bg-[#D656F6] text-white px-8 py-6 rounded-2xl font-[1000] uppercase tracking-widest text-sm hover:scale-[1.05] transition-all shadow-[8px_8px_0px_black] border-[3px] border-black group active:shadow-none active:translate-x-1 active:translate-y-1"
             >
-              <Sparkles className="w-6 h-6 group-hover:rotate-12 transition-transform" />
-              <span className="hidden sm:inline">Get Post</span>
-              <Ticket className="w-6 h-6 sm:hidden" />
+              <Ticket className="w-6 h-6 group-hover:rotate-12 transition-transform text-white fill-current" />
+              <span className="block italic">GENERATE POST 🚀</span>
             </button>
           </div>
           

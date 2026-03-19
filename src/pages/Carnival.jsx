@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring, useScroll, useTransform, useVelocity } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Ticket } from 'lucide-react';
+import TicketModal from '../components/TicketModal';
 import './Carnival.css';
 import CarnivalHero from '../components/CarnivalHero';
 import Footer from './Footer';
 import { scheduleData as externalScheduleData, getEventById } from '../data/carnivalData';
 
 // --- Tabular Itinerary ---
-const CarnivalItineraryTable = ({ navigate }) => {
+const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -19,6 +20,11 @@ const CarnivalItineraryTable = ({ navigate }) => {
 
   const handleEventClick = (id) => {
     if (id && id < 100) navigate(`/carnival/${id}`);
+  };
+
+  const handleTicketClick = (e, event) => {
+    e.stopPropagation();
+    onTicketOpen(e, event.title, event.id, event.img);
   };
 
   const cClass = "cursor-pointer hover:brightness-105 hover:scale-[1.02] active:scale-95 transition-all outline outline-0 hover:outline-4 hover:outline-black relative z-0 hover:z-10 shadow-none hover:shadow-[4px_4px_0px_#1a1a1a] shadow-inner";
@@ -97,6 +103,16 @@ const CarnivalItineraryTable = ({ navigate }) => {
 
                         {/* Ticket Notch decoration */}
                         <div className="absolute top-1/2 -right-[1.75px] w-3 h-6 border-[3px] border-black border-r-0 rounded-l-full bg-[#fafafa] -translate-y-1/2"></div>
+                        
+                        {/* Quick Post Button */}
+                        {evt.id < 100 && (
+                          <button 
+                            onClick={(e) => handleTicketClick(e, evt)}
+                            className="absolute -top-3 -right-3 bg-[#D656F6] text-white p-2 rounded-lg border-2 border-black shadow-[3px_3px_0px_black] hover:scale-110 active:scale-95 transition-all z-20 group"
+                          >
+                            <Ticket size={16} strokeWidth={3} className="group-hover:rotate-12 transition-transform" />
+                          </button>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -124,8 +140,24 @@ const CarnivalItineraryTable = ({ navigate }) => {
             <tr>
               <td className={`${cellClass} bg-[#f0fbff]`}>4:30 - 6:30</td>
               <td className={`${cellClass} bg-[#E0F2FE]`}>Setup & Briefings</td>
-              <td className={`${cellClass} bg-[#BAE1FF] ${cClass}`} onClick={() => handleEventClick(1)}>Next gen ITSS</td>
-              <td className={`${cellClass} bg-[#D1FAE5] ${cClass}`} onClick={() => handleEventClick(2)}>Lumisense</td>
+              <td className={`${cellClass} bg-[#BAE1FF] ${cClass} relative`} onClick={() => handleEventClick(1)}>
+                Next gen ITSS
+                <button 
+                  onClick={(e) => onTicketOpen(e, "Next Gen ITSS", 1, "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?auto=format&fit=crop&q=80")}
+                  className="absolute -top-2 -right-2 bg-[#D656F6] p-1 rounded-md border-2 border-black shadow-[2px_2px_0px_black] hover:scale-110 active:scale-95 transition-all z-20"
+                >
+                  <Ticket size={12} className="text-white" strokeWidth={4} />
+                </button>
+              </td>
+              <td className={`${cellClass} bg-[#D1FAE5] ${cClass} relative`} onClick={() => handleEventClick(2)}>
+                Lumisense
+                <button 
+                  onClick={(e) => onTicketOpen(e, "Lumisense", 2, "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80")}
+                  className="absolute -top-2 -right-2 bg-[#D656F6] p-1 rounded-md border-2 border-black shadow-[2px_2px_0px_black] hover:scale-110 active:scale-95 transition-all z-20"
+                >
+                  <Ticket size={12} className="text-white" strokeWidth={4} />
+                </button>
+              </td>
             </tr>
             <tr className="h-6"><td colSpan="4" className="border-none"></td></tr>
 
@@ -206,10 +238,18 @@ const CarnivalItineraryTable = ({ navigate }) => {
 const Carnival = () => {
   const [activeTab, setActiveTab] = useState(() => {
     const saved = sessionStorage.getItem('carnival-active-tab');
-    if (saved && saved !== 'itinerary') return parseInt(saved);
+    if (saved && saved !== 'itinerary' && !['27', '28', '29'].includes(saved)) return 'itinerary';
     return saved || 'itinerary';
   });
+  const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({ title: 'IEEE CARNIVAL', hash: 42, img: '' });
   const navigate = useNavigate();
+
+  const handleOpenTicket = (e, title, id, img) => {
+    e.stopPropagation();
+    setModalData({ title, hash: id || 42, img });
+    setIsTicketModalOpen(true);
+  };
 
   // Scroll Restoration Logic
   useEffect(() => {
@@ -310,6 +350,41 @@ const Carnival = () => {
           </p>
         </section>
 
+        {/* --- VIRAL POST GENERATOR SECTION --- */}
+        <section className="viral-showcase-section relative overflow-hidden p-6 md:p-12 bg-black border-[5px] border-black shadow-[20px_20px_0px_#FFD700] rounded-[2rem] md:rounded-[3rem] flex flex-col md:flex-row items-center gap-10">
+           {/* Background Accents */}
+           <div className="absolute top-0 right-0 w-64 h-64 bg-[#D656F6] blur-[100px] opacity-20 pointer-events-none"></div>
+           <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#BAE1FF] blur-[100px] opacity-20 pointer-events-none"></div>
+
+           <div className="flex-1 space-y-6 text-center md:text-left relative z-10">
+              <div className="inline-block px-4 py-1.5 bg-[#FFD700] border-2 border-black rotate-[-2deg] shadow-[4px_4px_0px_black]">
+                 <span className="text-xs font-black uppercase tracking-[0.2em]">OFFICIAL DELEGATE FEATURE</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-[1000] text-white uppercase leading-[0.8] tracking-tighter italic">
+                CLAIM YOUR STATUS. <br/> <span className="text-[#FFD700]">SHOW THE WORLD.</span>
+              </h2>
+              <p className="text-sm md:text-lg font-bold text-white/60 uppercase tracking-widest leading-relaxed max-w-xl">
+                Generate your exclusive Delegate Post for the IEEE Carnival. Perfect for your Instagram Stories & WhatsApp Status. 
+                Show everyone you're part of the elite tech hub!
+              </p>
+           </div>
+
+           <div className="shrink-0 relative z-10">
+              <button 
+                onClick={() => setIsTicketModalOpen(true)}
+                className="group relative flex flex-col items-center gap-4 bg-white hover:bg-[#FFD700] text-black border-[4px] border-black p-8 md:p-12 rounded-[3rem] shadow-[12px_12px_0px_#D656F6] hover:shadow-none hover:translate-x-1 hover:translate-y-1 active:scale-95 transition-all w-full md:w-auto"
+              >
+                <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center mb-2 group-hover:scale-110 transition-transform">
+                   <Ticket className="text-[#FFD700] w-8 h-8" strokeWidth={3} />
+                </div>
+                <span className="text-2xl font-[1000] uppercase tracking-tighter italic">GENERATE POST 🚀</span>
+                <div className="absolute -top-4 -right-4 bg-[#D656F6] border-2 border-black px-3 py-1 rotate-12 shadow-[3px_3px_0px_black]">
+                   <span className="text-[10px] font-black text-white uppercase">TOP TRENDING</span>
+                </div>
+              </button>
+           </div>
+        </section>
+
         {/* 3. Schedule Section */}
         <section className="schedule-section neo-panel p-3 md:p-8 bg-[#f0fbff] border-[3px] md:border-4 border-black box-border shadow-[6px_6px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] rounded-xl">
           <div className="text-center mb-10">
@@ -328,7 +403,7 @@ const Carnival = () => {
               className="w-full"
             >
               {activeTab === 'itinerary' ? (
-                <CarnivalItineraryTable navigate={navigate} />
+                <CarnivalItineraryTable navigate={navigate} onTicketOpen={handleOpenTicket} />
               ) : (
                 /* Day-wise: render each event as a card */
                 <div className="space-y-6 md:space-y-8">
@@ -344,14 +419,31 @@ const Carnival = () => {
                           evt.type === 'break' || evt.type === 'special' 
                             ? 'bg-gray-100' 
                             : `${evt.id < 100 ? 'cursor-pointer hover:brightness-105 hover:scale-[1.02] active:scale-95' : ''} transition-all`
-                        }`}
+                        } relative group`}
                         style={evt.type === 'session' ? { background: eventColors[activeTab]?.[idx % 3] || '#f5f5f5' } : {}}
                       >
-                        <div className="space-y-1">
-                          <div className="text-xs md:text-sm font-black opacity-50 mb-1 uppercase tracking-widest">
-                            {evt.type === 'session' ? '🔧 SESSION' : evt.type === 'special' ? '⭐ SPECIAL' : '☕ BREAK'}
-                          </div>
-                          <div className="font-black text-lg md:text-2xl leading-tight">{evt.title}</div>
+                        <div className="flex justify-between items-start">
+                           <div className="space-y-1">
+                             <div className="text-xs md:text-sm font-black opacity-50 mb-1 uppercase tracking-widest">
+                               {evt.type === 'session' ? '🔧 SESSION' : evt.type === 'special' ? '⭐ SPECIAL' : '☕ BREAK'}
+                             </div>
+                             <div className="font-black text-lg md:text-2xl leading-tight">{evt.title}</div>
+                           </div>
+                           
+                           {evt.id < 100 && (
+                             <div className="flex gap-2">
+                               <button 
+                                 onClick={(e) => handleOpenTicket(e, evt.title, evt.id, evt.img)}
+                                 className="bg-[#D656F6] text-white p-2 md:p-3 rounded-xl border-[2.5px] border-black shadow-[3px_3px_0px_black] hover:scale-110 active:scale-95 transition-all"
+                                 title="Generate Post"
+                               >
+                                 <Ticket size={20} strokeWidth={3} />
+                               </button>
+                               <div className="w-10 h-10 md:w-12 md:h-12 bg-black text-white rounded-xl flex items-center justify-center shadow-lg">
+                                  <ArrowRight size={24} strokeWidth={3} />
+                               </div>
+                             </div>
+                           )}
                         </div>
                       </div>
                     </div>
@@ -393,6 +485,14 @@ const Carnival = () => {
       </main>
 
       <Footer />
+
+      <TicketModal 
+        isOpen={isTicketModalOpen}
+        onClose={() => setIsTicketModalOpen(false)}
+        eventTitle={modalData.title}
+        dayEventsHash={modalData.hash}
+        posterImg={modalData.img || "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80"}
+      />
     </div>
   );
 };

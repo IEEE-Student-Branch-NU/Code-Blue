@@ -1,6 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { toPng } from 'html-to-image';
-import { X, Download, Share2, Ticket } from 'lucide-react';
+import { Undo2, Download, Share2, Ticket } from 'lucide-react';
 
 const TicketModal = ({ isOpen, onClose, eventTitle, eventDate, posterImg, eventId }) => {
   const [name, setName] = useState('');
@@ -31,144 +31,204 @@ const TicketModal = ({ isOpen, onClose, eventTitle, eventDate, posterImg, eventI
     }, 100);
   }, [ticketRef, eventTitle]);
 
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("Invitation Link Copied! Send it to your friends! 🔗🚀");
+    } catch (err) {
+      console.error('Copy Link Error:', err);
+    }
+  };
+
+  const handleShare = async () => {
+    if (!ticketRef.current || isGenerating) return;
+    setIsGenerating(true);
+    try {
+      const dataUrl = await toPng(ticketRef.current, { 
+        quality: 1.0, 
+        pixelRatio: 3,
+        backgroundColor: '#000000'
+      });
+      const blob = await (await fetch(dataUrl)).blob();
+      const file = new File([blob], `IEEE_Carnival_Post_${name || 'Delegate'}.png`, { type: 'image/png' });
+
+      if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+        await navigator.share({
+          files: [file],
+          title: 'IEEE Carnival Delegate Pass',
+          text: `I'm attending ${eventTitle} at Nirma University! Join me! 🎡 #IEEECarnival`,
+        });
+      } else {
+        const link = document.createElement('a');
+        link.download = `IEEE_Carnival_Post_${name || 'Delegate'}.png`;
+        link.href = dataUrl;
+        link.click();
+        alert("Post saved! Upload it to your story/status and tag us! 🚀");
+      }
+    } catch (err) {
+      console.error('Viral Share Engine Error:', err);
+      handleDownload();
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-in fade-in duration-300">
-      <div className="relative w-full max-w-xl bg-white border-4 border-black shadow-[16px_16px_0px_black] rounded-[2rem] overflow-hidden flex flex-col items-center p-8 max-h-[90vh] overflow-y-auto">
-        
-        {/* Close Button */}
-        <button onClick={onClose} className="absolute top-6 right-6 p-2 rounded-xl hover:bg-gray-100 border-2 border-transparent hover:border-black transition-all">
-          <X className="w-6 h-6" />
+    <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/98 p-4 backdrop-blur-xl overflow-y-auto">
+      <div className="max-w-[450px] w-full flex flex-col gap-8 my-auto py-10">
+        {/* --- COMPACT BACK BUTTON (Responsive Neo-Brutalist) --- */}
+        <button 
+          onClick={onClose}
+          className="fixed top-4 left-4 md:top-8 md:left-8 z-[210] bg-white border-[3px] md:border-[4px] border-black shadow-[4px_4px_0px_black] md:shadow-[10px_10px_0px_black] p-2.5 md:p-4 rounded-xl md:rounded-2xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[14px_14px_0px_black] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
+        >
+          <Undo2 className="text-black group-hover:scale-110 transition-transform w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
         </button>
 
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-black uppercase tracking-tight mb-2">Build Your Ticket! 🎟️</h2>
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-widest leading-relaxed">
-            Personalize your attendee post & share the hype on WhatsApp/Instagram!
-          </p>
+        {/* Branding & Status Header */}
+        <div className="w-full text-center space-y-2">
+           <h2 className="text-4xl font-[1000] text-white uppercase tracking-tighter italic">BROADCAST YOUR STATUS!</h2>
+           <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.5em]">EXCLUSIVE TO REGISTERED DELEGATES</p>
         </div>
 
-        {/* Input Field */}
-        <div className="w-full mb-10 space-y-2">
-          <label className="text-[10px] font-black uppercase tracking-[0.2em] ml-2 text-gray-400">Enter Your Name</label>
+        {/* Name Input Group (Neo-Brutalist Focus) */}
+        <div className="w-full space-y-4 relative z-20">
           <input 
             type="text" 
-            placeholder="Jane Doe" 
+            placeholder="TYPE YOUR NAME HERE..."
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-6 py-4 rounded-2xl border-[3px] border-black shadow-[6px_6px_0px_black] focus:shadow-none focus:translate-x-1 focus:translate-y-1 transition-all outline-none font-black text-lg bg-[#fafafa]"
+            className="w-full px-8 py-5 rounded-[2.5rem] border-[4px] border-black shadow-[12px_12px_0px_#FFD700] focus:shadow-none focus:translate-x-1 focus:translate-y-1 transition-all outline-none font-black text-xl bg-white text-black placeholder:text-gray-300"
           />
         </div>
 
-        {/* Ticket Canvas (What will be downloaded) */}
-        <div className="w-full flex justify-center mb-8 pb-4">
+        {/* Ticket Canvas (The Ultimate Shareable Delegate "Post") */}
+        <div className="w-full flex justify-center pb-4 scale-[0.85] sm:scale-100">
           <div 
             ref={ticketRef}
-            className="w-[360px] aspect-[10/16] bg-white border-[6px] border-black shadow-[20px_20px_0px_rgba(0,0,0,0.9)] rounded-[2.8rem] relative overflow-hidden flex flex-col items-center"
+            className="w-[380px] aspect-[9/16] bg-black border-[10px] border-black shadow-[35px_35px_0px_#D656F6] rounded-[4.5rem] relative overflow-hidden flex flex-col items-center"
           >
-            {/* Holographic Overlays & Texture */}
-            <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.03] mix-blend-overlay" 
-                 style={{ backgroundImage: `url('https://www.transparenttextures.com/patterns/pinstriped-suit.png')` }}></div>
-            <div className="absolute inset-0 z-10 pointer-events-none opacity-[0.08] bg-gradient-to-tr from-[#D656F6] via-transparent to-[#BAE1FF]"></div>
-            
-            {/* Top Pattern Header */}
-            <div className="w-full h-14 bg-black flex items-center justify-between px-8 relative z-20">
-              <span className="text-[10px] font-black text-white uppercase tracking-[0.5em] leading-none">IEEE SB NIRMA</span>
-              <div className="flex gap-1.5">
-                {[1,2,3].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#D656F6]"></div>)}
-              </div>
+            {/* Background Poster (High-Contrast Cinematic) */}
+            <div className="absolute inset-0 z-0 scale-105">
+               <img src={posterImg} alt="BG" className="w-full h-full object-cover saturate-[1.6] grayscale-[5%]" />
+               <div className="absolute inset-0 bg-black/75 transition-colors"></div>
+               {/* Industrial Noise Pattern */}
+               <div className="absolute inset-0 opacity-[0.08] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]"></div>
             </div>
 
-            {/* Event Header Section */}
-            <div className="w-full p-8 flex flex-col items-center text-center relative z-20">
-              <div className="w-24 h-24 rounded-full border-4 border-black bg-white mb-5 flex items-center justify-center shadow-[6px_6px_0px_black] rotate-[-7deg] relative group">
-                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#D656F6] to-[#BAE1FF] opacity-10"></div>
-                 <Ticket className="w-12 h-12 text-black relative z-10" />
-              </div>
-              <h3 className="text-4xl font-black uppercase leading-[0.85] tracking-tighter mb-4 break-words max-w-[280px] drop-shadow-[2px_2px_0px_#A7F3D0]">
-                {eventTitle}
-              </h3>
-              <div className="px-5 py-2 rounded-xl border-[3px] border-black bg-[#FEF3C7] shadow-[4px_4px_0px_black] -rotate-1">
-                <span className="text-[10px] font-black uppercase tracking-widest leading-none block">NIRMA CAMPUS • MARCH 2026</span>
-              </div>
+            {/* Stage 1: Official Header (Full Branding) */}
+            <div className="w-full pt-16 pb-2 px-8 relative z-20 flex flex-col items-center">
+               <div className="w-full bg-black border-4 border-white py-3 px-6 flex flex-col items-center shadow-[6px_6px_0px_white]">
+                  <span className="text-[12px] font-[1000] text-white uppercase tracking-[0.4em] leading-none mb-1">
+                     IEEE STUDENT BRANCH
+                  </span>
+                  <div className="h-[2px] w-28 bg-[#FFD700] mb-1"></div>
+                  <span className="text-[10px] font-black text-[#FFD700] uppercase tracking-widest leading-none">
+                     NIRMA UNIVERSITY
+                  </span>
+               </div>
             </div>
 
-            {/* Poster Slice (Cinematic) */}
-            <div className="w-full h-36 border-y-[6px] border-black relative overflow-hidden bg-gray-900 z-20">
-              <img src={posterImg} alt="Event" className="w-full h-full object-cover grayscale-[30%] contrast-[1.1]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent"></div>
-              <div className="absolute bottom-4 left-8">
-                <div className="flex items-center gap-2">
-                   <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                   <p className="text-[11px] font-black text-white uppercase tracking-[0.2em]">{eventDate}</p>
-                </div>
-              </div>
+            {/* Stage 2: Event Information (The Showcase) */}
+            <div className="w-full px-8 relative z-20 flex flex-col items-center mt-6">
+               <div className="px-6 py-1.5 bg-[#FFD700] border-4 border-black shadow-[6px_6px_0px_black] rotate-[-2deg] mb-3">
+                  <span className="text-[12px] font-[1000] text-black uppercase tracking-widest leading-none block italic">CARNIVAL 2026 EDITION</span>
+               </div>
+               <h3 className="text-6xl font-[1000] text-white uppercase leading-[0.75] tracking-tighter drop-shadow-[8px_8px_0px_black] text-center w-full max-w-[300px]">
+                 {eventTitle}
+               </h3>
+               <div className="mt-4 px-5 py-2 bg-[#D656F6] border-4 border-black rotate-[5deg] shadow-[6px_6px_0px_black] z-50">
+                  <span className="text-[11px] font-[1000] text-black uppercase tracking-widest leading-none block">SEE YOU THERE! 🎫</span>
+               </div>
             </div>
 
-            {/* Personalization Section */}
-            <div className="w-full p-8 flex-grow flex flex-col items-center justify-center relative z-20">
-              <div className="w-full relative py-10 border-[4px] border-black rounded-[2rem] bg-white shadow-[8px_8px_0px_#BAE1FF] -rotate-1 scale-[1.02]">
-                <span className="absolute -top-4 left-8 px-4 py-1.5 bg-black text-white text-[10px] font-black uppercase tracking-widest rounded-lg skew-x-[-10deg]">VALIDATED PASS</span>
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-30 text-center block mb-2">Participant Identity</span>
-                <span className="text-4xl font-black uppercase tracking-tighter text-center block px-6 truncate leading-none mb-1">
-                  {name || 'ANONYMOUS'}
-                </span>
-                <div className="mt-6 flex flex-col items-center">
-                   <div className="px-4 py-1.5 bg-[#D656F6] text-white border-2 border-black rounded-lg shadow-[3px_3px_0px_black] rotate-[2deg]">
-                      <span className="text-[11px] font-black uppercase leading-none tracking-widest">VIP ACCESS GRANTED</span>
-                   </div>
-                </div>
-              </div>
-            </div>
+            {/* Stage 3: Participant Identity (The Focal Flex) */}
+            <div className="w-full px-6 flex-grow flex flex-col justify-center relative z-20 py-8">
+               <div className="w-full relative py-12 px-8 bg-white border-[12px] border-black rounded-[4rem] shadow-[25px_25px_0px_black] flex flex-col items-center group overflow-hidden">
+                  <div className="absolute top-0 left-0 right-0 h-12 bg-black flex items-center justify-center border-b-[8px] border-black">
+                     <span className="text-[11px] font-[1000] text-white uppercase tracking-[0.4em]">OFFICIAL DELEGATE</span>
+                  </div>
 
-            {/* Bottom Section: QR & Authentication */}
-            <div className="w-full bg-white border-t-[6px] border-black p-6 flex items-center gap-6 justify-between relative z-20">
-               <div className="flex flex-col gap-1 items-start text-left">
-                  <span className="text-[10px] font-black opacity-20 uppercase tracking-[0.3em] leading-none mb-1">Authenticity</span>
-                  <div className="text-lg font-black uppercase leading-none tracking-tighter">ADMIT ONE • 🎟️</div>
-                  <div className="flex gap-1 mt-2">
-                     {[...Array(8)].map((_, i) => <div key={i} className="w-3 h-1 bg-black opacity-10"></div>)}
+                  <span className="text-[11px] font-black text-gray-400 uppercase tracking-[0.4em] mb-4 mt-8">EXCLUSIVELY FOR</span>
+                  <h4 className="text-5xl font-[1000] text-black uppercase tracking-tighter text-center leading-[0.8] w-full break-words px-4 italic skew-x-[-8deg] mb-2">
+                    {name || 'EXC DELEGATE'}
+                  </h4>
+
+                  <div className="mt-8 flex items-center gap-4 opacity-70">
+                     <div className="w-5 h-5 rounded-md bg-black"></div>
+                     <div className="w-5 h-5 rounded-md bg-[#FFD700] border-4 border-black rotate-12"></div>
+                     <div className="w-5 h-5 rounded-md bg-[#D656F6] border-4 border-black rotate-[-12deg]"></div>
                   </div>
                </div>
+            </div>
 
-               {/* Stylized QR Passcode */}
-               <div className="w-20 h-20 bg-white border-[4px] border-black p-1.5 shadow-[6px_6px_0px_#A7F3D0] relative overflow-hidden group">
-                  <div className="w-full h-full grid grid-cols-5 grid-rows-5 gap-0.5 animate-pulse">
+            {/* Stage 4: Official Verification Footer */}
+            <div className="w-full py-10 px-10 mt-auto relative z-20 bg-black border-t-[8px] border-black flex items-center justify-between">
+               <div className="flex flex-col items-start gap-4">
+                  <div className="flex items-center gap-6">
+                     <span className="text-6xl font-black text-white leading-none tracking-tighter opacity-15">#{(dayEventsHash || 0) + 72}</span>
+                     <div className="bg-white border-4 border-black py-2 px-5 rotate-[-3deg] shadow-[6px_6px_0px_#FFD700]">
+                        <span className="text-[10px] font-[1000] text-black uppercase tracking-widest block italic">INVITATION GRANTED</span>
+                     </div>
+                  </div>
+                  <div className="px-4 py-1.5 bg-[#FFD700] border-4 border-black skew-x-[-12deg] shadow-[6px_6px_0px_white]">
+                     <span className="text-[10px] font-black text-black uppercase tracking-widest leading-none block">NIRMA UNIVERSITY CAMPUS</span>
+                  </div>
+               </div>
+               
+               {/* Professional QR Signature */}
+               <div className="w-20 h-20 bg-white border-[8px] border-black p-1.5 shadow-[12px_12px_0px_#D656F6] rotate-[10deg] rounded-[2.5rem]">
+                  <div className="w-full h-full grid grid-cols-5 grid-rows-5 gap-1 animate-pulse">
                      {[...Array(25)].map((_, i) => (
-                       <div key={i} className={`rounded-[1px] ${(i*13 + (dayEventsHash || 0)) % 3 === 0 ? 'bg-black' : 'bg-transparent'}`}></div>
+                       <div key={i} className={`rounded-sm ${(i*13 + (dayEventsHash || 0)) % 4 === 0 ? 'bg-black' : 'bg-transparent'}`}></div>
                      ))}
                   </div>
                </div>
             </div>
 
-            {/* Ticket Notches (Deeper / More defined) */}
-            <div className="absolute left-0 top-[23.5rem] -translate-x-1/2 w-12 h-12 rounded-full border-[6px] border-black bg-[#f8f0ff] z-30 shadow-inner"></div>
-            <div className="absolute right-0 top-[23.5rem] translate-x-1/2 w-12 h-12 rounded-full border-[6px] border-black bg-[#f8f0ff] z-30 shadow-inner"></div>
+            {/* Side Die-Cut Detailing */}
+            <div className="absolute left-[-25px] top-[74%] w-12 h-12 rounded-full bg-white border-[8px] border-black z-30 shadow-inner"></div>
+            <div className="absolute right-[-25px] top-[74%] w-12 h-12 rounded-full bg-white border-[8px] border-black z-30 shadow-inner"></div>
+
+            {/* Status Trace Overlay */}
+            <div className="absolute inset-0 pointer-events-none z-10 opacity-[0.2] bg-[radial-gradient(circle_at_top_right,#FFD700,transparent_70%),radial-gradient(circle_at_bottom_left,#03E9F4,transparent_70%)]"></div>
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="w-full flex gap-4">
-          <button 
-            onClick={handleDownload}
-            disabled={!name || isGenerating}
-            className="flex-grow flex items-center justify-center gap-3 bg-black text-white px-8 py-5 rounded-[1.5rem] font-black uppercase tracking-widest text-sm hover:-translate-y-1 hover:shadow-[0px_10px_30px_rgba(0,0,0,0.4)] active:scale-95 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-[8px_8px_0px_#A7F3D0]"
-          >
-            {isGenerating ? 'Generating...' : <><Download className="w-5 h-5" /> Generate VIP Pass</>}
-          </button>
-          <button className="flex items-center justify-center w-20 bg-[#BAE1FF] border-4 border-black rounded-[1.5rem] hover:bg-[#A3D1F3] transition-all">
-            <Share2 className="w-6 h-6" />
-          </button>
+        {/* Triple Action Social Distribution Hub */}
+        <div className="w-full flex flex-col gap-4 px-2">
+           <div className="flex gap-4">
+             <button 
+               disabled={!name || isGenerating}
+               onClick={handleShare}
+               className="flex-[2] bg-[#FFD700] hover:bg-[#ffc107] text-black border-[4px] border-black shadow-[10px_10px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none py-5 px-6 rounded-[2.5rem] font-[1000] uppercase tracking-widest transition-all text-sm disabled:opacity-50"
+             >
+               {isGenerating ? 'GENERATING POST...' : 'GET YOUR POST 🚀'}
+             </button>
+             <button 
+               disabled={!name || isGenerating}
+               onClick={handleDownload}
+               className="flex-1 bg-white hover:bg-gray-100 text-black border-[4px] border-black shadow-[10px_10px_0px_black] active:translate-x-1 active:translate-y-1 active:shadow-none py-5 px-6 rounded-[2.5rem] font-[1000] uppercase tracking-widest transition-all text-xs disabled:opacity-50"
+             >
+               SAVE 🎫
+             </button>
+           </div>
+           
+           <button 
+             onClick={handleCopyLink}
+             className="w-full bg-black/40 hover:bg-black/60 text-white/60 hover:text-white border-[2px] border-white/10 py-3 rounded-[1.5rem] font-black uppercase tracking-[0.4em] text-[10px] transition-all"
+           >
+             COPY INVITATION LINK 🔗
+           </button>
         </div>
 
-        <p className="mt-6 text-[9px] font-bold text-gray-400 uppercase tracking-widest text-center max-w-xs leading-relaxed">
-          The download works best on modern browsers. You can also screenshot your customized ticket above!
+        <p className="text-[10px] font-black text-white/30 uppercase tracking-[0.5em] text-center w-full max-w-[300px] mx-auto leading-relaxed">
+          BROADCAST YOUR EXCLUSIVE STATUS & INVITE YOUR PEERS!
         </p>
-
       </div>
     </div>
   );
-};
+}
 
 export default TicketModal;
