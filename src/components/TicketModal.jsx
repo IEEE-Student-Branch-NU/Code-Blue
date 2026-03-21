@@ -7,7 +7,7 @@ const TicketModal = ({ isOpen, onClose, eventTitle, eventDate, eventId }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const ticketRef = useRef(null);
 
-  const shareText = `🎡 PEAK ENERGY ALERT! I'm officially attending ${eventTitle.toUpperCase()} at IEEE CARNIVAL 2026! 🚀🔋\n\nWitness the tech takeover this April at Nirma University! 🏛️✨\nSecure your spot: https://ieeenc.org/carnival\n\n#IEEECarnival #SBNU #NirmaUniversity #TechChaos`;
+  const shareText = `🎡 PEAK ENERGY ALERT! I'm officially attending ${eventTitle.toUpperCase()} at IEEE CARNIVAL 2026! 🚀🔋\n\nWitness the tech takeover this April at Nirma University! 🏛️✨\nSecure your spot: https://ieeenirma.org\n\n#IEEECarnival #SBNU #NirmaUniversity #TechChaos`;
 
   const handleAction = useCallback(async (mode) => {
     if (!ticketRef.current || isGenerating) return;
