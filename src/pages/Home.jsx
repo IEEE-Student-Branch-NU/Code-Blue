@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import GridDistortion from '../components/GridDistortion'
 import GridScan from '../components/GridScan'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
@@ -67,7 +66,7 @@ const cardStyles = {
     card: {
         backgroundColor: '#111',
         border: '3px solid #fff',
-        boxShadow: '8px 8px 0px #5eb8ff',
+        boxShadow: '8px 8px 0px #00629B',
         padding: 'clamp(20px, 5vw, 40px)',
         marginBottom: '0',
         maxWidth: '100%',
@@ -103,7 +102,7 @@ const cardStyles = {
         textTransform: 'uppercase',
         letterSpacing: '1px',
         display: 'inline-block',
-        borderBottom: '4px solid #5eb8ff',
+        borderBottom: '4px solid #00629B',
         paddingBottom: '5px',
         alignSelf: 'start'
     },
@@ -172,25 +171,25 @@ const Home = () => {
 
     return (
         <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
-
-            {/* GridDistortion Hero Section */}
-            <div style={{
-                position: 'relative',
-                zIndex: 1,
-                width: '100%',
-                height: '100dvh',
-                overflow: 'hidden',
-            }}>
-                <GridDistortion
-                    imageSrc="/hero.webp"
-                    grid={20}
-                    mouse={0.15}
-                    strength={0.1}
-                    relaxation={0.9}
+            
+            {/* 1. IEEE CARNIVAL ENTRANCE - PROMOTED TO TOP */}
+            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
+                <GridScan
+                    sensitivity={0.5}
+                    lineThickness={1}
+                    linesColor="#1a0033"
+                    gridScale={0.1}
+                    scanColor="#FF00F5"
+                    scanOpacity={0.5}
+                    enablePost
+                    bloomIntensity={0.9}
+                    chromaticAberration={0.002}
+                    noiseIntensity={0.015}
                 />
+                <CarnivalEntrance />
             </div>
 
-            {/* Combined Grid Section */}
+            {/* 2. Combined Grid Section */}
             <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden' }}>
                 {/* Section Background */}
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -270,24 +269,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* GridScan + Carnival Entrance Section */}
-            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
-                <GridScan
-                    sensitivity={0.55}
-                    lineThickness={1}
-                    linesColor="#392e4e"
-                    gridScale={0.1}
-                    scanColor="#FF9FFC"
-                    scanOpacity={0.4}
-                    enablePost
-                    bloomIntensity={0.6}
-                    chromaticAberration={0.002}
-                    noiseIntensity={0.01}
-                />
-                <CarnivalEntrance />
-            </div>
-
-            {/* Scroll Velocity Section */}
+            {/* 3. Scroll Velocity Section */}
             <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
@@ -299,16 +281,16 @@ const Home = () => {
                 />
             </div>
 
-            {/* Sub-Chapters Section */}
+            {/* 4. Sub-Chapters Section */}
             <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden', paddingBottom: '80px', paddingTop: '40px' }}>
                 {/* Section Background (Same as top section) */}
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
                     <Squares
                         direction="diagonal"
                         speed={0.15}
-                        borderColor="#333"
+                        borderColor="rgba(214, 86, 246, 0.15)"
                         squareSize={40}
-                        hoverFillColor="#111"
+                        hoverFillColor="rgba(214, 86, 246, 0.08)"
                     />
                 </div>
 
@@ -353,7 +335,7 @@ const Home = () => {
                 </div>
             </div>
 
-            {/* Final Scroll Velocity Section */}
+            {/* 5. Final Scroll Velocity Section */}
             <div style={{ padding: '0 0 60px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[

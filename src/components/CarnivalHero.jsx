@@ -4,35 +4,41 @@ import { motion, useSpring as useFramerSpring } from 'framer-motion';
 import './CarnivalHero.css';
 
 const CarnivalHero = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(false);
+  const [imagesLoaded, setImagesLoaded] = useState(true);
   
-  // Setup a spring reacting to scrollY for buttery smooth parallax
+  // Setup the original React Spring for the "butter smooth" slow-motion physics
   const [{ scrollY }, api] = useSpring(() => ({ 
-    scrollY: 0,
-    config: { mass: 1, tension: 120, friction: 40 }
+    scrollY: typeof window !== 'undefined' ? window.scrollY : 0, 
+    config: { mass: 2, tension: 120, friction: 50 } // Extremely smooth, heavy trailing spring
   }));
 
   const logoRotateX = useFramerSpring(0, { stiffness: 100, damping: 30 });
   const logoRotateY = useFramerSpring(0, { stiffness: 100, damping: 30 });
 
   const getDeviceType = () => {
+    if (typeof window === 'undefined') return 'desktop';
     if (window.innerWidth <= 768) return 'mobile';
     if (window.innerWidth <= 1024) return 'tablet';
     return 'desktop';
   };
 
-  const [deviceType, setDeviceType] = useState(getDeviceType());
+  const [deviceType, setDeviceType] = useState('desktop');
 
   useEffect(() => {
     const handleResize = () => setDeviceType(getDeviceType());
     window.addEventListener('resize', handleResize);
+    setDeviceType(getDeviceType());
 
     // Preload Images
     const imagesToPreload = [
       "/Carnival/layer1-v2.png",
       "/Carnival/carnival-logo.png",
-      deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png",
-      deviceType === 'mobile' ? "/Carnival/layer3-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer3-tablet.png" : "/Carnival/layer3-v2.png"
+      "/Carnival/layer2-mobile.png",
+      "/Carnival/layer2-tablet.png",
+      "/Carnival/layer2-v2.png",
+      "/Carnival/layer3-mobile.png",
+      "/Carnival/layer3-tablet.png",
+      "/Carnival/layer3-v2.png"
     ];
 
     let loadedCount = 0;
@@ -41,26 +47,36 @@ const CarnivalHero = () => {
       img.src = src;
       img.onload = () => {
         loadedCount++;
-        if (loadedCount === imagesToPreload.length) {
-          setImagesLoaded(true);
-        }
+        if (loadedCount === imagesToPreload.length) setImagesLoaded(true);
       };
       img.onerror = () => {
-        loadedCount++; // Still move forward
+        loadedCount++;
         if (loadedCount === imagesToPreload.length) setImagesLoaded(true);
       };
     });
 
     return () => window.removeEventListener('resize', handleResize);
-  }, [deviceType]);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      api.start({ scrollY: window.scrollY });
+      if (window.__carnivalParallaxPaused) return;
+      
+      const currentY = window.scrollY;
+      const snap = window.__carnivalParallaxSnap === true;
+      
+      api.start({ 
+        scrollY: currentY, 
+        immediate: snap
+      });
+
+      if (snap) {
+        window.__carnivalParallaxSnap = false;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    // No need to call handleScroll() immediately here because we initialized the spring with the current value!
 
     return () => window.removeEventListener('scroll', handleScroll);
   }, [api]);
@@ -70,30 +86,29 @@ const CarnivalHero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: imagesLoaded ? 1 : 0 }}
       transition={{ duration: 0.8 }}
-      className="carnival-hero origin-center transition-none bg-black"
+      className="carnival-hero origin-center transition-none relative"
+      style={{ overflow: 'hidden' }}
     >
       
-      {/* Layer 1: Background Layer */}
       <animated.img
         src="/Carnival/layer1-v2.png"
         alt="Carnival Background Sky"
         className="parallax-layer l1-bg"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.45}px) scale(1.1)`) }}
+        style={{ transform: scrollY.to(y => `translateY(${y * 0.50}px) scale(${1.05 + y * 0.0001})`) }} /* Background trails deeply and zooms slightly */
       />
 
-      {/* Layer 2: Midground Layer (Ferris Wheel + Tents) */}
       <animated.img
         src={deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png"}
         alt="Carnival Ferris Wheel and Tents"
         className="parallax-layer l2-mid"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.35}px)`) }}
+        style={{ transform: scrollY.to(y => `translateY(${y * 0.35}px) scale(${1 + y * 0.0003})`) }} /* Midground zooms to "grow" the buildings */
       />
 
       {/* Layer 3: Logo Layer with Interactive Tilt */}
       <animated.div
         className="parallax-logo-layer l3-logo"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.25}px)`),
+          transform: scrollY.to(y => `translateY(${y * 0.15}px)`), 
           perspective: 1000
         }}
       >
@@ -124,13 +139,12 @@ const CarnivalHero = () => {
         </div>
       </animated.div>
 
-      {/* Layer 4: Foreground Layer (Popcorn cart, Ticket booth) */}
       <animated.img
         src={deviceType === 'mobile' ? "/Carnival/layer3-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer3-tablet.png" : "/Carnival/layer3-v2.png"}
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.15}px)`),
+          transform: scrollY.to(y => `translateY(${y * 0.05}px) scale(${1 + y * 0.0008})`), /* Foreground stays close and zooms out heavily "growing" past camera */
           zIndex: 5 
         }}
       />
@@ -138,4 +152,4 @@ const CarnivalHero = () => {
   );
 };
 
-export default CarnivalHero;
+export default React.memo(CarnivalHero);

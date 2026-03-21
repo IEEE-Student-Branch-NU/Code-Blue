@@ -1,12 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Rye&family=Silkscreen:wght@400;700&display=swap');
+
 /* Container for the parallax hero */
 .carnival-hero {
   height: 100vh;
   width: 100%;
   overflow: hidden;
   position: relative;
-  
-  /* Original Vibrant Hero Gradient */
   background: linear-gradient(to bottom, rgb(1, 1, 84), rgb(214, 86, 246)); 
+}
+
+/* Ensure the logo layer can still be interactive if needed, or pass through */
+.parallax-logo-layer {
+  pointer-events: none;
+}
+.carnival-logo {
+  pointer-events: auto; /* Re-enable logo interaction */
 }
 
 /* Base styles for parallax layers */
@@ -14,12 +22,16 @@
   position: absolute;
   width: 100%;
   left: 0;
-  top: 0;
-  height: 100%;
+  bottom: 0; /* Ground the layers so buildings are visible at the bottom */
+  height: 130%; /* Extra height for sky bleed */
   object-fit: cover;
-  object-position: center bottom; 
+  object-position: 80% bottom; 
   will-change: transform;
   pointer-events: none; 
+}
+
+.parallax-layer.l1-bg {
+  height: 200%; /* Massive height for extreme deep sky parallax (0.7x factor) */
 }
 
 /* Specialized layer for centering the logo via Flexbox */
@@ -38,22 +50,20 @@
 
 /* Styling for the logo image */
 .carnival-logo {
-  max-width: 1000px;
-  width: 100%; /* Fix left align issue by filling wrapper */
+  max-width: 1200px; /* Brighter, larger presence */
+  width: 95%; 
   height: auto;
-  transform: translateY(-15%);
+  transform: translateY(-20%);
   object-fit: contain;
-  margin: 0 auto; /* Force center */
+  margin: 0 auto;
   display: block;
 }
 
-/* Responsive adjustments */
+/* Responsive logo adjustments */
 @media (max-width: 1024px) {
   .carnival-logo {
     max-width: 80vw;
   }
-  
-  /* Make midground and foreground layers stick securely to the bottom without cropping */
   .parallax-layer.l2-mid,
   .parallax-layer.l4-fg {
     object-fit: contain;
@@ -63,17 +73,25 @@
 
 @media (max-width: 768px) {
   .carnival-logo {
-    max-width: 90vw;
-    transform: translateY(-20%);
+    max-width: 95vw;
+    transform: translateY(-25%);
   }
-  
-  /* Stick the layers perfectly on mobile too */
-  .parallax-layer.l2-mid,
-  .parallax-layer.l4-fg {
-    object-fit: contain;
-    object-position: bottom;
+  .parallax-layer {
+     width: 100%;
+     left: 0;
+     bottom: 0;
+     height: 140%; /* More generous bleed for deeper mobile parallax */
+     object-position: 88% bottom; /* Focus on right-side details */
   }
 }
+
+@media (max-width: 480px) {
+  .parallax-layer {
+    object-position: 95% bottom; /* Maximum focus on the rightmost detail for narrow screens */
+  }
+}
+
+
 
 /* Transition Wrapper for Video */
 .carnival-transition-wrapper {

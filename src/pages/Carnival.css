@@ -4,16 +4,16 @@
 .carnival-page {
   /* Prevent horizontal scroll */
   overflow-x: hidden;
-  background: linear-gradient(to bottom, rgb(214, 86, 246), rgba(61, 61, 243, 1) , rgb(0, 0, 0)); /* Gradient instead of Quicksand */
+  background: transparent; /* Changed to transparent so fixed hero is visible */
 }
 
 /* Neo Brutalism Panel reusable class */
 .neo-panel {
-  background: #ffffff; /* Contrast against the quicksand */
-  border: 4px solid #1a1a1a;
-  box-shadow: 8px 8px 0px #1a1a1a;
-  padding: 3rem;
-  border-radius: 1rem;
+  background: #ffffff;
+  border: 3px solid #1a1a1a;
+  box-shadow: 6px 6px 0px #1a1a1a;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
   transition: all 0.2s ease;
   width: 100%;
 }
@@ -63,11 +63,10 @@
 
 /* Poster Card styling matching the wireframe pink/red shading */
 .poster-card {
-  /* Pastel pink-red background for neo brutalism */
-  background: #ffb3ba;
-  border: 4px solid #1a1a1a;
-  box-shadow: 8px 8px 0px #1a1a1a;
-  border-radius: 1rem;
+  background: #ffecf0;
+  border: 3px solid #1a1a1a;
+  box-shadow: 6px 6px 0px #1a1a1a;
+  border-radius: 1.5rem;
   transition: all 0.2s ease;
   overflow: hidden;
 }
@@ -284,3 +283,20 @@
     box-shadow: 2px 2px 0px #999;
   }
 }
+
+/* New Marquee and Tab Styles */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.marquee-container {
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.tabs-navigation {
+  perspective: 1000px;
+}

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Shuffle from './Shuffle';
 import './CarnivalEntrance.css';
@@ -6,47 +6,49 @@ import './Shuffle.css';
 
 const CarnivalEntrance = () => {
   const navigate = useNavigate();
-  const videoRef = useRef(null);
-  const overlayRef = useRef(null);
-  const [phase, setPhase] = useState('idle'); // idle | playing | done
+  const [phase, setPhase] = useState('idle');
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const targetDate = new Date('April 3, 2026 09:00:00').getTime();
+    const tick = () => {
+      const diff = targetDate - Date.now();
+      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return; }
+      setTimeLeft({
+        days:    Math.floor(diff / 86400000),
+        hours:   Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      });
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
 
   const handleEnter = useCallback(() => {
     if (phase !== 'idle') return;
     setPhase('playing');
-    // slight delay so state paint happens before video plays
-    requestAnimationFrame(() => {
-      const vid = videoRef.current;
-      if (vid) {
-        vid.currentTime = 0;
-        vid.play().catch(() => {
-          // autoplay blocked – navigate anyway
-          navigate('/carnival');
-        });
-      }
-    });
+    setTimeout(() => navigate('/carnival'), 300);
   }, [phase, navigate]);
 
-  const handleVideoEnd = useCallback(() => {
-    setPhase('done');
-    setTimeout(() => navigate('/carnival'), 100);
-  }, [navigate]);
+  const pad = n => String(n).padStart(2, '0');
 
   return (
     <>
-      {/* Text + button overlay on top of GridScan */}
       <div className="ce-content">
-        <div className="ce-tag">IEEE CARNIVAL</div>
 
+        {/* ── Main Event Headline ── */}
         <Shuffle
-          text="IS HERE"
-          tag="h2"
-          className="ce-headline-1"
+          text="IEEE CARNIVAL"
+          tag="h1"
+          className="ce-headline-main"
           shuffleDirection="down"
           animationMode="evenodd"
-          stagger={0.04}
-          duration={0.4}
+          stagger={0.03}
+          duration={0.6}
           scrambleCharset="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-          shuffleTimes={2}
+          shuffleTimes={1}
           triggerOnHover={true}
           triggerOnce={false}
           loop={false}
@@ -55,36 +57,66 @@ const CarnivalEntrance = () => {
           textAlign="center"
         />
 
-        <p className="ce-headline-2">
-          DRIVE INTO THE NEW REALM
-          <span className="ce-subtitle-glitch" aria-hidden="true">DRIVE INTO THE NEW REALM</span>
-        </p>
+        {/* ── Sub Label ── */}
+        <Shuffle
+          text="IS HERE"
+          tag="h2"
+          className="ce-headline-sub"
+          shuffleDirection="down"
+          animationMode="evenodd"
+          stagger={0.04}
+          duration={0.5}
+          scrambleCharset="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+          shuffleTimes={1}
+          triggerOnHover={true}
+          triggerOnce={false}
+          loop={false}
+          threshold={0.1}
+          rootMargin="0px"
+          textAlign="center"
+        />
 
+        {/* ── Countdown ── */}
+        <div className="ce-countdown">
+          {[
+            { label: 'Days',    value: timeLeft.days },
+            null,
+            { label: 'Hours',   value: timeLeft.hours },
+            null,
+            { label: 'Minutes', value: timeLeft.minutes },
+            null,
+            { label: 'Seconds', value: timeLeft.seconds },
+          ].map((item, i) =>
+            item === null ? (
+              <div key={i} className="ce-countdown-sep">:</div>
+            ) : (
+              <div key={i} className="ce-countdown-box">
+                <div className="ce-countdown-num">{pad(item.value)}</div>
+                <div className="ce-countdown-label">{item.label}</div>
+              </div>
+            )
+          )}
+        </div>
+
+        {/* ── IEEE SBNU Branding ── */}
+        <div className="ce-sbnu-tag">IEEE SBNU • NIRMA UNIVERSITY</div>
+
+        {/* ── Enter Button ── */}
         <button
           className="ce-enter-btn"
           onClick={handleEnter}
           disabled={phase !== 'idle'}
           aria-label="Enter IEEE Carnival"
         >
-          <span className="ce-btn-text">ENTER</span>
-          <span className="ce-btn-arrow">→</span>
+          <span>ENTER</span>
+          <span>→</span>
         </button>
+
       </div>
 
-      {/* Full-screen video transition overlay */}
-      <div
-        ref={overlayRef}
-        className={`ce-video-overlay ${phase === 'playing' || phase === 'done' ? 'ce-video-overlay--active' : ''}`}
-      >
-        <video
-          ref={videoRef}
-          className="ce-transition-video"
-          src="/Carnival/Transistion video.mp4"
-          playsInline
-          preload="none"
-          onEnded={handleVideoEnd}
-        />
-      </div>
+      {phase === 'playing' && (
+        <div className="ce-video-overlay ce-video-overlay--active bg-black" />
+      )}
     </>
   );
 };

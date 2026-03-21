@@ -1,8 +1,8 @@
-/* ─── Carnival Entrance Overlay ─────────────────────────────── */
+/* ─── Carnival Entrance ─────────────────────────────────────── */
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&family=Silkscreen:wght@400;700&family=Press+Start+2P&display=swap');
 
-/* Content sits on top of GridScan canvas */
+/* Full-screen overlay */
 .ce-content {
   position: absolute;
   inset: 0;
@@ -11,207 +11,177 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1.2rem;
+  gap: 0rem;
   pointer-events: none;
-  padding: 1rem 1.5rem;
-}
-
-/* ── Tag line ── */
-.ce-tag {
-  font-family: 'Press Start 2P', monospace;
-  font-size: clamp(1.1rem, 3vw, 2rem);
-  letter-spacing: 0.35em;
-  color: #FF9FFC;
-  text-shadow:
-    0 0 8px #FF9FFC,
-    0 0 20px rgba(255, 159, 252, 0.5);
-  opacity: 0.9;
-  text-transform: uppercase;
-  animation: ce-fadeIn 1.2s ease forwards;
-}
-
-/* ── Shuffle headline 1 ── */
-.ce-headline-1.shuffle-parent {
-  font-family: 'Press Start 2P', monospace !important;
-  font-size: clamp(3.5rem, 11vw, 9rem) !important;
-  line-height: 1 !important;
-  color: #fff;
-  text-shadow:
-    0 0 12px rgba(255,255,255,0.6),
-    0 0 40px rgba(255, 159, 252, 0.4),
-    4px 4px 0px rgba(255, 159, 252, 0.3);
-  white-space: nowrap;
+  padding: 1rem;
   text-align: center;
 }
 
-/* ── Subtitle ── */
-.ce-headline-2 {
+/* ── IEEE CARNIVAL main title ── */
+/* MOBILE FIRST: 2 lines (IEEE / CARNIVAL), each huge */
+.ce-headline-main.shuffle-parent {
+  font-family: 'Teko', sans-serif !important;
+  font-weight: 700 !important;
+  /*
+   * Teko is wider per glyph than Bebas, so we size based on 'CARNIVAL' (8 chars)
+   * 16vw × 8 chars × ~0.58 advance ratio = ~74% of viewport → safe on all phones
+   */
+  font-size: 16vw !important;
+  line-height: 0.85 !important;
+  letter-spacing: 0 !important; /* No extra spacing — saves width on mobile */
+  text-transform: uppercase !important;
+  text-align: center !important;
+  white-space: normal !important;
+  word-break: keep-all !important;
+  width: 100%;
+  display: block;
+  color: #ffffff;
+  text-shadow: 3px 5px 0px rgba(0, 0, 0, 0.8);
+  pointer-events: auto;
+}
+
+/* TABLET+: single line, nowrap */
+@media (min-width: 768px) {
+  .ce-headline-main.shuffle-parent {
+    font-size: 12vw !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    letter-spacing: 0.05em !important;
+  }
+}
+
+/* LARGE DESKTOP */
+@media (min-width: 1200px) {
+  .ce-headline-main.shuffle-parent {
+    font-size: 10vw !important;
+    letter-spacing: 0.08em !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .ce-headline-main.shuffle-parent {
+    font-size: 10vw !important;
+    max-width: 1400px;
+  }
+}
+
+/* ── IS HERE sub ── */
+.ce-headline-sub.shuffle-parent {
   font-family: 'Press Start 2P', monospace !important;
-  font-size: clamp(0.75rem, 2.2vw, 1.4rem) !important;
-  line-height: 1.8 !important;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.18em;
-  white-space: nowrap;
+  font-size: clamp(0.5rem, 2.2vw, 1.3rem) !important;
+  line-height: 1.3 !important;
+  color: rgba(255, 255, 255, 0.75);
+  letter-spacing: 0.15em;
   text-align: center;
-  position: relative;
-  text-shadow: 0 0 8px rgba(255, 159, 252, 0.4);
-  animation: ce-fadeIn 1.4s ease forwards;
-  transition: all 0.3s ease;
-  cursor: default;
+  margin-top: 0.4rem;
+  margin-bottom: 1.4rem;
 }
 
-.ce-headline-2:hover {
-  color: #FF9FFC;
-  text-shadow: 0 0 15px rgba(255, 159, 252, 0.8);
+/* ── Countdown boxes ── */
+.ce-countdown {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.4rem;
+  align-items: flex-end;
+  flex-wrap: nowrap;
 }
 
-.ce-headline-2:hover .ce-subtitle-glitch {
-  animation: ce-glitch 0.35s steps(2) infinite;
+.ce-countdown-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
 }
 
-/* Glitch layer for subtitle */
-.ce-subtitle-glitch {
-  position: absolute;
-  inset: 0;
+.ce-countdown-num {
+  width: 54px;
+  height: 54px;
+  background: rgba(0,0,0,0.6);
+  border: 2px solid #FF00F5;
+  box-shadow: 0 0 12px rgba(255, 0, 245, 0.35), inset 0 0 10px rgba(255, 0, 245, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: inherit;
-  font-size: inherit;
-  letter-spacing: inherit;
+  font-family: 'Silkscreen', monospace;
+  font-size: 1.3rem;
   color: #fff;
-  opacity: 0;
-  pointer-events: none;
-  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
-  text-shadow:
-    -2px 0 red,
-    2px 0 cyan;
+  border-radius: 6px;
 }
 
-/* ── Enter Button ── */
+.ce-countdown-sep {
+  font-family: 'Silkscreen', monospace;
+  font-size: 1.6rem;
+  color: #FF00F5;
+  margin-bottom: 0.8rem;
+  opacity: 0.7;
+}
+
+.ce-countdown-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.4rem;
+  letter-spacing: 0.08em;
+  color: #FF00F5;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ── SBNU Tag ── */
+.ce-sbnu-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.38rem, 1vw, 0.75rem);
+  letter-spacing: 0.2em;
+  color: #fff;
+  text-shadow: 0 0 12px #5eb8ff, 0 0 24px #00629B;
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+}
+
+/* ── ENTER button ── */
 .ce-enter-btn {
   pointer-events: auto;
-  position: relative;
-  margin-top: 1.5rem;
-  padding: clamp(0.8rem, 2vw, 1.1rem) clamp(2rem, 5vw, 3.5rem);
-  background: transparent;
-  border: 2px solid #FF9FFC;
-  border-radius: 0;
-  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-  color: #FF9FFC;
   font-family: 'Press Start 2P', monospace;
-  font-size: clamp(0.7rem, 2vw, 1.1rem);
-  letter-spacing: 0.25em;
-  cursor: pointer;
-  overflow: hidden;
-  transition: all 0.3s ease;
-  box-shadow:
-    0 0 12px rgba(255, 159, 252, 0.35),
-    inset 0 0 12px rgba(255, 159, 252, 0.08);
+  font-size: clamp(0.5rem, 1.6vw, 0.9rem);
+  letter-spacing: 0.15em;
+  color: #000;
+  background: #fff;
+  border: 3px solid #000;
+  padding: 0.7rem 2rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  animation: ce-fadeIn 1.6s ease forwards;
+  gap: 0.75rem;
+  cursor: pointer;
+  box-shadow: 6px 6px 0 #FF00F5;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  border-radius: 0;
 }
 
 .ce-enter-btn:hover:not(:disabled) {
-  background: rgba(255, 159, 252, 0.12);
-  box-shadow:
-    0 0 24px rgba(255, 159, 252, 0.7),
-    0 0 60px rgba(255, 159, 252, 0.25),
-    inset 0 0 20px rgba(255, 159, 252, 0.15);
-  color: #fff;
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0 #FF00F5;
 }
 
-.ce-enter-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
+.ce-enter-btn:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 #FF00F5;
 }
 
-.ce-btn-text {
-  position: relative;
-  z-index: 1;
-}
-
-.ce-btn-arrow {
-  position: relative;
-  z-index: 1;
-  transition: transform 0.2s ease;
-  font-family: monospace;
-}
-
-.ce-enter-btn:hover .ce-btn-arrow {
-  transform: translateX(4px);
-}
-
-/* ── Fullscreen Video Overlay ── */
+/* ── Fade-out overlay ── */
 .ce-video-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
 }
-
 .ce-video-overlay--active {
   opacity: 1;
   pointer-events: all;
 }
 
-.ce-transition-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* ── Animations ── */
-@keyframes ce-fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes ce-glitch {
-  0%   { opacity: 0.7; transform: translateX(-2px) skewX(-3deg); clip-path: polygon(0 20%, 100% 20%, 100% 40%, 0 40%); }
-  33%  { opacity: 0.5; transform: translateX(2px)  skewX(3deg);  clip-path: polygon(0 55%, 100% 55%, 100% 75%, 0 75%); }
-  66%  { opacity: 0.8; transform: translateX(-1px) skewX(-1deg); clip-path: polygon(0 70%, 100% 70%, 100% 85%, 0 85%); }
-  100% { opacity: 0;   transform: translateX(0); }
-}
-
-/* ── Responsive tweaks ── */
-@media (max-width: 640px) {
-  .ce-tag {
-    font-size: clamp(0.75rem, 4vw, 1.1rem);
-    letter-spacing: 0.2em;
-  }
-  .ce-headline-1.shuffle-parent {
-    font-size: clamp(2.5rem, 13vw, 4.5rem) !important;
-    white-space: nowrap;
-  }
-  .ce-headline-2 {
-    white-space: normal !important;
-    font-size: clamp(0.55rem, 3.2vw, 0.8rem) !important;
-    text-align: center;
-  }
-  .ce-enter-btn {
-    padding: 0.75rem 2rem;
-    font-size: clamp(0.6rem, 3vw, 0.85rem);
-  }
-}
-
-@media (min-width: 641px) and (max-width: 1024px) {
-  .ce-tag {
-    font-size: clamp(1rem, 2.5vw, 1.5rem);
-  }
-  .ce-headline-1.shuffle-parent {
-    font-size: clamp(3.5rem, 10vw, 6rem) !important;
-  }
-  .ce-headline-2 {
-    font-size: clamp(0.7rem, 2vw, 1.1rem) !important;
-  }
+/* ── Small phone fine-tuning ── */
+@media (max-width: 380px) {
+  .ce-countdown-num { width: 42px; height: 42px; font-size: 1rem; }
+  .ce-countdown-sep { font-size: 1.3rem; }
+  .ce-countdown { gap: 0.3rem; }
+  .ce-enter-btn { padding: 0.55rem 1.5rem; }
 }

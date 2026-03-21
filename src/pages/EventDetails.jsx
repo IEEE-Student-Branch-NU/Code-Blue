@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Undo2, Users, Ticket } from 'lucide-react';
 import { getEventById } from '../data/carnivalData';
 import TicketModal from '../components/TicketModal';
@@ -23,7 +23,17 @@ const allEvents = [
 const EventDetails = () => {
   const { eventId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+
+  const handleBack = () => {
+    const fromTab = location.state?.fromTab;
+    if (fromTab) {
+      navigate(`/carnival?tab=${fromTab}`);
+    } else {
+      navigate('/carnival');
+    }
+  };
 
   // Dynamic Social Proof
   const regCount = Math.floor(75 + (parseInt(eventId) * 12.5) % 150);
@@ -62,7 +72,7 @@ const EventDetails = () => {
       
       {/* 🔙 COMPACT BACK BUTTON (Responsive Neo-Brutalist) */}
       <button 
-        onClick={() => navigate(-1)}
+        onClick={handleBack}
         className="fixed top-4 left-4 md:top-8 md:left-8 z-[100] bg-white border-[3px] md:border-4 border-[#1a1a1a] shadow-[4px_4px_0px_#1a1a1a] md:shadow-[10px_10px_0px_#1a1a1a] p-2.5 md:p-4 rounded-xl md:rounded-2xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[14px_14px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
       >
         <Undo2 className="text-[#1a1a1a] group-hover:scale-110 transition-transform w-6 h-6 md:w-8 md:h-8" strokeWidth={3} />
@@ -103,7 +113,7 @@ const EventDetails = () => {
                 <div className="bg-[#fbcfe8] border-2 border-black p-1.5 rounded-lg text-lg">📅</div>
                 <div className="flex flex-col text-left">
                   <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
-                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.date || "March 27th"}</span>
+                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.date || "April 3rd"}</span>
                 </div>
               </div>
 
@@ -159,7 +169,7 @@ const EventDetails = () => {
         isOpen={isTicketModalOpen}
         onClose={() => setIsTicketModalOpen(false)}
         eventTitle={currentEvent?.title || "Carnival Event"}
-        eventDate={fullEventData?.date || "March 2026"}
+        eventDate={fullEventData?.date || "April 2026"}
         posterImg={currentEvent?.img}
         eventId={eventId}
       />
