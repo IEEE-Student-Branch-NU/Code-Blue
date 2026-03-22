@@ -26,30 +26,53 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
   const cellClass = "border-2 border-[#1a1a1a] p-1.5 md:p-2.5 text-[#1a1a1a] font-bold text-[10px] md:text-sm leading-tight";
   const hoverClass = "cursor-pointer hover:bg-gray-50 transition-colors relative group";
 
+  const bgColorMap = {
+    101: 'bg-[#BAE1FF]',
+    201: 'bg-white',
+    1: 'bg-[#E0F2FE]',
+    2: 'bg-[#FDF2F8]',
+    5: 'bg-[#FEF9C3]',
+    6: 'bg-[#D1FAE5]',
+    7: 'bg-[#E0F2FE]',
+    14: 'bg-[#FBCFE8]',
+    8: 'bg-[#E9D5FF]',
+    13: 'bg-[#FEF9C3]',
+    10: 'bg-[#BAE1FF]',
+    11: 'bg-[#E0F2FE]',
+    12: 'bg-[#FDF2F8]',
+    102: 'bg-[#E9D5FF]',
+  };
+
   if (isMobile) {
     return (
-      <div className="space-y-8 px-2">
-        {[3, 4, 5].map((day) => (
-          <div key={day} className="space-y-3">
-            <div className="bg-black text-white p-2 rounded-lg text-center font-black uppercase text-xs">
-              April {day}th • Day {day - 2}
-            </div>
-            <div className="space-y-2">
-              {externalScheduleData[day].events.map((evt, idx) => (
-                <div 
-                  key={idx} 
-                  onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
-                  className={`bg-white border-2 border-black p-3 rounded-xl ${evt.id < 100 ? 'active:scale-95 transition-all' : ''}`}
-                >
-                  <div className="flex justify-between items-center mb-1">
-                    <span className="text-[9px] font-black bg-gray-100 px-2 py-0.5 rounded border border-black">{evt.time}</span>
+      <div className="relative w-full rounded-[1.5rem] border-[3px] border-[#1a1a1a] p-4 md:p-6 shadow-[8px_8px_0px_#1a1a1a] bg-[#f0f9ff] overflow-hidden">
+        
+        {/* Pastel Dotted Background */}
+        <div className="absolute inset-0 z-0 opacity-[0.15]" style={{ backgroundImage: 'radial-gradient(#1a1a1a 2px, transparent 2px)', backgroundSize: '24px 24px' }}></div>
+        
+        <div className="relative z-10 space-y-8 px-1 sm:px-2 max-w-[500px] mx-auto">
+          {[3, 4, 5].map((day) => (
+            <div key={day} className="space-y-4">
+              <div className="bg-black text-[#FFD700] p-2.5 rounded-xl border-2 border-black text-center font-black uppercase text-sm tracking-[0.2em] shadow-[4px_4px_0px_rgba(0,0,0,0.2)]">
+                April {day}th • Day {day - 2}
+              </div>
+              <div className="space-y-3">
+                {externalScheduleData[day].events.map((evt, idx) => (
+                  <div 
+                    key={idx} 
+                    onClick={() => evt.id < 100 ? handleEventClick(evt.id) : null}
+                    className={`${bgColorMap[evt.id] || 'bg-white'} border-[3px] border-black p-4 rounded-xl shadow-[6px_6px_0px_black] ${evt.id < 100 ? 'active:scale-95 active:shadow-[2px_2px_0px_black] transition-all cursor-pointer' : ''}`}
+                  >
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-[10px] md:text-xs font-black bg-white/80 backdrop-blur-sm px-2.5 py-1 rounded inline-block border-[2px] border-black uppercase tracking-widest">{evt.time}</span>
+                    </div>
+                    <h5 className="font-black text-sm uppercase leading-tight">{evt.title}</h5>
                   </div>
-                  <h5 className="font-black text-xs uppercase">{evt.title}</h5>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }
@@ -193,7 +216,21 @@ const Carnival = () => {
   }, [searchParams]);
 
   return (
-    <div className="carnival-page min-h-screen text-[#1a1a1a] bg-white relative overflow-x-hidden">
+    <div 
+      className="carnival-page min-h-screen text-[#1a1a1a] relative overflow-x-hidden"
+      style={{
+        backgroundColor: '#f0f9ff',
+        backgroundImage: `
+          radial-gradient(at 0% 0%, rgba(147, 197, 253, 0.25) 0px, transparent 50%),
+          radial-gradient(at 100% 0%, rgba(254, 249, 195, 0.35) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(167, 243, 208, 0.25) 0px, transparent 50%),
+          radial-gradient(at 0% 100%, rgba(191, 219, 254, 0.3) 0px, transparent 50%),
+          linear-gradient(rgba(147, 197, 253, 0.1) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(147, 197, 253, 0.1) 2px, transparent 2px)
+        `,
+        backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px'
+      }}
+    >
       <CarnivalHero />
 
       <div className="marquee-container bg-black py-2 overflow-hidden relative z-20 border-y-[3px] border-black">

@@ -57,16 +57,16 @@ const EventDetails = () => {
     <div 
       className="min-h-screen text-[#1a1a1a] p-6 md:p-12 font-sans relative flex items-center justify-center overflow-x-hidden"
       style={{
-        backgroundColor: '#f8f0ff', // Soft lavender base
+        backgroundColor: '#f0f9ff',
         backgroundImage: `
-          radial-gradient(at 0% 0%, rgba(214, 86, 246, 0.15) 0px, transparent 50%),
-          radial-gradient(at 100% 0%, rgba(147, 197, 253, 0.15) 0px, transparent 50%),
-          radial-gradient(at 100% 100%, rgba(251, 183, 213, 0.15) 0px, transparent 50%),
-          radial-gradient(at 0% 100%, rgba(167, 243, 208, 0.15) 0px, transparent 50%),
-          linear-gradient(rgba(214, 86, 246, 0.05) 1.5px, transparent 1.5px),
-          linear-gradient(90deg, rgba(214, 86, 246, 0.05) 1.5px, transparent 1.5px)
+          radial-gradient(at 0% 0%, rgba(147, 197, 253, 0.25) 0px, transparent 50%),
+          radial-gradient(at 100% 0%, rgba(254, 249, 195, 0.35) 0px, transparent 50%),
+          radial-gradient(at 100% 100%, rgba(167, 243, 208, 0.25) 0px, transparent 50%),
+          radial-gradient(at 0% 100%, rgba(191, 219, 254, 0.3) 0px, transparent 50%),
+          linear-gradient(rgba(147, 197, 253, 0.1) 2px, transparent 2px),
+          linear-gradient(90deg, rgba(147, 197, 253, 0.1) 2px, transparent 2px)
         `,
-        backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px'
+        backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px'
       }}
     >
       
