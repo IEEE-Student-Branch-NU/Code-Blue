@@ -67,13 +67,12 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
           <tr className="bg-blue-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 1</td></tr>
           <tr>
             <td className={`${cellClass} w-32`}>3:00 - 3:30</td>
-            <td colSpan="3" className={`${cellClass} bg-[#BAE1FF] uppercase`}>Inauguration</td>
+            <td colSpan="3" className={`${cellClass} bg-[#BAE1FF] uppercase`}>INNAUGRATION</td>
           </tr>
-          <tr><td className={cellClass}>3:30 - 4:30</td><td colSpan="4" className={`${cellClass} bg-gray-50 opacity-10`}>--</td></tr>
           <tr>
             <td className={cellClass}>4:30 - 6:30</td>
-            <td className={`${cellClass} max-w-[200px] text-[10px] opacity-70`}>Technical Setups, Pre Screening & Briefings</td>
-            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(1)}>Next Gen ITSS</td>
+            <td className={`${cellClass} text-xs font-bold leading-tight px-1 py-1`}>Technical Setups for Participants,<br/>Pre Screening for Competitions<br/>and Introductory Briefings</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(1)}>Next gen ITSS</td>
             <td className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(2)}>Lumisense</td>
           </tr>
 
@@ -83,19 +82,16 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
             <td className={cellClass}>9:30 - 10:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
-            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(7)}>AgentVerse</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(7)}>Swarm Agentic AI</td>
           </tr>
           <tr>
             <td className={cellClass}>10:30 - 11:30</td>
-            <td className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>Ai Competition</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>Ideathon</td>
           </tr>
-          <tr>
-            <td className={cellClass}>11:30 - 12:30</td>
-            <td className={`${cellClass} opacity-10 italic`}>--</td>
-          </tr>
+          <tr><td className={cellClass}>11:30 - 12:30</td></tr>
           <tr>
             <td className={cellClass}>12:30 - 1:30</td>
-            <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>Lunch</td>
+            <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>LUNCH</td>
           </tr>
           <tr>
             <td className={cellClass}>1:30 - 2:30</td>
@@ -111,19 +107,22 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
             <td className={cellClass}>9:30 - 10:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#BAE1FF]`} onClick={() => handleEventClick(10)}>ROBOSUMO</td>
-            <td className={cellClass}></td>
+            <td rowSpan="3" className={`${cellClass} opacity-10 bg-gray-50`}></td>
           </tr>
-          <tr><td className={cellClass}>10:30 - 11:30</td><td className={cellClass}></td></tr>
-          <tr><td className={cellClass}>11:30 - 12:30</td><td className={cellClass}></td></tr>
-          <tr><td className={cellClass}>12:30 - 1:30</td><td colSpan="3" className={cellClass}></td></tr>
+          <tr><td className={cellClass}>10:30 - 11:30</td></tr>
+          <tr><td className={cellClass}>11:30 - 12:30</td></tr>
+          <tr>
+            <td className={cellClass}>12:30 - 1:30</td>
+            <td colSpan="3" className={cellClass}></td>
+          </tr>
           <tr>
             <td className={cellClass}>1:30 - 2:30</td>
-            <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>Lunch</td>
+            <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>LUNCH</td>
           </tr>
           <tr>
             <td className={cellClass}>2:30 - 3:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(11)}>Hire Your Research Agent</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#BAE1FF]`} onClick={() => handleEventClick(10)}>ROBOSUMO</td>
+            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#BAE1FF]`} onClick={() => handleEventClick(10)}>ROBOSUM</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(12)}>Bot Talks</td>
           </tr>
           <tr><td className={cellClass}>3:30 - 4:30</td></tr>

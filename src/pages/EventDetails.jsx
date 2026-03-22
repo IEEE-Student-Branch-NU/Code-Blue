@@ -11,7 +11,7 @@ const allEvents = [
   { id: 5, title: 'FPGA FORGE', link: 'https://konfhub.com/fpga-forge' },
   { id: 9, title: 'FPGA FORGE', link: 'https://konfhub.com/fpga-forge' },
   { id: 6, title: 'Forged in Wire', link: 'https://konfhub.com/forged-in-wire' },
-  { id: 7, title: 'AgentVerse', link: 'https://konfhub.com/swarm-agentic-ai' },
+  { id: 7, title: 'Swarm Agentic AI', link: 'https://konfhub.com/swarm-agentic-ai' },
   { id: 8, title: 'Lambda Genie', link: 'https://konfhub.com/lambda-genie' },
   { id: 13, title: 'Prompt Verse', link: 'https://konfhub.com/prompt-verse-challenge' },
   { id: 14, title: 'Ideathon', link: 'https://konfhub.com/ideathon-open-innovation' },

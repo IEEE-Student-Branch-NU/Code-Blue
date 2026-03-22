@@ -53,19 +53,33 @@ const TicketModal = ({ isOpen, onClose, eventTitle, eventDate, eventId }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 backdrop-blur-3xl bg-[#D656F6]/30 overflow-y-auto outline-none transition-all duration-300">
+    <div className="fixed inset-0 z-[200] overflow-y-auto outline-none transition-all duration-300">
       
-      <div className="absolute inset-0 z-[-1] bg-black/80"></div>
+      {/* Fixed Full-Screen Background */}
+      <div className="fixed inset-0 z-[1] bg-[#0f0518] overflow-hidden pointer-events-none">
+         {/* Animated Glowing Orbs */}
+         <div className="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] bg-[#D656F6] blur-[120px] rounded-full opacity-40 animate-pulse"></div>
+         <div className="absolute bottom-[-10%] right-[-10%] w-[60vw] h-[60vw] bg-[#00E5FF] blur-[140px] rounded-full opacity-30 animate-[pulse_3s_ease-in-out_infinite]" style={{ animationDelay: '1s' }}></div>
+         <div className="absolute top-[40%] left-[50%] -translate-x-1/2 w-[40vw] h-[40vw] bg-[#FFD700] blur-[100px] rounded-full opacity-20 animate-[pulse_4s_ease-in-out_infinite]" style={{ animationDelay: '2s' }}></div>
+         
+         {/* Subtle Carnival Stripes */}
+         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'repeating-linear-gradient(45deg, transparent, transparent 40px, #ffffff 40px, #ffffff 80px)' }}></div>
+         
+         <div className="absolute inset-0 backdrop-blur-md bg-black/40"></div>
+      </div>
       
-      {/* EXACT CARNIVAL STYLE BACK BUTTON */}
-      <button 
-        onClick={onClose}
-        className="fixed top-6 left-6 md:top-8 md:left-8 w-12 h-12 bg-black border-[3px] border-white flex justify-center items-center hover:bg-[#FFD700] hover:text-black hover:border-black transition-all shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:shadow-[6px_6px_0px_black] group z-[210] cursor-pointer"
-      >
-        <Undo2 size={24} className="text-white group-hover:text-black transition-colors" strokeWidth={3} />
-      </button>
+      {/* Scrollable Container Wrapper */}
+      <div className="relative z-[2] min-h-screen w-full px-4 py-24 flex flex-col items-center justify-start sm:justify-center">
+        
+        {/* EXACT CARNIVAL STYLE BACK BUTTON */}
+        <button 
+          onClick={onClose}
+          className="fixed top-6 left-6 md:top-8 md:left-8 w-12 h-12 bg-black border-[3px] border-white flex justify-center items-center hover:bg-[#FFD700] hover:text-black hover:border-black transition-all shadow-[6px_6px_0px_rgba(255,255,255,1)] hover:shadow-[6px_6px_0px_black] group z-[210] cursor-pointer"
+        >
+          <Undo2 size={24} className="text-white group-hover:text-black transition-colors" strokeWidth={3} />
+        </button>
 
-      <div className="max-w-[480px] w-full flex flex-col gap-6 my-auto pt-20 pb-12 relative animate-fade-in">
+        <div className="max-w-[480px] w-full flex flex-col gap-6 relative animate-fade-in mx-auto">
         
         <div className="w-full text-center space-y-1">
            <h2 className="text-3xl font-[1000] text-white uppercase italic tracking-tighter drop-shadow-[4px_4px_0px_#D656F6]">DELEGATE PASS</h2>
@@ -177,6 +191,7 @@ const TicketModal = ({ isOpen, onClose, eventTitle, eventDate, eventId }) => {
             </button>
         </div>
       </div>
+     </div>
     </div>
   );
 }
