@@ -1,19 +1,35 @@
 import React, { useEffect, useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
+import { useSpring, animated, to } from '@react-spring/web';
 import { motion, useSpring as useFramerSpring } from 'framer-motion';
 import './CarnivalHero.css';
 
 const CarnivalHero = () => {
-  const [imagesLoaded, setImagesLoaded] = useState(true);
+  const [imagesLoaded, setImagesLoaded] = useState(false);
   
   // Setup the original React Spring for the "butter smooth" slow-motion physics
   const [{ scrollY }, api] = useSpring(() => ({ 
     scrollY: typeof window !== 'undefined' ? window.scrollY : 0, 
-    config: { mass: 2, tension: 120, friction: 50 } // Extremely smooth, heavy trailing spring
+    config: { mass: 2, tension: 120, friction: 50 } 
+  }));
+
+  // NEW: Entry settling animation
+  const [{ entryProgress }, entryApi] = useSpring(() => ({
+    entryProgress: 1, 
+    config: { mass: 4, tension: 60, friction: 30 } // Heavy, slow settling
   }));
 
   const logoRotateX = useFramerSpring(0, { stiffness: 100, damping: 30 });
   const logoRotateY = useFramerSpring(0, { stiffness: 100, damping: 30 });
+
+  useEffect(() => {
+    if (imagesLoaded) {
+      // Delay settling until the gate transition is ready to reveal
+      entryApi.start({ 
+        entryProgress: 0,
+        delay: 1200 // Increased delay to sync with gate hold
+      });
+    }
+  }, [imagesLoaded, entryApi]);
 
   const getDeviceType = () => {
     if (typeof window === 'undefined') return 'desktop';
@@ -47,11 +63,11 @@ const CarnivalHero = () => {
       img.src = src;
       img.onload = () => {
         loadedCount++;
-        if (loadedCount === imagesToPreload.length) setImagesLoaded(true);
+        if (loadedCount >= imagesToPreload.length) setImagesLoaded(true);
       };
       img.onerror = () => {
         loadedCount++;
-        if (loadedCount === imagesToPreload.length) setImagesLoaded(true);
+        if (loadedCount >= imagesToPreload.length) setImagesLoaded(true);
       };
     });
 
@@ -61,23 +77,11 @@ const CarnivalHero = () => {
   useEffect(() => {
     const handleScroll = () => {
       if (window.__carnivalParallaxPaused) return;
-      
       const currentY = window.scrollY;
-      const snap = window.__carnivalParallaxSnap === true;
-      
-      api.start({ 
-        scrollY: currentY, 
-        immediate: snap
-      });
-
-      if (snap) {
-        window.__carnivalParallaxSnap = false;
-      }
+      api.start({ scrollY: currentY });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    // No need to call handleScroll() immediately here because we initialized the spring with the current value!
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, [api]);
 
@@ -85,34 +89,55 @@ const CarnivalHero = () => {
     <motion.section 
       initial={{ opacity: 0 }}
       animate={{ opacity: imagesLoaded ? 1 : 0 }}
-      transition={{ duration: 0.8 }}
+      transition={{ duration: 1.2 }}
       className="carnival-hero origin-center transition-none relative"
       style={{ overflow: 'hidden' }}
     >
       
+      {/* Layer 1: Sky (Deep Background) */}
       <animated.img
         src="/Carnival/layer1-v2.png"
         alt="Carnival Background Sky"
         className="parallax-layer l1-bg"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.50}px) scale(${1.05 + y * 0.0001})`) }} /* Background trails deeply and zooms slightly */
+        style={{ 
+          transform: to([scrollY, entryProgress], (y, p) => {
+            const parallaxY = y * 0.50;
+            const entryY = p * -150; // Sky starts further back/up
+            const scale = 1.05 + y * 0.0001;
+            return `translateY(${parallaxY + entryY}px) scale(${scale})`;
+          })
+        }}
       />
 
+      {/* Layer 2: Midground (Buildings/Tents) */}
       <animated.img
         src={deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png"}
         alt="Carnival Ferris Wheel and Tents"
         className="parallax-layer l2-mid"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.35}px) scale(${1 + y * 0.0003})`) }} /* Midground zooms to "grow" the buildings */
+        style={{ 
+          transform: to([scrollY, entryProgress], (y, p) => {
+            const parallaxY = y * 0.35;
+            const entryY = p * 400; // Midground starts further down
+            const scale = 1 + y * 0.0003;
+            return `translateY(${parallaxY + entryY}px) scale(${scale})`;
+          })
+        }}
       />
 
-      {/* Layer 3: Logo Layer with Interactive Tilt */}
+      {/* Layer 3: Logo (Focal Point) */}
       <animated.div
         className="parallax-logo-layer l3-logo"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.15}px)`), 
+          transform: to([scrollY, entryProgress], (y, p) => {
+             const parallaxY = y * 0.15;
+             const entryY = p * 1200; // Increased from 700 to 1200
+             const scale = 1 + p * 3; // Increased starting scale for bigger "zoom"
+             return `translateY(${parallaxY + entryY}px) scale(${scale})`;
+          }),
           perspective: 1000
         }}
       >
-        <div className="relative group w-[90%] max-w-[1000px] flex justify-center items-center mx-auto">
+        <div className="relative group w-[90%] max-w-[10000px] flex justify-center items-center mx-auto">
           <motion.img
             src="/Carnival/carnival-logo.png"
             alt="IEEE Carnival Logo"
@@ -139,12 +164,18 @@ const CarnivalHero = () => {
         </div>
       </animated.div>
 
+      {/* Layer 4: Foreground (Props) */}
       <animated.img
         src={deviceType === 'mobile' ? "/Carnival/layer3-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer3-tablet.png" : "/Carnival/layer3-v2.png"}
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.05}px) scale(${1 + y * 0.0008})`), /* Foreground stays close and zooms out heavily "growing" past camera */
+          transform: to([scrollY, entryProgress], (y, p) => {
+            const parallaxY = y * 0.05;
+            const entryY = p * 1200; // Foreground starts WAY down
+            const scale = 1 + y * 0.0008;
+            return `translateY(${parallaxY + entryY}px) scale(${scale})`;
+          }),
           zIndex: 5 
         }}
       />

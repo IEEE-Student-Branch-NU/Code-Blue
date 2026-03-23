@@ -10,10 +10,11 @@ import { scheduleData as externalScheduleData } from '../data/carnivalData';
 
 // --- Official Tabular Itinerary Component ---
 const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    handleResize(); // Initial check
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -166,6 +167,13 @@ const Carnival = () => {
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
   const [modalData, setModalData] = useState({ title: 'IEEE CARNIVAL', hash: 42, img: '' });
   const navigate = useNavigate();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Sync state with URL for persistence on back button
   useEffect(() => {
@@ -216,7 +224,10 @@ const Carnival = () => {
   }, [searchParams]);
 
   return (
-    <div 
+    <motion.div 
+      initial={{ opacity: 0, scale: 1.05, filter: "blur(20px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="carnival-page min-h-screen text-[#1a1a1a] relative overflow-x-hidden"
       style={{
         backgroundColor: '#f0f9ff',
@@ -368,7 +379,7 @@ const Carnival = () => {
         dayEventsHash={modalData.hash}
         posterImg={modalData.img}
       />
-    </div>
+    </motion.div>
   );
 };
 

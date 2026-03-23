@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
 import CarnivalEntrance from '../components/CarnivalEntrance'
+import { motion } from 'framer-motion'
 
 
 
@@ -114,7 +115,7 @@ const cardStyles = {
     }
 }
 
-const Home = () => {
+const Home = ({ isPageTransitioning }) => {
     const cardsRef = useRef([])
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
@@ -170,7 +171,11 @@ const Home = () => {
     }, [])
 
     return (
-        <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
+        <motion.div 
+      initial={{ opacity: 1, scale: 1 }}
+      className="relative z-10"
+          style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}
+        >
             
             {/* 1. IEEE CARNIVAL ENTRANCE - PROMOTED TO TOP */}
             <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
@@ -181,7 +186,7 @@ const Home = () => {
                     gridScale={0.1}
                     scanColor="#FF00F5"
                     scanOpacity={0.5}
-                    enablePost
+                    enablePost={!isPageTransitioning}
                     bloomIntensity={0.9}
                     chromaticAberration={0.002}
                     noiseIntensity={0.015}
@@ -348,8 +353,8 @@ const Home = () => {
             </div>
 
             <Footer />
-        </div>
-    )
-}
+        </motion.div>
+    );
+};
 
 export default Home

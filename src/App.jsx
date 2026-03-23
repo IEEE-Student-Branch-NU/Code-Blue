@@ -9,6 +9,7 @@ import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
+import CyberGateTransition from './components/CyberGateTransition'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const Carnival = React.lazy(() => import('./pages/Carnival'))
@@ -33,10 +34,38 @@ const App = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const menuRef = useRef(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  useEffect(() => {
+    const handleTransition = () => {
+      // Functional update ensuring we only trigger if not already active
+      setIsTransitioning(prev => {
+        if (!prev) return true;
+        return prev;
+      });
+    };
+    window.addEventListener('start-carnival-transition', handleTransition);
+    return () => window.removeEventListener('start-carnival-transition', handleTransition);
+  }, []);
+
+  const handleGateClosed = useCallback(() => {
+    navigate('/carnival');
+  }, [navigate]);
+
+  const handleComplete = useCallback(() => {
+    setIsTransitioning(false);
+  }, []);
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', position: 'relative' }}>
       <Analytics />
+
+      {/* Persistent Global Transition - Covers route changes */}
+      <CyberGateTransition 
+        trigger={isTransitioning}
+        onGateClosed={handleGateClosed}
+        onComplete={handleComplete}
+      />
 
       {/* StaggeredMenu Navigation */}
       <StaggeredMenu
@@ -54,37 +83,36 @@ const App = () => {
         openMenuButtonColor="#fff"
       />
 
-      {/* Routes */}
+      {/* Routes Wrapper */}
       <div style={{ position: 'relative', zIndex: 1 }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/board-members" element={<BoardMembers />} />
-          <Route path="/gallery" element={<Gallery />} />
-          <Route path="/join-us" element={<JoinUs />} />
-          <Route path="/code-blue" element={
-            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
-              <CodeBlue />
-            </Suspense>
-          } />
-          <Route path="/carnival" element={
-            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
-              <Carnival />
-            </Suspense>
-          } />
-          <Route path="/carnival/:eventId" element={
-            <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f5eedc' }} />}>
-              <EventDetails />
-            </Suspense>
-          } />
-
-        </Routes>
+        <AnimatePresence mode="wait">
+          <Routes location={location} key={location.pathname}>
+            <Route path="/" element={<Home isPageTransitioning={isTransitioning} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/board-members" element={<BoardMembers />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/code-blue" element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+                <CodeBlue />
+              </Suspense>
+            } />
+            <Route path="/carnival" element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+                <Carnival />
+              </Suspense>
+            } />
+            <Route path="/carnival/:eventId" element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f5eedc' }} />}>
+                <EventDetails />
+              </Suspense>
+            } />
+          </Routes>
+        </AnimatePresence>
       </div>
     </div>
   )
 }
 
 export default App
-
-
