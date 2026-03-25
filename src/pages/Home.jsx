@@ -52,7 +52,8 @@ const subChapterCards = [
         title: "IEEE Intelligent Transportation Systems Society (ITSS)",
         logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
-        variant: "itss"
+        variant: "itss",
+        link: "https://ieee-itss-sbnu.vercel.app/"
     },
     {
         title: "IEEE Women in Engineering (WIE)",
