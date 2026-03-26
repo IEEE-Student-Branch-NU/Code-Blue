@@ -196,30 +196,32 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
             {phase === 'LOBBY' && (
               <motion.div key="lobby" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                 <div className="cq-neo-card">
-                  <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: 'var(--cq-black)', lineHeight: 1 }}>SYSTEM READY</div>
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 700, textTransform: 'uppercase' }}>SCORE 6/8 TO WIN THE MASTER VOUCHER</div>
+                  <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: '#000', lineHeight: 1 }}>SYSTEM READY</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 900, textTransform: 'uppercase', color: '#D656F6' }}>SCORE 8/8 TO WIN THE MASTER VOUCHER</div>
                   
                   <div className="cq-lobby-stats">
                     <div className="cq-lobby-stat">
-                      <Target size={20} /> 8 QUESTIONS
+                      <span>QUESTS</span>
+                      <strong>8</strong>
                     </div>
                     <div className="cq-lobby-stat">
-                      <Clock size={20} /> 12s PER Q
+                      <span>TIMER</span>
+                      <strong>12s / Q</strong>
                     </div>
                     <div className="cq-lobby-stat">
-                      <Ticket size={20} /> INTERMEDIATE
+                      <span>DIFFICULTY</span>
+                      <strong>PRO</strong>
                     </div>
                   </div>
 
                   <button 
                      className="cq-neo-btn" 
-                     style={{ background: 'var(--cq-yellow)', color: 'var(--cq-black)', fontSize: '24px', padding: '20px' }}
                      onClick={initGame} 
                   >
                     START QUIZ
                   </button>
                 </div>
-                <button onClick={handleLogout} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: 'var(--cq-white)', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', marginTop: '16px' }}>
+                <button onClick={handleLogout} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#fff', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', marginTop: '16px' }}>
                   Not {user?.name?.split(' ')[0]}? Switch account
                 </button>
               </motion.div>
@@ -292,13 +294,13 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
               <motion.div key="result" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
                 <div className="cq-result-card">
                   <div style={{ display: 'flex', gap: '8px', marginBottom: '-10px' }}>
-                    {score >= 6 ? <CheckCircle2 size={48} color="var(--cq-success)" /> : <XCircle size={48} color="var(--cq-danger)" />}
+                    {score === questions.length ? <CheckCircle2 size={48} color="#22c55e" /> : <XCircle size={48} color="#ff0055" />}
                   </div>
                   <div style={{ fontFamily: "'Rye', serif", fontSize: '40px', color: 'var(--cq-black)', lineHeight: 1 }}>
-                    {score >= 6 ? 'QUIZ CLEARED' : 'QUIZ FAILED'}
+                    {score === questions.length ? 'PERFECT SCORE' : 'QUIZ OVER'}
                   </div>
                   
-                  {score >= 6 ? (
+                  {score === questions.length ? (
                     <div className="cq-ticket">
                       <div className="cq-ticket-tag">MASTER VOUCHER</div>
                       <div className="cq-ticket-code">{hashedVoucher || 'WIN-1234'}</div>
@@ -311,10 +313,10 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                   ) : (
                     <div style={{ width: '100%', marginTop: '16px' }}>
                       <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 600, marginBottom: '24px' }}>
-                        You scored {score}/{questions.length}. You need at least 6 to secure the voucher!
+                        You scored {score}/{questions.length}. A <strong>perfect score of 8</strong> is required to unlock the Master Voucher!
                       </p>
-                      <button className="cq-neo-btn" style={{ background: 'var(--cq-yellow)', color: 'var(--cq-black)' }} onClick={() => { setPhase('LOBBY'); }}>
-                        <RotateCcw size={18} strokeWidth={3} /> RETRY QUIZ
+                      <button className="cq-neo-btn" onClick={() => { setPhase('LOBBY'); }}>
+                        <RotateCcw size={18} strokeWidth={3} /> RETRY CHALLENGE
                       </button>
                     </div>
                   )}

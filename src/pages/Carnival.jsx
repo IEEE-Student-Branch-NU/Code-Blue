@@ -281,35 +281,35 @@ const Carnival = () => {
       <main id="carnival-guide" className="max-w-6xl mx-auto px-4 py-8 md:py-16 space-y-32 scroll-mt-24">
         
         {/* ─── PREMIUM CARNIVAL GAME BOOTH (TENT STYLE) ─── */}
-        <section className="relative w-full flex justify-center py-10">
+        <section className="relative w-full flex justify-center py-12 md:py-20">
            <motion.div 
              initial={{ opacity: 0, y: 50 }}
              whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
-             className="relative w-full max-w-5xl group"
+             className="relative w-full max-w-5xl group px-2 md:px-0"
            >
               {/* Booth Tent Frame Decorations */}
-              <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
-                 <div className="w-10 h-20 bg-[#FF00F5] border-[4px] border-black rounded-full shadow-[6px_6px_0px_black] rotate-[-15deg] hidden md:block" />
-                 <div className="bg-[#FF00F5] border-[4px] border-black px-10 py-4 rounded-[2rem] shadow-[8px_8px_0px_black] flex flex-col items-center">
-                    <span className="text-white font-['Bungee_Inline'] text-xs md:text-sm uppercase tracking-[0.2em] leading-none">GAME BOOTH</span>
-                    <span className="text-[#FEF9C3] font-black text-[10px] uppercase tracking-widest mt-1">OPEN NOW</span>
+              <div className="absolute -top-10 md:-top-12 left-1/2 -translate-x-1/2 flex gap-3 md:gap-4 z-20 w-max">
+                 <div className="w-8 h-16 md:w-10 md:h-20 bg-[#FF00F5] border-[3px] md:border-[4px] border-black rounded-full shadow-[4px_4px_0px_black] rotate-[-15deg] hidden sm:block" />
+                 <div className="bg-[#FF00F5] border-[3px] md:border-[4px] border-black px-6 md:px-10 py-3 md:py-4 rounded-[1.5rem] md:rounded-[2rem] shadow-[6px_6px_0px_black] flex flex-col items-center">
+                    <span className="text-white font-['Bungee_Inline'] text-[10px] md:text-sm uppercase tracking-[0.2em] leading-none">GAME BOOTH</span>
+                    <span className="text-[#FEF9C3] font-black text-[8px] md:text-[10px] uppercase tracking-widest mt-1">OPEN 24/7</span>
                  </div>
-                 <div className="w-10 h-20 bg-[#FF00F5] border-[4px] border-black rounded-full shadow-[6px_6px_0px_black] rotate-[15deg] hidden md:block" />
+                 <div className="w-8 h-16 md:w-10 md:h-20 bg-[#FF00F5] border-[3px] md:border-[4px] border-black rounded-full shadow-[4px_4px_0px_black] rotate-[15deg] hidden sm:block" />
               </div>
               
-              <div className="bg-white border-[5px] border-black rounded-[3rem] p-8 md:p-14 shadow-[20px_20px_0px_black] relative z-10 flex flex-col lg:flex-row items-center gap-10 md:gap-16 overflow-hidden">
+              <div className="bg-white border-[4px] md:border-[5px] border-black rounded-[2rem] md:rounded-[3rem] p-6 md:p-14 shadow-[12px_12px_0px_black] md:shadow-[20px_20px_0px_black] relative z-10 flex flex-col lg:flex-row items-center gap-8 md:gap-16 overflow-hidden">
                  {/* Internal Decorative Stripes */}
                  <div className="absolute inset-0 z-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent)', backgroundSize: '60px 60px' }}></div>
                  
-                 <div className="relative z-10 flex-1 text-center lg:text-left space-y-4">
-                    <h2 className="font-['Rye'] text-[#1a1a1a] text-4xl md:text-7xl leading-none tracking-tight">TECH RUSH QUIZ</h2>
-                    <p className="text-[#1a1a1a] font-['Space_Grotesk'] font-black text-sm md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-black to-[#D656F6] uppercase tracking-widest">
+                 <div className="relative z-10 flex-1 text-center lg:text-left space-y-3 md:space-y-4">
+                    <h2 className="font-['Rye'] text-[#1a1a1a] text-3xl md:text-7xl leading-none tracking-tight">TECH RUSH QUIZ</h2>
+                    <p className="text-[#1a1a1a] font-['Space_Grotesk'] font-black text-xs md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-black to-[#D656F6] uppercase tracking-widest">
                        Win the IEEE Master Voucher!
                     </p>
-                    <div className="h-2 w-32 bg-black rounded-full mx-auto lg:mx-0" />
-                    <p className="text-[#1a1a1a] font-bold text-xs md:text-sm opacity-60 uppercase tracking-widest leading-relaxed max-w-lg">
-                       Demonstrate your tech excellence! Score 6/8 to unlock the master voucher for all IEEE Carnival 2026 events.
+                    <div className="h-1.5 md:h-2 w-24 md:w-32 bg-black rounded-full mx-auto lg:mx-0" />
+                    <p className="text-[#1a1a1a] font-bold text-[10px] md:text-sm opacity-60 uppercase tracking-widest leading-relaxed max-w-lg mx-auto lg:mx-0">
+                       A perfect score of <span className="text-black font-black">8/8</span> is required to win. Show your tech expertise!
                     </p>
                  </div>
 
@@ -317,16 +317,16 @@ const Carnival = () => {
                    onClick={handleOpenGame}
                    whileHover={{ scale: 1.08, rotate: -3 }}
                    whileTap={{ scale: 0.95 }}
-                   className="relative group shrink-0"
+                   className="relative group shrink-0 w-full md:w-auto"
                  >
-                    <div className="absolute inset-0 bg-black rounded-[2rem] translate-x-3 translate-y-3 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform"></div>
-                    <div className="relative bg-[#FEF9C3] border-[4px] border-black px-12 py-8 rounded-[2rem] flex items-center gap-6">
-                       <div className="bg-black text-[#FEF9C3] p-4 rounded-full border-2 border-[#FEF9C3] animate-pulse">
-                          <Zap size={36} fill="currentColor" />
+                    <div className="absolute inset-0 bg-black rounded-[1.5rem] md:rounded-[2rem] translate-x-3 translate-y-3 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform"></div>
+                    <div className="relative bg-[#FEF9C3] border-[4px] border-black px-8 md:px-12 py-6 md:py-8 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center gap-4 md:gap-6">
+                       <div className="bg-black text-[#FEF9C3] p-3 md:p-4 rounded-full border-2 border-[#FEF9C3] animate-pulse">
+                          <Zap size={28} md:size={36} fill="currentColor" />
                        </div>
                        <div className="text-left">
-                          <div className="text-xs font-black uppercase opacity-50 mb-[-2px]">TEST YOUR MIND</div>
-                          <span className="font-['Rye'] text-2xl md:text-5xl text-black">PLAY NOW</span>
+                          <div className="text-[10px] font-black uppercase opacity-50 mb-[-2px]">TEST YOUR MIND</div>
+                          <span className="font-['Rye'] text-xl md:text-5xl text-black">PLAY NOW</span>
                        </div>
                     </div>
                  </motion.button>
@@ -335,7 +335,7 @@ const Carnival = () => {
         </section>
 
         {/* --- PILL NAVIGATION (Persistent) --- */}
-        <section className="tabs-navigation sticky top-4 z-[100] flex justify-center mt-32">
+        <section className="tabs-navigation sticky top-4 z-[100] flex justify-center mt-24">
           <div className="bg-white/95 backdrop-blur-md border-[3px] border-black p-1.5 rounded-[2rem] shadow-[8px_8px_0px_#1a1a1a] flex gap-1">
             {['itinerary', '3', '4', '5'].map((tab) => (
               <button
