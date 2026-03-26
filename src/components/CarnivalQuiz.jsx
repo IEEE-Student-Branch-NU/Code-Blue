@@ -360,11 +360,17 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                   ) : (
                     <div style={{ width: '100%', marginTop: '16px' }}>
                       <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 600, marginBottom: '24px' }}>
-                        You scored {score}/{questions.length}. A <strong>perfect score of 8</strong> is required to unlock the Master Voucher!
+                        You scored {score}/{questions.length}. A <strong>perfect score of 8</strong> was required to unlock the Master Voucher!
                       </p>
-                      <button className="cq-neo-btn" onClick={() => { setPhase('LOBBY'); }}>
-                        <RotateCcw size={18} strokeWidth={3} /> RETRY CHALLENGE
-                      </button>
+                      {user?.email === '24btm032@nirmauni.ac.in' ? (
+                        <button className="cq-neo-btn" onClick={() => { setPhase('LOBBY'); }}>
+                          <RotateCcw size={18} strokeWidth={3} /> RETRY CHALLENGE (TESTER)
+                        </button>
+                      ) : (
+                        <button className="cq-neo-btn" onClick={() => setIsOpen(false)}>
+                          <X size={18} strokeWidth={3} /> CLOSE QUIZ
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>
