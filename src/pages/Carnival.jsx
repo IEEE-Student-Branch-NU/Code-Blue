@@ -278,51 +278,64 @@ const Carnival = () => {
         </motion.div>
       </div>
 
-      <main id="carnival-guide" className="max-w-6xl mx-auto px-4 py-16 md:py-24 space-y-24 scroll-mt-24">
+      <main id="carnival-guide" className="max-w-6xl mx-auto px-4 py-8 md:py-16 space-y-32 scroll-mt-24">
         
-        {/* ─── IMPROVED GAME BOOTH BUTTON ─── */}
-        <div className="flex justify-center -mt-8 mb-16 px-4">
+        {/* ─── PREMIUM CARNIVAL GAME BOOTH (TENT STYLE) ─── */}
+        <section className="relative w-full flex justify-center py-10">
            <motion.div 
-             initial={{ opacity: 0, scale: 0.9 }}
-             whileInView={{ opacity: 1, scale: 1 }}
+             initial={{ opacity: 0, y: 50 }}
+             whileInView={{ opacity: 1, y: 0 }}
              viewport={{ once: true }}
-             className="relative w-full max-w-4xl"
+             className="relative w-full max-w-5xl group"
            >
-              {/* Carnival Booth Tent Top Style */}
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-48 h-12 bg-[#FF00F5] border-[3px] border-black rounded-t-full shadow-[4px_4px_0px_black] z-0 flex items-center justify-center">
-                 <span className="text-white font-black text-[10px] uppercase tracking-[0.3em]">GAME BOOTH</span>
+              {/* Booth Tent Frame Decorations */}
+              <div className="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-4 z-20">
+                 <div className="w-10 h-20 bg-[#FF00F5] border-[4px] border-black rounded-full shadow-[6px_6px_0px_black] rotate-[-15deg] hidden md:block" />
+                 <div className="bg-[#FF00F5] border-[4px] border-black px-10 py-4 rounded-[2rem] shadow-[8px_8px_0px_black] flex flex-col items-center">
+                    <span className="text-white font-['Bungee_Inline'] text-xs md:text-sm uppercase tracking-[0.2em] leading-none">GAME BOOTH</span>
+                    <span className="text-[#FEF9C3] font-black text-[10px] uppercase tracking-widest mt-1">OPEN NOW</span>
+                 </div>
+                 <div className="w-10 h-20 bg-[#FF00F5] border-[4px] border-black rounded-full shadow-[6px_6px_0px_black] rotate-[15deg] hidden md:block" />
               </div>
               
-              <div className="bg-white border-[4px] border-black rounded-[2.5rem] p-6 md:p-10 shadow-[15px_15px_0px_black] relative z-10 flex flex-col lg:flex-row items-center gap-8 md:gap-12 overflow-hidden">
-                 {/* Decorative background stripes */}
-                 <div className="absolute inset-0 z-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 50%, #1a1a1a 50%, #1a1a1a 75%, transparent 75%, transparent)', backgroundSize: '40px 40px' }}></div>
+              <div className="bg-white border-[5px] border-black rounded-[3rem] p-8 md:p-14 shadow-[20px_20px_0px_black] relative z-10 flex flex-col lg:flex-row items-center gap-10 md:gap-16 overflow-hidden">
+                 {/* Internal Decorative Stripes */}
+                 <div className="absolute inset-0 z-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent)', backgroundSize: '60px 60px' }}></div>
                  
-                 <div className="relative z-10 flex-1 text-center lg:text-left">
-                    <h2 className="font-['Rye'] text-[#1a1a1a] text-3xl md:text-5xl mb-3 leading-tight tracking-tight">TECH RUSH QUIZ</h2>
-                    <p className="text-[#1a1a1a] font-['Space_Grotesk'] font-bold text-sm md:text-lg opacity-80 uppercase tracking-widest leading-relaxed">
-                       SOLVE 8 CHALLENGING TRIVIA QUESTIONS IN 96 SECONDS AND WIN A <span className="text-[#D656F6] font-black">MASTER VOUCHER</span> FOR ALL EVENTS!
+                 <div className="relative z-10 flex-1 text-center lg:text-left space-y-4">
+                    <h2 className="font-['Rye'] text-[#1a1a1a] text-4xl md:text-7xl leading-none tracking-tight">TECH RUSH QUIZ</h2>
+                    <p className="text-[#1a1a1a] font-['Space_Grotesk'] font-black text-sm md:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-black to-[#D656F6] uppercase tracking-widest">
+                       Win the IEEE Master Voucher!
+                    </p>
+                    <div className="h-2 w-32 bg-black rounded-full mx-auto lg:mx-0" />
+                    <p className="text-[#1a1a1a] font-bold text-xs md:text-sm opacity-60 uppercase tracking-widest leading-relaxed max-w-lg">
+                       Demonstrate your tech excellence! Score 6/8 to unlock the master voucher for all IEEE Carnival 2026 events.
                     </p>
                  </div>
 
                  <motion.button 
                    onClick={handleOpenGame}
-                   whileHover={{ scale: 1.05, rotate: -2 }}
+                   whileHover={{ scale: 1.08, rotate: -3 }}
                    whileTap={{ scale: 0.95 }}
                    className="relative group shrink-0"
                  >
-                    <div className="absolute inset-0 bg-black rounded-[1.5rem] translate-x-3 translate-y-3 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform"></div>
-                    <div className="relative bg-[#FEF9C3] border-[4px] border-black px-10 py-6 rounded-[1.5rem] flex items-center gap-6">
-                       <div className="bg-black text-[#FEF9C3] p-3 rounded-full border-2 border-[#FEF9C3]">
-                          <Zap size={32} fill="currentColor" />
+                    <div className="absolute inset-0 bg-black rounded-[2rem] translate-x-3 translate-y-3 group-hover:translate-x-5 group-hover:translate-y-5 transition-transform"></div>
+                    <div className="relative bg-[#FEF9C3] border-[4px] border-black px-12 py-8 rounded-[2rem] flex items-center gap-6">
+                       <div className="bg-black text-[#FEF9C3] p-4 rounded-full border-2 border-[#FEF9C3] animate-pulse">
+                          <Zap size={36} fill="currentColor" />
                        </div>
-                       <span className="font-['Rye'] text-2xl md:text-4xl text-black">PLAY NOW</span>
+                       <div className="text-left">
+                          <div className="text-xs font-black uppercase opacity-50 mb-[-2px]">TEST YOUR MIND</div>
+                          <span className="font-['Rye'] text-2xl md:text-5xl text-black">PLAY NOW</span>
+                       </div>
                     </div>
                  </motion.button>
               </div>
            </motion.div>
-        </div>
+        </section>
+
         {/* --- PILL NAVIGATION (Persistent) --- */}
-        <section className="tabs-navigation sticky top-4 z-[100] flex justify-center mt-[-3.5rem]">
+        <section className="tabs-navigation sticky top-4 z-[100] flex justify-center mt-32">
           <div className="bg-white/95 backdrop-blur-md border-[3px] border-black p-1.5 rounded-[2rem] shadow-[8px_8px_0px_#1a1a1a] flex gap-1">
             {['itinerary', '3', '4', '5'].map((tab) => (
               <button

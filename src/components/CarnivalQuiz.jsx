@@ -132,12 +132,18 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     }
   };
 
-  /* ─── Reset on Open ─── */
+  /* ─── Reset on Open & Body Scroll Lock ─── */
   useEffect(() => {
     if (isOpen) {
+      document.body.style.overflow = 'hidden';
       if (!user) setPhase('AUTH'); else setPhase('LOBBY');
+    } else {
+      document.body.style.overflow = 'auto';
     }
-    return () => clearInterval(timerRef.current);
+    return () => {
+      document.body.style.overflow = 'auto';
+      clearInterval(timerRef.current);
+    };
   }, [isOpen]);
 
   if (!isOpen) return null;
