@@ -180,7 +180,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
             {phase === 'AUTH' && (
               <motion.div key="auth" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <div className="cq-title-wrap">
-                  <div className="cq-title-top">PREMIUM TECH CHALLENGE</div>
+                  <div className="cq-title-top">TECH RUSH CHALLENGE</div>
                   <div className="cq-title-main">CARNIVAL<br/>QUIZ</div>
                 </div>
 
