@@ -282,32 +282,34 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
 
                 {/* OPTIONS GRID */}
                 <div className="cq-options-grid">
-                  {currentQ.options.map((opt, idx) => {
-                    let btnClass = "cq-option-btn";
-                    let icon = null;
-                    
-                    if (isLocked) {
-                      if (opt === currentQ.correctAnswer) {
-                        btnClass += " correct";
-                        icon = <CheckCircle2 size={20} style={{ marginLeft: '8px' }} />;
-                      } else if (selectedOption === opt) {
-                        btnClass += " incorrect";
-                        icon = <XCircle size={20} style={{ marginLeft: '8px' }} />;
+                    {currentQ.options.map((opt, idx) => {
+                      let btnClass = "cq-option-btn";
+                      let icon = null;
+                      
+                      if (isLocked) {
+                        if (opt === currentQ.correctAnswer) {
+                          btnClass += " correct";
+                          icon = <CheckCircle2 size={16} />;
+                        } else if (selectedOption === opt) {
+                          btnClass += " incorrect";
+                          icon = <XCircle size={16} />;
+                        } else {
+                          btnClass += " dim";
+                        }
                       }
-                    }
 
-                    return (
-                      <button 
-                        key={idx}
-                        className={btnClass}
-                        style={{ background: isLocked ? undefined : pastelColors[idx % pastelColors.length] }}
-                        onClick={() => handleOptionClick(opt)}
-                        disabled={isLocked}
-                      >
-                        {opt} {icon}
-                      </button>
-                    );
-                  })}
+                      return (
+                        <button 
+                          key={idx}
+                          className={btnClass}
+                          onClick={() => handleOptionClick(opt)}
+                          disabled={isLocked}
+                        >
+                          <span style={{ flex: 1 }}>{opt}</span>
+                          {icon}
+                        </button>
+                      );
+                    })}
                 </div>
               </motion.div>
             )}
