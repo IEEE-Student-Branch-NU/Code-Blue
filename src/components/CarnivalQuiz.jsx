@@ -1,0 +1,325 @@
+import React, { useState, useEffect, useRef } from 'react';
+import ReactDOM from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ZapOff, Ticket, Target, Clock, CheckCircle2, XCircle, RotateCcw } from 'lucide-react';
+import { GoogleLogin, googleLogout } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
+import { techQuizData } from '../data/quizData';
+import './CarnivalQuiz.css';
+
+const popIn = {
+  in: { opacity: 0, scale: 0.8, y: 20 },
+  on: { opacity: 1, scale: 1, y: 0, transition: { type: 'spring', bounce: 0.5, duration: 0.6 } },
+  out: { opacity: 0, scale: 0.9, y: -20, transition: { duration: 0.2 } }
+};
+
+const slideLeft = {
+  in: { opacity: 0, x: 50 },
+  on: { opacity: 1, x: 0, transition: { type: 'spring', bounce: 0.4, duration: 0.6 } },
+  out: { opacity: 0, x: -50, transition: { duration: 0.2 } }
+};
+
+const MAX_TIME_PER_Q = 12; // 12 seconds per question
+
+/* ═══════════════════════════════════════════════
+   MAIN COMPONENT: CARNIVAL TECH QUIZ
+   ═══════════════════════════════════════════════ */
+const CarnivalQuiz = ({ isOpen, onClose }) => {
+  const [phase, setPhase] = useState('AUTH');
+  const [user, setUser] = useState(null);
+  const [isNirmaUser, setIsNirmaUser] = useState(false);
+  const [hashedVoucher, setHashedVoucher] = useState('');
+  
+  // Game State
+  const [questions, setQuestions] = useState([]);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [score, setScore] = useState(0);
+  const [timeLeft, setTimeLeft] = useState(MAX_TIME_PER_Q);
+  
+  // Interaction State
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isLocked, setIsLocked] = useState(false);
+  const timerRef = useRef(null);
+
+  const handleLogout = () => { googleLogout(); setUser(null); setIsNirmaUser(false); setPhase('AUTH'); };
+
+  const generateVoucher = async (email) => {
+    const secret = "IEEE_CARNIVAL_SBNU_GENERAL_2026";
+    const msgUint8 = new TextEncoder().encode(email.toLowerCase() + secret);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return "TKT-" + hashHex.slice(0, 8).toUpperCase();
+  };
+
+  const handleLoginSuccess = async (credentialResponse) => {
+    try {
+      const decoded = jwtDecode(credentialResponse.credential);
+      const email = decoded.email;
+      const isNirma = email.endsWith('@nirmauni.ac.in');
+      setUser(decoded);
+      setIsNirmaUser(isNirma);
+      if (isNirma) {
+        setPhase('LOBBY');
+        const code = await generateVoucher(email);
+        setHashedVoucher(code);
+      }
+    } catch (err) { console.error("Auth Decode Error:", err); }
+  };
+
+  /* ─── Initialize Game ─── */
+  const initGame = () => {
+    // Shuffle questions and their options
+    const shuffledQ = [...techQuizData].sort(() => Math.random() - 0.5).map(q => ({
+       ...q,
+       options: [...q.options].sort(() => Math.random() - 0.5)
+    }));
+    
+    setQuestions(shuffledQ);
+    setCurrentIdx(0);
+    setScore(0);
+    setTimeLeft(MAX_TIME_PER_Q);
+    setSelectedOption(null);
+    setIsLocked(false);
+    setPhase('PLAYING');
+  };
+
+  /* ─── Timer Logic ─── */
+  useEffect(() => {
+    if (phase === 'PLAYING' && !isLocked) {
+      timerRef.current = setInterval(() => {
+        setTimeLeft(prev => {
+          if (prev <= 1) {
+            handleTimeOut();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timerRef.current);
+  }, [phase, isLocked]);
+
+  const handleTimeOut = () => {
+    clearInterval(timerRef.current);
+    setIsLocked(true);
+    setSelectedOption('TIMEOUT');
+    setTimeout(nextQuestion, 1500);
+  };
+
+  const handleOptionClick = (option) => {
+    if (isLocked) return;
+    clearInterval(timerRef.current);
+    setIsLocked(true);
+    setSelectedOption(option);
+    
+    if (option === questions[currentIdx].correctAnswer) {
+      setScore(prev => prev + 1);
+    }
+    
+    setTimeout(nextQuestion, 1500);
+  };
+
+  const nextQuestion = () => {
+    if (currentIdx + 1 >= questions.length) {
+      setPhase('RESULT');
+    } else {
+      setCurrentIdx(prev => prev + 1);
+      setTimeLeft(MAX_TIME_PER_Q);
+      setSelectedOption(null);
+      setIsLocked(false);
+    }
+  };
+
+  /* ─── Reset on Open ─── */
+  useEffect(() => {
+    if (isOpen) {
+      if (!user) setPhase('AUTH'); else setPhase('LOBBY');
+    }
+    return () => clearInterval(timerRef.current);
+  }, [isOpen]);
+
+  if (!isOpen) return null;
+
+  const currentQ = questions[currentIdx];
+  const pastelColors = ['var(--cq-pink)', 'var(--cq-blue)', 'var(--cq-yellow)', 'var(--cq-green)'];
+
+  return ReactDOM.createPortal(
+    <div className="cq-portal">
+      <div className="cq-carnival-bg" />
+
+      <div className="cq-main">
+        <div className="cq-head">
+          <button className="cq-x" onClick={onClose}><X size={24} strokeWidth={3} /></button>
+        </div>
+
+        <div className="cq-content">
+          <AnimatePresence mode="wait">
+
+            {/* ═══ AUTH ═══ */}
+            {phase === 'AUTH' && (
+              <motion.div key="auth" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="cq-title-wrap">
+                  <div className="cq-title-top">GENERAL TECH TRIVIA</div>
+                  <div className="cq-title-main">CARNIVAL<br/>QUIZ</div>
+                </div>
+
+                <div className="cq-neo-card">
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '14px', color: 'var(--cq-black)' }}>TICKETS VALID ONLY FOR @NIRMAUNI.AC.IN</div>
+                  {!isNirmaUser && user ? (
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+                      <ZapOff size={40} color="var(--cq-danger)" />
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, color: 'var(--cq-danger)', fontSize: '18px' }}>ACCESS DENIED</div>
+                      <button className="cq-neo-btn cq-btn-red" onClick={handleLogout}>TRY ANOTHER ACCOUNT</button>
+                    </div>
+                  ) : (
+                    <div style={{ width: '100%' }}>
+                      <GoogleLogin
+                        onSuccess={handleLoginSuccess}
+                        useOneTap theme="filled_black" shape="pill" size="large" width="100%"
+                      />
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ═══ LOBBY ═══ */}
+            {phase === 'LOBBY' && (
+              <motion.div key="lobby" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <div className="cq-neo-card">
+                  <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: 'var(--cq-black)', lineHeight: 1 }}>SYSTEM READY</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 700, textTransform: 'uppercase' }}>SCORE 6/8 TO WIN THE MASTER VOUCHER</div>
+                  
+                  <div className="cq-lobby-stats">
+                    <div className="cq-lobby-stat">
+                      <Target size={20} /> 8 QUESTIONS
+                    </div>
+                    <div className="cq-lobby-stat">
+                      <Clock size={20} /> 12s PER Q
+                    </div>
+                    <div className="cq-lobby-stat">
+                      <Ticket size={20} /> INTERMEDIATE
+                    </div>
+                  </div>
+
+                  <button 
+                     className="cq-neo-btn" 
+                     style={{ background: 'var(--cq-yellow)', color: 'var(--cq-black)', fontSize: '24px', padding: '20px' }}
+                     onClick={initGame} 
+                  >
+                    START QUIZ
+                  </button>
+                </div>
+                <button onClick={handleLogout} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: 'var(--cq-white)', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', marginTop: '16px' }}>
+                  Not {user?.name?.split(' ')[0]}? Switch account
+                </button>
+              </motion.div>
+            )}
+
+            {/* ═══ PLAYING ═══ */}
+            {phase === 'PLAYING' && currentQ && (
+              <motion.div key="play" variants={slideLeft} initial="in" animate="on" exit="out" className="cq-play-wrap">
+                
+                {/* HUD */}
+                <div className="cq-hud">
+                  <div className="cq-score-badge">
+                    SCORE: {score}/{questions.length}
+                  </div>
+                  <div style={{ fontFamily: "'Rye', serif", fontSize: '28px', color: timeLeft <= 3 ? 'var(--cq-danger)' : 'var(--cq-black)', lineHeight: 1 }}>
+                    00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}
+                  </div>
+                </div>
+
+                {/* TIMER BAR */}
+                <div className="cq-timer-wrap">
+                  <div className="cq-timer-fill" style={{ width: `${(timeLeft / MAX_TIME_PER_Q) * 100}%`, background: timeLeft <= 3 ? 'var(--cq-danger)' : 'var(--cq-success)' }} />
+                </div>
+
+                {/* QUESTION CARD */}
+                <motion.div 
+                  key={`q-${currentIdx}`}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="cq-question-card"
+                >
+                  <div className="cq-question-number">Q {currentIdx + 1}</div>
+                  {currentQ.question}
+                </motion.div>
+
+                {/* OPTIONS GRID */}
+                <div className="cq-options-grid">
+                  {currentQ.options.map((opt, idx) => {
+                    let btnClass = "cq-option-btn";
+                    let icon = null;
+                    
+                    if (isLocked) {
+                      if (opt === currentQ.correctAnswer) {
+                        btnClass += " correct";
+                        icon = <CheckCircle2 size={20} style={{ marginLeft: '8px' }} />;
+                      } else if (selectedOption === opt) {
+                        btnClass += " incorrect";
+                        icon = <XCircle size={20} style={{ marginLeft: '8px' }} />;
+                      }
+                    }
+
+                    return (
+                      <button 
+                        key={idx}
+                        className={btnClass}
+                        style={{ background: isLocked ? undefined : pastelColors[idx % pastelColors.length] }}
+                        onClick={() => handleOptionClick(opt)}
+                        disabled={isLocked}
+                      >
+                        {opt} {icon}
+                      </button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+
+            {/* ═══ RESULT ═══ */}
+            {phase === 'RESULT' && (
+              <motion.div key="result" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
+                <div className="cq-result-card">
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: '-10px' }}>
+                    {score >= 6 ? <CheckCircle2 size={48} color="var(--cq-success)" /> : <XCircle size={48} color="var(--cq-danger)" />}
+                  </div>
+                  <div style={{ fontFamily: "'Rye', serif", fontSize: '40px', color: 'var(--cq-black)', lineHeight: 1 }}>
+                    {score >= 6 ? 'QUIZ CLEARED' : 'QUIZ FAILED'}
+                  </div>
+                  
+                  {score >= 6 ? (
+                    <div className="cq-ticket">
+                      <div className="cq-ticket-tag">MASTER VOUCHER</div>
+                      <div className="cq-ticket-code">{hashedVoucher || 'WIN-1234'}</div>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 700, color: 'rgba(0,0,0,0.6)', borderTop: '2px solid rgba(0,0,0,0.1)', paddingTop: '12px', marginTop: '12px' }}>
+                        <strong>{user?.name}</strong><br/>
+                        {user?.email}<br/><br/>
+                        SCORE: {score}/8 • SHOW TICKET AT BOOTH
+                      </div>
+                    </div>
+                  ) : (
+                    <div style={{ width: '100%', marginTop: '16px' }}>
+                      <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 600, marginBottom: '24px' }}>
+                        You scored {score}/{questions.length}. You need at least 6 to secure the voucher!
+                      </p>
+                      <button className="cq-neo-btn" style={{ background: 'var(--cq-yellow)', color: 'var(--cq-black)' }} onClick={() => { setPhase('LOBBY'); }}>
+                        <RotateCcw size={18} strokeWidth={3} /> RETRY QUIZ
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+
+          </AnimatePresence>
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+export default CarnivalQuiz;

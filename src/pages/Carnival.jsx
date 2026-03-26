@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Ticket, Globe } from 'lucide-react';
+import { ArrowRight, Ticket, Globe, Zap } from 'lucide-react';
 import TicketModal from '../components/TicketModal';
+import CarnivalQuiz from '../components/CarnivalQuiz';
 import './Carnival.css';
 import CarnivalHero from '../components/CarnivalHero';
 import Footer from './Footer';
@@ -20,6 +21,10 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
   }, []);
 
   const handleEventClick = (id) => {
+    if (id === 1) {
+      window.open('https://ieee-itss-sbnu.vercel.app/', '_blank');
+      return;
+    }
     if (id && id < 100) navigate(`/carnival/${id}`, { state: { fromTab: 'itinerary' } });
   };
 
@@ -165,8 +170,18 @@ const Carnival = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [activeTab, setActiveTab] = useState(searchParams.get('tab') || 'itinerary');
   const [isTicketModalOpen, setIsTicketModalOpen] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
+  const [isPortalOpen, setIsPortalOpen] = useState(false);
   const [modalData, setModalData] = useState({ title: 'IEEE CARNIVAL', hash: 42, img: '' });
   const navigate = useNavigate();
+
+  const handleOpenGame = () => {
+    setIsPortalOpen(true);
+    setTimeout(() => {
+      setIsQuizOpen(true);
+      setTimeout(() => setIsPortalOpen(false), 500);
+    }, 800);
+  };
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
 
   useEffect(() => {
@@ -205,6 +220,10 @@ const Carnival = () => {
   const allPosters = Array.from(new Map(rawPosters.map(item => [item.id, item])).values());
 
   const handleEventCardClick = (id) => {
+    if (id === 1) {
+      window.open('https://ieee-itss-sbnu.vercel.app/', '_blank');
+      return;
+    }
     if (id && id < 100) navigate(`/carnival/${id}`, { state: { fromTab: activeTab } });
   };
 
@@ -244,7 +263,29 @@ const Carnival = () => {
     >
       <CarnivalHero />
 
-      <div className="marquee-container bg-black py-2 overflow-hidden relative z-20 border-y-[3px] border-black">
+      {/* ─── NEUBRUTALIST QUIZ ENTRY BUTTON ─── */}
+      <div className="relative z-[150] w-full flex justify-center mt-[-3rem] md:mt-[-4rem] mb-8 px-4">
+        <motion.button 
+          onClick={handleOpenGame}
+          whileHover={{ scale: 1.05, y: -4, boxShadow: '8px 8px 0px #1a1a1a' }}
+          whileTap={{ scale: 0.95, y: 4, boxShadow: '0px 0px 0px #1a1a1a' }}
+          className="flex items-center gap-4 bg-[#FEF9C3] border-[4px] border-[#1a1a1a] px-8 md:px-12 py-4 md:py-6 rounded-[2rem] shadow-[6px_6px_0px_#1a1a1a] transition-all"
+        >
+          <div className="bg-[#1a1a1a] text-[#FEF9C3] p-2 rounded-xl border-2 border-transparent">
+            <Zap size={28} fill="currentColor" />
+          </div>
+          <div className="text-left">
+            <div className="font-['Space_Grotesk'] font-black text-[#1a1a1a] text-sm md:text-base tracking-[0.2em] uppercase leading-none mb-1">
+              Tech Rush Challenge
+            </div>
+            <div className="font-['Rye'] text-[#1a1a1a] text-2xl md:text-4xl leading-none">
+              PLAY NOW
+            </div>
+          </div>
+        </motion.button>
+      </div>
+
+      <div className="marquee-container bg-black py-2 overflow-hidden relative z-20 border-y-[3px] border-black mt-0">
         <motion.div 
           className="flex whitespace-nowrap"
           animate={{ x: [0, -1200] }}
@@ -353,7 +394,10 @@ const Carnival = () => {
                 .map((poster, idx) => (
                 <div 
                   key={`${poster.id}-${idx}`}
-                  onClick={() => navigate(`/carnival/${poster.id}`)}
+                  onClick={() => {
+                    if (poster.id === 1) window.open('https://ieee-itss-sbnu.vercel.app/', '_blank');
+                    else navigate(`/carnival/${poster.id}`);
+                  }}
                   className="poster-card relative group aspect-[3/4.2] overflow-hidden rounded-[2.5rem] border-[4px] border-black shadow-[12px_12px_0px_black] cursor-pointer"
                 >
                    <img src={poster.img} alt={poster.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -378,6 +422,36 @@ const Carnival = () => {
         eventTitle={modalData.title}
         dayEventsHash={modalData.hash}
         posterImg={modalData.img}
+      />
+
+      {/* ─── PORTAL WARP TRANSITION ─── */}
+      <AnimatePresence>
+        {isPortalOpen && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 150, opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+            transition={{ duration: 0.8, ease: "anticipate" }}
+            style={{
+              position: 'fixed',
+              top: '50%',
+              left: '50%',
+              width: '30px',
+              height: '30px',
+              borderRadius: '50%',
+              backgroundColor: '#00FFFF',
+              zIndex: 99998,
+              transform: 'translate(-50%, -50%)',
+              pointerEvents: 'none',
+              boxShadow: '0 0 100px #00FFFF, 0 0 200px #FF00FF'
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      <CarnivalQuiz
+        isOpen={isQuizOpen}
+        onClose={() => setIsQuizOpen(false)}
       />
     </motion.div>
   );

@@ -1,0 +1,395 @@
+/* ============================================================
+   CARNIVAL TECH QUIZ
+   Neubrutalist aesthetic matching the website schedule theme.
+   Rye font, hard shadows, thick borders, pastel cards.
+   Responsive 2x2 grid.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Rye&family=Space+Grotesk:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  --cq-pink: #FBCFE8;
+  --cq-blue: #BAE1FF;
+  --cq-yellow: #FEF9C3;
+  --cq-green: #D1FAE5;
+  --cq-purple: #E9D5FF;
+  
+  --cq-black: #1a1a1a;
+  --cq-white: #ffffff;
+  --cq-danger: #ef4444;
+  --cq-success: #22c55e;
+}
+
+/* ═══ FULLSCREEN OVERLAY ═══ */
+.cq-portal {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgb(1, 1, 84), rgb(214, 86, 246));
+}
+
+/* ═══ ANIMATED BACKGROUND DOTS ═══ */
+.cq-carnival-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 2px, transparent 2px);
+  background-size: 32px 32px;
+  animation: cq-pan-bg 20s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes cq-pan-bg {
+  0% { background-position: 0 0; }
+  100% { background-position: -32px -32px; }
+}
+
+/* ═══ MAIN CONTAINER ═══ */
+.cq-main {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 600px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* ═══ HEADER ═══ */
+.cq-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 0 16px;
+  flex-shrink: 0;
+}
+
+.cq-x {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  border: 3px solid var(--cq-black);
+  background: var(--cq-white);
+  color: var(--cq-black);
+  box-shadow: 4px 4px 0px var(--cq-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cq-x:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px var(--cq-black);
+}
+
+/* ═══ CONTENT AREA ═══ */
+.cq-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* ═══ BRANDING (Title) ═══ */
+.cq-title-wrap {
+  text-align: center;
+  margin-bottom: 24px;
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.5));
+}
+
+.cq-title-top {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: var(--cq-yellow);
+  text-transform: uppercase;
+  margin-bottom: -10px;
+}
+
+.cq-title-main {
+  font-family: 'Rye', serif;
+  font-size: clamp(40px, 12vw, 64px);
+  color: var(--cq-white);
+  line-height: 1.1;
+  text-shadow: 3px 3px 0px var(--cq-black), -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* ═══ NEUBRUTALIST CARD (Base style) ═══ */
+.cq-neo-card {
+  background: var(--cq-white);
+  border: 4px solid var(--cq-black);
+  box-shadow: 8px 8px 0px var(--cq-black);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+/* ═══ BUTTONS ═══ */
+.cq-neo-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 12px;
+  border: 3px solid var(--cq-black);
+  box-shadow: 5px 5px 0px var(--cq-black);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.cq-neo-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0px 0px 0px var(--cq-black);
+}
+
+/* ═══ LOBBY STATS ═══ */
+.cq-lobby-stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.cq-lobby-stat {
+  flex: 1;
+  min-width: 80px;
+  background: var(--cq-purple);
+  border: 3px solid var(--cq-black);
+  border-radius: 12px;
+  padding: 12px 4px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  color: var(--cq-black);
+  box-shadow: 3px 3px 0px var(--cq-black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ═══ GAMEPLAY UI ═══ */
+.cq-play-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 16px;
+}
+
+.cq-hud {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--cq-white);
+  border: 3px solid var(--cq-black);
+  border-radius: 16px;
+  padding: 12px 20px;
+  box-shadow: 5px 5px 0px var(--cq-black);
+  flex-shrink: 0;
+}
+
+.cq-score-badge {
+  background: var(--cq-yellow);
+  border: 2px solid var(--cq-black);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+}
+
+.cq-timer-wrap {
+  width: 100%;
+  height: 16px;
+  background: var(--cq-black);
+  border-radius: 8px;
+  border: 2px solid var(--cq-white);
+  overflow: hidden;
+}
+
+.cq-timer-fill {
+  height: 100%;
+  transition: width 1s linear, background-color 0.3s ease;
+}
+
+.cq-question-card {
+  background: var(--cq-white);
+  border: 4px solid var(--cq-black);
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 6px 6px 0px var(--cq-black);
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: clamp(18px, 5vw, 24px);
+  color: var(--cq-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.cq-question-number {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--cq-yellow);
+  color: var(--cq-black);
+  font-size: 12px;
+  font-weight: 900;
+  padding: 4px 12px;
+  border: 2px solid var(--cq-black);
+  border-radius: 12px;
+  box-shadow: 2px 2px 0px var(--cq-black);
+}
+
+/* 2x2 Grid Layout for Options */
+.cq-options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding-bottom: 8px; /* Room for shadow */
+}
+
+.cq-option-btn {
+  width: 100%;
+  height: 100%;
+  padding: 16px 12px;
+  border-radius: 16px;
+  border: 3px solid var(--cq-black);
+  box-shadow: 6px 6px 0px var(--cq-black);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 4vw, 16px);
+  color: var(--cq-black);
+  cursor: pointer;
+  transition: all 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Hover state only on non-touch screens */
+@media (hover: hover) {
+  .cq-option-btn:not(:disabled):hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--cq-black);
+  }
+}
+
+.cq-option-btn:not(:disabled):active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px var(--cq-black);
+}
+
+.cq-option-btn:disabled {
+  cursor: default;
+  opacity: 0.9;
+}
+
+/* Feedback states */
+.cq-option-btn.correct {
+  background: var(--cq-success) !important;
+  color: var(--cq-white);
+  border-color: var(--cq-black);
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px var(--cq-black);
+}
+
+.cq-option-btn.incorrect {
+  background: var(--cq-danger) !important;
+  color: var(--cq-white);
+  border-color: var(--cq-black);
+  opacity: 0.7;
+}
+
+/* ═══ RESULT PHASE ═══ */
+.cq-result-card {
+  background: var(--cq-white);
+  border: 4px solid var(--cq-black);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 8px 8px 0px var(--cq-black);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cq-ticket {
+  background: var(--cq-yellow);
+  border: 4px dashed var(--cq-black);
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.cq-ticket-tag {
+  background: var(--cq-black);
+  color: var(--cq-white);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.cq-ticket-code {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 900;
+  font-size: clamp(24px, 6vw, 36px);
+  color: var(--cq-black);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+/* ═══ RESPONSIVE OVERRIDES ═══ */
+@media (max-width: 450px) {
+  .cq-main { padding: 12px; }
+  .cq-options-grid {
+    grid-template-columns: 1fr; /* Stack vertically on very small phones */
+    gap: 8px;
+  }
+  .cq-option-btn {
+    padding: 12px;
+  }
+  .cq-title-main { font-size: 32px; }
+  .cq-lobby-stat { padding: 8px 4px; font-size: 10px; }
+}
