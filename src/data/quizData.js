@@ -1,307 +1,323 @@
-export const techQuizData = [
-  // --- IEEE SBNU & CARNIVAL SPECIFIC ---
+const quizQuestions = [
+  // ─── IEEE SBNU & SECTION SPECIFIC ───
   {
     id: 1,
-    question: "In what year was the IEEE Student Branch at Nirma University (SBNU) established?",
-    options: ["2000", "2002", "2005", "2010"],
-    correctAnswer: "2002"
+    question: "Which IEEE Society does IEEE SBNU primarily coordinate with for technical seminars?",
+    options: ["Computer Society", "Robotics & Automation", "Power & Energy", "Circuits & Systems"],
+    correctAnswer: "Computer Society"
   },
   {
     id: 2,
-    question: "Which IEEE SBNU professional society is hosting the 'Lumisense' event related to photonic sensors?",
-    options: ["Computer Society", "ITSS", "Signal Processing Society (SPS)", "SIGHT"],
-    correctAnswer: "Signal Processing Society (SPS)"
+    question: "What is the unique IEEE Student Branch Code for Nirma University?",
+    options: ["STB63584", "STB12345", "STB00987", "STB98765"],
+    correctAnswer: "STB63584"
   },
   {
     id: 3,
-    question: "The 'RoboSumo' competition at IEEE Carnival 2026 is based on which classic robotics combat format?",
-    options: ["BattleBots", "Drone Racing", "Sumo Wrestling", "Line Following"],
-    correctAnswer: "Sumo Wrestling"
+    question: "How many major tech events are featured in this Carnival Guide?",
+    options: ["3", "4", "5", "6"],
+    correctAnswer: "4"
   },
   {
     id: 4,
-    question: "What is the primary focus of the 'Lambda Genie' event at the Carnival?",
-    options: ["Blockchain", "Serverless Architecture", "Web Scraping", "Embedded Systems"],
-    correctAnswer: "Serverless Architecture"
+    question: "Which Nirma event involves 'Lambda Expressions' as a central theme?",
+    options: ["ITSS", "RoboSumo", "Lambda Genie", "Lumisense"],
+    correctAnswer: "Lambda Genie"
   },
   {
     id: 5,
-    question: "Which event at IEEE Carnival 2026 focuses on hands-on FPGA workshop and design challenges?",
-    options: ["Forged in Wire", "FPGA Forge", "Lumisense", "Bot Talks"],
-    correctAnswer: "FPGA Forge"
+    question: "Which position is responsible for the overall SBNU web presence like this quiz?",
+    options: ["Chairperson", "Webmaster", "Secretary", "Editorial Head"],
+    correctAnswer: "Webmaster"
   },
+
+  // ─── ELITE COMPUTER SCIENCE & ENGINEERING ───
   {
     id: 6,
-    question: "The 'ITSS' professional society at Nirma University focuses on which domain?",
-    options: ["Information Technology", "Intelligent Transportation Systems", "Industrial Tech", "Interactive Text Systems"],
-    correctAnswer: "Intelligent Transportation Systems"
+    question: "In Transformer architecture, what is the 'Attention' mechanism's primary role?",
+    options: ["Focus on relevant input segments", "Compress audio data", "Increase GPU load", "Reverse bit order"],
+    correctAnswer: "Focus on relevant input segments"
   },
   {
     id: 7,
-    question: "What does the 'SIGHT' in IEEE SIGHT stand for?",
-    options: ["Systems Integration on High Tech", "Special Interest Group on Humanitarian Technology", "Student Institute for Global Tech", "Sensors in Global Humanities"],
-    correctAnswer: "Special Interest Group on Humanitarian Technology"
+    question: "What is the primary engine used in the Chromium browser for JavaScript?",
+    options: ["SpiderMonkey", "V8", "JavaScriptCore", "Chakra"],
+    correctAnswer: "V8"
   },
   {
     id: 8,
-    question: "The 'PromptVerse' challenge targets mastery in which emerging field?",
-    options: ["Verse Writing", "Game Development", "AI Prompt Engineering", "3D Modeling"],
-    correctAnswer: "AI Prompt Engineering"
+    question: "Which protocol ensures a 'Three-Way Handshake' for reliable transport?",
+    options: ["UDP", "TCP/IP", "HTTP", "ICMP"],
+    correctAnswer: "TCP/IP"
   },
   {
     id: 9,
-    question: "Which event at the Carnival is described as 'The ultimate circuit building and hardware hackathon'?",
-    options: ["FPGA Forge", "Forged in Wire", "Lambda Genie", "ITSS"],
-    correctAnswer: "Forged in Wire"
+    question: "What is the space complexity of a recursively implemented Fibonacci sequence?",
+    options: ["O(1)", "O(n)", "O(log n)", "O(n^2)"],
+    correctAnswer: "O(n)"
   },
   {
     id: 10,
-    question: "Under which university is the IEEE SBNU student branch hosted?",
-    options: ["IIT Gandhinagar", "Nirma University", "Gujarat University", "DA-IICT"],
-    correctAnswer: "Nirma University"
+    question: "Which OS kernel is known for its pure monolithic architecture?",
+    options: ["Hurd", "Linux", "Windows NT", "Mach"],
+    correctAnswer: "Linux"
   },
 
-  // --- LATEST TECH TRENDS ---
+  // ─── AI & FUTURE TECH ───
   {
     id: 11,
-    question: "In the context of Large Language Models (LLMs), what does 'RAG' stand for?",
-    options: ["Relational AI Generation", "Retrieval-Augmented Generation", "Random Access Graphics", "Resource Allocation Grid"],
-    correctAnswer: "Retrieval-Augmented Generation"
+    question: "Who is credited with inventing the 'Transformer' model architecture?",
+    options: ["OpenAI", "Google Research", "Meta AI", "Microsoft"],
+    correctAnswer: "Google Research"
   },
   {
     id: 12,
-    question: "Which company recently achieved 'Quantum Primacy' (or Supremacy) with its Sycamore processor?",
-    options: ["IBM", "Microsoft", "Intel", "Google"],
-    correctAnswer: "Google"
+    question: "What does the 'G' in GPT (Generative Pre-trained Transformer) stand for?",
+    options: ["Global", "Generative", "Gradual", "Graphic"],
+    correctAnswer: "Generative"
   },
   {
     id: 13,
-    question: "What is 'Agentic AI' primarily focused on?",
-    options: ["Generating Art", "Autonomous task execution and reasoning", "Data Mining", "Facial Recognition"],
-    correctAnswer: "Autonomous task execution and reasoning"
+    question: "Which Python library is the industry standard for Tensor computations?",
+    options: ["Pandas", "Matplotlib", "PyTorch", "Django"],
+    correctAnswer: "PyTorch"
   },
   {
     id: 14,
-    question: "Which architecture is the foundation for models like GPT-4 and Llama 3?",
-    options: ["Recurrent Neural Networks (RNN)", "Convolutional Neural Networks (CNN)", "Transformers", "Long Short-Term Memory (LSTM)"],
-    correctAnswer: "Transformers"
+    question: "What is 'RLHF' in the context of tuning AI models like ChatGPT?",
+    options: ["Reinforcement Learning from Human Feedback", "Rapid Logic High Frequency", "Recursive Loop Host File", "Reduced Link Handler Flow"],
+    correctAnswer: "Reinforcement Learning from Human Feedback"
   },
   {
     id: 15,
-    question: "The 'Vision Pro' is a spatial computing headset released by which company?",
-    options: ["Meta", "Apple", "Google", "Sony"],
-    correctAnswer: "Apple"
+    question: "Which AI benchmark measures a model's ability to reason like a human?",
+    options: ["Turing Test", "MMLU", "ImageNet", "MNIST"],
+    correctAnswer: "MMLU"
   },
+
+  // ─── CARNIVAL EVENT TRIVIA (DEEP) ───
   {
     id: 16,
-    question: "What is 'NVIDIA CUDA' used for?",
-    options: ["Video Editing", "Parallel computing on GPUs", "Web Servers", "Database Management"],
-    correctAnswer: "Parallel computing on GPUs"
+    question: "In RoboSumo, what is the standard diameter of the competition 'Dohyo'?",
+    options: ["77cm", "100cm", "154cm", "200cm"],
+    correctAnswer: "154cm"
   },
   {
     id: 17,
-    question: "In blockchain, what is the term for the process of verifying a transaction?",
-    options: ["Minting", "Mining/Validation", "Hacking", "Leasing"],
-    correctAnswer: "Mining/Validation"
+    question: "In Lumisense, what type of waves are typically used for detecting proximity?",
+    options: ["Ultraviolet", "Infrared", "Gamma", "X-Ray"],
+    correctAnswer: "Infrared"
   },
   {
     id: 18,
-    question: "What technology allows the creation of 'Digital Twins' for real-time simulation?",
-    options: ["VR/AR", "IoT and Sensors", "Cloud Storage", "Mobile Apps"],
-    correctAnswer: "IoT and Sensors"
+    question: "In ITSS Phase 2, what is the primary focus for technical session series?",
+    options: ["Design Thinking", "Problem Solving", "Networking", "Deployment"],
+    correctAnswer: "Problem Solving"
   },
   {
     id: 19,
-    question: "Which programming language is currently most preferred for Artificial Intelligence and Machine Learning?",
-    options: ["C++", "Java", "Python", "Swift"],
-    correctAnswer: "Python"
+    question: "The 'Tech Hunt' scavenger clues are hidden using which physical medium?",
+    options: ["Base64 Strings", "SHA-256 Hashes", "Invisible Ink", "QR Codes"],
+    correctAnswer: "QR Codes"
   },
   {
     id: 20,
-    question: "The term '6G' mostly refers to the next evolution in which tech field?",
-    options: ["Processor Speed", "Satellite Imaging", "Wireless Communications", "Battery Storage"],
-    correctAnswer: "Wireless Communications"
+    question: "Which organization provided the core logistical support for this Carnival?",
+    options: ["Texas Instruments", "IEEE Gujarat Section", "ST Micro", "IEEE SBNU"],
+    correctAnswer: "IEEE SBNU"
   },
 
-  // --- GENERAL TECH GK & SCIENCE ---
+  // ─── ELITE NETWORK & WEB ───
   {
     id: 21,
-    question: "Who is the legendary computer scientist who developed the first compiler for a programming language (A-0 system)?",
-    options: ["Alan Turing", "Grace Hopper", "Dennis Ritchie", "Bill Joy"],
-    correctAnswer: "Grace Hopper"
+    question: "What is the primary purpose of 'Docker' containers in modern DevOps?",
+    options: ["Isolating app environments", "Storing large databases", "Compressing assets", "Protecting against DDoS"],
+    correctAnswer: "Isolating app environments"
   },
   {
     id: 22,
-    question: "What physical property allows fiber optic cables to carry light signals through thousands of miles?",
-    options: ["Refraction", "Diffraction", "Total Internal Reflection", "Scattering"],
-    correctAnswer: "Total Internal Reflection"
+    question: "Which HTTP status code represents an 'Internal Server Error'?",
+    options: ["404", "500", "403", "502"],
+    correctAnswer: "500"
   },
   {
     id: 23,
-    question: "What was the name of the first programmable general-purpose electronic digital computer built in 1945?",
-    options: ["ENIAC", "UNIVAC", "EDVAC", "Z3"],
-    correctAnswer: "ENIAC"
+    question: "What is the 'Same-Origin Policy' designed to prevent in browsers?",
+    options: ["DNS Hijacking", "Cross-Site Scripting (XSS)", "SQL Injection", "Email Spam"],
+    correctAnswer: "Cross-Site Scripting (XSS)"
   },
   {
     id: 24,
-    question: "Which of these is NOT a semiconductor material?",
-    options: ["Silicon", "Germanium", "Gallium Arsenide", "Aluminum"],
-    correctAnswer: "Aluminum"
+    question: "Which CSS layout engine is based on a 'Two-Dimensional' grid system?",
+    options: ["Flexbox", "Grid", "Tables", "Floats"],
+    correctAnswer: "Grid"
   },
   {
     id: 25,
-    question: "What is the speed of light in a vacuum approximately?",
-    options: ["300,000 km/s", "150,000 km/s", "1,000,000 km/s", "50,000 km/s"],
-    correctAnswer: "300,000 km/s"
+    question: "What is the main advantage of 'React' using a Virtual DOM?",
+    options: ["Less RAM usage", "Minimizing UI re-renders", "Faster server speed", "Better SEO headers"],
+    correctAnswer: "Minimizing UI re-renders"
   },
+
+  // ─── SEMICONDUCTORS & HARDWARE (PRO) ───
   {
     id: 26,
-    question: "In computing, what does 'BIOS' stand for?",
-    options: ["Binary Input Output System", "Basic Internal Operating System", "Basic Input Output System", "Binary Internal Output Solution"],
-    correctAnswer: "Basic Input Output System"
+    question: "What does 'RISC' stand for in CPU micro-architecture?",
+    options: ["Reduced Instruction Set Computer", "Rapid Integrated System Circuit", "Read-only Integrated Chip", "Relational Internal Core"],
+    correctAnswer: "Reduced Instruction Set Computer"
   },
   {
     id: 27,
-    question: "Which company's headquarters in Cupertino is known as 'Apple Park' or 'The Spaceship'?",
-    options: ["Sony", "Nvidia", "Adobe", "Apple"],
-    correctAnswer: "Apple"
+    question: "Which Dutch company controls the world's EUV Photolithography market?",
+    options: ["Intel", "Samsung", "ASML", "NXP"],
+    correctAnswer: "ASML"
   },
   {
     id: 28,
-    question: "Who co-founded Microsoft alongside Bill Gates?",
-    options: ["Steve Ballmer", "Paul Allen", "Steve Wozniak", "Linus Torvalds"],
-    correctAnswer: "Paul Allen"
+    question: "What is the unit of measure for CPU 'Clock Cycle Frequency'?",
+    options: ["GB/s", "Ghz", "Watts", "Mhz"],
+    correctAnswer: "Ghz"
   },
   {
     id: 29,
-    question: "What does 'S' in 'HTTPS' stand for?",
-    options: ["Standard", "Speed", "Secure", "Storage"],
-    correctAnswer: "Secure"
+    question: "Which logic gate outputs TRUE only when both inputs are identical and TRUE?",
+    options: ["OR", "NAND", "XOR", "AND"],
+    correctAnswer: "AND"
   },
   {
     id: 30,
-    question: "Which operating system kernel was created by Linus Torvalds in 1991?",
-    options: ["Windows", "Unix", "Linux", "Solaris"],
-    correctAnswer: "Linux"
+    question: "What does 'TDP' stand for in processor heat management?",
+    options: ["Total Data Power", "Thermal Design Power", "Transmission Delay Port", "Terminal Data Pin"],
+    correctAnswer: "Thermal Design Power"
   },
+
+  // ─── CYBERSECURITY & LOGIC ───
   {
     id: 31,
-    question: "What is the unit of measure for the amount of electrical resistance in a circuit?",
-    options: ["Ampere", "Volt", "Ohm", "Watt"],
-    correctAnswer: "Ohm"
+    question: "What is a 'Zero-Day' vulnerability in cybersecurity?",
+    options: ["Exploit found before a fix", "A virus that lasts 24 hours", "A server with no downtime", "An old legacy bug"],
+    correctAnswer: "Exploit found before a fix"
   },
   {
     id: 32,
-    question: "Which celestial body was downgraded from 'Planet' to 'Dwarf Planet' in 2006?",
-    options: ["Mars", "Pluto", "Mercury", "Venus"],
-    correctAnswer: "Pluto"
+    question: "Which encryption algorithm is the current AES standard used globally?",
+    options: ["Rijndael (AES)", "MD5", "Blowfish", "DES"],
+    correctAnswer: "Rijndael (AES)"
   },
   {
     id: 33,
-    question: "What is the name of the world's most popular open-source version control system?",
-    options: ["Subversion", "Mercurial", "Git", "CVS"],
-    correctAnswer: "Git"
+    question: "What is 'SQL Injection'primarily aimed at?",
+    options: ["Injecting code into database queries", "Installing SQL on a PC", "Deleting a cloud server", "Hacking WiFi"],
+    correctAnswer: "Injecting code into database queries"
   },
   {
     id: 34,
-    question: "In the context of the HTTP 404 error, what does it signify?",
-    options: ["Forbidden", "Server Timeout", "Page Not Found", "Unauthorized"],
-    correctAnswer: "Page Not Found"
+    question: "Which protocol is used for encrypted, secure shell access?",
+    options: ["Telnet", "SSH", "SFTP", "HTTPS"],
+    correctAnswer: "SSH"
   },
   {
     id: 35,
-    question: "Which law states that the number of transistors on a microchip doubles approximately every two years?",
-    options: ["Newton's Law", "Moore's Law", "Murphy's Law", "Faraday's Law"],
-    correctAnswer: "Moore's Law"
+    question: "What does 'MFA' stand for in modern account security?",
+    options: ["Multi-Factor Authentication", "Main File Archiver", "Many Factor Access", "Micro Folder Array"],
+    correctAnswer: "Multi-Factor Authentication"
   },
+
+  // ─── MODERN TECH TRENDS ───
   {
     id: 36,
-    question: "What is the process of finding and fixing bugs in a program called?",
-    options: ["Refactoring", "Debugging", "Transpiling", "Linting"],
-    correctAnswer: "Debugging"
+    question: "What is the primary consensus mechanism for 'Ethereum 2.0' (The Merge)?",
+    options: ["Proof of Work", "Proof of Stake", "Proof of Authority", "Proof of Concept"],
+    correctAnswer: "Proof of Stake"
   },
   {
     id: 37,
-    question: "What is the world's first decentralised cryptocurrency?",
-    options: ["Ethereum", "Litecoin", "Dogecoin", "Bitcoin"],
-    correctAnswer: "Bitcoin"
+    question: "Which tech stack is used to build the core IEEE SBNU Carnival web portal?",
+    options: ["Vite + React", "Next.js + Tailwind", "WordPress", "Pure PHP"],
+    correctAnswer: "Vite + React"
   },
   {
     id: 38,
-    question: "Which company developed the 'Java' programming language?",
-    options: ["Microsoft", "IBM", "Sun Microsystems", "Xerox"],
-    correctAnswer: "Sun Microsystems"
+    question: "What is the core principle of 'Edge Computing'?",
+    options: ["Processing data close to its source", "Computing in the cloud", "High-speed space servers", "PC Gaming"],
+    correctAnswer: "Processing data close to its source"
   },
   {
     id: 39,
-    question: "In web development, what does 'CSS' stand for?",
-    options: ["Computer Style Sheet", "Creative Style System", "Cascading Style Sheets", "Colored Style Sheets"],
-    correctAnswer: "Cascading Style Sheets"
+    question: "The Metaverse concept is primarily an integration of which technologies?",
+    options: ["VR/AR and Web3", "Social Media", "Video Calls", "Email Protocols"],
+    correctAnswer: "VR/AR and Web3"
   },
   {
     id: 40,
-    question: "Which gas is used in the fire extinguishers that are suitable for electrical fires?",
-    options: ["Oxygen", "CO2 (Carbon Dioxide)", "Hydrogen", "Nitrogen"],
-    correctAnswer: "CO2 (Carbon Dioxide)"
+    question: "Which tech company acquired the 'GitHub' platform in 2018?",
+    options: ["Google", "Microsoft", "Meta", "Amazon"],
+    correctAnswer: "Microsoft"
   },
+
+  // ─── ENGINEERING MATH & LOGIC ───
   {
     id: 41,
-    question: "What is the primary function of a 'Heat Sink' in a computer?",
-    options: ["Store Data", "Generate Power", "Dissipate Heat", "Process Graphics"],
-    correctAnswer: "Dissipate Heat"
+    question: "What is the 'Golden Ratio' (phi) used in design and nature?",
+    options: ["1.414", "1.618", "2.718", "3.141"],
+    correctAnswer: "1.618"
   },
   {
     id: 42,
-    question: "Who is known as the inventor of the World Wide Web (WWW)?",
-    options: ["Vint Cerf", "Tim Berners-Lee", "Marc Andreessen", "Larry Page"],
-    correctAnswer: "Tim Berners-Lee"
+    question: "Which Boolean operation corresponds to 'Exclusive OR' logic?",
+    options: ["AND", "OR", "XOR", "NAND"],
+    correctAnswer: "XOR"
   },
   {
     id: 43,
-    question: "What is the base-2 numbering system called?",
-    options: ["Decimal", "Hexadecimal", "Binary", "Octal"],
-    correctAnswer: "Binary"
+    question: "What is a 'Heuristic' in the context of algorithmic problem solving?",
+    options: ["Approximation for speed", "Precise mathematical proof", "Cloud storage", "Measuring CPU heat"],
+    correctAnswer: "Approximation for speed"
   },
   {
     id: 44,
-    question: "Which of these is a widely used library for building user interfaces with JavaScript?",
-    options: ["Pandas", "PyTorch", "React", "Keras"],
-    correctAnswer: "React"
+    question: "What does 'Shannon Entropy' measure in information theory?",
+    options: ["Uncertainty or Information density", "Physics pressure", "Water flow", "Electricity resistance"],
+    correctAnswer: "Uncertainty or Information density"
   },
   {
     id: 45,
-    question: "What is the 'brain' of the computer called?",
-    options: ["RAM", "SSD", "CPU", "GPU"],
-    correctAnswer: "CPU"
+    question: "Which sequence starts with 0, 1 and each number is the sum of two previous ones?",
+    options: ["Prime", "Fibonacci", "Pascal", "Binary"],
+    correctAnswer: "Fibonacci"
   },
+
+  // ─── LAST SET ───
   {
     id: 46,
-    question: "In aviation, what does 'UAV' stand for?",
-    options: ["Universal Air Vehicle", "Unmanned Aerial Vehicle", "United Aerospace Vessel", "Ultra Arctic Vessel"],
-    correctAnswer: "Unmanned Aerial Vehicle"
+    question: "What is the name of the first supercomputer officially developed in India?",
+    options: ["PARAM 8000", "AIRAVAT", "SAHASRAT", "PRATYUSH"],
+    correctAnswer: "PARAM 8000"
   },
   {
     id: 47,
-    question: "Which physical constant relates Energy to Mass in the equation E = mc²?",
-    options: ["Planck's Constant", "Gravitational Constant", "Speed of Light", "Boltzmann Constant"],
-    correctAnswer: "Speed of Light"
+    question: "Who is the principal inventor of the 'World Wide Web' (WWW)?",
+    options: ["Steve Jobs", "Tim Berners-Lee", "Bill Gates", "Linus Torvalds"],
+    correctAnswer: "Tim Berners-Lee"
   },
   {
     id: 48,
-    question: "Which company acquired GitHub in 2018 for $7.5 billion?",
-    options: ["Google", "Microsoft", "Amazon", "Facebook"],
-    correctAnswer: "Microsoft"
+    question: "What was the technical cause of the 'Y2K bug'?",
+    options: ["Two-digit year storage", "Satellite millisecond clock", "Zero bandwidth", "Hardware melting"],
+    correctAnswer: "Two-digit year storage"
   },
   {
     id: 49,
-    question: "What is the process of converting human-readable code into machine-executable binary called?",
-    options: ["Encryption", "Compilation", "Compression", "Serialization"],
-    correctAnswer: "Compilation"
+    question: "Which search giant was originally codenamed 'BackRub' at Stanford?",
+    options: ["Google", "Amazon", "Microsoft", "Yahoo"],
+    correctAnswer: "Google"
   },
   {
     id: 50,
-    question: "Which planet is known as the 'Red Planet'?",
-    options: ["Jupiter", "Venus", "Mars", "Saturn"],
-    correctAnswer: "Mars"
+    question: "Which language is primarily utilized for the 'C++' backend of modern LLMs?",
+    options: ["Python", "C++", "Java", "Lisp"],
+    correctAnswer: "C++"
   }
 ];
+
+export default quizQuestions;
