@@ -163,12 +163,18 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
       <div className="cq-carnival-bg" />
 
       <div className="cq-main">
-        <div className="cq-head">
-          <button className="cq-x" onClick={onClose}><X size={24} strokeWidth={3} /></button>
+        {/* UNIFIED HEADER BAR - Prevents Overlap */}
+        <div className="cq-header-row">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="cq-score-badge">SCORE: {score}/{questions.length}</div>
+          </div>
+          <button className="cq-x-mini" onClick={() => setIsOpen(false)}>
+            <X size={20} strokeWidth={3} />
+          </button>
         </div>
 
         <div className="cq-content">
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" initial={false}>
 
             {/* ═══ AUTH ═══ */}
             {phase === 'AUTH' && (
@@ -259,33 +265,36 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
 
             {/* ═══ PLAYING ═══ */}
             {phase === 'PLAYING' && currentQ && (
-              <motion.div key="play" variants={slideLeft} initial="in" animate="on" exit="out" className="cq-play-wrap">
-                
-                {/* HUD */}
-                <div className="cq-hud">
-                  <div className="cq-score-badge">
-                    SCORE: {score}/{questions.length}
-                  </div>
-                  <div style={{ fontFamily: "'Rye', serif", fontSize: '28px', color: timeLeft <= 3 ? 'var(--cq-danger)' : 'var(--cq-black)', lineHeight: 1 }}>
-                    00:{timeLeft < 10 ? `0${timeLeft}` : timeLeft}
-                  </div>
-                </div>
-
-                {/* TIMER BAR */}
-                <div className="cq-timer-wrap">
-                  <div className="cq-timer-fill" style={{ width: `${(timeLeft / MAX_TIME_PER_Q) * 100}%`, background: timeLeft <= 3 ? 'var(--cq-danger)' : 'var(--cq-success)' }} />
+              <motion.div 
+                key={`q-${currentIdx}`} 
+                initial={{ opacity: 0, scale: 0.9, rotateY: 45 }}
+                animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+                exit={{ opacity: 0, scale: 1.1, rotateY: -45 }}
+                transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                className="cq-play-wrap"
+              >
+                {/* HUD + TIMER */}
+                <div style={{ marginBottom: '15px' }}>
+                   <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '8px' }}>
+                      <div style={{ fontFamily: "'Rye', serif", fontSize: '32px', color: timeLeft <= 3 ? '#ff0055' : '#000' }}>
+                        {timeLeft < 10 ? `0${timeLeft}` : timeLeft}s
+                      </div>
+                   </div>
+                   <div className="cq-timer-wrap">
+                     <motion.div 
+                       className="cq-timer-fill" 
+                       initial={{ width: "100%" }}
+                       animate={{ width: `${(timeLeft / MAX_TIME_PER_Q) * 100}%` }}
+                       style={{ background: timeLeft <= 3 ? '#ff0055' : '#10b981' }} 
+                     />
+                   </div>
                 </div>
 
                 {/* QUESTION CARD */}
-                <motion.div 
-                  key={`q-${currentIdx}`}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="cq-question-card"
-                >
+                <div className="cq-question-card">
                   <div className="cq-question-number">Q {currentIdx + 1}</div>
                   {currentQ.question}
-                </motion.div>
+                </div>
 
                 {/* OPTIONS GRID */}
                 <div className="cq-options-grid">

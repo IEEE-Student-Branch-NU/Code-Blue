@@ -84,40 +84,42 @@
   overflow: hidden;
 }
 
-.cq-head {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  z-index: 150;
+.cq-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 5px;
+  z-index: 100;
 }
 
-.cq-x {
+.cq-x-mini {
   background: #ff0055;
   color: white;
-  border: 4px solid black;
-  width: 50px;
-  height: 50px;
+  border: 3px solid black;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 6px 6px 0px black;
+  box-shadow: 4px 4px 0px black;
   transition: all 0.2s;
 }
-.cq-x:hover { transform: scale(1.1) rotate(15deg); box-shadow: 8px 8px 0px black; }
+.cq-x-mini:hover { transform: scale(1.1); box-shadow: 6px 6px 0px black; }
 
 .cq-content {
   background: white;
-  border: 6px solid #000;
-  border-radius: 40px;
-  padding: 40px;
-  box-shadow: 20px 20px 0px rgba(0,0,0,0.4);
+  border: 4px solid #000;
+  border-radius: 32px;
+  padding: 25px;
+  box-shadow: 12px 12px 0px rgba(0,0,0,0.3);
   position: relative;
   height: 100%;
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* NO SCROLL */
+  overflow: hidden;
 }
 
 /* --- BRANDING --- */
