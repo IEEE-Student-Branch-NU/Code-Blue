@@ -253,7 +253,8 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                     <button 
                        className="cq-neo-btn" 
                        onClick={() => {
-                          if (user?.email !== '24btm032@nirmauni.ac.in') {
+                          const isTester = (user?.email === '24btm032@nirmauni.ac.in' || user?.email === 'ieee@nirmauni.ac.in');
+                          if (!isTester) {
                              localStorage.setItem(`CQ_ATTEMPT_${user?.email}`, 'DONE');
                           }
                           initGame();
@@ -362,7 +363,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                       <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 600, marginBottom: '24px' }}>
                         You scored {score}/{questions.length}. A <strong>perfect score of 8</strong> was required to unlock the Master Voucher!
                       </p>
-                      {user?.email === '24btm032@nirmauni.ac.in' ? (
+                      { (user?.email === '24btm032@nirmauni.ac.in' || user?.email === 'ieee@nirmauni.ac.in') ? (
                         <button className="cq-neo-btn" onClick={() => { setPhase('LOBBY'); }}>
                           <RotateCcw size={18} strokeWidth={3} /> RETRY CHALLENGE (TESTER)
                         </button>
