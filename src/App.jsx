@@ -10,6 +10,7 @@ import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
 import CyberGateTransition from './components/CyberGateTransition'
+import VoucherVerifier from './pages/VoucherVerifier'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const Carnival = React.lazy(() => import('./pages/Carnival'))
@@ -108,6 +109,7 @@ const App = () => {
                 <EventDetails />
               </Suspense>
             } />
+            <Route path="/verifier" element={<VoucherVerifier />} />
           </Routes>
         </AnimatePresence>
       </div>
