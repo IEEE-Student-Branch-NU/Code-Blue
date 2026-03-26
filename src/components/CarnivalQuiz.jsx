@@ -171,19 +171,20 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                   <div className="cq-title-main">CARNIVAL<br/>QUIZ</div>
                 </div>
 
-                <div className="cq-neo-card">
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '14px', color: 'var(--cq-black)' }}>TICKETS VALID ONLY FOR @NIRMAUNI.AC.IN</div>
+                <div className="cq-neo-card" style={{ background: '#f8fafc', padding: '40px' }}>
+                  <div style={{ fontFamily: "'Bungee Inline'", fontSize: '14px', color: '#666', letterSpacing: '2px', marginBottom: '10px' }}>AUTHENTICATION REQUIRED</div>
+                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: '12px', color: '#000', opacity: 0.6, marginBottom: '20px' }}>TICKETS VALID FOR @NIRMAUNI.AC.IN ONLY</div>
                   {!isNirmaUser && user ? (
-                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
-                      <ZapOff size={40} color="var(--cq-danger)" />
-                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, color: 'var(--cq-danger)', fontSize: '18px' }}>ACCESS DENIED</div>
-                      <button className="cq-neo-btn cq-btn-red" onClick={handleLogout}>TRY ANOTHER ACCOUNT</button>
+                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center' }}>
+                      <ZapOff size={48} color="#ff0055" />
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 900, color: '#ff0055', fontSize: '20px' }}>ACCESS DENIED</div>
+                      <button className="cq-neo-btn" style={{ background: '#ff0055' }} onClick={handleLogout}>TRY ANOTHER ACCOUNT</button>
                     </div>
                   ) : (
-                    <div style={{ width: '100%' }}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                       <GoogleLogin
                         onSuccess={handleLoginSuccess}
-                        useOneTap theme="filled_black" shape="pill" size="large" width="100%"
+                        useOneTap theme="filled_black" shape="pill" size="large" width="280px"
                       />
                     </div>
                   )}
