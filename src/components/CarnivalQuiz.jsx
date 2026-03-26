@@ -116,6 +116,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     
     if (option === questions[currentIdx].correctAnswer) {
       setScore(prev => prev + 1);
+      if (navigator.vibrate) navigator.vibrate([50, 50, 50]); // Short double-pulse for Correct
+    } else {
+      if (navigator.vibrate) navigator.vibrate(300); // Long buzz for Wrong
     }
     
     setTimeout(nextQuestion, 1500);
@@ -124,6 +127,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
   const nextQuestion = () => {
     if (currentIdx + 1 >= questions.length) {
       setPhase('RESULT');
+      if (score + 1 === questions.length && navigator.vibrate) {
+         navigator.vibrate([100, 100, 100, 100, 400]); // Victory Pattern
+      }
     } else {
       setCurrentIdx(prev => prev + 1);
       setTimeLeft(MAX_TIME_PER_Q);
@@ -136,6 +142,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+      if (navigator.vibrate) navigator.vibrate(40); // Subtle 'Enter' tap
       if (!user) setPhase('AUTH'); else setPhase('LOBBY');
     } else {
       document.body.style.overflow = 'auto';
