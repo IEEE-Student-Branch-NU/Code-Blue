@@ -46,5 +46,47 @@ export const techQuizData = [
     question: "Which of the following is NOT an open-source operating system?",
     options: ["Linux", "FreeBSD", "Android", "iOS"],
     correctAnswer: "iOS"
+  },
+  {
+    id: 9,
+    question: "What is the highest frequency band in the electromagnetic spectrum?",
+    options: ["X-rays", "Gamma rays", "Ultraviolet", "Microwaves"],
+    correctAnswer: "Gamma rays"
+  },
+  {
+    id: 10,
+    question: "The term 'Internet of Things' (IoT) refers to the networking of physical objects. Who coined this term?",
+    options: ["Bill Gates", "Kevin Ashton", "Vint Cerf", "Tim Berners-Lee"],
+    correctAnswer: "Kevin Ashton"
+  },
+  {
+    id: 11,
+    question: "Which chemical element has the atomic number 1 and is the most abundant element in the universe?",
+    options: ["Helium", "Oxygen", "Nitrogen", "Hydrogen"],
+    correctAnswer: "Hydrogen"
+  },
+  {
+    id: 12,
+    question: "What is the standard measurement unit for the power of a computer's central processing unit (CPU)?",
+    options: ["Gigahertz", "Megabytes", "Terabits", "Volts"],
+    correctAnswer: "Gigahertz"
+  },
+  {
+    id: 13,
+    question: "Which subatomic particle has a negative electrical charge?",
+    options: ["Proton", "Neutron", "Electron", "Quark"],
+    correctAnswer: "Electron"
+  },
+  {
+    id: 14,
+    question: "In cryptography, 'RSA' stands for the surnames of its three inventors. Who are they?",
+    options: ["Rivest-Shamir-Adleman", "Reed-Solomon-Alice", "Robert-Stephen-Arthur", "Ross-Simon-Aramis"],
+    correctAnswer: "Rivest-Shamir-Adleman"
+  },
+  {
+    id: 15,
+    question: "What is the name of the first human-made satellite to orbit the Earth?",
+    options: ["Apollo 11", "Explorer 1", "Sputnik 1", "Voyager 1"],
+    correctAnswer: "Sputnik 1"
   }
 ];
