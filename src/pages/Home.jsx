@@ -7,7 +7,8 @@ import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
 import CarnivalEntrance from '../components/CarnivalEntrance'
-import { motion } from 'framer-motion'
+import CarnivalQuiz from '../components/CarnivalQuiz'
+import { motion, AnimatePresence } from 'framer-motion'
 
 
 
@@ -118,6 +119,17 @@ const cardStyles = {
 
 const Home = ({ isPageTransitioning }) => {
     const cardsRef = useRef([])
+    const [isQuizOpen, setIsQuizOpen] = React.useState(false)
+    const [isPortalOpen, setIsPortalOpen] = React.useState(false)
+    
+    const handleOpenGame = () => {
+        setIsPortalOpen(true);
+        setTimeout(() => {
+            setIsQuizOpen(true);
+            setTimeout(() => setIsPortalOpen(false), 500);
+        }, 800);
+    };
+
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
     const [gridScanHeight, setGridScanHeight] = React.useState(
@@ -193,6 +205,23 @@ const Home = ({ isPageTransitioning }) => {
                     noiseIntensity={0.015}
                 />
                 <CarnivalEntrance />
+                
+                {/* ─── NEUBRUTALIST QUIZ ENTRY BUTTON ON HOMEPAGE ─── */}
+                <div style={{ position: 'absolute', bottom: '10%', left: '0', right: '0', display: 'flex', justifyContent: 'center', zIndex: 11 }}>
+                  <motion.button 
+                    onClick={handleOpenGame}
+                    disabled={isPortalOpen || isQuizOpen}
+                    whileHover={{ scale: 1.05, y: -4, boxShadow: '8px 8px 0px #1a1a1a' }}
+                    whileTap={{ scale: 0.95, y: 4, boxShadow: '0px 0px 0px #1a1a1a' }}
+                    style={{
+                      display: 'flex', alignItems: 'center', gap: '12px', background: '#FEF9C3', color: '#1a1a1a', 
+                      border: '4px solid #1a1a1a', padding: '16px 32px', borderRadius: '32px', boxShadow: '6px 6px 0px #1a1a1a', 
+                      fontFamily: "'Rye', serif", fontSize: 'clamp(16px, 4vw, 24px)', cursor: 'pointer', zIndex: 12
+                    }}
+                  >
+                    🚀 PLAY CARNIVAL QUIZ
+                  </motion.button>
+                </div>
             </div>
 
             {/* 2. Combined Grid Section */}
@@ -354,6 +383,36 @@ const Home = ({ isPageTransitioning }) => {
             </div>
 
             <Footer />
+
+            {/* ─── PORTAL WARP TRANSITION ─── */}
+            <AnimatePresence>
+              {isPortalOpen && (
+                <motion.div
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 150, opacity: 1 }}
+                  exit={{ opacity: 0, transition: { duration: 0.5 } }}
+                  transition={{ duration: 0.8, ease: "anticipate" }}
+                  style={{
+                    position: 'fixed',
+                    top: '50%',
+                    left: '50%',
+                    width: '30px',
+                    height: '30px',
+                    borderRadius: '50%',
+                    backgroundColor: '#00FFFF',
+                    zIndex: 99998,
+                    transform: 'translate(-50%, -50%)',
+                    pointerEvents: 'none',
+                    boxShadow: '0 0 100px #00FFFF, 0 0 200px #FF00FF'
+                  }}
+                />
+              )}
+            </AnimatePresence>
+
+            <CarnivalQuiz
+              isOpen={isQuizOpen}
+              onClose={() => setIsQuizOpen(false)}
+            />
         </motion.div>
     );
 };
