@@ -195,32 +195,55 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
             {/* ═══ LOBBY ═══ */}
             {phase === 'LOBBY' && (
               <motion.div key="lobby" variants={popIn} initial="in" animate="on" exit="out" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}>
-                <div className="cq-neo-card">
-                  <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: '#000', lineHeight: 1 }}>SYSTEM READY</div>
-                  <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 900, textTransform: 'uppercase', color: '#D656F6' }}>SCORE 8/8 TO WIN THE MASTER VOUCHER</div>
-                  
-                  <div className="cq-lobby-stats">
-                    <div className="cq-lobby-stat">
-                      <span>QUESTS</span>
-                      <strong>8</strong>
-                    </div>
-                    <div className="cq-lobby-stat">
-                      <span>TIMER</span>
-                      <strong>12s / Q</strong>
-                    </div>
-                    <div className="cq-lobby-stat">
-                      <span>DIFFICULTY</span>
-                      <strong>PRO</strong>
-                    </div>
+                {localStorage.getItem(`CQ_ATTEMPT_${user?.email}`) && user?.email !== '24btm032@nirmauni.ac.in' ? (
+                  <div className="cq-neo-card" style={{ background: '#fff1f2' }}>
+                    <XCircle size={60} color="#ff0055" />
+                    <div style={{ fontFamily: "'Rye', serif", fontSize: '32px', color: '#000', lineHeight: 1 }}>LIMIT REACHED</div>
+                    <p style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 800, color: '#ff0055', opacity: 0.8 }}>
+                      YOUR ATTEMPT HAS ALREADY BEEN RECORDED FOR THIS CARNIVAL.
+                    </p>
+                    <div className="h-px w-full bg-black/10 my-2" />
+                    <p style={{ fontSize: '11px', fontWeight: 700, opacity: 0.5 }}>
+                      SESSIONS ARE RESTRICTED TO ONE CHANCE PER REGISTERED NIRMA EMAIL.
+                    </p>
                   </div>
+                ) : (
+                  <div className="cq-neo-card">
+                    <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: '#000', lineHeight: 1 }}>SYSTEM READY</div>
+                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '14px', fontWeight: 900, textTransform: 'uppercase', color: '#D656F6' }}>SCORE 8/8 TO WIN THE MASTER VOUCHER</div>
+                    
+                    <div className="bg-[#ff0055] text-white px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mt-[-10px] animate-pulse">
+                      ONE CHANCE ONLY • NO RETRIES
+                    </div>
 
-                  <button 
-                     className="cq-neo-btn" 
-                     onClick={initGame} 
-                  >
-                    START QUIZ
-                  </button>
-                </div>
+                    <div className="cq-lobby-stats">
+                      <div className="cq-lobby-stat">
+                        <span>QUESTS</span>
+                        <strong>8</strong>
+                      </div>
+                      <div className="cq-lobby-stat">
+                        <span>TIMER</span>
+                        <strong>12s / Q</strong>
+                      </div>
+                      <div className="cq-lobby-stat">
+                        <span>CHANCE</span>
+                        <strong>1 ONLY</strong>
+                      </div>
+                    </div>
+
+                    <button 
+                       className="cq-neo-btn" 
+                       onClick={() => {
+                          if (user?.email !== '24btm032@nirmauni.ac.in') {
+                             localStorage.setItem(`CQ_ATTEMPT_${user?.email}`, 'DONE');
+                          }
+                          initGame();
+                       }} 
+                    >
+                      START CHALLENGE
+                    </button>
+                  </div>
+                )}
                 <button onClick={handleLogout} style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '11px', fontWeight: 700, color: '#fff', textDecoration: 'underline', background: 'none', border: 'none', cursor: 'pointer', marginTop: '16px' }}>
                   Not {user?.name?.split(' ')[0]}? Switch account
                 </button>
