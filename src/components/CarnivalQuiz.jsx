@@ -212,9 +212,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 1.05 }}
-                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
+                style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', padding: '10px' }}
               >
-                {localStorage.getItem(`CQ_ATTEMPT_${user?.email}`) && user?.email !== '24btm032@nirmauni.ac.in' ? (
+                {localStorage.getItem(`CQ_ATTEMPT_${user?.email}`) && user?.email !== '24btm032@nirmauni.ac.in' && user?.email !== 'ieee@nirmauni.ac.in' ? (
                   <div className="cq-neo-card" style={{ background: '#fff1f2' }}>
                     <XCircle size={60} color="#ff0055" />
                     <div style={{ fontFamily: "'Rye', serif", fontSize: '32px', color: '#000', lineHeight: 1 }}>LIMIT REACHED</div>
@@ -228,13 +228,17 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                   </div>
                 ) : (
                   <div className="cq-neo-card">
-                    <div style={{ fontFamily: "'Rye', serif", fontSize: '48px', color: '#000', lineHeight: 1 }}>SYSTEM READY</div>
-                    <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: '#6366f1', opacity: 0.7 }}>EXCEPTIONAL PRECISION REQUIRED</div>
+                    <h1 className="cq-title-main">SYSTEM<br/>READY</h1>
+                    
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
+                       <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: '#6366f1', opacity: 0.8 }}>EXCEPTIONAL PRECISION REQUIRED</div>
+                       <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', fontWeight: 700, opacity: 0.4, textTransform: 'uppercase', letterSpacing: '1px' }}>Score 8/8 to Win the Master Voucher</div>
+                    </div>
                     
                     <div className="cq-lobby-stats">
                       <div className="cq-lobby-stat">
                         <span>POOL</span>
-                        <strong>8 Qs</strong>
+                        <strong>50 Qs</strong>
                       </div>
                       <div className="cq-lobby-stat">
                         <span>PACE</span>
@@ -246,10 +250,6 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                       </div>
                     </div>
 
-                    <p style={{ fontSize: '10px', fontWeight: 800, color: '#000', opacity: 0.4, textTransform: 'uppercase', letterSpacing: '1px', marginBottom: '10px' }}>
-                       A Perfect 8/8 Score Unlocks the Master Voucher
-                    </p>
-
                     <button 
                        className="cq-neo-btn" 
                        onClick={() => {
@@ -259,6 +259,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                           }
                           initGame();
                        }} 
+                       style={{ marginTop: '10px' }}
                     >
                       START CHALLENGE
                     </button>

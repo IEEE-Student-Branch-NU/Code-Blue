@@ -109,6 +109,22 @@
 }
 .cq-x-mini:hover { transform: scale(1.1); box-shadow: 6px 6px 0px black; }
 
+.cq-neo-card {
+  background: #fff;
+  border: 4px solid #000;
+  border-radius: 28px;
+  padding: 30px 20px;
+  box-shadow: 10px 10px 0px #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  position: relative;
+}
+
 .cq-content {
   background: white;
   border: 4px solid #000;
@@ -116,7 +132,6 @@
   padding: 25px;
   box-shadow: 12px 12px 0px rgba(0,0,0,0.3);
   position: relative;
-  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -138,10 +153,10 @@
 
 .cq-title-main {
   font-family: 'Rye', serif;
-  font-size: clamp(45px, 12vw, 75px);
+  font-size: 52px;
   color: #000;
-  line-height: 0.85;
-  margin: 10px 0;
+  line-height: 0.9;
+  margin-bottom: 5px;
   filter: drop-shadow(4px 4px 0px #FF00F5);
 }
 
