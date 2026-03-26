@@ -29,7 +29,7 @@ export const scheduleData = {
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Professional society session by IEEE ITSS on future mobility.',
-        regLink: 'https://konfhub.com/next-gen-intelligent-transportation-systems-expert-lecture'
+        regLink: 'https://ieee-itss-sbnu.vercel.app/'
       },
       {
         id: 2,
