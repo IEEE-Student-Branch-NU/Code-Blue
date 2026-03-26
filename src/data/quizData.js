@@ -1,4 +1,4 @@
-const quizQuestions = [
+const techQuizData = [
   // ─── IEEE & SBNU SECTION ───
   {
     id: 1,
@@ -320,4 +320,4 @@ const quizQuestions = [
   }
 ];
 
-export default quizQuestions;
+export { techQuizData };
