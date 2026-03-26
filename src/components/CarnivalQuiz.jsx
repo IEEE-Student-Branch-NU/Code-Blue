@@ -116,9 +116,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     
     if (option === questions[currentIdx].correctAnswer) {
       setScore(prev => prev + 1);
-      if (navigator.vibrate) navigator.vibrate(20); // Subtle 'Tick' for Correct
+      if (navigator.vibrate) navigator.vibrate(12); // Elegant 'Micro-Tick' for Correct
     } else {
-      if (navigator.vibrate) navigator.vibrate([80, 50, 80]); // Sophisticated 'Bzz' for Wrong
+      if (navigator.vibrate) navigator.vibrate([40, 40, 40]); // Subtle 'Triple-Tap' for Wrong
     }
     
     setTimeout(nextQuestion, 1500);
@@ -128,7 +128,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     if (currentIdx + 1 >= questions.length) {
       setPhase('RESULT');
       if (score + 1 === questions.length && navigator.vibrate) {
-         navigator.vibrate([50, 30, 50, 30, 150]); // Refined Victory
+         navigator.vibrate([40, 30, 40, 30, 80]); // Ultra-Subtle Victory Pattern
       }
     } else {
       setCurrentIdx(prev => prev + 1);
@@ -142,7 +142,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      if (navigator.vibrate) navigator.vibrate(15); // Ultra-light sense of entry
+      if (navigator.vibrate) navigator.vibrate(10); // Nearly silent 'Enter' tap
       if (!user) setPhase('AUTH'); else setPhase('LOBBY');
     } else {
       document.body.style.overflow = 'auto';
