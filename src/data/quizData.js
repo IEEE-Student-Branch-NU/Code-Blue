@@ -1,10 +1,10 @@
 const techQuizData = [
-  // ─── IEEE & SBNU TECHNICAL SECTION ───
+  // ─── IEEE & SBNU SECTION ───
   {
     id: 1,
-    question: "Which IEEE Standard governs the specifications for Wireless Local Area Networks (WLAN)?",
-    options: ["IEEE 802.3", "IEEE 802.11", "IEEE 802.15", "IEEE 802.1"],
-    correctAnswer: "IEEE 802.11"
+    question: "What is the primary global mission of IEEE?",
+    options: ["Advancing Technology for Humanity", "Making Faster Computers", "Selling Software", "Building Robots"],
+    correctAnswer: "Advancing Technology for Humanity"
   },
   {
     id: 2,
@@ -20,303 +20,303 @@ const techQuizData = [
   },
   {
     id: 4,
-    question: "Which IEEE Society is primarily focused on the theory and application of robots and automation?",
-    options: ["Computer Society", "RAS (Robotics & Automation Society)", "Power & Energy", "Circuits & Systems"],
-    correctAnswer: "RAS (Robotics & Automation Society)"
+    question: "Which office-bearer handles the official records and minutes of IEEE SBNU?",
+    options: ["Chairperson", "Secretary", "Treasurer", "Webmaster"],
+    correctAnswer: "Secretary"
   },
   {
     id: 5,
-    question: "What is the primary global mission statement of IEEE?",
-    options: ["Advancing Technology for Humanity", "Building Faster Microchips", "Increasing Global Connectivity", "Standardizing the Web"],
-    correctAnswer: "Advancing Technology for Humanity"
+    question: "What is the official logo color of global IEEE?",
+    options: ["Red", "Electric Blue", "Green", "Gold"],
+    correctAnswer: "Electric Blue"
   },
 
-  // ─── CORE HARDWARE & SEMICONDUCTORS ───
+  // ─── TECH TRENDS & INNOVATION ───
   {
     id: 6,
-    question: "Which material is used as the 'Gate Dielectric' in modern High-K Metal Gate transistors?",
-    options: ["Silicon Dioxide", "Hafnium Oxide", "Gallium Nitride", "Germanium"],
-    correctAnswer: "Hafnium Oxide"
+    question: "Who is known as the 'Father of the Indian Space Program'?",
+    options: ["APJ Abdul Kalam", "Homi Bhabha", "Vikram Sarabhai", "CV Raman"],
+    correctAnswer: "Vikram Sarabhai"
   },
   {
     id: 7,
-    question: "What does ' Moore's Law' predict for integrated circuit development?",
-    options: ["Costs decrease by half every year", "Transistors in an IC double every 2 years", "Memory density stays constant", "CPU size gets smaller"],
-    correctAnswer: "Transistors in an IC double every 2 years"
+    question: "Which company created the world's first commercially successful iPhone?",
+    options: ["Microsoft", "Google", "Apple", "Samsung"],
+    correctAnswer: "Apple"
   },
   {
     id: 8,
-    question: "Which communication protocol uses a 2-wire interface (SDA and SCL)?",
-    options: ["SPI", "I2C", "UART", "USB"],
-    correctAnswer: "I2C"
+    question: "Who is the CEO of SpaceX and Tesla Motors?",
+    options: ["Jeff Bezos", "Bill Gates", "Elon Musk", "Tim Cook"],
+    correctAnswer: "Elon Musk"
   },
   {
     id: 9,
-    question: "What is the purpose of an 'Op-Amp' (Operational Amplifier) in a circuit?",
-    options: ["DC Volts storage", "Signal amplification and filtering", "Bit correction", "WiFi connectivity"],
-    correctAnswer: "Signal amplification and filtering"
+    question: "Which tech giant's search engine was originally called 'BackRub'?",
+    options: ["Google", "Amazon", "Yahoo", "Bing"],
+    correctAnswer: "Google"
   },
   {
     id: 10,
-    question: "Which semiconductor has a wider 'Bandgap' than Silicon, suitable for high-power E-vehicles?",
-    options: ["Germanium", "Gallium Arsenide", "Silicon Carbide (SiC)", "Copper"],
-    correctAnswer: "Silicon Carbide (SiC)"
+    question: "In tech, what does 'AI' stand for?",
+    options: ["Aeronautics Intelligence", "Artificial Intelligence", "Automated Information", "Apps Interface"],
+    correctAnswer: "Artificial Intelligence"
   },
 
-  // ─── ENGINEERING SYSTEMS & SIGNAL PROCESSING ───
+  // ─── HARDWARE & ELECTRONICS ───
   {
     id: 11,
-    question: "In Control Systems, what does 'PID' stand for?",
-    options: ["Proportional-Integral-Derivative", "Point-Insert-Display", "Parallel-Internal-Driver", "Process-Input-Data"],
-    correctAnswer: "Proportional-Integral-Derivative"
+    question: "Which element is the primary material used in semiconductor chips?",
+    options: ["Gold", "Copper", "Silicon", "Carbon"],
+    correctAnswer: "Silicon"
   },
   {
     id: 12,
-    question: "What is the 'Nyquist Frequency' for a signal sampling rate of 44.1 kHz?",
-    options: ["11.025 kHz", "22.05 kHz", "88.2 kHz", "44.1 kHz"],
-    correctAnswer: "22.05 kHz"
+    question: "What does ' Moore's Law' predict for computer chips?",
+    options: ["Prices double every year", "Transistors double every 2 years", "Memory stays constant", "CPUs get bigger"],
+    correctAnswer: "Transistors double every 2 years"
   },
   {
     id: 13,
-    question: "Which algorithm is commonly used for efficient 'Fast Fourier Transform' (FFT)?",
-    options: ["Dijkstra", "Cooley-Tukey", "Bellman-Ford", "Merge Sort"],
-    correctAnswer: "Cooley-Tukey"
+    question: "What is the main purpose of a 'Battery Management System' (BMS)?",
+    options: ["Increase internet speed", "Limit heat and protect battery", "Make screen brighter", "Add more storage"],
+    correctAnswer: "Limit heat and protect battery"
   },
   {
     id: 14,
-    question: "In Digital Signal Processing, what is a 'FIR' filter?",
-    options: ["Finite Impulse Response", "Flexible Internal Router", "Fast Input Response", "Frequency Integrated Range"],
-    correctAnswer: "Finite Impulse Response"
+    question: "Which component is known as the 'Brain' of a computer?",
+    options: ["Hard Drive", "RAM", "CPU", "Motherboard"],
+    correctAnswer: "CPU"
   },
   {
     id: 15,
-    question: "What is the primary function of a 'PLL' (Phase-Locked Loop) in a digital system?",
-    options: ["Measuring Heat", "Frequency Synthesis and Clock Sync", "Voltage Storage", "Image Rendering"],
-    correctAnswer: "Frequency Synthesis and Clock Sync"
+    question: "What is the typical base voltage of a standard USB charger?",
+    options: ["12V", "3V", "5V", "9V"],
+    correctAnswer: "5V"
   },
 
-  // ─── CARNIVAL LOGISTICS & TECH CHALLENGES ───
+  // ─── SOFTWARE & DIGITAL WORLD ───
   {
     id: 16,
-    question: "In the 'RoboSumo' Carnival event, what is the 'Dohyo' border color?",
-    options: ["Red", "White", "Yellow", "Blue"],
-    correctAnswer: "White"
+    question: "Which programming language is most famous for Data Science and AI today?",
+    options: ["Java", "C++", "Python", "PHP"],
+    correctAnswer: "Python"
   },
   {
     id: 17,
-    question: "Which Nirma event involves 'Lambda Genie' as a logic and coding challenge?",
-    options: ["ITSS", "RoboSumo", "Lumisense", "Lambda Genie"],
-    correctAnswer: "Lambda Genie"
+    question: "What does 'HTML' stand for in web development?",
+    options: ["High Text Media Line", "HyperText Markup Language", "Heavy Tool Master Link", "Hot Text Main Layout"],
+    correctAnswer: "HyperText Markup Language"
   },
   {
     id: 18,
-    question: "The 'Tech Hunt' scavenger clues are hidden using which physical tech medium?",
-    options: ["Base64 Strings", "Invisible Ink", "QR Codes", "NFC Tags"],
-    correctAnswer: "QR Codes"
+    question: "Which open-source OS was created by Linus Torvalds?",
+    options: ["Windows", "macOS", "Linux", "Solaris"],
+    correctAnswer: "Linux"
   },
   {
     id: 19,
-    question: "In 'Lumisense', what type of sensor provides the core data input?",
-    options: ["Light/Proximity", "Sound", "Heat", "Touch"],
-    correctAnswer: "Light/Proximity"
+    question: "What is the 'Cloud' primarily made of?",
+    options: ["Satellites", "Remote Data Centers", "The Atmosphere", "Virtual Hard Drives"],
+    correctAnswer: "Remote Data Centers"
   },
   {
     id: 20,
-    question: "What does 'ITSS' stand for in the context of the SBNU event series?",
-    options: ["Interactive Technical Session Series", "International Tech Student Summit", "Integrated Technology System", "Innovative Technical Science Society"],
-    correctAnswer: "Interactive Technical Session Series"
+    question: "Which tech platform is used for hosting and sharing code globally?",
+    options: ["Instagram", "Google Drive", "GitHub", "WhatsApp"],
+    correctAnswer: "GitHub"
   },
 
-  // ─── MODERN AI & COMPUTATIONAL ELITE ───
+  // ─── CARNIVAL EVENTS (ITSS, LAMBDA GENIE, ETC.) ───
   {
     id: 21,
-    question: "In LLM architecture (like GPT-4), which layer is responsible for calculating weighted relationships between words?",
-    options: ["Transformer Self-Attention", "ReLU Activation", "Softmax Layer", "Input Embedding"],
-    correctAnswer: "Transformer Self-Attention"
+    question: "In 'RoboSumo', what must a robot do to win points?",
+    options: ["Shoot a ball", "Climb a wire", "Push the opponent out of the ring", "Race to a finish line"],
+    correctAnswer: "Push the opponent out of the ring"
   },
   {
     id: 22,
-    question: "What is the primary benefit of using 'Docker' containers in system deployment?",
-    options: ["Increasing RAM", "Environment isolation and portability", "Data Compression", "DDoS Protection"],
-    correctAnswer: "Environment isolation and portability"
+    question: "Which Carnival event involves 'fast-paced coding and logical riddles'?",
+    options: ["Lumisense", "ITSS", "Lambda Genie", "Tech Hunt"],
+    correctAnswer: "Lambda Genie"
   },
   {
     id: 23,
-    question: "Which computational complexity class describes problems that can be solved in polynomial time?",
-    options: ["P", "NP", "NP-Hard", "EXP"],
-    correctAnswer: "P"
+    question: "The 'Tech Hunt' event is most similar to which real-world activity?",
+    options: ["Hackathon", "Scavenger Hunt", "Marathon", "Debate"],
+    correctAnswer: "Scavenger Hunt"
   },
   {
     id: 24,
-    question: "What is the 'V8 Engine' specialized for in modern browsers?",
-    options: ["Rendering CSS", "Interpreting Python", "Compiling JavaScript to Machine Code", "Managing Cookies"],
-    correctAnswer: "Compiling JavaScript to Machine Code"
+    question: "In the 'Lumisense' event, what provides the main input for sensors?",
+    options: ["Light/Proximity", "Sound", "Heat", "Voice"],
+    correctAnswer: "Light/Proximity"
   },
   {
     id: 25,
-    question: "Which cloud architecture model allows users to run code without managing servers?",
-    options: ["IaaS", "PaaS", "SaaS", "Serverless (FaaS)"],
-    correctAnswer: "Serverless (FaaS)"
+    question: "What does 'ITSS' stand for in the IEEE Nirma event series?",
+    options: ["Interactive Technical Session Series", "International Tech Student Summit", "Integrated Technology Smart System", "Innovative Technical Science Society"],
+    correctAnswer: "Interactive Technical Session Series"
   },
 
-  // ─── POWER & ENERGY / ELECTRICAL ELITE ───
+  // ─── ELITE TECH KNOWLEDGE ───
   {
     id: 26,
-    question: "What is the core working principle of a 'Photovoltaic Cell'?",
-    options: ["Hall Effect", "Photovoltaic Effect", "Doppler Effect", "Seebeck Effect"],
-    correctAnswer: "Photovoltaic Effect"
+    question: "What is the most popular video streaming platform owned by Google?",
+    options: ["Netflix", "YouTube", "Hulu", "Disney+"],
+    correctAnswer: "YouTube"
   },
   {
     id: 27,
-    question: "In an AC circuit, what is 'Reactive Power' measured in?",
-    options: ["Watts", "VAR (Volt-Ampere Reactive)", "Amperes", "Joules"],
-    correctAnswer: "VAR (Volt-Ampere Reactive)"
+    question: "Which planet is commonly visited by robotic rovers like Perseverance?",
+    options: ["Venus", "Mars", "Jupiter", "Saturn"],
+    correctAnswer: "Mars"
   },
   {
     id: 28,
-    question: "Which motor type is most commonly used in high-performance EVs like Tesla?",
-    options: ["Brushed DC", "Stepper Motor", "Permanent Magnet Induction Motor", "Servo Motor"],
-    correctAnswer: "Permanent Magnet Induction Motor"
+    question: "What is a 'Bit' in computing?",
+    options: ["A small piece of hardware", "A binary digit (0 or 1)", "A type of cable", "A computer bug"],
+    correctAnswer: "A binary digit (0 or 1)"
   },
   {
     id: 29,
-    question: "What is 'Smart Grid' technology primarily used for?",
-    options: ["Watching TV", "Bi-directional flow of data and electricity", "Making fast batteries", "Building faster wires"],
-    correctAnswer: "Bi-directional flow of data and electricity"
+    question: "Which protocol allows us to browse websites securely using encryption?",
+    options: ["FTP", "HTTPS", "SMTP", "Telnet"],
+    correctAnswer: "HTTPS"
   },
   {
     id: 30,
-    question: "Which logic gate is known as a 'Universal Gate' capable of building any other gate?",
-    options: ["AND", "OR", "NAND", "XOR"],
-    correctAnswer: "NAND"
+    question: "What does the 'G' in '5G' stand for?",
+    options: ["Gigabyte", "Global", "Generation", "Graphic"],
+    correctAnswer: "Generation"
   },
 
-  // ─── PURE CYBER & NETWORK ELITE ───
+  // ─── ADVANCED (BUT ACCESSIBLE) TECH ───
   {
     id: 31,
-    question: "Which protocol operates at the 'Network Layer' (Layer 3) of the OSI model?",
-    options: ["TCP", "IP", "HTTP", "Ethernet"],
-    correctAnswer: "IP"
+    question: "Which type of car engine uses both fuel and electric energy?",
+    options: ["Diesel", "Hybrid", "Turbo", "Hydrogen"],
+    correctAnswer: "Hybrid"
   },
   {
     id: 32,
-    question: "What is the primary function of a 'DHCP' server?",
-    options: ["Website Hosting", "Dynamic IP Address assignment", "Email Encryption", "Firewall Protection"],
-    correctAnswer: "Dynamic IP Address assignment"
+    question: "What is the main advantage of 'Solid State Drives' (SSD) over Hard Drives?",
+    options: ["More storage", "Less cost", "High-speed data access", "Better colors"],
+    correctAnswer: "High-speed data access"
   },
   {
     id: 33,
-    question: "Which hashing algorithm is widely used for verifying file integrity (e.g., checksums)?",
-    options: ["AES", "RSA", "SHA-256", "DES"],
-    correctAnswer: "SHA-256"
+    question: "Which encryption technology is the foundation for Cryptocurrencies?",
+    options: ["Bluetooth", "Blockchain", "GPS", "WiFi"],
+    correctAnswer: "Blockchain"
   },
   {
     id: 34,
-    question: "What does 'S' in HTTPS signify?",
-    options: ["Speed", "Secure (via SSL/TLS)", "Script", "System"],
-    correctAnswer: "Secure (via SSL/TLS)"
+    question: "Which virtual assistant was developed by Amazon?",
+    options: ["Siri", "Cortana", "Alexa", "Bixby"],
+    correctAnswer: "Alexa"
   },
   {
     id: 35,
-    question: "Which port is globally reserved for secure 'SSH' remote access?",
-    options: ["80", "443", "22", "21"],
-    correctAnswer: "22"
+    question: "What does 'PDF' stand for?",
+    options: ["Portable Document Format", "Personal Data File", "Printed Data Folder", "Public Document File"],
+    correctAnswer: "Portable Document Format"
   },
 
-  // ─── NIRMA CAMPUS & CARNIVAL LORE ───
+  // ─── IEEE SBNU Lore ───
   {
     id: 36,
-    question: "Which Institute hosted the first major IEEE event at Nirma University?",
-    options: ["Institute of Law", "Institute of Technology", "Institute of Pharmacy", "Institute of Mgmt"],
+    question: "Where is the IEEE Student Branch (SBNU) located within the campus?",
+    options: ["Institute of Law", "Institute of Technology", "Institute of Pharmacy", "Institute of Management"],
     correctAnswer: "Institute of Technology"
   },
   {
     id: 37,
-    question: "What is the maximum time allowed per question in this 'Tech Rush' booth?",
-    options: ["10s", "12s", "15s", "20s"],
-    correctAnswer: "12s"
+    question: "Which major national festival inspired the 'Carnival' theme?",
+    options: ["Holi", "Uttarayan", "Navratri", "Diwali"],
+    correctAnswer: "Uttarayan"
   },
   {
     id: 38,
-    question: "How many questions must be answered perfectly (8/8) to secure the Master Voucher?",
-    options: ["All 8", "7 out of 8", "6 out of 8", "8 out of 50"],
-    correctAnswer: "All 8"
+    question: "How many questions must you answer correctly to win this quiz?",
+    options: ["6", "7", "8", "All"],
+    correctAnswer: "8"
   },
   {
     id: 39,
-    question: "Which SBNU team was primarily responsible for building this Carnival Interface?",
-    options: ["RAS", "Webmaster & Tech Team", "Editorial", "Public Relations"],
-    correctAnswer: "Webmaster & Tech Team"
+    question: "Who is the lead organization hosting the multi-domain tech events in the Carnival?",
+    options: ["Microsoft", "Google Club", "IEEE SBNU", "SAE"],
+    correctAnswer: "IEEE SBNU"
   },
   {
     id: 40,
-    question: "The 'Carnival' theme of this event is officially inspired by which atmospheric vibe?",
-    options: ["Retro Future", "Spring Festival", "Corporate Summit", "Night Arcade"],
-    correctAnswer: "Retro Future"
+    question: "What is the primary language used for web apps like this guide?",
+    options: ["C++", "Java", "JavaScript", "PHP"],
+    correctAnswer: "JavaScript"
   },
 
-  // ─── MISC ENGINEERING & PHYSICS ELITE ───
+  // ─── ENGINEERING INSIGHTS ───
   {
     id: 41,
-    question: "What is the value of the 'Boltzmann Constant' (k) in thermodynamics?",
-    options: ["1.38 x 10^-23 J/K", "6.626 x 10^-34 J·s", "8.314 J/mol·K", "3.00 x 10^8 m/s"],
-    correctAnswer: "1.38 x 10^-23 J/K"
+    question: "What was the world's first popular web browser?",
+    options: ["Chrome", "Mosaic", "Internet Explorer", "Netscape"],
+    correctAnswer: "Mosaic"
   },
   {
     id: 42,
-    question: "Which programming language was specifically designed for performance in the 'Linux Kernel'?",
-    options: ["C", "C++", "Java", "Python"],
-    correctAnswer: "C"
+    question: "What is the 'Internet of Things' (IoT)?",
+    options: ["Interconnected devices", "A search engine", "Buying things on Amazon", "Social media"],
+    correctAnswer: "Interconnected devices"
   },
   {
     id: 43,
-    question: "In Aerospace Engineering, what is 'Delta-V'?",
-    options: ["Change in Velocity", "Air Flow Density", "Rocket Weight", "Time to Launch"],
-    correctAnswer: "Change in Velocity"
+    question: "Which company owns 'WhatsApp' and 'Instagram'?",
+    options: ["Google", "Microsoft", "Meta", "Amazon"],
+    correctAnswer: "Meta"
   },
   {
     id: 44,
-    question: "What is the primary goal of 'Quantum Computing' using Qubits?",
-    options: ["Smaller CPUs", "Massively parallel computation via Superposition", "Better Cooling", "Less Power Usage"],
-    correctAnswer: "Massively parallel computation via Superposition"
+    question: "What is 'AR' in technology?",
+    options: ["Augmented Reality", "Artificial Robot", "Advanced Radio", "Always Ready"],
+    correctAnswer: "Augmented Reality"
   },
   {
     id: 45,
-    question: "Which unit measures ‘Luminous Intensity’ in Electrical engineering?",
-    options: ["Candela", "Lumen", "Lux", "Watt"],
-    correctAnswer: "Candela"
+    question: "Which Indian scientist won a Nobel prize for his work on Light Scattering?",
+    options: ["Homi Bhabha", "APJ Abdul Kalam", "CV Raman", "S. Ramanujan"],
+    correctAnswer: "CV Raman"
   },
 
-  // ─── FINAL ELITE TRIVIA ───
+  // ─── FINAL STRETCH ───
   {
     id: 46,
-    question: "What is the 'Shannon Limit' used to calculate?",
-    options: ["Maximum CPU heat", "Maximum data rate over a noisy channel", "RAM speed", "Battery life"],
-    correctAnswer: "Maximum data rate over a noisy channel"
+    question: "What is 'Bluetooth' named after?",
+    options: ["A Blue Flower", "A Viking King", "A Greek God", "A Star"],
+    correctAnswer: "A Viking King"
   },
   {
     id: 47,
-    question: "In Machine Learning, what is a 'Neural Network' biased by if it recognizes only shadows?",
-    options: ["Overfitting", "Underfitting", "Dropout", "Normalization"],
-    correctAnswer: "Overfitting"
+    question: "Which social media platform's bird logo was named 'Larry'?",
+    options: ["Facebook", "Twitter", "Instagram", "Snapchat"],
+    correctAnswer: "Twitter"
   },
   {
     id: 48,
-    question: "Which component is used to limit current in a circuit perfectly?",
-    options: ["Resistor", "Inductor", "Capacitor", "Transistor"],
-    correctAnswer: "Resistor"
+    question: "What was the first domain name registered on the Internet?",
+    options: ["google.com", "symbolics.com", "apple.com", "ibm.com"],
+    correctAnswer: "symbolics.com"
   },
   {
     id: 49,
-    question: "What does 'IoT' stand for?",
-    options: ["Internet of Thinking", "Internet of Things", "Internal Online Tech", "Input Output Tool"],
-    correctAnswer: "Internet of Things"
+    question: "In which year did India launch its first satellite, Aryabhata?",
+    options: ["1970", "1975", "1980", "1985"],
+    correctAnswer: "1975"
   },
   {
     id: 50,
-    question: "Which tech giant is known for the first monolithic IC development (alongside Fairchild)?",
-    options: ["Intel", "Texas Instruments", "Apple", "Microsoft"],
-    correctAnswer: "Texas Instruments"
+    question: "Which tech giant is known for the slogan 'Think Different'?",
+    options: ["Microsoft", "Google", "Apple", "Oracle"],
+    correctAnswer: "Apple"
   }
 ];
 
