@@ -204,24 +204,7 @@ const Home = ({ isPageTransitioning }) => {
                     chromaticAberration={0.002}
                     noiseIntensity={0.015}
                 />
-                <CarnivalEntrance />
-                
-                {/* ─── NEUBRUTALIST QUIZ ENTRY BUTTON ON HOMEPAGE ─── */}
-                <div style={{ position: 'absolute', bottom: '10%', left: '0', right: '0', display: 'flex', justifyContent: 'center', zIndex: 11 }}>
-                  <motion.button 
-                    onClick={handleOpenGame}
-                    disabled={isPortalOpen || isQuizOpen}
-                    whileHover={{ scale: 1.05, y: -4, boxShadow: '8px 8px 0px #1a1a1a' }}
-                    whileTap={{ scale: 0.95, y: 4, boxShadow: '0px 0px 0px #1a1a1a' }}
-                    style={{
-                      display: 'flex', alignItems: 'center', gap: '12px', background: '#FEF9C3', color: '#1a1a1a', 
-                      border: '4px solid #1a1a1a', padding: '16px 32px', borderRadius: '32px', boxShadow: '6px 6px 0px #1a1a1a', 
-                      fontFamily: "'Rye', serif", fontSize: 'clamp(16px, 4vw, 24px)', cursor: 'pointer', zIndex: 12
-                    }}
-                  >
-                    🚀 PLAY CARNIVAL QUIZ
-                  </motion.button>
-                </div>
+                <CarnivalEntrance onPlayQuiz={handleOpenGame} />
             </div>
 
             {/* 2. Combined Grid Section */}
