@@ -119,17 +119,7 @@ const cardStyles = {
 
 const Home = ({ isPageTransitioning }) => {
     const cardsRef = useRef([])
-    const [isQuizOpen, setIsQuizOpen] = React.useState(false)
-    const [isPortalOpen, setIsPortalOpen] = React.useState(false)
     
-    const handleOpenGame = () => {
-        setIsPortalOpen(true);
-        setTimeout(() => {
-            setIsQuizOpen(true);
-            setTimeout(() => setIsPortalOpen(false), 500);
-        }, 800);
-    };
-
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
     const [gridScanHeight, setGridScanHeight] = React.useState(
@@ -185,12 +175,11 @@ const Home = ({ isPageTransitioning }) => {
 
     return (
         <motion.div 
-      initial={{ opacity: 1, scale: 1 }}
-      className="relative z-10"
-          style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}
+            initial={{ opacity: 1, scale: 1 }}
+            className="relative z-10"
+            style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}
         >
-            
-            {/* 1. IEEE CARNIVAL ENTRANCE - PROMOTED TO TOP */}
+            {/* 1. IEEE CARNIVAL ENTRANCE */}
             <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
                 <GridScan
                     sensitivity={0.5}
@@ -204,7 +193,7 @@ const Home = ({ isPageTransitioning }) => {
                     chromaticAberration={0.002}
                     noiseIntensity={0.015}
                 />
-                <CarnivalEntrance onPlayQuiz={handleOpenGame} />
+                <CarnivalEntrance />
             </div>
 
             {/* 2. Combined Grid Section */}
@@ -366,36 +355,6 @@ const Home = ({ isPageTransitioning }) => {
             </div>
 
             <Footer />
-
-            {/* ─── PORTAL WARP TRANSITION ─── */}
-            <AnimatePresence>
-              {isPortalOpen && (
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{ scale: 150, opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.5 } }}
-                  transition={{ duration: 0.8, ease: "anticipate" }}
-                  style={{
-                    position: 'fixed',
-                    top: '50%',
-                    left: '50%',
-                    width: '30px',
-                    height: '30px',
-                    borderRadius: '50%',
-                    backgroundColor: '#00FFFF',
-                    zIndex: 99998,
-                    transform: 'translate(-50%, -50%)',
-                    pointerEvents: 'none',
-                    boxShadow: '0 0 100px #00FFFF, 0 0 200px #FF00FF'
-                  }}
-                />
-              )}
-            </AnimatePresence>
-
-            <CarnivalQuiz
-              isOpen={isQuizOpen}
-              onClose={() => setIsQuizOpen(false)}
-            />
         </motion.div>
     );
 };

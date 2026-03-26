@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import './CarnivalEntrance.css';
 import './Shuffle.css';
 
-const CarnivalEntrance = ({ onPlayQuiz }) => {
+const CarnivalEntrance = () => {
   const [phase, setPhase] = useState('shuffle');
   const [timeLeft, setLeft] = useState({ d: 0, h: 0, m: 0, s: 0 });
 
@@ -90,7 +90,7 @@ const CarnivalEntrance = ({ onPlayQuiz }) => {
               IEEE SBNU • NIRMA UNIVERSITY
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', justifyContent: 'center', pointerEvents: 'auto' }}>
+            <div style={{ pointerEvents: 'auto' }}>
               <motion.button
                 onClick={onEnter}
                 whileHover={{ scale: 1.05 }}
@@ -98,19 +98,6 @@ const CarnivalEntrance = ({ onPlayQuiz }) => {
                 className="ce-enter-btn"
               >
                 ENTER <span className="text-xl">→</span>
-              </motion.button>
-
-              <motion.button 
-                onClick={onPlayQuiz}
-                whileHover={{ scale: 1.05, y: -4, boxShadow: '8px 8px 0px #1a1a1a' }}
-                whileTap={{ scale: 0.95, y: 4, boxShadow: '0px 0px 0px #1a1a1a' }}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '12px', background: '#FEF9C3', color: '#1a1a1a', 
-                  border: '3px solid #1a1a1a', padding: '0.7rem 2rem', boxShadow: '6px 6px 0px #1a1a1a', 
-                  fontFamily: "'Rye', serif", fontSize: 'clamp(14px, 3vw, 18px)', cursor: 'pointer'
-                }}
-              >
-                🚀 PLAY QUIZ
               </motion.button>
             </div>
           </motion.div>

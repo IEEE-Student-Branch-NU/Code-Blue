@@ -69,13 +69,14 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
 
   /* ─── Initialize Game ─── */
   const initGame = () => {
-    // Shuffle questions and their options
-    const shuffledQ = [...techQuizData].sort(() => Math.random() - 0.5).map(q => ({
+    // Select 8 random questions from the pool
+    const shuffledPool = [...techQuizData].sort(() => Math.random() - 0.5);
+    const selected8 = shuffledPool.slice(0, 8).map(q => ({
        ...q,
        options: [...q.options].sort(() => Math.random() - 0.5)
     }));
     
-    setQuestions(shuffledQ);
+    setQuestions(selected8);
     setCurrentIdx(0);
     setScore(0);
     setTimeLeft(MAX_TIME_PER_Q);

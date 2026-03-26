@@ -263,28 +263,7 @@ const Carnival = () => {
     >
       <CarnivalHero />
 
-      {/* ─── NEUBRUTALIST QUIZ ENTRY BUTTON ─── */}
-      <div className="relative z-[150] w-full flex justify-center mt-[-3rem] md:mt-[-4rem] mb-8 px-4">
-        <motion.button 
-          onClick={handleOpenGame}
-          whileHover={{ scale: 1.05, y: -4, boxShadow: '8px 8px 0px #1a1a1a' }}
-          whileTap={{ scale: 0.95, y: 4, boxShadow: '0px 0px 0px #1a1a1a' }}
-          className="flex items-center gap-4 bg-[#FEF9C3] border-[4px] border-[#1a1a1a] px-8 md:px-12 py-4 md:py-6 rounded-[2rem] shadow-[6px_6px_0px_#1a1a1a] transition-all"
-        >
-          <div className="bg-[#1a1a1a] text-[#FEF9C3] p-2 rounded-xl border-2 border-transparent">
-            <Zap size={28} fill="currentColor" />
-          </div>
-          <div className="text-left">
-            <div className="font-['Space_Grotesk'] font-black text-[#1a1a1a] text-sm md:text-base tracking-[0.2em] uppercase leading-none mb-1">
-              Tech Rush Challenge
-            </div>
-            <div className="font-['Rye'] text-[#1a1a1a] text-2xl md:text-4xl leading-none">
-              PLAY NOW
-            </div>
-          </div>
-        </motion.button>
-      </div>
-
+      {/* ─── MARQUEE ─── */}
       <div className="marquee-container bg-black py-2 overflow-hidden relative z-20 border-y-[3px] border-black mt-0">
         <motion.div 
           className="flex whitespace-nowrap"
@@ -301,6 +280,47 @@ const Carnival = () => {
 
       <main id="carnival-guide" className="max-w-6xl mx-auto px-4 py-16 md:py-24 space-y-24 scroll-mt-24">
         
+        {/* ─── IMPROVED GAME BOOTH BUTTON ─── */}
+        <div className="flex justify-center -mt-8 mb-16 px-4">
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.9 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             className="relative w-full max-w-4xl"
+           >
+              {/* Carnival Booth Tent Top Style */}
+              <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-48 h-12 bg-[#FF00F5] border-[3px] border-black rounded-t-full shadow-[4px_4px_0px_black] z-0 flex items-center justify-center">
+                 <span className="text-white font-black text-[10px] uppercase tracking-[0.3em]">GAME BOOTH</span>
+              </div>
+              
+              <div className="bg-white border-[4px] border-black rounded-[2.5rem] p-6 md:p-10 shadow-[15px_15px_0px_black] relative z-10 flex flex-col lg:flex-row items-center gap-8 md:gap-12 overflow-hidden">
+                 {/* Decorative background stripes */}
+                 <div className="absolute inset-0 z-0 opacity-[0.05]" style={{ backgroundImage: 'linear-gradient(45deg, #1a1a1a 25%, transparent 25%, transparent 50%, #1a1a1a 50%, #1a1a1a 75%, transparent 75%, transparent)', backgroundSize: '40px 40px' }}></div>
+                 
+                 <div className="relative z-10 flex-1 text-center lg:text-left">
+                    <h2 className="font-['Rye'] text-[#1a1a1a] text-3xl md:text-5xl mb-3 leading-tight tracking-tight">TECH RUSH QUIZ</h2>
+                    <p className="text-[#1a1a1a] font-['Space_Grotesk'] font-bold text-sm md:text-lg opacity-80 uppercase tracking-widest leading-relaxed">
+                       SOLVE 8 CHALLENGING TRIVIA QUESTIONS IN 96 SECONDS AND WIN A <span className="text-[#D656F6] font-black">MASTER VOUCHER</span> FOR ALL EVENTS!
+                    </p>
+                 </div>
+
+                 <motion.button 
+                   onClick={handleOpenGame}
+                   whileHover={{ scale: 1.05, rotate: -2 }}
+                   whileTap={{ scale: 0.95 }}
+                   className="relative group shrink-0"
+                 >
+                    <div className="absolute inset-0 bg-black rounded-[1.5rem] translate-x-3 translate-y-3 group-hover:translate-x-4 group-hover:translate-y-4 transition-transform"></div>
+                    <div className="relative bg-[#FEF9C3] border-[4px] border-black px-10 py-6 rounded-[1.5rem] flex items-center gap-6">
+                       <div className="bg-black text-[#FEF9C3] p-3 rounded-full border-2 border-[#FEF9C3]">
+                          <Zap size={32} fill="currentColor" />
+                       </div>
+                       <span className="font-['Rye'] text-2xl md:text-4xl text-black">PLAY NOW</span>
+                    </div>
+                 </motion.button>
+              </div>
+           </motion.div>
+        </div>
         {/* --- PILL NAVIGATION (Persistent) --- */}
         <section className="tabs-navigation sticky top-4 z-[100] flex justify-center mt-[-3.5rem]">
           <div className="bg-white/95 backdrop-blur-md border-[3px] border-black p-1.5 rounded-[2rem] shadow-[8px_8px_0px_#1a1a1a] flex gap-1">
