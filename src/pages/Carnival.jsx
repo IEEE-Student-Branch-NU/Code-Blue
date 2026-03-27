@@ -5,7 +5,7 @@ import './Carnival.css';
 import CarnivalHero from '../components/CarnivalHero';
 import QuizComponent from '../components/QuizComponent';
 import Footer from './Footer';
-import { scheduleData as externalScheduleData, getEventById } from '../data/carnivalData';
+import { scheduleData as externalScheduleData } from '../data/carnivalData';
 
 // --- Tabular Itinerary ---
 const CarnivalItineraryTable = ({ navigate }) => {
