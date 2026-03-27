@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence, useSpring, useScroll, useTransform, useVelocity } from 'framer-motion';
 import './Carnival.css';
 import CarnivalHero from '../components/CarnivalHero';
+import QuizComponent from '../components/QuizComponent';
 import Footer from './Footer';
 import { scheduleData as externalScheduleData, getEventById } from '../data/carnivalData';
 
@@ -218,6 +219,9 @@ const Carnival = () => {
             ))}
           </div>
         </section>
+
+        {/* 2. Quiz Section (NEW) */}
+        <QuizComponent />
 
         {/* 2. Information Section */}
         <motion.section 

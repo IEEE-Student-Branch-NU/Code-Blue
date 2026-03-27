@@ -1,0 +1,155 @@
+.quiz-container {
+  margin: 2rem 0;
+}
+
+.quiz-panel {
+  background: white;
+  border: 4px solid #1a1a1a;
+  box-shadow: 8px 8px 0px #1a1a1a;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  transition: all 0.2s ease;
+}
+
+.quiz-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1a1a1a;
+}
+
+.quiz-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.quiz-input {
+  width: 100%;
+  padding: 1rem;
+  border: 3px solid #1a1a1a;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  outline: none;
+}
+
+.quiz-button {
+  width: 100%;
+  padding: 1rem;
+  background: #ff6b6b;
+  color: white;
+  border: 3px solid #1a1a1a;
+  border-radius: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px #1a1a1a;
+  transition: all 0.1s ease;
+}
+
+.quiz-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #1a1a1a;
+}
+
+.quiz-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.quiz-error {
+  color: #ff0000;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 0.5rem;
+}
+
+.question-text {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .options-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.option-button {
+  padding: 1rem;
+  background: #f0f0f0;
+  border: 3px solid #1a1a1a;
+  border-radius: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.option-button:hover {
+  background: #ffd93d;
+  transform: translate(-2px, -2px);
+  box-shadow: 4px 4px 0px #1a1a1a;
+}
+
+.option-button.selected {
+  background: #6bcbff;
+}
+
+.quiz-progress {
+  margin-top: 2rem;
+  font-weight: 900;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.result-container {
+  text-align: center;
+}
+
+.coupon-box {
+  background: #bbf7d0;
+  border: 4px dashed #1a1a1a;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 1rem;
+}
+
+.coupon-code {
+  font-size: 2rem;
+  font-family: monospace;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.coupon-message {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+
+.failure-message {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #ff6b6b;
+  text-transform: uppercase;
+}
