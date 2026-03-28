@@ -117,6 +117,9 @@ const Carnival = () => {
     if (saved && saved !== 'itinerary') return parseInt(saved);
     return saved || 'itinerary';
   });
+  const [isQuizVisible, setIsQuizVisible] = useState(() => {
+    return localStorage.getItem('quiz_closed') !== 'true';
+  });
   const navigate = useNavigate();
 
   // Scroll Restoration Logic
@@ -221,7 +224,14 @@ const Carnival = () => {
         </section>
 
         {/* 2. Quiz Section (NEW) */}
-        <QuizComponent />
+        {isQuizVisible && (
+          <QuizComponent 
+            onClose={() => {
+              setIsQuizVisible(false);
+              localStorage.setItem('quiz_closed', 'true');
+            }} 
+          />
+        )}
 
         {/* 2. Information Section */}
         <motion.section 

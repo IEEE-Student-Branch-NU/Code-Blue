@@ -52,7 +52,7 @@ const QUESTIONS = [
   }
 ];
 
-const QuizComponent = () => {
+const QuizComponent = ({ onClose }) => {
   const [step, setStep] = useState('login'); // login, quiz, result
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
@@ -62,6 +62,15 @@ const QuizComponent = () => {
 
   // Check if a user is already remembered on this device
   useEffect(() => {
+    // 1. Check for Strict Device Locking (Regardless of email)
+    const anyResult = localStorage.getItem('quiz_completed_any');
+    if (anyResult) {
+      setFinalResult(JSON.parse(anyResult));
+      setStep('result');
+      return;
+    }
+
+    // 2. Check for Specific User (Legacy support)
     const rememberedEmail = localStorage.getItem('quiz_current_user');
     if (rememberedEmail) {
       setEmail(rememberedEmail);
@@ -110,7 +119,14 @@ const QuizComponent = () => {
         timestamp: new Date().toISOString()
       };
       
-      localStorage.setItem(`quiz_completed_${email}`, JSON.stringify(resultData));
+      // Strict Device Locking: Store global flag
+      localStorage.setItem('quiz_completed_any', JSON.stringify(resultData));
+      
+      // Store user-specific flag
+      if (email) {
+        localStorage.setItem(`quiz_completed_${email}`, JSON.stringify(resultData));
+      }
+      
       setFinalResult(resultData);
       setStep('result');
     }
@@ -118,7 +134,8 @@ const QuizComponent = () => {
 
   if (step === 'login') {
     return (
-      <section className="quiz-container neo-panel">
+      <section className="quiz-container neo-panel relative">
+        <button onClick={onClose} className="cq-x-mini" aria-label="Close Quiz">×</button>
         <h2 className="quiz-title">Carnival Quiz</h2>
         <form onSubmit={handleLogin} className="quiz-input-group">
           <p className="text-center font-bold text-gray-700">Login with your Nirma ID to start the challenge!</p>
@@ -140,7 +157,8 @@ const QuizComponent = () => {
   if (step === 'quiz') {
     const q = QUESTIONS[currentQuestionIndex];
     return (
-      <section className="quiz-container neo-panel">
+      <section className="quiz-container neo-panel relative">
+        <button onClick={onClose} className="cq-x-mini" aria-label="Close Quiz">×</button>
         <div className="quiz-progress">Question {currentQuestionIndex + 1} of {QUESTIONS.length}</div>
         <h2 className="question-text">{q.question}</h2>
         <div className="options-grid">
@@ -160,7 +178,8 @@ const QuizComponent = () => {
 
   if (step === 'result') {
     return (
-      <section className="quiz-container neo-panel result-container">
+      <section className="quiz-container neo-panel result-container relative">
+        <button onClick={onClose} className="cq-x-mini" aria-label="Close Quiz">×</button>
         <h2 className="quiz-title">Quiz Result</h2>
         <p className="text-2xl font-black mb-4">Score: {finalResult.score} / {finalResult.total}</p>
         
