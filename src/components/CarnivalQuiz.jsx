@@ -168,7 +168,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <div className="cq-score-badge">SCORE: {score}/{questions.length}</div>
           </div>
-          <button className="cq-x-mini" onClick={() => setIsOpen(false)}>
+          <button className="cq-x-mini" onClick={onClose}>
             <X size={20} strokeWidth={3} />
           </button>
         </div>
@@ -369,7 +369,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                           <RotateCcw size={18} strokeWidth={3} /> RETRY CHALLENGE (TESTER)
                         </button>
                       ) : (
-                        <button className="cq-neo-btn" onClick={() => setIsOpen(false)}>
+                        <button className="cq-neo-btn" onClick={onClose}>
                           <X size={18} strokeWidth={3} /> CLOSE QUIZ
                         </button>
                       )}
