@@ -15,7 +15,7 @@ const allEvents = [
   { id: 8, title: 'Lambda Genie', link: 'https://konfhub.com/lambda-genie' },
   { id: 13, title: 'Prompt Verse', link: 'https://konfhub.com/prompt-verse-challenge' },
   { id: 14, title: 'Ideathon', link: 'https://konfhub.com/ideathon-open-innovation' },
-  { id: 10, title: 'ROBOSUMO', link: 'https://konfhub.com/robosumo-competition' },
+
   { id: 11, title: 'Hire Your Research Agent', link: 'https://konfhub.com/hire-your-first-research-agent' },
   { id: 12, title: 'Bot Talks', link: 'https://konfhub.com/bot-talks' }
 ];

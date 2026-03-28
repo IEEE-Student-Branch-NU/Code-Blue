@@ -135,7 +135,7 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
           <tr>
             <td className={cellClass}>9:30 - 10:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#BAE1FF]`} onClick={() => handleEventClick(10)}>ROBOSUMO</td>
+            <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
             <td rowSpan="3" className={`${cellClass} opacity-10 bg-gray-50`}></td>
           </tr>
           <tr><td className={cellClass}>10:30 - 11:30</td></tr>
@@ -151,7 +151,7 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
           <tr>
             <td className={cellClass}>2:30 - 3:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(11)}>Hire Your Research Agent</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#BAE1FF]`} onClick={() => handleEventClick(10)}>ROBOSUM</td>
+            <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(12)}>Bot Talks</td>
           </tr>
           <tr><td className={cellClass}>3:30 - 4:30</td></tr>

@@ -133,16 +133,7 @@ export const scheduleData = {
         regLink: 'https://konfhub.com/fpga-forge',
         description: 'Workshop finale and final evaluations.'
       },
-      {
-        id: 10,
-        img: '/Carnival/ROBOWARS.webp',
-        title: 'RoboSumo Competition',
-        time: '9:30 - 12:30',
-        type: 'session',
-        location: 'Nirma University Campus',
-        regLink: 'https://konfhub.com/robosumo-competition',
-        description: 'The robotic gladiator matches.'
-      },
+
       {
         id: 11,
         img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp',
@@ -153,16 +144,7 @@ export const scheduleData = {
         regLink: 'https://konfhub.com/hire-your-first-research-agent',
         description: 'Deploying autonomous AI for research.'
       },
-      {
-        id: 10,
-        img: '/Carnival/ROBOWARS.webp',
-        title: 'RoboSumo Competition',
-        time: '2:30 - 5:30',
-        type: 'session',
-        location: 'Nirma University Campus',
-        regLink: 'https://konfhub.com/robosumo-competition',
-        description: 'Championship finals.'
-      },
+
       {
         id: 12,
         img: '/Carnival/BOT-TALKS.webp',
