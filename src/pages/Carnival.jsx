@@ -61,12 +61,24 @@ const CarnivalItineraryTable = ({ navigate }) => {
             </tr>
             <tr>
               <td className={`${cellClass} bg-[#FFFDF2]`}>1:30 - 2:30</td>
-              <td rowSpan="2" className={`${cellClass} bg-[#E9D5FF] ${cClass}`} onClick={() => handleEventClick(8)}>Lambda Genie</td>
+              <td rowSpan="4" className={`${cellClass} bg-[#E9D5FF] ${cClass}`} onClick={() => handleEventClick(8)}>Lambda Genie</td>
               <td rowSpan="2" className={`${cellClass} bg-[#BAE1FF] ${cClass}`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
               <td rowSpan="2" className={`${cellClass} bg-[#FEF9C3] ${cClass}`} onClick={() => handleEventClick(13)}>Prompt Verse</td>
             </tr>
             <tr>
               <td className={`${cellClass} bg-[#FFFDF2]`}>2:30 - 3:30</td>
+            </tr>
+            <tr>
+              <td className={`${cellClass} bg-[#FFFDF2]`}>3:30 - 4:30</td>
+              <td rowSpan="2" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
+              <td rowSpan="2" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
+            </tr>
+            <tr>
+              <td className={`${cellClass} bg-[#FFFDF2]`}>4:30 - 5:30</td>
+            </tr>
+            <tr>
+              <td className={`${cellClass} bg-[#FFFDF2]`}>5:30 - 6:30</td>
+              <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Open Slot / Networking --</td>
             </tr>
             <tr className="h-6"><td colSpan="4" className="border-none"></td></tr>
 

@@ -17,7 +17,7 @@ export const scheduleData = {
       { id: 6, img: '/Carnival/DECODE THE CIRCUIT_FORGED IN WIRES.webp', title: 'Forged in Wire', time: '10:30 - 3:30', type: 'session' },
       { id: 14, img: '/Carnival/IDEATHON.webp', title: 'Ai Competition', time: '10:30 - 12:30', type: 'session' },
       { id: 102, img: '/Carnival/general/lunch.webp', title: 'Lunch Break', time: '12:30 - 1:30', type: 'break' },
-      { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie', time: '1:30 - 2:30', type: 'session' },
+      { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie', time: '1:30 - 5:30', type: 'session' },
       { id: 13, img: '/Carnival/2.webp', title: 'Prompt Verse', time: '1:30 - 3:30', type: 'session' }
     ] 
   },
