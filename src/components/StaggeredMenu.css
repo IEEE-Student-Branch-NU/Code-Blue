@@ -140,6 +140,7 @@
   overflow-y: auto;
   z-index: 10;
   pointer-events: auto;
+  will-change: transform;
 }
 
 [data-position='left'] .staggered-menu-panel {
@@ -169,6 +170,7 @@
   height: 100%;
   width: 100%;
   transform: translateX(0);
+  will-change: transform;
 }
 
 .sm-panel-inner {

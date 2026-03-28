@@ -77,7 +77,7 @@ const CarnivalItineraryTable = ({ navigate }) => {
             <tr>
               <td className={`${cellClass} bg-[#F0FDF4]`}>9:30 - 10:30</td>
               <td rowSpan="3" className={`${cellClass} bg-[#FEF9C3] ${cClass}`} onClick={() => handleEventClick(9)}>FPGA FORGE</td>
-              <td rowSpan="4" className={`${cellClass} bg-[#BAE1FF] ${cClass}`} onClick={() => handleEventClick(10)}>ROBOSUMO</td>
+              <td rowSpan="4" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>--</td>
               <td rowSpan="3" className={`${cellClass} bg-[#BAE1FF] uppercase text-[10px] opacity-30 text-center`}>Workshop Final</td>
             </tr>
             <tr><td className={`${cellClass} bg-[#F0FDF4]`}>10:30 - 11:30</td></tr>
@@ -93,7 +93,7 @@ const CarnivalItineraryTable = ({ navigate }) => {
             <tr>
               <td className={`${cellClass} bg-[#F0FDF4]`}>2:30 - 3:30</td>
               <td rowSpan="3" className={`${cellClass} bg-[#BAE1FF] ${cClass}`} onClick={() => handleEventClick(11)}>Hire Your Agent</td>
-              <td rowSpan="3" className={`${cellClass} bg-[#D1FAE5] ${cClass}`} onClick={() => handleEventClick(10)}>ROBOSUMO</td>
+              <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>--</td>
               <td className={`${cellClass} bg-[#E9D5FF] ${cClass}`} onClick={() => handleEventClick(12)}>Bot Talks</td>
             </tr>
              <tr>
@@ -244,7 +244,7 @@ const Carnival = () => {
           <p className="text-base md:text-lg lg:text-xl font-bold leading-relaxed text-[#1a1a1a] max-w-4xl mx-auto text-center">
             Brace yourselves for the IEEE Carnival! Three days of pure technical adrenaline, 
             creative chaos, and groundbreaking innovation. From high-stakes hackathons to 
-            mind-bending robotic showdowns, this is where the brightest minds converge to 
+            mind-bending technical challenges, this is where the brightest minds converge to 
             rewrite the future. Experience tech like never before.
           </p>
         </motion.section>

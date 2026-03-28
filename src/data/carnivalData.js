@@ -26,7 +26,7 @@ export const scheduleData = {
     color: 'yellow', 
     events: [
       { id: 9, img: '/Carnival/FGPA WS.webp', title: 'FPGA FORGE', time: '9:30 - 12:30', type: 'session' },
-      { id: 10, img: '/Carnival/ROBOWARS.webp', title: 'ROBOSUMO', time: '10:30 - 4:30', type: 'session' },
+
       { id: 103, img: '/Carnival/general/lunch.webp', title: 'Lunch Break', time: '12:30 - 1:30', type: 'break' },
       { id: 11, img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp', title: 'Hire Your Research Agent', time: '2:30 - 5:30', type: 'session' },
       { id: 12, img: '/Carnival/BOT-TALKS.webp', title: 'Bot Talks', time: '3:30 - 5:30', type: 'session' },

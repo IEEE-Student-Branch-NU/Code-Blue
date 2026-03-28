@@ -11,7 +11,7 @@ const allEvents = [
   { id: 6, img: '/Carnival/DECODE THE CIRCUIT_FORGED IN WIRES.webp', title: 'Decode the Circuit', link: '#' },
   { id: 7, img: '/Carnival/AGENTVERSE.webp', title: 'Agentverse', link: '#' },
   { id: 8, img: '/Carnival/LAMBDA-GENIE.webp', title: 'Lambda Genie', link: '#' },
-  { id: 10, img: '/Carnival/ROBOWARS.webp', title: 'Robowars', link: '#' },
+
   { id: 11, img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp', title: 'Hire Your Research Agent', link: '#' },
   { id: 12, img: '/Carnival/BOT-TALKS.webp', title: 'Bot Talks', link: '#' },
   { id: 13, img: '/Carnival/2.webp', title: 'Poster 5', link: '#' }
@@ -49,7 +49,7 @@ const EventDetails = () => {
       
       {/* 🔙 Back Button Sticking Out */}
       <button 
-        onClick={() => navigate(-1)}
+        onClick={() => navigate('/carnival')}
         className="fixed top-6 left-6 md:top-8 md:left-8 z-[100] bg-white border-4 border-[#1a1a1a] shadow-[6px_6px_0px_#1a1a1a] p-4 rounded-xl hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[10px_10px_0px_#1a1a1a] active:translate-y-1 active:translate-x-1 active:shadow-none transition-all group flex items-center justify-center cursor-pointer"
       >
         <Undo2 size={32} strokeWidth={3} className="text-[#1a1a1a] group-hover:scale-110 transition-transform" />

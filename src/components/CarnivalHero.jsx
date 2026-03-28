@@ -54,7 +54,10 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
         src="/Carnival/layer1-v2.png"
         alt="Carnival Background Sky"
         className="parallax-layer l1-bg"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.45}px) scale(1.1)`) }}
+        style={{ 
+          transform: scrollY.to(y => `translateY(${y * 0.45}px) scale(1.1) translate3d(0,0,0)`),
+          willChange: 'transform'
+        }}
       />
 
       {/* Layer 2: Midground Layer (Ferris Wheel + Tents) */}
@@ -62,14 +65,18 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
         src={deviceType === 'mobile' ? "/Carnival/layer2-mobile.png" : deviceType === 'tablet' ? "/Carnival/layer2-tablet.png" : "/Carnival/layer2-v2.png"}
         alt="Carnival Ferris Wheel and Tents"
         className="parallax-layer l2-mid"
-        style={{ transform: scrollY.to(y => `translateY(${y * 0.35}px)`) }}
+        style={{ 
+          transform: scrollY.to(y => `translateY(${y * 0.35}px) translate3d(0,0,0)`),
+          willChange: 'transform'
+        }}
       />
 
       {/* Layer 3: Logo Layer with Interactive Tilt */}
       <animated.div
         className="parallax-logo-layer l3-logo"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.25}px)`),
+          transform: scrollY.to(y => `translateY(${y * 0.25}px) translate3d(0,0,0)`),
+          willChange: 'transform',
           perspective: 1000
         }}
       >
@@ -94,7 +101,8 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
             style={{ 
               rotateX: logoRotateX,
               rotateY: logoRotateY,
-              transformStyle: "preserve-3d"
+              transformStyle: "preserve-3d",
+              willChange: 'transform'
             }}
           />
         </div>
@@ -106,7 +114,8 @@ const CarnivalHero = ({ skewSpring, xSpring }) => {
         alt="Carnival Ticket Booth and Popcorn Cart"
         className="parallax-layer l4-fg"
         style={{ 
-          transform: scrollY.to(y => `translateY(${y * 0.15}px)`),
+          transform: scrollY.to(y => `translateY(${y * 0.15}px) translate3d(0,0,0)`),
+          willChange: 'transform',
           zIndex: 5 
         }}
       />
