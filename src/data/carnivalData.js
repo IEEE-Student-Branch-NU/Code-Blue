@@ -68,26 +68,6 @@ export const scheduleData = {
         regLink: 'https://konfhub.com/forged-in-wire'
       },
       {
-        id: 7,
-        img: '/Carnival/AGENTVERSE.webp',
-        title: 'Swarm Agentic AI',
-        time: '9:30 - 10:30',
-        type: 'session',
-        location: 'Nirma University Campus',
-        description: 'Swarm AI intelligence and agentic talkshow.',
-        regLink: 'https://konfhub.com/swarm-agentic-ai'
-      },
-      {
-        id: 14,
-        img: '/Carnival/IDEATHON.webp',
-        title: 'Ideathon',
-        time: '10:30 - 12:30',
-        type: 'session',
-        location: 'Nirma University Campus',
-        description: 'Artificial Intelligence problem-solving & Ideathon.',
-        regLink: 'https://konfhub.com/ideathon-open-innovation'
-      },
-      {
         id: 8,
         img: '/Carnival/LAMBDA-GENIE.webp',
         title: 'Lambda Genie',
@@ -134,6 +114,26 @@ export const scheduleData = {
         description: 'Workshop finale and final evaluations.'
       },
 
+      {
+        id: 7,
+        img: '/Carnival/AGENTVERSE.webp',
+        title: 'Swarm Agentic AI',
+        time: '9:30 - 10:30',
+        type: 'session',
+        location: 'Nirma University Campus',
+        description: 'Swarm AI intelligence and agentic talkshow.',
+        regLink: 'https://konfhub.com/swarm-agentic-ai'
+      },
+      {
+        id: 14,
+        img: '/Carnival/IDEATHON.webp',
+        title: 'Ideathon',
+        time: '10:30 - 12:30',
+        type: 'session',
+        location: 'Nirma University Campus',
+        description: 'Artificial Intelligence problem-solving & Ideathon.',
+        regLink: 'https://konfhub.com/ideathon-open-innovation'
+      },
       {
         id: 11,
         img: '/Carnival/HIRE_YR_RESEARCH_AGENT.webp',

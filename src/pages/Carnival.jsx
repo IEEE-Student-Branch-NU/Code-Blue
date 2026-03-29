@@ -111,11 +111,11 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
             <td className={cellClass}>9:30 - 10:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
-            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(7)}>Swarm Agentic AI</td>
+            <td className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
           <tr>
             <td className={cellClass}>10:30 - 11:30</td>
-            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>Ideathon</td>
+            <td rowSpan="2" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
           <tr><td className={cellClass}>11:30 - 12:30</td></tr>
           <tr>
@@ -136,9 +136,12 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
             <td className={cellClass}>9:30 - 10:30</td>
             <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
             <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
-            <td rowSpan="3" className={`${cellClass} opacity-10 bg-gray-50`}></td>
+            <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(7)}>Swarm Agentic AI</td>
           </tr>
-          <tr><td className={cellClass}>10:30 - 11:30</td></tr>
+          <tr>
+            <td className={cellClass}>10:30 - 11:30</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>Ideathon</td>
+          </tr>
           <tr><td className={cellClass}>11:30 - 12:30</td></tr>
           <tr>
             <td className={cellClass}>12:30 - 1:30</td>
