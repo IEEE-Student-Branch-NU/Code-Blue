@@ -113,7 +113,7 @@ const EventDetails = () => {
                 <div className="bg-[#fbcfe8] border-2 border-black p-1.5 rounded-lg text-lg">📅</div>
                 <div className="flex flex-col text-left">
                   <span className="text-[9px] md:text-xs font-bold text-gray-400 uppercase tracking-widest leading-none mb-1">Date</span>
-                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.date || "April 3rd"}</span>
+                  <span className="text-lg md:text-xl font-black leading-none">{fullEventData?.date || "April 2026"}</span>
                 </div>
               </div>
 

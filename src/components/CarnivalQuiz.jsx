@@ -44,12 +44,12 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
   const handleLogout = () => { googleLogout(); setUser(null); setIsNirmaUser(false); setPhase('AUTH'); };
 
   const generateVoucher = async (email) => {
-    const secret = "IEEE_CARNIVAL_SBNU_GENERAL_2026";
-    const msgUint8 = new TextEncoder().encode(email.toLowerCase() + secret);
+    const secret = "IEEE_CARNIVAL_SBNU_2026";
+    const msgUint8 = new TextEncoder().encode(email.toLowerCase().trim() + secret);
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-    return "TKT-" + hashHex.slice(0, 8).toUpperCase();
+    return "NRM-" + hashHex.slice(0, 8).toUpperCase();
   };
 
   const handleLoginSuccess = async (credentialResponse) => {
@@ -82,6 +82,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     setTimeLeft(MAX_TIME_PER_Q);
     setSelectedOption(null);
     setIsLocked(false);
+    if (user?.email && user.email !== '24btm032@nirmauni.ac.in' && user.email !== 'ieee@nirmauni.ac.in') {
+      localStorage.setItem(`CQ_ATTEMPT_${user.email}`, 'true');
+    }
     setPhase('PLAYING');
   };
 
@@ -143,7 +146,14 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
       if (navigator.vibrate) navigator.vibrate(10); // Nearly silent 'Enter' tap
-      if (!user) setPhase('AUTH'); else setPhase('LOBBY');
+      if (!user) {
+        setPhase('AUTH');
+      } else {
+        setPhase('LOBBY');
+        if (!hashedVoucher) {
+           generateVoucher(user.email).then(setHashedVoucher);
+        }
+      }
     } else {
       document.body.style.overflow = 'auto';
     }
@@ -228,7 +238,7 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                   </div>
                 ) : (
                   <div className="cq-neo-card">
-                    <h1 className="cq-title-main">SYSTEM<br/>READY</h1>
+                    <h1 className="cq-title-main cq-flicker">SYSTEM<br/>READY</h1>
                     
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginBottom: '10px' }}>
                        <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 900, textTransform: 'uppercase', color: '#6366f1', opacity: 0.8 }}>EXCEPTIONAL PRECISION REQUIRED</div>
@@ -353,6 +363,9 @@ const CarnivalQuiz = ({ isOpen, onClose }) => {
                     <div className="cq-ticket">
                       <div className="cq-ticket-tag">MASTER VOUCHER</div>
                       <div className="cq-ticket-code">{hashedVoucher || 'WIN-1234'}</div>
+                      <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '10px', fontWeight: 900, color: 'rgba(0,0,0,0.8)', background: '#fff', border: '2px solid #000', padding: '10px', borderRadius: '8px', marginTop: '10px', cursor: 'pointer' }} onClick={() => { navigator.clipboard.writeText(hashedVoucher); alert('Voucher code copied!'); }}>
+                         CLICK TO COPY CODE
+                      </div>
                       <div style={{ fontFamily: "'Space Grotesk', sans-serif", fontSize: '12px', fontWeight: 700, color: 'rgba(0,0,0,0.6)', borderTop: '2px solid rgba(0,0,0,0.1)', paddingTop: '12px', marginTop: '12px' }}>
                         <strong>{user?.name}</strong><br/>
                         {user?.email}<br/><br/>

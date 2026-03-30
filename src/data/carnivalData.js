@@ -16,7 +16,7 @@ export const scheduleData = {
         id: 201,
         img: '/Carnival/LUMISENSE.webp',
         title: 'Technical Setups & Briefings',
-        time: '4:30 - 6:30',
+        time: '4:00 - 6:00',
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Technical setups for participants, pre-screening for competitions, and introductory briefings.'
@@ -25,17 +25,17 @@ export const scheduleData = {
         id: 1,
         img: '/Carnival/ITSS.webp',
         title: 'Next-Gen Intelligent Transportation Systems',
-        time: '4:30 - 6:30',
+        time: '4:00 - 6:00',
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Professional society session by IEEE ITSS on future mobility.',
-        regLink: 'https://ieee-itss-sbnu.vercel.app/'
+        regLink: 'https://konfhub.com/next-gen-intelligent-transportation-systems-expert-lecture'
       },
       {
         id: 2,
         img: '/Carnival/LUMISENSE.webp',
         title: 'Photonic Sensors',
-        time: '4:30 - 6:30',
+        time: '4:00 - 6:00',
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Expert lecture on photonic sensors for humanitarian solutions.',
@@ -91,7 +91,7 @@ export const scheduleData = {
         id: 13,
         img: '/Carnival/2.webp',
         title: 'PromptVerse',
-        time: '1:30 - 3:30',
+        time: '11:00 - 12:30',
         type: 'session',
         location: 'Nirma University Campus',
         regLink: 'https://konfhub.com/prompt-verse-challenge',
@@ -107,7 +107,7 @@ export const scheduleData = {
         id: 5,
         img: '/Carnival/FGPA WS.webp',
         title: 'FPGA Forge',
-        time: '9:30 - 12:30',
+        time: '9:30 - 1:30',
         type: 'session',
         location: 'Nirma University Campus',
         regLink: 'https://konfhub.com/fpga-forge',
@@ -118,7 +118,7 @@ export const scheduleData = {
         id: 7,
         img: '/Carnival/AGENTVERSE.webp',
         title: 'Swarm Agentic AI',
-        time: '9:30 - 10:30',
+        time: '9:30 - 11:00',
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Swarm AI intelligence and agentic talkshow.',
@@ -128,7 +128,7 @@ export const scheduleData = {
         id: 14,
         img: '/Carnival/IDEATHON.webp',
         title: 'Ideathon',
-        time: '10:30 - 12:30',
+        time: '9:30 - 1:30',
         type: 'session',
         location: 'Nirma University Campus',
         description: 'Artificial Intelligence problem-solving & Ideathon.',
@@ -149,7 +149,7 @@ export const scheduleData = {
         id: 12,
         img: '/Carnival/BOT-TALKS.webp',
         title: 'Bot Talks',
-        time: '2:30 - 5:30',
+        time: '4:30 - 5:30',
         type: 'session',
         location: 'Nirma University Campus',
         regLink: 'https://konfhub.com/bot-talks',
@@ -171,7 +171,10 @@ export const scheduleData = {
 export const getEventById = (id) => {
   for (const day in scheduleData) {
     const event = scheduleData[day].events.find(e => e.id === parseInt(id));
-    if (event) return event;
+    if (event) {
+      // Return a copy with the date injected if it's missing
+      return { ...event, date: event.date || scheduleData[day].label };
+    }
   }
   return null;
 };

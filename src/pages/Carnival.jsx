@@ -93,72 +93,67 @@ const CarnivalItineraryTable = ({ navigate, onTicketOpen }) => {
         </thead>
         <tbody>
           {/* Day 1 Section */}
-          <tr className="bg-blue-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 1</td></tr>
+          <tr className="bg-blue-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 1 — APRIL 3RD</td></tr>
           <tr>
             <td className={`${cellClass} w-32`}>3:00 - 3:30</td>
             <td colSpan="3" className={`${cellClass} bg-[#BAE1FF] uppercase`}>INNAUGRATION</td>
           </tr>
           <tr>
-            <td className={cellClass}>4:30 - 6:30</td>
+            <td className={cellClass}>4:00 - 6:00</td>
             <td className={`${cellClass} text-xs font-bold leading-tight px-1 py-1`}>Technical Setups for Participants,<br/>Pre Screening for Competitions<br/>and Introductory Briefings</td>
             <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(1)}>Next gen ITSS</td>
             <td className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(2)}>Lumisense</td>
           </tr>
 
           {/* Day 2 Section */}
-          <tr className="bg-yellow-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 2</td></tr>
+          <tr className="bg-yellow-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 2 — APRIL 4TH</td></tr>
           <tr>
-            <td className={cellClass}>9:30 - 10:30</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
+            <td className={cellClass}>9:30 - 11:00</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
             <td className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
           <tr>
-            <td className={cellClass}>10:30 - 11:30</td>
-            <td rowSpan="2" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
+            <td className={cellClass}>11:00 - 12:30</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(13)}>Prompt Verse</td>
           </tr>
-          <tr><td className={cellClass}>11:30 - 12:30</td></tr>
           <tr>
             <td className={cellClass}>12:30 - 1:30</td>
             <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>LUNCH</td>
           </tr>
           <tr>
-            <td className={cellClass}>1:30 - 2:30</td>
-            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#E9D5FF]`} onClick={() => handleEventClick(8)}>Lambda Genie</td>
-            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
-            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(13)}>Prompt Verse</td>
+            <td className={cellClass}>1:30 - 3:30</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#E9D5FF]`} onClick={() => handleEventClick(8)}>Lambda Genie</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#D1FAE5]`} onClick={() => handleEventClick(6)}>Forged in Wire</td>
+            <td className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
-          <tr><td className={cellClass}>2:30 - 3:30</td></tr>
 
           {/* Day 3 Section */}
-          <tr className="bg-emerald-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 3</td></tr>
+          <tr className="bg-emerald-50/50"><td colSpan="4" className={`${cellClass} font-black py-2`}>DAY 3 — APRIL 5TH</td></tr>
           <tr>
-            <td className={cellClass}>9:30 - 10:30</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
-            <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
+            <td className={cellClass}>9:30 - 11:00</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FEF9C3]`} onClick={() => handleEventClick(5)}>FPGA FORGE</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>IDEATHON</td>
             <td className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(7)}>Swarm Agentic AI</td>
           </tr>
           <tr>
-            <td className={cellClass}>10:30 - 11:30</td>
-            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#FBCFE8]`} onClick={() => handleEventClick(14)}>Ideathon</td>
-          </tr>
-          <tr><td className={cellClass}>11:30 - 12:30</td></tr>
-          <tr>
-            <td className={cellClass}>12:30 - 1:30</td>
-            <td colSpan="3" className={cellClass}></td>
+            <td className={cellClass}>11:00 - 1:30</td>
+            <td className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
           <tr>
             <td className={cellClass}>1:30 - 2:30</td>
             <td colSpan="3" className={`${cellClass} bg-gray-50 uppercase tracking-[0.3em]`}>LUNCH</td>
           </tr>
           <tr>
-            <td className={cellClass}>2:30 - 3:30</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(11)}>Hire Your Research Agent</td>
-            <td rowSpan="3" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
-            <td rowSpan="3" className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(12)}>Bot Talks</td>
+            <td className={cellClass}>2:30 - 4:30</td>
+            <td rowSpan="2" className={`${cellClass} ${hoverClass} bg-[#E0F2FE]`} onClick={() => handleEventClick(11)}>Hire Your Research Agent</td>
+            <td rowSpan="2" className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
+            <td className={`${cellClass} bg-gray-50 uppercase text-[10px] opacity-20 text-center`}>-- Available --</td>
           </tr>
-          <tr><td className={cellClass}>3:30 - 4:30</td></tr>
-          <tr><td className={cellClass}>4:30 - 5:30</td></tr>
+          <tr>
+            <td className={cellClass}>4:30 - 5:30</td>
+            <td className={`${cellClass} ${hoverClass} bg-[#FDF2F8]`} onClick={() => handleEventClick(12)}>Bot Talks</td>
+          </tr>
           <tr>
             <td className={cellClass}>5:30 - 6:30</td>
             <td colSpan="3" className={`${cellClass} bg-[#BAE1FF] uppercase tracking-widest`}>Prize Distribution & Closing Ceremony</td>
@@ -356,7 +351,7 @@ const Carnival = () => {
                   />
                 )}
                 <span className="relative z-10">
-                  {tab === 'itinerary' ? 'Overview' : `Day ${parseInt(tab) - 2}`}
+                  {tab === 'itinerary' ? 'Overview' : `Day ${parseInt(tab) - 2} (Apr ${parseInt(tab)})`}
                 </span>
               </button>
             ))}
