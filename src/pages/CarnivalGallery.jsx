@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Database } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import { scheduleData } from '../data/carnivalData';
@@ -104,9 +104,9 @@ const CarnivalGallery = () => {
                                 transition={{ duration: 0.8, ease: "easeOut" }}
                                 className="mb-16"
                             >
-                                <Link to="/carnival" className="inline-flex items-center gap-3 bg-white hover:bg-[#FFD700] text-black font-black uppercase tracking-widest px-6 py-3 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group mb-8">
+                                <Link to="/gallery" className="inline-flex items-center gap-3 bg-white hover:bg-[#FFD700] text-black font-black uppercase tracking-widest px-6 py-3 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group mb-8">
                                     <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" strokeWidth={3} />
-                                    <span>Back to Carnival</span>
+                                    <span>Back to Gallery</span>
                                 </Link>
 
                                 <div className="text-center">
@@ -190,7 +190,7 @@ const CarnivalGallery = () => {
                                                     <img 
                                                         src={src} 
                                                         alt={`${activeAlbum.title} Memory ${idx + 1}`} 
-                                                        className="absolute inset-0 w-[135%] h-[135%] -top-[17.5%] -left-[17.5%] object-cover rotate-90 transition-transform duration-700 group-hover:scale-105" 
+                                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.45] scale-[1.35] rotate-90" 
                                                         loading="lazy"
                                                     />
                                                 </div>
@@ -199,7 +199,7 @@ const CarnivalGallery = () => {
                                                     <img 
                                                         src={src} 
                                                         alt={`${activeAlbum.title} Memory ${idx + 1}`} 
-                                                        className="absolute inset-0 w-[135%] h-[135%] -top-[17.5%] -left-[17.5%] object-cover -rotate-90 transition-transform duration-700 group-hover:scale-105" 
+                                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.45] scale-[1.35] -rotate-90"
                                                         loading="lazy"
                                                     />
                                                 </div>
