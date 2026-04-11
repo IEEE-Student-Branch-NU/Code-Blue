@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import Footer from './Footer';
 import { scheduleData } from '../data/carnivalData';
 
@@ -57,7 +58,7 @@ const CarnivalGallery = () => {
 
     const requiresAlbum = (title) => {
         const t = title.toLowerCase();
-        return t.includes('fpga') || t.includes('lambda genie') || t.includes('lg') || t.includes('promptverse') || t.includes('itss') || t.includes('transportation') || t.includes('ideathon') || t.includes('hire') || t.includes('agent');
+        return t.includes('fpga') || t.includes('lambda genie') || t.includes('lg') || t.includes('promptverse') || t.includes('itss') || t.includes('transportation') || t.includes('ideathon') || t.includes('hire your research');
     };
 
     const handleCardClick = (title) => {
@@ -67,14 +68,28 @@ const CarnivalGallery = () => {
         else if (t.includes('promptverse')) setSelectedAlbum('promptverse');
         else if (t.includes('itss') || t.includes('transportation')) setSelectedAlbum('itss');
         else if (t.includes('ideathon')) setSelectedAlbum('ideathon');
-        else if (t.includes('hire') || t.includes('agent')) setSelectedAlbum('hireagent');
+        else if (t.includes('hire your research')) setSelectedAlbum('hireagent');
     };
 
     const activeAlbum = albumData[selectedAlbum];
 
     return (
-        <div style={{ backgroundColor: '#000000', minHeight: '100vh', color: 'white', paddingTop: '8rem' }}>
-            <div className="max-w-7xl mx-auto px-4 md:px-8 pb-16 min-h-[70vh]">
+        <div style={{ 
+            backgroundColor: '#f0f9ff', 
+            minHeight: '100vh', 
+            color: '#1a1a1a', 
+            paddingTop: '8rem',
+            backgroundImage: `
+              radial-gradient(at 0% 0%, rgba(147, 197, 253, 0.25) 0px, transparent 50%),
+              radial-gradient(at 100% 0%, rgba(254, 249, 195, 0.35) 0px, transparent 50%),
+              radial-gradient(at 100% 100%, rgba(167, 243, 208, 0.25) 0px, transparent 50%),
+              radial-gradient(at 0% 100%, rgba(191, 219, 254, 0.3) 0px, transparent 50%),
+              linear-gradient(rgba(147, 197, 253, 0.1) 2px, transparent 2px),
+              linear-gradient(90deg, rgba(147, 197, 253, 0.1) 2px, transparent 2px)
+            `,
+            backgroundSize: '100% 100%, 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px'
+        }}>
+            <div className="max-w-6xl mx-auto px-4 md:px-8 pb-16 min-h-[70vh]">
                 <AnimatePresence mode="wait">
                     {!selectedAlbum ? (
                         <motion.div
@@ -87,43 +102,44 @@ const CarnivalGallery = () => {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="text-center mb-16"
+                                className="mb-16"
                             >
-                                <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-white mb-4">
-                                    Carnival <span className="text-[#ff69b4]">Highlights</span>
-                                </h1>
-                                <p className="text-xl md:text-2xl font-light text-gray-400">
-                                    A glimpse into the spectacular IEEE Carnival 2026
-                                </p>
+                                <Link to="/carnival" className="inline-flex items-center gap-3 bg-white hover:bg-[#FFD700] text-black font-black uppercase tracking-widest px-6 py-3 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group mb-8">
+                                    <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" strokeWidth={3} />
+                                    <span>Back to Carnival</span>
+                                </Link>
+
+                                <div className="text-center">
+                                    <h1 className="text-5xl md:text-8xl font-black uppercase tracking-tighter text-[#1a1a1a] mb-4 italic">
+                                        Carnival <span className="text-[#D656F6] underline decoration-black decoration-8 underline-offset-8">Highlights</span>
+                                    </h1>
+                                    <p className="text-xl md:text-2xl font-black uppercase tracking-widest text-[#1a1a1a]/60">
+                                        A glimpse into the spectacular IEEE Carnival 2026
+                                    </p>
+                                </div>
                             </motion.div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
                                 {finalImages.map((imgData, index) => (
                                     <motion.div 
                                         key={index}
                                         onClick={() => handleCardClick(imgData.title)}
-                                        initial={{ opacity: 0, scale: 0.9 }}
+                                        initial={{ opacity: 0, scale: 0.95 }}
                                         whileInView={{ opacity: 1, scale: 1 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                                        whileHover={{ y: -10, scale: 1.02 }}
-                                        className="relative group rounded-2xl overflow-hidden border-4 border-gray-800 shadow-[8px_8px_0px_#1a1a1a] bg-gray-900 cursor-pointer"
+                                        transition={{ delay: index * 0.1, duration: 0.4 }}
+                                        className="relative group rounded-[2.5rem] overflow-hidden border-[4px] border-black shadow-[8px_8px_0px_black] hover:shadow-[12px_12px_0px_black] transition-all bg-white cursor-pointer aspect-[3/4.2]"
                                     >
                                         <img 
                                             src={imgData.src} 
                                             alt={imgData.title} 
-                                            className="w-full h-auto aspect-[4/3] object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-500"
+                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                                            <div className="p-6 w-full flex justify-between items-center">
-                                                <h3 className="text-white text-xl font-black uppercase tracking-wider">{imgData.title}</h3>
-                                                {requiresAlbum(imgData.title) && (
-                                                    <span className="bg-[#ff69b4] text-black text-xs font-black px-2 py-1 rounded uppercase tracking-widest">
-                                                        View Album
-                                                    </span>
-                                                )}
+                                        {requiresAlbum(imgData.title) && (
+                                            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#FFD700] text-black text-xs md:text-sm font-black px-6 py-3 rounded-full border-[3px] border-black uppercase tracking-widest shadow-[4px_4px_0px_black] z-10 transition-all group-active:translate-y-1 group-active:shadow-none flex items-center whitespace-nowrap">
+                                                View Album
                                             </div>
-                                        </div>
+                                        )}
                                     </motion.div>
                                 ))}
                             </div>
@@ -139,37 +155,63 @@ const CarnivalGallery = () => {
                             <div className="flex items-center gap-6 mb-12">
                                 <button 
                                     onClick={() => setSelectedAlbum(null)}
-                                    className="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors group"
+                                    className="flex items-center gap-3 bg-[#FFD700] hover:bg-[#D656F6] text-black font-black uppercase tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full border-[3px] border-black shadow-[6px_6px_0px_black] hover:shadow-[10px_10px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group"
                                 >
-                                    <ArrowLeft size={24} className="group-hover:-translate-x-1 transition-transform" />
+                                    <ArrowLeft size={24} className="group-hover:-translate-x-2 transition-transform" strokeWidth={3} />
+                                    <span>Back to Gallery</span>
                                 </button>
                                 <div>
-                                    <h2 className="text-4xl md:text-5xl font-black uppercase tracking-tighter text-[#ff69b4]">{activeAlbum.title}</h2>
-                                    <p className="text-gray-400 font-mono text-sm tracking-widest mt-1">{activeAlbum.subtitle}</p>
+                                    <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-[#1a1a1a]">{activeAlbum.title}</h2>
+                                    <p className="text-[#1a1a1a]/60 font-black uppercase tracking-widest mt-1 text-sm md:text-lg">{activeAlbum.subtitle}</p>
                                 </div>
                             </div>
 
-                            {/* CSS Bento Grid Layout */}
-                            <div className="grid grid-cols-2 md:grid-cols-3 grid-rows-none md:grid-rows-2 gap-4 md:gap-6 auto-rows-[200px] md:auto-rows-[300px]">
+                             <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
                                 {activeAlbum.images.map((src, idx) => {
-                                    let spanClass = "";
-                                    if (idx === 0) spanClass = "col-span-2 md:col-start-1 md:col-span-2 md:row-start-1 md:row-span-1";
-                                    else if (idx === 1) spanClass = "col-span-1 md:col-start-3 md:col-span-1 md:row-start-1 md:row-span-1";
-                                    else if (idx === 2) spanClass = "col-span-1 md:col-start-3 md:col-span-1 md:row-start-2 md:row-span-1";
-                                    else if (idx === 3) spanClass = "col-span-1 md:col-start-1 md:col-span-1 md:row-start-2 md:row-span-1";
-                                    else if (idx === 4) spanClass = "col-span-1 md:col-start-2 md:col-span-1 md:row-start-2 md:row-span-1";
+                                    const filename = src.split('/').pop().split('\\').pop();
+                                    
+                                    // Final perfect mathematical mapping of sideways images:
+                                    // ITSS1, ITSS3, IDEATHON1 all point Left natively -> Need CW
+                                    const needsCW = ['ITSS3.webp', 'ITSS1.webp', 'IDEATHON1.webp'].includes(filename);
+
+                                    
+                                    // IDEATHON5 is natively upright (0 deg).
+                                    // IDEATHON4 points Right natively -> Needs CCW
+                                    const needsCCW = ['IDEATHON4.webp'].includes(filename);
+
 
                                     return (
                                         <div 
                                             key={idx} 
-                                            className={`${spanClass} rounded-xl overflow-hidden border-2 border-gray-800 shadow-[6px_6px_0px_#1a1a1a] bg-gray-900 group`}
+                                            className="rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border-[4px] border-black shadow-[8px_8px_0px_black] bg-white group break-inside-avoid relative"
                                         >
-                                            <img 
-                                                src={src} 
-                                                alt={`${activeAlbum.title} Memory ${idx + 1}`} 
-                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
-                                                loading="lazy"
-                                            />
+                                            {needsCW ? (
+                                                <div className="relative w-full aspect-[3/4]">
+                                                    <img 
+                                                        src={src} 
+                                                        alt={`${activeAlbum.title} Memory ${idx + 1}`} 
+                                                        className="absolute inset-0 w-[135%] h-[135%] -top-[17.5%] -left-[17.5%] object-cover rotate-90 transition-transform duration-700 group-hover:scale-105" 
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            ) : needsCCW ? (
+                                                <div className="relative w-full aspect-[3/4]">
+                                                    <img 
+                                                        src={src} 
+                                                        alt={`${activeAlbum.title} Memory ${idx + 1}`} 
+                                                        className="absolute inset-0 w-[135%] h-[135%] -top-[17.5%] -left-[17.5%] object-cover -rotate-90 transition-transform duration-700 group-hover:scale-105" 
+                                                        loading="lazy"
+                                                    />
+                                                </div>
+                                            ) : (
+                                                // Normal images (Horizontal group photos, naturally upright portraits, etc.)
+                                                <img 
+                                                    src={src} 
+                                                    alt={`${activeAlbum.title} Memory ${idx + 1}`} 
+                                                    className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105 block" 
+                                                    loading="lazy"
+                                                />
+                                            )}
                                         </div>
                                     );
                                 })}
