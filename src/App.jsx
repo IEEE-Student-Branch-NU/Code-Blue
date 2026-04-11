@@ -14,6 +14,7 @@ import VoucherVerifier from './pages/VoucherVerifier'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const Carnival = React.lazy(() => import('./pages/Carnival'))
+const CarnivalGallery = React.lazy(() => import('./pages/CarnivalGallery'))
 const EventDetails = React.lazy(() => import('./pages/EventDetails'))
 
 const menuItems = [
@@ -37,9 +38,15 @@ const App = () => {
   const menuRef = useRef(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
+  const targetPathRef = useRef('/carnival');
+
   useEffect(() => {
-    const handleTransition = () => {
-      // Functional update ensuring we only trigger if not already active
+    const handleTransition = (e) => {
+      if (e.detail && e.detail.path) {
+        targetPathRef.current = e.detail.path;
+      } else {
+        targetPathRef.current = '/carnival';
+      }
       setIsTransitioning(prev => {
         if (!prev) return true;
         return prev;
@@ -50,7 +57,7 @@ const App = () => {
   }, []);
 
   const handleGateClosed = useCallback(() => {
-    navigate('/carnival');
+    navigate(targetPathRef.current);
   }, [navigate]);
 
   const handleComplete = useCallback(() => {
@@ -102,6 +109,11 @@ const App = () => {
             <Route path="/carnival" element={
               <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
                 <Carnival />
+              </Suspense>
+            } />
+            <Route path="/carnival-gallery" element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
+                <CarnivalGallery />
               </Suspense>
             } />
             <Route path="/carnival/:eventId" element={

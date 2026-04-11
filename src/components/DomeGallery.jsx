@@ -157,7 +157,20 @@ export default function DomeGallery({
     document.body.classList.remove('dg-scroll-lock');
   }, []);
 
-  const items = useMemo(() => buildItems(images, segments), [images, segments]);
+  const items = useMemo(() => {
+    const arr = buildItems(images, segments);
+    let closestIndex = 0;
+    let minDist = Infinity;
+    arr.forEach((it, i) => {
+      const dist = it.x * it.x + it.y * it.y;
+      if (dist < minDist) {
+        minDist = dist;
+        closestIndex = i;
+      }
+    });
+    arr[closestIndex].isCarnivalButton = true;
+    return arr;
+  }, [images, segments]);
 
   const applyTransform = (xDeg, yDeg) => {
     const el = sphereRef.current;
@@ -564,6 +577,10 @@ export default function DomeGallery({
       if (movedRef.current) return;
       if (performance.now() - lastDragEndAt.current < 80) return;
       if (openingRef.current) return;
+      if (e.currentTarget.dataset.isCarnival === 'true') {
+        window.dispatchEvent(new CustomEvent('start-carnival-transition', { detail: { path: '/carnival-gallery' } }));
+        return;
+      }
       openItemFromElement(e.currentTarget);
     },
     [openItemFromElement]
@@ -576,6 +593,10 @@ export default function DomeGallery({
       if (movedRef.current) return;
       if (performance.now() - lastDragEndAt.current < 80) return;
       if (openingRef.current) return;
+      if (e.currentTarget.dataset.isCarnival === 'true') {
+        window.dispatchEvent(new CustomEvent('start-carnival-transition', { detail: { path: '/carnival-gallery' } }));
+        return;
+      }
       openItemFromElement(e.currentTarget);
     },
     [openItemFromElement]
@@ -623,11 +644,30 @@ export default function DomeGallery({
                   className="item__image"
                   role="button"
                   tabIndex={0}
-                  aria-label={it.alt || 'Open image'}
+                  data-is-carnival={it.isCarnivalButton ? 'true' : 'false'}
+                  aria-label={it.isCarnivalButton ? 'Carnival' : (it.alt || 'Open image')}
                   onClick={onTileClick}
                   onPointerUp={onTilePointerUp}
+                  style={it.isCarnivalButton ? {
+                    backgroundColor: '#ff69b4',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: 'inset 0 0 50px rgba(255,20,147,0.8)'
+                  } : undefined}
                 >
-                  <img src={it.src} draggable={false} alt={it.alt} />
+                  {it.isCarnivalButton ? (
+                     <span style={{
+                         fontWeight: '900',
+                         fontSize: '2rem',
+                         color: '#fff',
+                         textTransform: 'uppercase',
+                         letterSpacing: '2px',
+                         fontFamily: 'system-ui, -apple-system, sans-serif'
+                     }}>Carnival</span>
+                  ) : (
+                    <img src={it.src} draggable={false} alt={it.alt} />
+                  )}
                 </div>
               </div>
             ))}
