@@ -21,6 +21,7 @@ const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Join Us", link: "/join-us" },
+  { label: "Carnival", link: "/carnival" },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
@@ -94,7 +95,7 @@ const App = () => {
       <div style={{ position: 'relative', zIndex: 1 }}>
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home isPageTransitioning={isTransitioning} />} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/board-members" element={<BoardMembers />} />

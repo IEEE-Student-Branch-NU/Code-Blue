@@ -1,20 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import GridScan from '../components/GridScan'
+import GridDistortion from '../components/GridDistortion'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
-import CarnivalEntrance from '../components/CarnivalEntrance'
-import CarnivalQuiz from '../components/CarnivalQuiz'
-import { motion, AnimatePresence } from 'framer-motion'
-
-
-
-
-
-
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -117,29 +108,20 @@ const cardStyles = {
     }
 }
 
-const Home = ({ isPageTransitioning }) => {
+const Home = () => {
     const cardsRef = useRef([])
-    
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
-    const [gridScanHeight, setGridScanHeight] = React.useState(
-        window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
-    )
 
     useEffect(() => {
         const handleResize = () => {
             setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
             setIsDesktop(window.innerWidth >= 1024);
-            setGridScanHeight(
-                window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
-            );
         };
         window.addEventListener('resize', handleResize);
 
         // Initial setup
         handleResize();
-
-
 
         cardsRef.current.forEach((card) => {
 
@@ -174,29 +156,26 @@ const Home = ({ isPageTransitioning }) => {
     }, [])
 
     return (
-        <motion.div 
-            initial={{ opacity: 1, scale: 1 }}
-            className="relative z-10"
-            style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}
-        >
-            {/* 1. IEEE CARNIVAL ENTRANCE */}
-            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
-                <GridScan
-                    sensitivity={0.5}
-                    lineThickness={1}
-                    linesColor="#1a0033"
-                    gridScale={0.1}
-                    scanColor="#FF00F5"
-                    scanOpacity={0.5}
-                    enablePost={!isPageTransitioning}
-                    bloomIntensity={0.9}
-                    chromaticAberration={0.002}
-                    noiseIntensity={0.015}
+        <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
+
+            {/* GridDistortion Hero Section */}
+            <div style={{
+                position: 'relative',
+                zIndex: 1,
+                width: '100%',
+                height: '100dvh',
+                overflow: 'hidden',
+            }}>
+                <GridDistortion
+                    imageSrc="/hero.webp"
+                    grid={20}
+                    mouse={0.15}
+                    strength={0.1}
+                    relaxation={0.9}
                 />
-                <CarnivalEntrance />
             </div>
 
-            {/* 2. Combined Grid Section */}
+            {/* Combined Grid Section */}
             <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden' }}>
                 {/* Section Background */}
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
@@ -276,7 +255,7 @@ const Home = ({ isPageTransitioning }) => {
                 </div>
             </div>
 
-            {/* 3. Scroll Velocity Section */}
+            {/* Scroll Velocity Section */}
             <div style={{ padding: '60px 0 20px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
@@ -288,16 +267,16 @@ const Home = ({ isPageTransitioning }) => {
                 />
             </div>
 
-            {/* 4. Sub-Chapters Section */}
+            {/* Sub-Chapters Section */}
             <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden', paddingBottom: '80px', paddingTop: '40px' }}>
                 {/* Section Background (Same as top section) */}
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
                     <Squares
                         direction="diagonal"
                         speed={0.15}
-                        borderColor="rgba(214, 86, 246, 0.15)"
+                        borderColor="#333"
                         squareSize={40}
-                        hoverFillColor="rgba(214, 86, 246, 0.08)"
+                        hoverFillColor="#111"
                     />
                 </div>
 
@@ -342,7 +321,7 @@ const Home = ({ isPageTransitioning }) => {
                 </div>
             </div>
 
-            {/* 5. Final Scroll Velocity Section */}
+            {/* Final Scroll Velocity Section */}
             <div style={{ padding: '0 0 60px 0', backgroundColor: '#000' }}>
                 <ScrollVelocity
                     texts={[
@@ -355,8 +334,8 @@ const Home = ({ isPageTransitioning }) => {
             </div>
 
             <Footer />
-        </motion.div>
-    );
-};
+        </div>
+    )
+}
 
 export default Home
