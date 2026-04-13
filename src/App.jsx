@@ -10,18 +10,15 @@ import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
 import CyberGateTransition from './components/CyberGateTransition'
-import VoucherVerifier from './pages/VoucherVerifier'
+import NotFound from './pages/NotFound'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
-const Carnival = React.lazy(() => import('./pages/Carnival'))
 const CarnivalGallery = React.lazy(() => import('./pages/CarnivalGallery'))
-const EventDetails = React.lazy(() => import('./pages/EventDetails'))
 
 const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
   { label: "Join Us", link: "/join-us" },
-  { label: "Carnival", link: "/carnival" },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
   { label: "Gallery", link: "/gallery" },
@@ -38,14 +35,14 @@ const App = () => {
   const menuRef = useRef(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
-  const targetPathRef = useRef('/carnival');
+  const targetPathRef = useRef('/carnival-gallery');
 
   useEffect(() => {
     const handleTransition = (e) => {
       if (e.detail && e.detail.path) {
         targetPathRef.current = e.detail.path;
       } else {
-        targetPathRef.current = '/carnival';
+        targetPathRef.current = '/carnival-gallery';
       }
       setIsTransitioning(prev => {
         if (!prev) return true;
@@ -106,22 +103,12 @@ const App = () => {
                 <CodeBlue />
               </Suspense>
             } />
-            <Route path="/carnival" element={
-              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
-                <Carnival />
-              </Suspense>
-            } />
             <Route path="/carnival-gallery" element={
               <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
                 <CarnivalGallery />
               </Suspense>
             } />
-            <Route path="/carnival/:eventId" element={
-              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#f5eedc' }} />}>
-                <EventDetails />
-              </Suspense>
-            } />
-            <Route path="/verifier" element={<VoucherVerifier />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </AnimatePresence>
       </div>
