@@ -146,9 +146,9 @@ const CarnivalGallery = () => {
                             transition={{ duration: 0.3 }}
                         >
                             <div className="mb-16">
-                                <Link to="/gallery" className="inline-flex items-center gap-3 bg-white hover:bg-[#FFD700] text-black font-black uppercase tracking-widest px-6 py-3 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group mb-8">
-                                    <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" strokeWidth={3} />
-                                    <span>Back to Gallery</span>
+                                <Link to="/gallery" className="inline-flex items-center gap-2 md:gap-3 bg-white hover:bg-[#FFD700] text-black font-black uppercase tracking-[0.1em] px-5 py-2.5 md:px-6 md:py-3 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group mb-8 w-fit">
+                                    <ArrowLeft size={20} className="md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" strokeWidth={3} />
+                                    <span className="text-sm md:text-base">Back to Gallery</span>
                                 </Link>
 
                                 <div className="text-center">
@@ -180,17 +180,17 @@ const CarnivalGallery = () => {
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.3 }}
                         >
-                            <div className="flex items-center gap-6 mb-12">
+                            <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-8 mb-8 md:mb-12">
                                 <button 
                                     onClick={handleBack}
-                                    className="flex items-center gap-3 bg-[#FFD700] hover:bg-[#D656F6] text-black font-black uppercase tracking-widest px-6 py-3 md:px-8 md:py-4 rounded-full border-[3px] border-black shadow-[6px_6px_0px_black] hover:shadow-[10px_10px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group"
+                                    className="flex items-center gap-2 md:gap-3 bg-[#FFD700] hover:bg-[#D656F6] text-black font-black uppercase tracking-[0.1em] px-5 py-2.5 md:px-8 md:py-4 rounded-full border-[3px] border-black shadow-[4px_4px_0px_black] md:shadow-[6px_6px_0px_black] hover:shadow-[10px_10px_0px_black] hover:-translate-y-1 active:translate-y-1 active:shadow-none transition-all group w-fit"
                                 >
-                                    <ArrowLeft size={24} className="group-hover:-translate-x-2 transition-transform" strokeWidth={3} />
-                                    <span>Back to Gallery</span>
+                                    <ArrowLeft size={20} className="md:w-6 md:h-6 group-hover:-translate-x-2 transition-transform" strokeWidth={3} />
+                                    <span className="text-sm md:text-base">Back to Gallery</span>
                                 </button>
                                 <div>
-                                    <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-[#1a1a1a]">{activeAlbum.title}</h2>
-                                    <p className="text-[#1a1a1a]/60 font-black uppercase tracking-widest mt-1 text-sm md:text-lg">{activeAlbum.subtitle}</p>
+                                    <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tighter text-[#1a1a1a] leading-tight">{activeAlbum.title}</h2>
+                                    <p className="text-[#1a1a1a]/60 font-black uppercase tracking-widest mt-1 text-xs md:text-lg">{activeAlbum.subtitle}</p>
                                 </div>
                             </div>
 
