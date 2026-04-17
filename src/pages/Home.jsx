@@ -2,18 +2,10 @@ import React, { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import GridDistortion from '../components/GridDistortion'
-import GridScan from '../components/GridScan'
 import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
-import CarnivalEntrance from '../components/CarnivalEntrance'
-
-
-
-
-
-
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -52,7 +44,8 @@ const subChapterCards = [
         title: "IEEE Intelligent Transportation Systems Society (ITSS)",
         logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
-        variant: "itss"
+        variant: "itss",
+        link: "https://ieee-itss-sbnu.vercel.app/"
     },
     {
         title: "IEEE Women in Engineering (WIE)",
@@ -67,7 +60,7 @@ const cardStyles = {
     card: {
         backgroundColor: '#111',
         border: '3px solid #fff',
-        boxShadow: '8px 8px 0px #5eb8ff',
+        boxShadow: '8px 8px 0px #00629B',
         padding: 'clamp(20px, 5vw, 40px)',
         marginBottom: '0',
         maxWidth: '100%',
@@ -103,7 +96,7 @@ const cardStyles = {
         textTransform: 'uppercase',
         letterSpacing: '1px',
         display: 'inline-block',
-        borderBottom: '4px solid #5eb8ff',
+        borderBottom: '4px solid #00629B',
         paddingBottom: '5px',
         alignSelf: 'start'
     },
@@ -119,24 +112,16 @@ const Home = () => {
     const cardsRef = useRef([])
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
-    const [gridScanHeight, setGridScanHeight] = React.useState(
-        window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
-    )
 
     useEffect(() => {
         const handleResize = () => {
             setGridCols(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))');
             setIsDesktop(window.innerWidth >= 1024);
-            setGridScanHeight(
-                window.innerWidth >= 1024 ? '100vh' : window.innerWidth >= 640 ? '600px' : '100vh'
-            );
         };
         window.addEventListener('resize', handleResize);
 
         // Initial setup
         handleResize();
-
-
 
         cardsRef.current.forEach((card) => {
 
@@ -268,23 +253,6 @@ const Home = () => {
                         </p>
                     </div>
                 </div>
-            </div>
-
-            {/* GridScan + Carnival Entrance Section */}
-            <div style={{ width: '100%', height: gridScanHeight, position: 'relative' }}>
-                <GridScan
-                    sensitivity={0.55}
-                    lineThickness={1}
-                    linesColor="#392e4e"
-                    gridScale={0.1}
-                    scanColor="#FF9FFC"
-                    scanOpacity={0.4}
-                    enablePost
-                    bloomIntensity={0.6}
-                    chromaticAberration={0.002}
-                    noiseIntensity={0.01}
-                />
-                <CarnivalEntrance />
             </div>
 
             {/* Scroll Velocity Section */}
