@@ -35,16 +35,6 @@ const boardMembers = [
         }
     },
     {
-        id: 4,
-        name: "Anushka Singh",
-        role: "General Secretary",
-        image: "/Board/Anushka Singh.webp",
-        description: "Overseeing general administration and coordinating between various departments.",
-        socials: {
-            linkedin: "https://www.linkedin.com/in/anushka-singh-893932299/"
-        }
-    },
-    {
         id: 5,
         name: "Tanay Vora",
         role: "Joint Secretary",
@@ -277,14 +267,14 @@ const SectionHeader = ({ title }) => (
 
 const BoardMembers = () => {
     const administrativeBoard = boardMembers.slice(0, 3);
-    const secretaries = boardMembers.slice(3, 5);
-    const coreCommittee = boardMembers.slice(5, 7);
-    const technicalHeads = boardMembers.slice(7, 10);
-    const socialMediaHeads = boardMembers.slice(10, 12);
-    const creativeHeads = boardMembers.slice(12, 15);
-    const editorialHeads = boardMembers.slice(15, 17);
-    const studentReps = boardMembers.slice(17, 19);
-    const membershipSponsorship = boardMembers.slice(19);
+    const secretaries = boardMembers.slice(3, 4);
+    const coreCommittee = boardMembers.slice(4, 6);
+    const technicalHeads = boardMembers.slice(6, 9);
+    const socialMediaHeads = boardMembers.slice(9, 11);
+    const creativeHeads = boardMembers.slice(11, 14);
+    const editorialHeads = boardMembers.slice(14, 16);
+    const studentReps = boardMembers.slice(16, 18);
+    const membershipSponsorship = boardMembers.slice(18);
 
     return (
         <div className="brutalist-page">
