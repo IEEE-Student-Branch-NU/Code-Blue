@@ -1,0 +1,149 @@
+/* ─── Join campaign banner — inline block for the Join Us page ──── */
+
+.join-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    background: #111;
+    border: 3px solid #fff;
+    box-shadow: 8px 8px 0px #5eb8ff;
+    border-radius: 0;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    margin: clamp(2rem, 5vw, 3rem) 0;
+}
+
+.join-banner__text {
+    flex: 1;
+    min-width: 0;
+}
+
+.join-banner__tag {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.65rem, 1.2vw, 0.8rem);
+    color: #5eb8ff;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0 0 0.85rem;
+}
+
+.join-banner__title {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.95;
+    color: #fff;
+    margin: 0;
+}
+
+.join-banner__title span {
+    color: #5eb8ff;
+}
+
+/* Same scope trace as the popup — one campaign, one motif */
+.join-banner__trace {
+    display: block;
+    width: min(100%, 320px);
+    height: 26px;
+    margin: 1rem 0;
+    overflow: visible;
+}
+
+.join-banner__trace path {
+    fill: none;
+    stroke: #5eb8ff;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    filter: drop-shadow(0 0 5px rgba(94, 184, 255, 0.55));
+}
+
+.join-banner__body {
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.65;
+    color: #aaa;
+    font-weight: 500;
+    max-width: 560px;
+    margin: 0;
+}
+
+.join-banner__deadline {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(0.7rem, 1.2vw, 0.8rem);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5eb8ff;
+    margin-top: 0.75rem;
+}
+
+/* ── Apply — matches the page's existing button language ────────── */
+.join-banner__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.7rem;
+    flex-shrink: 0;
+    padding: clamp(1rem, 2vw, 1.3rem) clamp(1.75rem, 3vw, 2.5rem);
+    background: #000;
+    border: 3px solid #fff;
+    box-shadow: 4px 4px 0px #5eb8ff;
+    color: #fff;
+    font-weight: 900;
+    font-size: clamp(0.85rem, 1.4vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.join-banner__cta:hover {
+    border-color: #5eb8ff;
+    color: #5eb8ff;
+    box-shadow: 8px 8px 0px #5eb8ff;
+    transform: translate(-3px, -3px);
+}
+
+.join-banner__cta:focus-visible {
+    outline: 2px solid #5eb8ff;
+    outline-offset: 3px;
+}
+
+.join-banner__cta svg {
+    transition: transform 0.2s ease;
+}
+
+.join-banner__cta:hover svg {
+    transform: translateX(4px);
+}
+
+/* ── Stack on narrow screens ────────────────────────────────────── */
+@media (max-width: 900px) {
+    .join-banner {
+        flex-direction: column;
+        align-items: stretch;
+        box-shadow: 6px 6px 0px #5eb8ff;
+    }
+
+    .join-banner__cta {
+        width: 100%;
+    }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+    .join-banner__cta,
+    .join-banner__cta svg {
+        transition: none;
+    }
+
+    .join-banner__cta:hover {
+        transform: none;
+    }
+
+    .join-banner__trace path {
+        filter: none;
+    }
+}

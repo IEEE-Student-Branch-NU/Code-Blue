@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Footer from './Footer';
 import Squares from '../components/Backgrounds/Squares/Squares';
+import JoinCampaignBanner from '../components/JoinCampaignBanner';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -249,6 +250,9 @@ const JoinUs = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* ── Student Branch Application (campaign-limited) ── */}
+                <JoinCampaignBanner />
 
                 {/* ── Benefits Grid ─────────────────────────────── */}
                 <div className="py-12 md:py-20 border-t border-white/20">

@@ -6,6 +6,7 @@ import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
+import RecruitmentPopup from '../components/RecruitmentPopup'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -334,6 +335,8 @@ const Home = () => {
             </div>
 
             <Footer />
+
+            <RecruitmentPopup />
         </div>
     )
 }

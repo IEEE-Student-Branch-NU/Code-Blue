@@ -1,0 +1,179 @@
+/* ─── Join popup — top-right card with a signal-trace signature ─── */
+
+.recruit-popup {
+    position: fixed;
+    /* clears the StaggeredMenu toggle, which sits at top/right 2em */
+    top: 7rem;
+    right: 2rem;
+    z-index: 50;
+    width: 340px;
+    max-width: calc(100vw - 4rem);
+    background: #111;
+    border: 3px solid #fff;
+    box-shadow: 8px 8px 0px #5eb8ff;
+    border-radius: 0;
+    padding: 1.75rem 1.5rem 1.5rem;
+    /* GSAP drives the entrance; start hidden so there is no flash */
+    opacity: 0;
+}
+
+/* ── Close ──────────────────────────────────────────────────────── */
+.recruit-popup__close {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #111;
+    border: 3px solid #fff;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+    transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.recruit-popup__close:hover {
+    background: #5eb8ff;
+    border-color: #5eb8ff;
+    color: #000;
+}
+
+.recruit-popup__close:focus-visible,
+.recruit-popup__cta:focus-visible {
+    outline: 2px solid #5eb8ff;
+    outline-offset: 3px;
+}
+
+/* ── Eyebrow ────────────────────────────────────────────────────── */
+.recruit-popup__tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem;
+    color: #5eb8ff;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin: 0 0 0.85rem;
+}
+
+/* ── Heading ────────────────────────────────────────────────────── */
+.recruit-popup__title {
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.035em;
+    line-height: 0.92;
+    color: #fff;
+    margin: 0;
+}
+
+.recruit-popup__title span {
+    color: #5eb8ff;
+}
+
+/* ── Signature: oscilloscope trace (replaces the usual divider) ─── */
+.recruit-popup__trace {
+    display: block;
+    width: 100%;
+    height: 28px;
+    margin: 0.9rem 0 1rem;
+    overflow: visible;
+}
+
+.recruit-popup__trace path {
+    fill: none;
+    stroke: #5eb8ff;
+    stroke-width: 2;
+    stroke-linecap: square;
+    stroke-linejoin: miter;
+    filter: drop-shadow(0 0 5px rgba(94, 184, 255, 0.55));
+}
+
+/* ── Body ───────────────────────────────────────────────────────── */
+.recruit-popup__body {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: #aaa;
+    font-weight: 500;
+    margin: 0 0 1.25rem;
+}
+
+.recruit-popup__deadline {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #5eb8ff;
+    margin-top: 0.6rem;
+}
+
+/* ── Apply — mirrors the JoinUs page button ─────────────────────── */
+.recruit-popup__cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: #000;
+    border: 3px solid #fff;
+    box-shadow: 4px 4px 0px #5eb8ff;
+    color: #fff;
+    font-weight: 900;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.recruit-popup__cta:hover {
+    border-color: #5eb8ff;
+    color: #5eb8ff;
+    box-shadow: 8px 8px 0px #5eb8ff;
+    transform: translate(-3px, -3px);
+}
+
+.recruit-popup__cta svg {
+    transition: transform 0.2s ease;
+}
+
+.recruit-popup__cta:hover svg {
+    transform: translateX(4px);
+}
+
+/* ── Mobile: strip under the header ─────────────────────────────── */
+@media (max-width: 640px) {
+    .recruit-popup {
+        top: 6rem;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+        max-width: none;
+        padding: 1.5rem 1.25rem 1.25rem;
+        box-shadow: 6px 6px 0px #5eb8ff;
+    }
+
+    .recruit-popup__title {
+        font-size: 1.7rem;
+    }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+    .recruit-popup__cta,
+    .recruit-popup__cta svg {
+        transition: none;
+    }
+
+    .recruit-popup__cta:hover {
+        transform: none;
+    }
+
+    .recruit-popup__trace path {
+        filter: none;
+    }
+}
