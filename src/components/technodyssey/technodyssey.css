@@ -1,0 +1,721 @@
+/* ─── Technodyssey hero ───────────────────────────────────────────
+ * Palette is fixed here rather than inherited: this section is a
+ * different place from the rest of the site and shares nothing with it.
+ * ---------------------------------------------------------------- */
+
+.td {
+    --void: #05070d;
+    --navy: #0b132b;
+    --ivory: #f7f4ee;
+    --gold: #e4b55d;
+    --neb: #76a8ff;
+    --mute: rgba(247, 244, 238, 0.44);
+    --hair: rgba(247, 244, 238, 0.14);
+
+    position: relative;
+    width: 100%;
+    min-height: 100dvh;
+    overflow: hidden;
+    background: var(--void);
+    color: var(--ivory);
+    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
+}
+
+/* ── the anomaly ────────────────────────────────────────────────── */
+.td__field {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.td-anomaly {
+    position: absolute;
+    inset: 0;
+}
+
+.td-anomaly canvas,
+.td__field canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* ── frame ──────────────────────────────────────────────────────── */
+.td__frame {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    padding: clamp(1.3rem, 3vh, 2.2rem) clamp(1.2rem, 5vw, 4.5rem) clamp(1.4rem, 3vh, 2.2rem);
+    pointer-events: none;
+}
+
+.td__frame a,
+.td__frame button {
+    pointer-events: auto;
+}
+
+/* Nothing exists until the hole does. */
+.td [data-late] {
+    opacity: 0;
+}
+
+.td__mark {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.td__mark img {
+    width: clamp(26px, 4.6vw, 32px);
+    height: auto;
+    filter: brightness(1.8) saturate(0.8);
+}
+
+.td__mark strong {
+    display: block;
+    font-size: clamp(0.72rem, 1.9vw, 0.84rem);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.td__mark em {
+    display: block;
+    font-style: normal;
+    font-size: clamp(0.47rem, 1.3vw, 0.56rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+/* ── the composition: type low-left, instruments right ──────────── */
+.td__lower {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.95fr);
+    align-items: end;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    margin-top: auto;
+    padding-bottom: clamp(1rem, 3vh, 2rem);
+}
+
+.td__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin: 0 0 clamp(0.9rem, 2vh, 1.4rem);
+    font-size: clamp(0.5rem, 1.35vw, 0.62rem);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.td__eyebrow span {
+    width: clamp(22px, 4vw, 46px);
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* ── title ──────────────────────────────────────────────────────── */
+.td-title {
+    position: relative;
+    padding-bottom: clamp(1rem, 3.4vw, 3.2rem);
+}
+
+.td-title__dust {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.td-title__probe {
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* In flow, so the heading is as tall as the letters actually are —
+   absolutely positioning this made the box shorter than the glyphs and
+   clipped every descender. */
+.td-title__word {
+    display: flex;
+    align-items: baseline;
+    white-space: nowrap;
+}
+
+/* Each letter carries a slice of one gradient, set from JS, and is
+   free to be displaced without dragging the others. */
+.td-title__glyph {
+    display: inline-block;
+    /* first layer is the travelling highlight, second the letter's
+       slice of one gradient laid across the whole word; both are
+       positioned from JS */
+    background-image:
+        linear-gradient(100deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.72) 50%,
+            rgba(255, 255, 255, 0) 100%),
+        linear-gradient(168deg,
+            #ffffff 0%,
+            #f7f4ee 42%,
+            #f0dcb4 74%,
+            #e4b55d 100%);
+    background-repeat: no-repeat, no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    will-change: transform;
+    transition: none;
+}
+
+.td-title__text {
+    position: relative;
+    margin: 0;
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
+    font-weight: 500;
+    font-size: clamp(2.1rem, 7vw, 7rem);
+    line-height: 1.04;
+    letter-spacing: -0.012em;
+    white-space: nowrap;
+
+    color: transparent;
+
+    /* Held back until the dust has finished doing its job. */
+    opacity: 0;
+    transition: opacity 1.1s ease;
+}
+
+.td-title__text.is-live {
+    opacity: 1;
+}
+
+.td__year {
+    margin: clamp(0.2rem, 0.8vh, 0.5rem) 0 0;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.62rem, 1.7vw, 0.78rem);
+    letter-spacing: 0.62em;
+    text-indent: 0.62em;
+    color: var(--gold);
+}
+
+/* ── launch control ─────────────────────────────────────────────
+   Three layers: a rotating filament in the border channel, a glass
+   face over it, and a light that sweeps the face when armed. */
+.td__launch {
+    position: relative;
+    display: inline-block;
+    margin-top: clamp(1.4rem, 3.4vh, 2.2rem);
+    padding: 1px;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    isolation: isolate;
+    /* clips the filament, which is a rotating square much larger than
+       the control — without this it sweeps the whole corner */
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* The filament. Idles as a dim seam and lights the whole channel when
+   the control is armed. */
+.td__launch-ring {
+    position: absolute;
+    /* square and oversized: a conic gradient can only spin cleanly
+       about its own centre, and a rotated rectangle would leave its
+       own box on every quarter turn */
+    top: 50%;
+    left: 50%;
+    width: 260%;
+    aspect-ratio: 1;
+    background: conic-gradient(from 0deg,
+            rgba(228, 181, 93, 0.16) 0deg,
+            rgba(228, 181, 93, 0.16) 232deg,
+            var(--gold) 318deg,
+            #fff4dc 344deg,
+            var(--gold) 356deg,
+            rgba(228, 181, 93, 0.16) 360deg);
+    opacity: 0.55;
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease;
+    animation: td-orbit 5.5s linear infinite;
+}
+
+.td__launch:hover .td__launch-ring,
+.td__launch:focus-visible .td__launch-ring {
+    opacity: 1;
+    animation-duration: 1.9s;
+}
+
+@keyframes td-orbit {
+    from {
+        transform: translate(-50%, -50%) rotate(0turn);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(1turn);
+    }
+}
+
+.td__launch-face {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    overflow: hidden;
+    padding: clamp(0.95rem, 2.1vh, 1.2rem) clamp(1.6rem, 3.8vw, 2.4rem);
+    background:
+        linear-gradient(163deg, rgba(247, 244, 238, 0.09), rgba(247, 244, 238, 0) 44%),
+        #05070d;
+    font-size: clamp(0.64rem, 1.7vw, 0.76rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ivory);
+    transition: letter-spacing 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+        color 0.4s ease;
+}
+
+.td__launch:hover .td__launch-face {
+    letter-spacing: 0.28em;
+    color: #fff6e6;
+}
+
+/* The sweep. Crosses the face once each time the control is armed. */
+.td__launch-face::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -60%;
+    width: 45%;
+    background: linear-gradient(100deg,
+            transparent,
+            rgba(255, 240, 214, 0.24),
+            transparent);
+    transform: skewX(-18deg);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.td__launch:hover .td__launch-face::after {
+    animation: td-sweep 1.15s cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+@keyframes td-sweep {
+    0% {
+        left: -60%;
+        opacity: 0;
+    }
+
+    12% {
+        opacity: 1;
+    }
+
+    88% {
+        opacity: 1;
+    }
+
+    100% {
+        left: 115%;
+        opacity: 0;
+    }
+}
+
+/* The authorisation lamp — breathing while idle, solid once armed. */
+.td__launch-key {
+    position: relative;
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: td-key 3.4s ease-in-out infinite;
+}
+
+.td__launch-key::before {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1px solid rgba(228, 181, 93, 0.55);
+    opacity: 0;
+}
+
+.td__launch:hover .td__launch-key {
+    animation: none;
+    box-shadow: 0 0 12px 1px rgba(228, 181, 93, 0.85);
+}
+
+/* One ring leaving the lamp, the moment it is armed. */
+.td__launch:hover .td__launch-key::before {
+    animation: td-key-ring 1.4s ease-out infinite;
+}
+
+@keyframes td-key {
+
+    0%,
+    100% {
+        opacity: 0.55;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes td-key-ring {
+    0% {
+        transform: scale(0.6);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+}
+
+.td__launch:active .td__launch-face {
+    background:
+        linear-gradient(163deg, rgba(247, 244, 238, 0.18), rgba(247, 244, 238, 0) 44%),
+        #0b0f1c;
+}
+
+/* ── instruments ────────────────────────────────────────────────── */
+.td__aside {
+    display: flex;
+    flex-direction: column;
+    /* stretch, not flex-end: the entrance wrappers are flex children
+       and would otherwise shrink to their content, taking the clock
+       down to min-content with them */
+    align-items: stretch;
+    gap: clamp(1.2rem, 3vh, 2rem);
+}
+
+.td__aside > * {
+    width: 100%;
+}
+
+.td-clock {
+    width: 100%;
+    max-width: 420px;
+    min-width: 0;
+}
+
+.td-clock__head {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin-bottom: 0.6rem;
+    font-size: clamp(0.46rem, 1.2vw, 0.55rem);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.td-clock__led {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: td-led 1s steps(1) infinite;
+}
+
+@keyframes td-led {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0.18;
+    }
+}
+
+.td-clock__sign {
+    margin-left: auto;
+    font-family: 'Space Mono', monospace;
+    color: var(--gold);
+}
+
+.td-clock__row {
+    display: flex;
+    gap: clamp(0.4rem, 1.2vw, 0.7rem);
+}
+
+/* Days carries three glyphs, so it earns proportionally more room. */
+.td-cell {
+    flex: 1;
+}
+
+.td-cell:first-child {
+    flex: 1.45;
+}
+
+/* Glass over a machined housing. */
+.td-cell__glass {
+    display: flex;
+    gap: 2px;
+    padding: 0.4rem;
+    border: 1px solid var(--hair);
+    border-radius: 3px;
+    background:
+        linear-gradient(180deg, rgba(247, 244, 238, 0.07), rgba(247, 244, 238, 0) 40%),
+        rgba(8, 11, 22, 0.86);
+}
+
+.td-cell__label {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: clamp(0.4rem, 1.1vw, 0.48rem);
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--mute);
+    text-align: center;
+}
+
+/* ── the drum ───────────────────────────────────────────────────── */
+.td-drum {
+    position: relative;
+    flex: 1;
+    height: clamp(34px, 4.4vw, 52px);
+    overflow: hidden;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #171d31 0%, #0d1222 48%, #0a0f1c 52%, #131829 100%);
+    box-shadow: inset 0 1px 0 rgba(247, 244, 238, 0.06),
+        inset 0 -6px 10px -6px rgba(0, 0, 0, 0.9);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.9vw, 1.35rem);
+    color: var(--ivory);
+}
+
+/* Ten digits stacked; the strip rolls to the one it needs. The
+   overshoot is what turns a slide into a mechanism. */
+.td-drum__strip {
+    position: absolute;
+    inset: 0;
+    height: 1000%;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.62s cubic-bezier(0.2, 1.42, 0.4, 1);
+    will-change: transform;
+}
+
+.td-drum__strip i {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    line-height: 1;
+}
+
+/* The seam the drum turns behind. */
+.td-drum__seam {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 1px 0 rgba(247, 244, 238, 0.05);
+    pointer-events: none;
+}
+
+/* ── missions ───────────────────────────────────────────────────── */
+.td__missions {
+    width: 100%;
+    max-width: 380px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.td__missions li+li {
+    border-top: 1px solid var(--hair);
+}
+
+.td__missions a {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr auto;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.62rem 0;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.td__missions a:hover {
+    opacity: 0.62;
+}
+
+.td__mission-code {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+}
+
+.td__mission-name {
+    font-size: clamp(0.7rem, 1.75vw, 0.84rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+}
+
+.td__mission-kind {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--mute);
+    text-align: right;
+}
+
+/* ── descend ────────────────────────────────────────────────────── */
+.td__descend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    align-self: center;
+    padding: 0.4rem;
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: clamp(0.42rem, 1.2vw, 0.5rem);
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mute);
+    transition: color 0.35s ease;
+}
+
+.td__descend:hover {
+    color: var(--ivory);
+}
+
+/* A light falling down a wire — not an arrow. */
+.td__descend-line {
+    position: relative;
+    width: 1px;
+    height: clamp(30px, 5vh, 46px);
+    background: var(--hair);
+    overflow: hidden;
+}
+
+.td__descend-line::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 42%;
+    background: linear-gradient(180deg, transparent, var(--gold));
+    animation: td-descend 2.6s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes td-descend {
+    0% {
+        transform: translateY(-120%);
+    }
+
+    100% {
+        transform: translateY(280%);
+    }
+}
+
+.td-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+}
+
+.td button:focus-visible,
+.td a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 4px;
+}
+
+/* ── narrow ─────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+    .td__lower {
+        grid-template-columns: 1fr;
+        gap: clamp(1.6rem, 4vh, 2.4rem);
+    }
+
+    .td__aside {
+        align-items: stretch;
+    }
+
+    .td-clock,
+    .td__missions {
+        max-width: none;
+    }
+
+    .td__mark em {
+        display: none;
+    }
+}
+
+@media (max-width: 560px) {
+    .td-title__text {
+        font-size: clamp(2rem, 12vw, 3.4rem);
+    }
+
+    .td__mission-kind {
+        display: none;
+    }
+}
+
+/* Short landscape: let it scroll rather than crushing the frame. */
+@media (max-height: 620px) {
+
+    .td,
+    .td__frame {
+        min-height: auto;
+    }
+
+    .td__frame {
+        padding-top: 5rem;
+        padding-bottom: 3rem;
+    }
+}
+
+/* ── reduced motion ─────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+
+    .td-title__text.is-live::after,
+    .td__launch-key,
+    .td-clock__led,
+    .td__descend-line::after,
+    .td-drum__strip {
+        transition: none;
+    }
+
+    .td__launch-ring,
+    .td__launch:hover .td__launch-ring,
+    .td__launch-key,
+    .td__launch:hover .td__launch-key::before,
+    .td__launch:hover .td__launch-face::after {
+        animation: none;
+    }
+
+    .td__launch:hover .td__launch-face {
+        letter-spacing: 0.22em;
+    }
+}

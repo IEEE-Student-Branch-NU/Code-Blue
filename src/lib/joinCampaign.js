@@ -1,11 +1,13 @@
 /* ─── Join campaign — single source of truth ──────────────────────
- * Read by both the Home page popup (RecruitmentPopup) and the
+ * Read by both the Home page popup (JoinPopup) and the
  * Join Us page banner (JoinCampaignBanner). Edit here, both update.
  * When CAMPAIGN_END passes, both disappear on their own.
  * ---------------------------------------------------------------- */
 
 export const FORM_URL = 'https://forms.gle/XK3TLpRK3MjmyHw26'
-export const CAMPAIGN_END = new Date('2026-07-31T23:59:59+05:30')  // IST
+/* Runs alongside Technodyssey and retires with it — see
+ * src/lib/technodyssey.js */
+export const CAMPAIGN_END = new Date('2026-08-23T23:59:59+05:30')  // IST
 
 const DAY_MS = 86400000
 
