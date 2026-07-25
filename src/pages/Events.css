@@ -1,0 +1,736 @@
+/* ─── Events — component datasheet system ─────────────────────────
+ * Structure from a spec sheet: part number, revision, captioned
+ * figure, ruled parameter table.
+ *
+ * Materials from the rest of the site, not invented here — 3px white
+ * borders with a hard 8px 8px 0 #5eb8ff offset shadow (BoardMembers,
+ * Footer, JoinUs), Inter 900 uppercase for anything a human named,
+ * Space Mono for anything the machine knows (CosmosHero, NotFound,
+ * TechnodysseyStrip). No blur, no rounded corners, no hairlines.
+ * ---------------------------------------------------------------- */
+
+.ev-page {
+    --ev-accent: #5eb8ff;
+    --ev-rule: rgba(255, 255, 255, 0.22);
+    --ev-mono: #8b98a5;
+    --ev-value: #fff;
+
+    position: relative;
+    min-height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.ev-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+.ev-shell {
+    position: relative;
+    z-index: 1;
+    max-width: 1800px;
+    margin: 0 auto;
+    padding: clamp(6rem, 8rem, 8rem) 4vw clamp(4rem, 8vh, 6rem);
+}
+
+/* ─── Header — same measurements as the other page heroes ─────── */
+
+.ev-tag {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: var(--ev-accent);
+    font-size: clamp(0.7rem, 1vw, 1vw);
+    font-weight: 900;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.ev-title {
+    margin: 0 0 2.5rem;
+    font-size: clamp(3rem, 8vw, 8rem);
+    font-weight: 950;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    text-transform: uppercase;
+}
+
+.ev-title .accent {
+    color: var(--ev-accent);
+}
+
+.ev-lede {
+    max-width: 650px;
+    margin: 0;
+    color: #aaa;
+    font-size: clamp(1rem, 1.5vw, 1.5rem);
+    line-height: 1.6;
+}
+
+/* ─── Tabs and chips ──────────────────────────────────────────── */
+
+.ev-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin: clamp(3rem, 7vh, 5rem) 0 0;
+}
+
+.ev-tabs {
+    display: flex;
+    gap: 1rem;
+}
+
+.ev-tab {
+    padding: 0.75rem 1.75rem;
+    border: 3px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(0.72rem, 1vw, 0.85rem);
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease,
+        background-color 0.18s ease, color 0.18s ease;
+}
+
+.ev-tab:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0px var(--ev-accent);
+}
+
+.ev-tab.is-on {
+    background: var(--ev-accent);
+    border-color: var(--ev-accent);
+    color: #000;
+    box-shadow: 5px 5px 0px #fff;
+}
+
+.ev-tab.is-on:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0px #fff;
+}
+
+.ev-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.ev-chip {
+    padding: 0.45rem 1rem;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease,
+        background-color 0.18s ease, color 0.18s ease;
+}
+
+.ev-chip:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px var(--ev-accent);
+}
+
+.ev-chip.is-on {
+    background: var(--ev-accent);
+    border-color: var(--ev-accent);
+    color: #000;
+}
+
+/* The default ring vanishes against black. */
+.ev-page :is(button, a):focus-visible {
+    outline: 3px solid var(--ev-accent);
+    outline-offset: 3px;
+}
+
+/* ─── Result count ────────────────────────────────────────────── */
+
+.ev-live {
+    margin: 2rem 0;
+    padding-top: 1.25rem;
+    border-top: 2px solid var(--ev-rule);
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+/* ─── Grid ────────────────────────────────────────────────────── */
+
+.ev-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+    /* Wide enough for the 8px offset shadow to land in open space
+       rather than on the next sheet. */
+    gap: clamp(1.75rem, 3vw, 2.75rem);
+}
+
+/* ─── The sheet ───────────────────────────────────────────────── */
+
+.ev-card {
+    display: flex;
+    border: 3px solid #fff;
+    background: #000;
+    box-shadow: 8px 8px 0px var(--ev-accent);
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ev-card:hover {
+    transform: translate(-4px, -4px);
+    box-shadow: 12px 12px 0px var(--ev-accent);
+}
+
+/* Archived sheets are stated in white — they are records, not the
+   thing being advertised. */
+.ev-card.is-past {
+    box-shadow: 8px 8px 0px rgba(255, 255, 255, 0.25);
+}
+
+.ev-card.is-past:hover {
+    box-shadow: 12px 12px 0px rgba(255, 255, 255, 0.45);
+}
+
+.ev-card-btn {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ev-card-head,
+.ev-sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.7rem 1rem;
+    border-bottom: 3px solid #fff;
+}
+
+.ev-part {
+    color: var(--ev-accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+}
+
+.ev-rev {
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+}
+
+/* ─── Figure ──────────────────────────────────────────────────── */
+
+.ev-fig {
+    margin: 0;
+}
+
+.ev-fig-img,
+.ev-fig-blank {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-bottom: 3px solid #fff;
+    object-fit: cover;
+    background-color: #000;
+}
+
+.ev-fig-blank {
+    display: grid;
+    place-items: center;
+    /* Shallower than a real banner. An unpopulated figure should not
+       take up as much of the sheet as a populated one — a full-height
+       empty well reads as a failed image, a slim band reads as a field
+       nobody filled. */
+    aspect-ratio: 16 / 6;
+    /* An empty figure well ruled like graph paper, carrying the part
+       number. Better than a grey box, better than a broken image. */
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.ev-fig-blank span {
+    color: rgba(255, 255, 255, 0.4);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+}
+
+.ev-fig-cap {
+    display: block;
+    padding: 0.7rem 1rem 0;
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+}
+
+.is-past .ev-fig-img {
+    filter: grayscale(0.85) contrast(0.95);
+    opacity: 0.65;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.is-past:hover .ev-fig-img {
+    filter: grayscale(0.2) contrast(1);
+    opacity: 1;
+}
+
+/* ─── Name ────────────────────────────────────────────────────── */
+
+.ev-card-name {
+    margin: 0.5rem 0 1.1rem;
+    padding: 0 1rem;
+    font-size: clamp(1.25rem, 1.9vw, 1.65rem);
+    font-weight: 900;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+/* ─── Parameter table ─────────────────────────────────────────── */
+
+.ev-table {
+    margin: 0;
+    border-top: 2px solid var(--ev-rule);
+}
+
+.ev-row {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+}
+
+.ev-row + .ev-row {
+    border-top: 1px solid var(--ev-rule);
+}
+
+.ev-row dt {
+    padding: 0.55rem 0.7rem 0.55rem 1rem;
+    border-right: 1px solid var(--ev-rule);
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+}
+
+.ev-row dd {
+    margin: 0;
+    padding: 0.55rem 1rem;
+    color: var(--ev-value);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.72rem;
+    overflow-wrap: anywhere;
+}
+
+.is-nil {
+    color: var(--ev-mono);
+}
+
+/* ─── Card footer ─────────────────────────────────────────────── */
+
+.ev-card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding: 0.9rem 1rem;
+    border-top: 3px solid #fff;
+}
+
+.ev-pill {
+    padding: 0.3rem 0.7rem;
+    border: 2px solid var(--ev-accent);
+    color: var(--ev-accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+/* Rubber-stamped rather than labelled — the sheet is still the sheet,
+   it has just been overtaken by events. */
+.ev-stamp {
+    padding: 0.25rem 0.65rem;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    transform: rotate(-4deg);
+}
+
+.ev-more {
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    transition: color 0.22s ease, transform 0.22s ease;
+}
+
+.ev-card:hover .ev-more {
+    color: var(--ev-accent);
+    transform: translateX(4px);
+}
+
+/* ─── Empty and loading ───────────────────────────────────────── */
+
+.ev-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: clamp(2.5rem, 6vw, 4rem);
+    border: 3px dashed rgba(255, 255, 255, 0.4);
+    background: #000;
+}
+
+.ev-empty-code {
+    color: var(--ev-accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.24em;
+}
+
+.ev-empty p {
+    max-width: 44ch;
+    margin: 0;
+    color: #aaa;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.ev-skeleton {
+    display: block;
+    padding: 1rem;
+    box-shadow: 8px 8px 0px rgba(94, 184, 255, 0.25);
+}
+
+.ev-sk-head,
+.ev-sk-fig,
+.ev-sk-name,
+.ev-sk-rows {
+    background: linear-gradient(90deg,
+            rgba(255, 255, 255, 0.05) 25%,
+            rgba(255, 255, 255, 0.12) 37%,
+            rgba(255, 255, 255, 0.05) 63%);
+    background-size: 400% 100%;
+    animation: ev-shimmer 1.4s ease infinite;
+}
+
+.ev-sk-head { height: 1rem; margin-bottom: 1rem; }
+.ev-sk-fig { aspect-ratio: 16 / 10; margin-bottom: 1rem; }
+.ev-sk-name { height: 1.75rem; margin-bottom: 1rem; }
+.ev-sk-rows { height: 8rem; }
+
+@keyframes ev-shimmer {
+    0% { background-position: 100% 50%; }
+    100% { background-position: 0 50%; }
+}
+
+/* ─── Pagination ──────────────────────────────────────────────── */
+
+.ev-pager {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 3vw, 2rem);
+    margin-top: clamp(3rem, 7vh, 5rem);
+}
+
+.ev-page-btn {
+    padding: 0.7rem 1.5rem;
+    border: 3px solid #fff;
+    background: transparent;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ev-page-btn:hover:not(:disabled) {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0px var(--ev-accent);
+}
+
+.ev-page-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.ev-page-count {
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+}
+
+/* ─── Sheet 2 of 2 ────────────────────────────────────────────── */
+
+.ev-sheet-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: clamp(1rem, 4vw, 3rem);
+    background: rgba(0, 0, 0, 0.88);
+    animation: ev-fade 0.2s ease;
+}
+
+.ev-sheet {
+    width: min(58rem, 100%);
+    max-height: 86vh;
+    overflow-y: auto;
+    border: 3px solid #fff;
+    background: #000;
+    box-shadow: 12px 12px 0px var(--ev-accent);
+    animation: ev-rise 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ev-sheet-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: #000;
+}
+
+.ev-sheet-close {
+    display: grid;
+    place-items: center;
+    padding: 0.4rem;
+    border: 2px solid #fff;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.18s ease, color 0.18s ease;
+}
+
+.ev-sheet-close:hover {
+    background: var(--ev-accent);
+    border-color: var(--ev-accent);
+    color: #000;
+}
+
+.ev-sheet-body {
+    padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+
+.ev-sheet-fig {
+    margin: 0 0 1.75rem;
+}
+
+/* Contained, not cropped. The card can crop a banner to keep the grid
+   even, but this is the sheet you opened to see the thing — posters
+   carry their own titles and cropping decapitates them. */
+.ev-sheet-fig img {
+    display: block;
+    width: 100%;
+    max-height: 26rem;
+    border: 3px solid #fff;
+    background: #000;
+    object-fit: contain;
+}
+
+.ev-sheet-fig figcaption {
+    padding-top: 0.6rem;
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+}
+
+.ev-sheet-name {
+    margin: 0 0 2rem;
+    font-size: clamp(1.8rem, 4.5vw, 3.25rem);
+    font-weight: 950;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
+}
+
+.ev-sheet-cols {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: clamp(1.75rem, 4vw, 3rem);
+    align-items: start;
+}
+
+.ev-sheet-label {
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--ev-accent);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.ev-sheet-desc p {
+    margin: 0 0 2rem;
+    color: #aaa;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
+.ev-sheet-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ev-sheet-links li + li {
+    margin-top: 0.75rem;
+}
+
+.ev-sheet-links a {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.18s ease, color 0.18s ease,
+        transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ev-sheet-links a:hover {
+    background: var(--ev-accent);
+    border-color: var(--ev-accent);
+    color: #000;
+    transform: translate(-2px, -2px);
+    box-shadow: 4px 4px 0px #fff;
+}
+
+.ev-table-wide {
+    margin: 0;
+    border: 2px solid var(--ev-rule);
+}
+
+.ev-table-wide .ev-row {
+    grid-template-columns: 7rem 1fr;
+}
+
+.ev-sheet-foot {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.75rem;
+    padding: 0.9rem clamp(1.25rem, 3vw, 2.25rem);
+    border-top: 3px solid #fff;
+    color: var(--ev-mono);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+}
+
+@keyframes ev-fade {
+    from { opacity: 0; }
+}
+
+@keyframes ev-rise {
+    from { opacity: 0; transform: translateY(14px); }
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+    .ev-card {
+        box-shadow: 6px 6px 0px var(--ev-accent);
+    }
+
+    .ev-sheet {
+        box-shadow: 8px 8px 0px var(--ev-accent);
+    }
+}
+
+@media (max-width: 760px) {
+    .ev-controls {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .ev-tabs .ev-tab {
+        flex: 1;
+    }
+
+    .ev-sheet-cols {
+        grid-template-columns: 1fr;
+    }
+
+    .ev-sheet {
+        max-height: 92vh;
+    }
+
+    .ev-row {
+        grid-template-columns: 4.75rem 1fr;
+    }
+}
+
+/* ─── Reduced motion ──────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .ev-card,
+    .ev-tab,
+    .ev-chip,
+    .ev-page-btn,
+    .ev-more,
+    .ev-sheet-links a,
+    .ev-sheet-backdrop,
+    .ev-sheet,
+    .ev-sk-head,
+    .ev-sk-fig,
+    .ev-sk-name,
+    .ev-sk-rows {
+        animation: none;
+        transition: none;
+    }
+
+    .ev-card:hover,
+    .ev-tab:hover,
+    .ev-chip:hover,
+    .ev-page-btn:hover:not(:disabled),
+    .ev-sheet-links a:hover {
+        transform: none;
+    }
+}

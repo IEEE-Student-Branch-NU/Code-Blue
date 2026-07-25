@@ -8,6 +8,7 @@ import Contact from './pages/Contact'
 import Gallery from './pages/Gallery'
 import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
+import Events from './pages/Events'
 import { Analytics } from "@vercel/analytics/react"
 import CyberGateTransition from './components/CyberGateTransition'
 import NotFound from './pages/NotFound'
@@ -18,6 +19,7 @@ const CarnivalGallery = React.lazy(() => import('./pages/CarnivalGallery'))
 const menuItems = [
   { label: "Home", link: "/" },
   { label: "About", link: "/about" },
+  { label: "Events", link: "/events" },
   { label: "Join Us", link: "/join-us" },
   { label: "Contact", link: "/contact" },
   { label: "Board Members", link: "/board-members" },
@@ -98,6 +100,7 @@ const App = () => {
             <Route path="/board-members" element={<BoardMembers />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/join-us" element={<JoinUs />} />
+            <Route path="/events" element={<Events />} />
             <Route path="/code-blue" element={
               <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
                 <CodeBlue />
