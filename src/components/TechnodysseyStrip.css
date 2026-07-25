@@ -1,0 +1,130 @@
+/* ─── Technodyssey bar ────────────────────────────────────────────
+ * The hero's star and clock, reduced to a single line at the foot of
+ * every other page.
+ * ---------------------------------------------------------------- */
+
+.tdstrip {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.7rem, 2.4vw, 1.6rem);
+    height: var(--td-strip-h);
+    padding: 0 clamp(0.85rem, 3vw, 2rem);
+    background: rgba(5, 7, 15, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-top: 1px solid rgba(242, 239, 232, 0.16);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    /* GSAP drives the entrance; start hidden so there is no flash */
+    opacity: 0;
+}
+
+/* The star, shrunk to a bead. */
+.tdstrip__sun {
+    flex: none;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 32%, #fff6e4, var(--td-gold) 58%, #a9793c);
+}
+
+.tdstrip__name {
+    flex: none;
+    color: var(--td-paper);
+}
+
+.tdstrip__year {
+    color: var(--td-ash);
+}
+
+.tdstrip__date {
+    flex: none;
+    color: var(--td-ash);
+}
+
+/* Pushes the clock and the link to the far end, away from the name. */
+.tdstrip__clock {
+    margin-left: auto;
+    flex: none;
+    color: var(--td-paper);
+    font-variant-numeric: tabular-nums;
+}
+
+.tdstrip__cta {
+    flex: none;
+    padding: 0.42rem 1.05rem;
+    background: var(--td-gold);
+    color: #17130a;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tdstrip__cta:hover {
+    background: var(--td-paper);
+    color: var(--td-ink);
+}
+
+.tdstrip__close {
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: none;
+    border: 0;
+    color: var(--td-ash);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.tdstrip__close:hover {
+    color: var(--td-paper);
+}
+
+.tdstrip a:focus-visible,
+.tdstrip button:focus-visible {
+    outline: 2px solid var(--td-gold);
+    outline-offset: 3px;
+}
+
+/* ── Narrow: the date is the first thing that can go, then the
+      wordmark's year. Sun, name, clock and Register always survive. ── */
+@media (max-width: 720px) {
+    .tdstrip__date {
+        display: none;
+    }
+}
+
+@media (max-width: 460px) {
+    .tdstrip {
+        gap: 0.6rem;
+        font-size: 0.53rem;
+        letter-spacing: 0.14em;
+    }
+
+    .tdstrip__year {
+        display: none;
+    }
+
+    .tdstrip__cta {
+        padding: 0.4rem 0.7rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .tdstrip__cta,
+    .tdstrip__close {
+        transition: none;
+    }
+}

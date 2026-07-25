@@ -6,7 +6,9 @@ import ScrollVelocity from '../components/ScrollVelocity'
 import Footer from './Footer'
 import Squares from '../components/Backgrounds/Squares/Squares'
 import SubChapterCard from '../components/SubChapterCard'
-import RecruitmentPopup from '../components/RecruitmentPopup'
+import JoinPopup from '../components/JoinPopup'
+import TechnodysseyHero from '../components/technodyssey/TechnodysseyHero'
+import { isFestOver } from '../lib/technodyssey'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -46,7 +48,7 @@ const subChapterCards = [
         logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
         variant: "itss",
-        link: "https://ieee-itss-sbnu.vercel.app/"
+        link: "https://ieee-itss.vercel.app/"
     },
     {
         title: "IEEE Women in Engineering (WIE)",
@@ -111,6 +113,9 @@ const cardStyles = {
 
 const Home = () => {
     const cardsRef = useRef([])
+    /* Read once — the hero must not swap out underneath the reader if
+       FEST_END happens to pass mid-visit. */
+    const [festOver] = React.useState(isFestOver)
     const [gridCols, setGridCols] = React.useState(window.innerWidth >= 1024 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(300px, 1fr))')
     const [isDesktop, setIsDesktop] = React.useState(window.innerWidth >= 1024)
 
@@ -159,25 +164,30 @@ const Home = () => {
     return (
         <div style={{ position: 'relative', minHeight: '100vh', backgroundColor: '#000' }}>
 
-            {/* GridDistortion Hero Section */}
-            <div style={{
-                position: 'relative',
-                zIndex: 1,
-                width: '100%',
-                height: '100dvh',
-                overflow: 'hidden',
-            }}>
-                <GridDistortion
-                    imageSrc="/hero.webp"
-                    grid={20}
-                    mouse={0.15}
-                    strength={0.1}
-                    relaxation={0.9}
-                />
-            </div>
+            {/* Hero — the fest takes it over until FEST_END passes, then
+                the permanent IEEE SBNU hero returns on its own. */}
+            {festOver ? (
+                <div style={{
+                    position: 'relative',
+                    zIndex: 1,
+                    width: '100%',
+                    height: '100dvh',
+                    overflow: 'hidden',
+                }}>
+                    <GridDistortion
+                        imageSrc="/hero.webp"
+                        grid={20}
+                        mouse={0.15}
+                        strength={0.1}
+                        relaxation={0.9}
+                    />
+                </div>
+            ) : (
+                <TechnodysseyHero scrollTargetId="home-about" />
+            )}
 
             {/* Combined Grid Section */}
-            <div style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden' }}>
+            <div id="home-about" style={{ position: 'relative', backgroundColor: '#000', overflow: 'hidden' }}>
                 {/* Section Background */}
                 <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
                     <Squares
@@ -336,7 +346,10 @@ const Home = () => {
 
             <Footer />
 
-            <RecruitmentPopup />
+            {/* Branch recruitment, separate from the fest: it sits in a
+                corner the composition leaves empty, and on a phone it
+                docks to the foot rather than covering the plate. */}
+            <JoinPopup holdForHero={!festOver} />
         </div>
     )
 }

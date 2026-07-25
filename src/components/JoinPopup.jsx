@@ -7,11 +7,18 @@ import {
     openForm,
     TRACE_PATH,
 } from '../lib/joinCampaign'
-import './RecruitmentPopup.css'
+import { READY_EVENT } from './technodyssey/pulse'
+import { useAfterHero } from '../lib/useAfterHero'
+import './JoinPopup.css'
 
-/* Campaign dates and form URL live in src/lib/joinCampaign.js */
+/* Branch recruitment, not the fest — but it sits on the fest plate,
+ * so it is cut from the same material: ink panel, hairline rule, IEEE
+ * blue kept for the trace because that is the branch's own colour.
+ *
+ * Campaign dates and form URL live in src/lib/joinCampaign.js */
 const STORAGE_KEY = 'ieee-sbnu-join-2026-07'
-const SHOW_DELAY = 3500  // let the hero land first
+const SHOW_DELAY = 3500       // let the hero land first
+const HERO_FALLBACK = 15000  // if the cold open never signals, come anyway
 
 /* localStorage throws in private mode / blocked-cookie setups */
 const wasDismissed = () => {
@@ -30,7 +37,7 @@ const markDismissed = () => {
     }
 }
 
-const RecruitmentPopup = () => {
+const JoinPopup = ({ holdForHero = false }) => {
     const cardRef = useRef(null)
     const traceRef = useRef(null)
 
@@ -39,12 +46,40 @@ const RecruitmentPopup = () => {
     const [isEligible] = useState(() => isCampaignLive() && !wasDismissed())
     const [isMounted, setIsMounted] = useState(false)
 
-    /* Reveal after the delay */
+    /* A phone has one screenful and the hero needs all of it — the card
+       docks over the events and the descend cue at 360px wide. There it
+       waits until the reader has left the hero behind; on a desktop it
+       sits in a corner the composition leaves empty. */
+    const narrow = typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches
+    const pastHero = useAfterHero(holdForHero && narrow)
+
+    /* Reveal after the delay — but never on top of the hero's cold
+       open, which opens on darkness and has to stay that way. */
     useEffect(() => {
-        if (!isEligible) return
-        const timer = setTimeout(() => setIsMounted(true), SHOW_DELAY)
-        return () => clearTimeout(timer)
-    }, [isEligible])
+        if (!isEligible || !pastHero) return
+
+        if (!holdForHero) {
+            const timer = setTimeout(() => setIsMounted(true), SHOW_DELAY)
+            return () => clearTimeout(timer)
+        }
+
+        let timer = 0
+        const go = () => {
+            window.removeEventListener(READY_EVENT, go)
+            timer = setTimeout(() => setIsMounted(true), 900)
+        }
+
+        window.addEventListener(READY_EVENT, go)
+        /* If WebGL never starts, the signal never comes — so the card
+           still arrives on its own. */
+        const fallback = setTimeout(go, HERO_FALLBACK)
+
+        return () => {
+            window.removeEventListener(READY_EVENT, go)
+            clearTimeout(timer)
+            clearTimeout(fallback)
+        }
+    }, [isEligible, holdForHero, pastHero])
 
     /* Orchestrated entrance: card arrives, trace draws, content settles */
     useEffect(() => {
@@ -136,13 +171,13 @@ const RecruitmentPopup = () => {
     return (
         <div
             ref={cardRef}
-            className="recruit-popup"
+            className="join-popup"
             role="dialog"
             aria-label="Join IEEE SBNU"
             onMouseEnter={pulseTrace}
         >
             <button
-                className="recruit-popup__close"
+                className="join-popup__close"
                 onClick={dismiss}
                 aria-label="Close"
                 type="button"
@@ -150,14 +185,14 @@ const RecruitmentPopup = () => {
                 <X size={16} />
             </button>
 
-            <p className="recruit-popup__tag" data-stagger>/// Applications Open</p>
+            <p className="join-popup__tag" data-stagger>/// Applications Open</p>
 
-            <h3 className="recruit-popup__title" data-stagger>
-                Join <span>IEEE Nirma</span>
+            <h3 className="join-popup__title" data-stagger>
+                Join <span>IEEE SBNU</span>
             </h3>
 
             <svg
-                className="recruit-popup__trace"
+                className="join-popup__trace"
                 viewBox="0 0 280 28"
                 preserveAspectRatio="none"
                 aria-hidden="true"
@@ -171,14 +206,17 @@ const RecruitmentPopup = () => {
                 />
             </svg>
 
-            <p className="recruit-popup__body" data-stagger>
+            <p className="join-popup__body" data-stagger>
                 Workshops, technical projects, and a global network of 400,000
                 engineers — through the student branch at Nirma.
-                <span className="recruit-popup__deadline">{deadlineLabel()}</span>
             </p>
 
+            {/* Its own element, not a line inside the pitch: on a phone
+                the pitch is dropped and the deadline still has to run. */}
+            <p className="join-popup__deadline" data-stagger>{deadlineLabel()}</p>
+
             <button
-                className="recruit-popup__cta"
+                className="join-popup__cta"
                 onClick={apply}
                 type="button"
                 data-stagger
@@ -190,4 +228,4 @@ const RecruitmentPopup = () => {
     )
 }
 
-export default RecruitmentPopup
+export default JoinPopup

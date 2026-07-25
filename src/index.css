@@ -176,3 +176,34 @@
 .blue-text-soft {
   color: #5eb8ff;
 }
+
+/* ─── Technodyssey 2026 ───────────────────────────────────────────
+ * The fest runs its own palette, deliberately apart from the site's
+ * brutalist blue. It is an orrery — the brass model of the heavens —
+ * lit like a deep-field photograph: indigo and teal and magenta gas,
+ * one gold star, and the two events as the bodies going round it.
+ *
+ * Each event owns a colour and keeps it everywhere it appears.
+ * Shared by CosmosHero and TechnodysseyStrip.
+ * ---------------------------------------------------------------- */
+:root {
+  /* ground — one blue, three depths, so nothing reads as neon */
+  --td-ink: #02040a;
+  --td-abyss: #060b18;
+  --td-navy: #0d1832;
+  --td-glow: #1d3f68;
+
+  /* the one warm thing on the page */
+  --td-gold: #e0ab5f;
+  --td-gold-dim: #9c7743;
+
+  /* the two events, held well back from saturation */
+  --td-cs: #93b6dd;
+  --td-wie: #d9a271;
+
+  /* type, printed rather than lit */
+  --td-paper: #f2efe8;
+  --td-ash: #7e879e;
+
+  --td-strip-h: 46px;
+}
