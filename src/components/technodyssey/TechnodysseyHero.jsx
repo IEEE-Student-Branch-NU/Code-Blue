@@ -12,6 +12,7 @@ import {
 import StardustTitle from './StardustTitle'
 import LaunchClock from './LaunchClock'
 import { emitPulse, emitReady } from './pulse'
+import { field } from './field'
 import './technodyssey.css'
 
 const Anomaly = React.lazy(() => import('./Anomaly'))
@@ -60,6 +61,37 @@ const TechnodysseyHero = ({ scrollTargetId }) => {
 
         return () => ctx.revert()
     }, [assembled])
+
+    /* How far the reader has fallen toward the hole. Written straight to
+       the shared field rather than to state — this changes on every
+       scroll frame and must never re-render the page. */
+    useEffect(() => {
+        const root = rootRef.current
+        if (!root) return
+
+        let raf = 0
+        const read = () => {
+            raf = 0
+            const h = root.offsetHeight || window.innerHeight
+            field.fall = Math.min(1, Math.max(0, window.scrollY / (h * 0.85)))
+        }
+
+        /* Coalesced to one read per frame; scroll fires far more often. */
+        const onScroll = () => {
+            if (!raf) raf = requestAnimationFrame(read)
+        }
+
+        read()
+        window.addEventListener('scroll', onScroll, { passive: true })
+        window.addEventListener('resize', onScroll, { passive: true })
+
+        return () => {
+            cancelAnimationFrame(raf)
+            window.removeEventListener('scroll', onScroll)
+            window.removeEventListener('resize', onScroll)
+            field.fall = 0
+        }
+    }, [])
 
     const launch = useCallback(() => {
         /* The field answers the click before the tab opens. */

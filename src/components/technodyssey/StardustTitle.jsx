@@ -147,11 +147,34 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                    word curves around the mass instead of sliding past. */
                 const tilt = -(dx / dist) * (dy / dist) * near * 18
 
+                /* Scrolling draws the word in and stretches it along the
+                   line to the mass. That is what a tidal field does to
+                   anything falling: pulled out lengthwise, squeezed
+                   across. The letters go the way the light does. */
+                /* Reduced motion opts out of the fall as well as the drift. */
+                const fall = reduced ? 0 : field.fall
+                const drawIn = fall * fall * 34
+                const stretch = 1 + fall * 1.05
+                const squeeze = 1 - fall * 0.26
+
+                /* Rotate into the field's frame, stretch along it, rotate
+                   back — so the pull runs toward the hole at any angle,
+                   not merely down the screen. */
+                const ang = (Math.atan2(dy, dx) * 180) / Math.PI
+
                 b.n.style.transform = s
-                    ? `translate(${((dx / dist) * push * hDamp * reach).toFixed(2)}px, ${((dy / dist) * push * vGain).toFixed(2)}px) ` +
+                    ? `translate(${((dx / dist) * (push * hDamp * reach - drawIn)).toFixed(2)}px, ` +
+                      `${((dy / dist) * (push * vGain - drawIn)).toFixed(2)}px) ` +
+                      `rotate(${ang.toFixed(2)}deg) ` +
+                      `scale(${stretch.toFixed(3)}, ${squeeze.toFixed(3)}) ` +
+                      `rotate(${(-ang).toFixed(2)}deg) ` +
                       `rotate(${tilt.toFixed(2)}deg) ` +
                       `scale(${(1 + near * 0.05).toFixed(3)}, ${(1 + near * 0.13).toFixed(3)})`
                     : 'none'
+
+                b.n.style.opacity = fall > 0.55
+                    ? Math.max(0, 1 - (fall - 0.55) / 0.4).toFixed(3)
+                    : '1'
 
                 /* Two layers: the travelling highlight, then the letter's
                    own slice of the one gradient laid across the word. */

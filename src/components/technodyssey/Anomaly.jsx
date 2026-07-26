@@ -230,8 +230,12 @@ const Anomaly = ({ onFormed }) => {
                the mass changes which photons reach the camera, so the
                lensing itself shifts and the object reads as solid
                instead of as a picture of one. */
+            /* Scrolling is falling. The camera closes on the mass as the
+               reader descends, so the hole grows and its lensing tightens
+               over more of the frame — the page is going in, not away. */
+            const fall = field.fall
             const orbit = t * 0.014
-            const radius = 40.0 + breathe * 1.6
+            const radius = (40.0 + breathe * 1.6) * (1 - 0.34 * fall)
             uniforms.uCamPos.value.set(
                 Math.sin(orbit) * radius * 0.07 + driftX + mouse.x * 1.2,
                 3.35 + driftY - mouse.y * 0.7,
@@ -249,7 +253,7 @@ const Anomaly = ({ onFormed }) => {
                same field of view made it fill the screen. Widen the
                view and take the disk down: at that size the gold was
                the loudest thing on the page. */
-            uniforms.uFov.value = portrait ? 0.92 : 1.5
+            uniforms.uFov.value = (portrait ? 0.92 : 1.5) * (1.0 + 0.18 * fall)
             uniforms.uDiskGain.value = portrait ? 0.82 : 1.0
 
             /* Publish where the mass is, so the type can bend around it. */

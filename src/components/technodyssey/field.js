@@ -12,6 +12,12 @@ export const field = {
     /* 0 → flat spacetime, 1 → fully formed */
     strength: 0,
     ready: false,
+
+    /* 0 at the top of the hero, 1 once it has been scrolled past.
+     * Drives the fall: the camera moves in, the lensing tightens, and
+     * the type is drawn toward the hole and stretched along the pull.
+     * Written by the hero on scroll, read by the shader and the type. */
+    fall: 0,
 }
 
 /* Projects the hole (world origin) into screen space using the same
