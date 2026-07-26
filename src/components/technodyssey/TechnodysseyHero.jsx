@@ -54,7 +54,7 @@ const TechnodysseyHero = ({ scrollTargetId }) => {
         const ctx = gsap.context(() => {
             gsap.fromTo(items,
                 { opacity: 0, y: 22 },
-                { opacity: 1, y: 0, duration: 1.15, stagger: 0.13, ease: 'power3.out' }
+                { opacity: 1, y: 0, duration: 0.9, stagger: 0.075, ease: 'power3.out' }
             )
         }, rootRef)
 

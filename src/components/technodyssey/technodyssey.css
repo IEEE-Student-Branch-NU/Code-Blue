@@ -119,7 +119,21 @@
 /* ── title ──────────────────────────────────────────────────────── */
 .td-title {
     position: relative;
-    padding-bottom: clamp(1rem, 3.4vw, 3.2rem);
+    padding-bottom: clamp(0.5rem, 2vw, 1.9rem);
+}
+
+/* A scrim under the word rather than a shadow on it. A shadow behind
+   gradient-filled text bleeds through the antialiased edges and greys
+   the fill; darkening the disk locally leaves the colour alone. */
+.td-title::before {
+    content: '';
+    position: absolute;
+    inset: -35% -8% -20%;
+    background: radial-gradient(60% 50% at 42% 50%,
+            rgba(5, 7, 13, 0.72) 0%,
+            rgba(5, 7, 13, 0.45) 45%,
+            rgba(5, 7, 13, 0) 78%);
+    pointer-events: none;
 }
 
 .td-title__dust {
@@ -177,9 +191,17 @@
     position: relative;
     margin: 0;
     font-family: 'Bodoni Moda', Didot, Georgia, serif;
-    font-weight: 500;
+    font-weight: 600;
+    /* Bodoni's optical-size axis thins the hairlines as it climbs, and
+       at display size the tail of the y was a 1px stroke that vanished
+       against the accretion disk. Holding opsz down at a text size
+       keeps the thin strokes solid while the letterforms stay Bodoni. */
+    font-variation-settings: 'opsz' 14;
     font-size: clamp(2.1rem, 7vw, 7rem);
-    line-height: 1.04;
+    /* Bodoni's content area is 1.13em; a line-height under that makes
+       half-leading negative, and background-clip:text will not paint
+       outside the box — which silently ate the tail of the y. */
+    line-height: 1.24;
     letter-spacing: -0.012em;
     white-space: nowrap;
 
@@ -674,11 +696,29 @@
 
 @media (max-width: 560px) {
     .td-title__text {
-        font-size: clamp(2rem, 12vw, 3.4rem);
+        font-size: clamp(2rem, 13.2vw, 3.6rem);
     }
 
     .td__mission-kind {
         display: none;
+    }
+
+    /* One line, always — wrapping the venue put a ragged second line
+       directly under the mass. */
+    .td__eyebrow {
+        letter-spacing: 0.18em;
+        white-space: nowrap;
+    }
+
+    /* The year sat in the brightest part of the disk. Give it the
+       darker ground just under the name. */
+    .td__year {
+        letter-spacing: 0.44em;
+        text-indent: 0.44em;
+    }
+
+    .td__descend {
+        margin-top: clamp(0.8rem, 2.5vh, 1.6rem);
     }
 }
 
