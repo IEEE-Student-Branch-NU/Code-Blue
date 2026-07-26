@@ -23,9 +23,11 @@ const MAX_POINTS = 5200
 const HANDOFF = 0.92
 
 /* Tuned so the bend is legible as an effect and never as a problem. */
-const PULL = 13000       // px² — deflection ∝ 1/distance
-const PULL_MAX = 44      // px, hard cap
-const NEAR = 380         // px, where the tangential stretch dies off
+/* Enough to bend the word, not enough to break it apart: past roughly
+   30px the letters stop reading as one piece of type. */
+const PULL = 10500       // px² — deflection ∝ 1/distance
+const PULL_MAX = 28      // px, hard cap
+const NEAR = 340         // px, where the tangential stretch dies off
 
 const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5)
 
@@ -111,12 +113,12 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                    a bend: pushed out along the radius, stretched across
                    it, and rotated to stay square to the field — so the
                    word curves around the mass instead of sliding past. */
-                const tilt = -(dx / dist) * (dy / dist) * near * 36
+                const tilt = -(dx / dist) * (dy / dist) * near * 28
 
                 b.n.style.transform = s
                     ? `translate(${((dx / dist) * push).toFixed(2)}px, ${((dy / dist) * push).toFixed(2)}px) ` +
                       `rotate(${tilt.toFixed(2)}deg) ` +
-                      `scale(${(1 + near * 0.07).toFixed(3)}, ${(1 + near * 0.19).toFixed(3)})`
+                      `scale(${(1 + near * 0.05).toFixed(3)}, ${(1 + near * 0.13).toFixed(3)})`
                     : 'none'
 
                 /* Two layers: the travelling highlight, then the letter's
@@ -151,9 +153,12 @@ const StardustTitle = ({ text, active, onAssembled }) => {
         const ctx = canvas.getContext('2d')
         let raf = 0
         let particles = []
+        let glyphGeom = []
         let start = 0
         let dead = false
         let thinned = false
+        let retireAt = 0
+        let culled = false
         let lastDraw = 0
 
         const build = () => {
@@ -192,6 +197,37 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             }
             if (!targets.length) return false
 
+            /* Every sampled point is assigned to the letter it belongs
+               to, so the swarm can be bent by exactly the transform that
+               letter will be wearing. Landing on the flat raster and
+               then letting the type snap into its curve was the mismatch. */
+            glyphGeom = glyphsRef.current.filter(Boolean).map((n) => {
+                const prev = n.style.transform
+                n.style.transform = 'none'
+                const gr = n.getBoundingClientRect()
+                n.style.transform = prev
+                return {
+                    x0: gr.left - rect.left,
+                    x1: gr.right - rect.left,
+                    cx: gr.left - rect.left + gr.width / 2,
+                    cy: gr.top - rect.top + gr.height / 2,
+                }
+            })
+
+            const glyphAt = (x) => {
+                for (let i = 0; i < glyphGeom.length; i++) {
+                    if (x >= glyphGeom[i].x0 && x <= glyphGeom[i].x1) return i
+                }
+                /* between letters — nearest wins */
+                let best = 0
+                let bestD = Infinity
+                for (let i = 0; i < glyphGeom.length; i++) {
+                    const d = Math.abs(x - glyphGeom[i].cx)
+                    if (d < bestD) { bestD = d; best = i }
+                }
+                return best
+            }
+
             /* Thin evenly rather than truncating, so a long word keeps
                its tail. */
             const stride = Math.max(1, Math.ceil(targets.length / MAX_POINTS))
@@ -201,7 +237,7 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             const ox = field.ready ? field.x - rect.left : rect.width * 0.62
             const oy = field.ready ? field.y - rect.top : rect.height * 0.3
 
-            particles = kept.map(([tx, ty]) => {
+            particles = kept.map(([tx, ty], i) => {
                 const a = Math.random() * Math.PI * 2
                 const d = 40 + Math.random() * 420
                 return {
@@ -215,6 +251,9 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                     amp: 0.4 + Math.random() * 1.5,
                     size: Math.random() < 0.09 ? 1.7 : 1.0,
                     warm: Math.random() < 0.34,
+                    /* the ninth that stays behind as drifting dust */
+                    residue: i % 9 === 0,
+                    gi: glyphAt(tx),
                 }
             })
             return true
@@ -233,9 +272,34 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             const rect = wrap.getBoundingClientRect()
             ctx.clearRect(0, 0, rect.width, rect.height)
 
-            /* The dust is bent by the same field as the letters. */
-            const hx = field.ready ? field.x - rect.left : -9999
-            const hy = field.ready ? field.y - rect.top : -9999
+            /* Rebuild each letter's transform once per frame, using the
+               same law and the same constants the DOM letters use, so
+               the dust flies to exactly where the type will be. */
+            const s = field.ready ? field.strength : 0
+            const reach = Math.min(1, window.innerWidth / 1180)
+
+            const gt = glyphGeom.map((g) => {
+                const dx = rect.left + g.cx - field.x
+                const dy = rect.top + g.cy - field.y
+                const dist = Math.hypot(dx, dy) || 1
+
+                const push = Math.min(PULL_MAX, PULL / Math.max(dist, 110)) * s * reach
+                const near = Math.min(1, NEAR / dist) * s * reach
+                const tilt = -(dx / dist) * (dy / dist) * near * 28 * (Math.PI / 180)
+
+                return {
+                    cx: g.cx, cy: g.cy,
+                    tdx: (dx / dist) * push, tdy: (dy / dist) * push,
+                    c: Math.cos(tilt), s: Math.sin(tilt),
+                    sx: 1 + near * 0.05, sy: 1 + near * 0.13,
+                }
+            })
+
+            /* The extras leave over most of a second while the real type
+               fades up, so the two cross rather than swap. Culling them
+               in a single frame was an eight-ninths drop in ink between
+               two frames — that was the pop. */
+            const retire = thinned ? Math.max(0, 1 - (t - retireAt) / 0.95) : 1
 
             let landed = 0
 
@@ -244,38 +308,48 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                 const e = easeOutQuint(local)
                 if (local >= 1) landed++
 
-                let x = p.sx + (p.tx - p.sx) * e
-                let y = p.sy + (p.ty - p.sy) * e
+                /* The destination is the letter's bent position, not its
+                   flat one, so the swarm converges onto the curve
+                   instead of arriving straight and jumping into it. */
+                const g = gt[p.gi] || gt[0]
+                let rx = (p.tx - g.cx) * g.sx
+                let ry = (p.ty - g.cy) * g.sy
+                const bx = g.cx + (rx * g.c - ry * g.s) + g.tdx
+                const by = g.cy + (rx * g.s + ry * g.c) + g.tdy
+
+                let x = p.sx + (bx - p.sx) * e
+                let y = p.sy + (by - p.sy) * e
 
                 if (local >= 1) {
                     x += Math.sin(t * 0.55 + p.px) * p.amp
                     y += Math.cos(t * 0.42 + p.py) * p.amp * 0.7
-
-                    const dx = x - hx
-                    const dy = y - hy
-                    const dist = Math.hypot(dx, dy) || 1
-                    const push = Math.min(PULL_MAX, PULL / Math.max(dist, 110)) * field.strength
-                    x += (dx / dist) * push
-                    y += (dy / dist) * push
                 }
 
                 const alpha = local < 1
                     ? 0.25 + 0.75 * e
                     : 0.5 + 0.5 * Math.sin(t * 0.9 + p.px)
 
+                const a = p.residue ? alpha : alpha * retire
+                if (a <= 0.004) continue
+
                 ctx.fillStyle = p.warm
-                    ? `rgba(228,181,93,${(alpha * 0.9).toFixed(3)})`
-                    : `rgba(247,244,238,${alpha.toFixed(3)})`
+                    ? `rgba(228,181,93,${(a * 0.9).toFixed(3)})`
+                    : `rgba(247,244,238,${a.toFixed(3)})`
                 ctx.fillRect(x, y, p.size, p.size)
             }
 
             if (!thinned && landed / particles.length >= HANDOFF) {
                 thinned = true
+                retireAt = t
                 setHandedOff(true)
                 onAssembled?.()
-                /* The swarm has done its job; a residue is enough to
-                   keep shedding off the letterforms. */
-                particles = particles.filter((_, i) => i % 9 === 0)
+            }
+
+            /* Only once they are genuinely invisible is it safe to stop
+               paying to draw them. */
+            if (thinned && !culled && retire <= 0) {
+                culled = true
+                particles = particles.filter((q) => q.residue)
             }
         }
 

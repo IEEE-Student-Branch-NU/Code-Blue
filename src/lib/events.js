@@ -9,10 +9,10 @@
  * Atrium only ever exposes approved events here, so anything this
  * module returns is safe to render publicly.
  *
- * NOTE (2026-07-26): the endpoint currently 307-redirects to /login
- * and sends no CORS headers, so every browser call fails and the page
- * falls back to FALLBACK_EVENTS below. Two fixes are needed on the
- * Atrium side, not here — see docs/EVENTS_API_HANDOFF.md.
+ * The endpoint went live on 2026-07-26: it now answers 200 with JSON
+ * and sends `Access-Control-Allow-Origin: *`, so the page runs on real
+ * data and FALLBACK_EVENTS below is only a safety net for an outage.
+ * Both fixes asked for in docs/EVENTS_API_HANDOFF.md are done.
  * ---------------------------------------------------------------- */
 
 export const API_BASE =

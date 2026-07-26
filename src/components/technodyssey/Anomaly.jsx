@@ -78,6 +78,7 @@ const Anomaly = ({ onFormed }) => {
             uCamTarget: { value: new THREE.Vector3(2.4, -0.35, 0) },
             uFov: { value: 1.5 },
             uFormation: { value: reduced ? 1 : 0 },
+            uHorizon: { value: reduced ? 1 : 0 },
             uReveal: { value: reduced ? 1 : 0 },
             uSeed: { value: 0 },
             uDisk: { value: reduced ? 1 : 0 },
@@ -162,25 +163,34 @@ const Anomaly = ({ onFormed }) => {
         } else {
             tl = gsap.timeline()
 
-            /* Darkness holds, but only just — the pause has to register
-               without becoming a wait. */
-            tl.to(uniforms.uReveal, { value: 1, duration: 2.6, ease: 'power1.inOut' }, 0.55)
+            /* Every stage overlaps the next, and the two halves of the
+               collapse are split: spacetime starts bending before the
+               disc opens. Ramping them together meant nothing was
+               visible until both crossed a threshold at once, which is
+               what arrived as a jump. */
+
+            /* Darkness holds, then the field comes up. */
+            tl.to(uniforms.uReveal, { value: 1, duration: 3.2, ease: 'sine.inOut' }, 0.4)
 
             /* A distant point, brightening as it runs out of fuel. */
-            tl.to(uniforms.uSeed, { value: 3.1, duration: 1.5, ease: 'power2.in' }, 1.25)
+            tl.to(uniforms.uSeed, { value: 3.1, duration: 2.1, ease: 'power2.in' }, 1.0)
 
-            /* The collapse accelerates the way a collapse does: barely
-               moving, then all at once. power4.in is the whole
-               difference between a fade-in and an implosion. */
-            tl.to(uniforms.uFormation, { value: 1, duration: 2.5, ease: 'power4.in' }, 2.1)
+            /* Curvature first: the star field visibly smears and rings
+               before there is anything black to see. */
+            tl.to(uniforms.uFormation, { value: 1, duration: 3.4, ease: 'sine.inOut' }, 1.9)
 
-            /* The seed is gone the instant the horizon closes over it. */
-            tl.to(uniforms.uSeed, { value: 0, duration: 0.5, ease: 'power3.in' }, 4.05)
+            /* The disc opens into that already-bent light, a beat later
+               and gently, so it grows rather than appears. */
+            tl.to(uniforms.uHorizon, { value: 1, duration: 3.0, ease: 'power2.out' }, 2.7)
 
-            /* Then matter finds its orbits and lights. */
-            tl.to(uniforms.uDisk, { value: 1, duration: 1.9, ease: 'power2.out' }, 4.3)
+            /* The seed does not snap off — the horizon closes over it. */
+            tl.to(uniforms.uSeed, { value: 0, duration: 1.6, ease: 'sine.inOut' }, 3.5)
 
-            tl.call(() => formedRef.current?.(), null, 4.75)
+            /* Matter spirals in and lights, overlapping the last of the
+               collapse so nothing ever fully stops moving. */
+            tl.to(uniforms.uDisk, { value: 1, duration: 3.4, ease: 'power1.inOut' }, 3.6)
+
+            tl.call(() => formedRef.current?.(), null, 5.6)
         }
 
         /* ── loop ───────────────────────────────────────────────── */
@@ -211,14 +221,23 @@ const Anomaly = ({ onFormed }) => {
 
             /* The hole holds the right of the frame, so the camera is
                offset rather than the object moved off its own axis. */
+            /* A slow orbit rather than a drift in place: moving around
+               the mass changes which photons reach the camera, so the
+               lensing itself shifts and the object reads as solid
+               instead of as a picture of one. */
+            const orbit = t * 0.014
+            const radius = 40.0 + breathe * 1.6
             uniforms.uCamPos.value.set(
-                driftX + mouse.x * 1.2,
+                Math.sin(orbit) * radius * 0.07 + driftX + mouse.x * 1.2,
                 3.35 + driftY - mouse.y * 0.7,
-                40.0 + breathe * 1.6
+                Math.cos(orbit) * radius * 0.07 + radius * 0.94
             )
+            /* Portrait looks well below the mass, which lifts the hole
+               into the upper third of a phone screen. It was sitting
+               dead centre, cutting through the name and the button. */
             uniforms.uCamTarget.value.set(
-                (portrait ? 0.2 : 2.4) + mouse.x * 0.32,
-                portrait ? -0.1 : -0.35,
+                (portrait ? 0.1 : 2.4) + mouse.x * 0.32,
+                portrait ? -4.6 : -0.35,
                 0
             )
             uniforms.uFov.value = portrait ? 1.02 : 1.5

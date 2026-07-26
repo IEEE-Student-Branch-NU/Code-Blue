@@ -35,7 +35,8 @@ uniform vec3  uCamPos;
 uniform vec3  uCamTarget;
 uniform float uFov;
 
-uniform float uFormation;   // 0 → no hole, 1 → fully formed
+uniform float uFormation;   // curvature: how hard spacetime bends
+uniform float uHorizon;     // the black disc, which lags the bending
 uniform float uReveal;      // 0 → void, 1 → full star field
 uniform float uSeed;        // brightness of the pre-collapse point
 uniform float uDisk;        // accretion disk brightness
@@ -91,18 +92,24 @@ const float R_IN  = 2.7;
 const float R_OUT = 13.0;
 
 vec3 diskEmission(vec3 p, vec3 rd) {
+    /* Matter arrives from far out and spirals in, so the disk contracts
+       to its final radius as it lights rather than fading up in place. */
+    float dScale = mix(2.25, 1.0, clamp(uDisk, 0.0, 1.0));
+    float rIn = R_IN * dScale;
+    float rOut = R_OUT * dScale;
+
     /* Cheapest rejections first — most steps never touch the disk and
        must not pay for noise to find that out. */
-    if (abs(p.y) > 0.95) return vec3(0.0);
+    if (abs(p.y) > 0.95 * dScale) return vec3(0.0);
 
     float r = length(p.xz);
-    if (r < R_IN || r > R_OUT) return vec3(0.0);
+    if (r < rIn || r > rOut) return vec3(0.0);
 
-    float t = (r - R_IN) / (R_OUT - R_IN);
+    float t = (r - rIn) / (rOut - rIn);
 
     /* Thin and hot at the inner edge, flaring outward — a real disk
        is not a sheet of paper. */
-    float h = 0.15 + 0.62 * t * t;
+    float h = (0.15 + 0.62 * t * t) * dScale;
     float vert = exp(-(p.y * p.y) / (2.0 * h * h));
     if (vert < 0.006) return vec3(0.0);
 
@@ -112,7 +119,7 @@ vec3 diskEmission(vec3 p, vec3 rd) {
     float rk = max(r, 0.85);
     float w = uTime * 2.15 * inversesqrt(rk) / rk;
 
-    vec3 q = vec3(cos(ang + w), sin(ang + w), r * 0.52) * (1.5 + r * 0.3);
+    vec3 q = vec3(cos(ang + w), sin(ang + w), r * 0.52 + uTime * 0.055) * (1.5 + r * 0.3);
     float n1 = fbm2(q * 1.55);
 
     float dens = vert
@@ -136,6 +143,14 @@ vec3 diskEmission(vec3 p, vec3 rd) {
     float beta = 0.44 / sqrt(max(r, 1.0));
     float dop = 1.0 / (1.0 - beta * dot(vel, -rd));
     col *= pow(clamp(dop, 0.3, 2.8), 2.1);
+
+    /* Gravitational redshift — the deeper the emission started, the
+       more energy it loses climbing out. This is what darkens and
+       reddens the inner edge instead of it being the brightest part. */
+    float g = sqrt(max(1.0 - 1.0 / max(r, 1.02), 0.0));
+    col *= pow(g, 1.5);
+    col.b *= mix(0.62, 1.0, g);
+    col.g *= mix(0.84, 1.0, g);
 
     return col * dens * (1.05 / (1.0 + t * 4.6));
 }
@@ -201,7 +216,7 @@ void main() {
     vec3 l = cross(pos, dir);
     float h2 = dot(l, l) * uFormation;
 
-    float horizon = mix(0.04, 1.0, uFormation);
+    float horizon = mix(0.02, 1.0, uHorizon);
     float minR = 1e9;
 
     vec3 col = vec3(0.0);
