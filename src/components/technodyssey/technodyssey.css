@@ -696,7 +696,7 @@
 
 @media (max-width: 560px) {
     .td-title__text {
-        font-size: clamp(2rem, 13.2vw, 3.6rem);
+        font-size: clamp(1.85rem, 11.4vw, 3.3rem);
     }
 
     .td__mission-kind {

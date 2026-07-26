@@ -40,6 +40,7 @@ uniform float uHorizon;     // the black disc, which lags the bending
 uniform float uReveal;      // 0 → void, 1 → full star field
 uniform float uSeed;        // brightness of the pre-collapse point
 uniform float uDisk;        // accretion disk brightness
+uniform float uDiskGain;    // per-viewport trim on that brightness
 uniform float uPulse;       // ripple from the launch control
 uniform vec2  uMouse;       // -1..1, eased
 
@@ -207,14 +208,35 @@ void main() {
 
     vec3 rd = normalize(fwd * uFov + rgt * uv.x + up * uv.y);
 
-    vec3 pos = ro;
     vec3 dir = rd;
 
-    /* Angular momentum is conserved along the path, so the whole
+    /* Angular momentum is conserved along the whole path, so the
        geodesic reduces to one term. Scaled by formation so spacetime
-       is flat before the hole exists. */
-    vec3 l = cross(pos, dir);
+       is flat before the hole exists. Taken here, before the ray is
+       advanced — a straight segment does not change it. */
+    vec3 l = cross(ro, dir);
     float h2 = dot(l, l) * uFormation;
+
+    /* Everything that matters lives inside this radius; the disk
+       reaches further out while it is still contracting. */
+    float rActive = max(15.0, R_OUT * mix(2.25, 1.0, clamp(uDisk, 0.0, 1.0)) + 2.0);
+
+    /* Far from the mass spacetime is flat and the disk is absent, so
+       that stretch is a straight line with a closed-form answer. Jump
+       it. Marching it was spending a third of the step budget crossing
+       nothing, which is why a low-step device never resolved the
+       horizon at all. */
+    float b = dot(ro, dir);
+    float c = dot(ro, ro) - rActive * rActive;
+    float disc = b * b - c;
+
+    vec3 pos = ro;
+    bool enters = disc > 0.0;
+
+    if (enters) {
+        float tEnter = -b - sqrt(disc);
+        if (tEnter > 0.0) pos = ro + dir * tEnter;
+    }
 
     float horizon = mix(0.02, 1.0, uHorizon);
     float minR = 1e9;
@@ -224,19 +246,24 @@ void main() {
     bool captured = false;
 
     for (int i = 0; i < STEPS; i++) {
+        if (!enters) break;
+
         float r = length(pos);
         minR = min(minR, r);
 
         if (r < horizon) { captured = true; break; }
-        if (r > 65.0 && dot(dir, pos) > 0.0) break;
+        if (r > rActive + 4.0 && dot(dir, pos) > 0.0) break;
 
         /* Big strides out in flat space, short ones where the
            curvature actually matters. */
-        float dt = clamp(r * 0.125, 0.035, 1.7);
+        /* The long strides were only useful for crossing empty space, and
+           that is now jumped — so cap them short enough to actually
+           sample the disk instead of stepping over it. */
+        float dt = clamp(r * 0.115, 0.035, 0.9);
 
         vec3 e = diskEmission(pos, dir);
         if (e.r + e.g + e.b > 0.0) {
-            col += e * trans * dt * uDisk;
+            col += e * trans * dt * uDisk * uDiskGain;
             trans *= exp(-dt * 0.5 * length(e));
         }
 

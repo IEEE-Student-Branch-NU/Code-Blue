@@ -22,12 +22,25 @@ const SAMPLE_STEP = 4
 const MAX_POINTS = 5200
 const HANDOFF = 0.92
 
-/* Tuned so the bend is legible as an effect and never as a problem. */
-/* Enough to bend the word, not enough to break it apart: past roughly
-   30px the letters stop reading as one piece of type. */
-const PULL = 10500       // px² — deflection ∝ 1/distance
-const PULL_MAX = 28      // px, hard cap
+/* A smooth bell rather than 1/distance behind a hard cap. The cap
+   pinned most letters to the same magnitude while their directions
+   still differed, so neighbours slid into each other and the word
+   collapsed on itself — measured at 5px of overlap by the last letter.
+   This falls off continuously, so adjacent letters always move almost
+   identically and the kerning survives the bend. */
+const PULL_MAX = 26      // px at the centre of the field
+const SOFT = 300         // px, how wide the falloff is
 const NEAR = 340         // px, where the tangential stretch dies off
+
+const lensPush = (dist) => (PULL_MAX * SOFT * SOFT) / (dist * dist + SOFT * SOFT)
+
+/* The push is radial, so with the mass centred above the word the
+ * letters left of centre go left and the ones right of centre go right
+ * — the word splits down the middle. A wide screen absorbs that; a
+ * phone, where the word nearly spans the viewport, does not. So the
+ * sideways half of the displacement is damped as the screen narrows.
+ * The vertical half is untouched, and that is what carries the bow. */
+const hDampFor = (reach) => Math.min(1, Math.max(0.12, (reach - 0.3) / 0.5))
 
 const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5)
 
@@ -53,6 +66,7 @@ const StardustTitle = ({ text, active, onAssembled }) => {
         /* A phone puts the type much closer to the mass, so the same
            law would throw the letters far too far. */
         let reach = 1
+        let hDamp = 1
 
         const measure = () => {
             const nodes = glyphsRef.current.filter(Boolean)
@@ -63,6 +77,7 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             const hr = host.getBoundingClientRect()
             wordWidth = hr.width || 1
             reach = Math.min(1, window.innerWidth / 1180)
+            hDamp = hDampFor(reach)
 
             boxes = nodes.map((n) => {
                 /* Measured with the transform cleared, so a previous
@@ -106,17 +121,17 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                 /* Light bends toward the mass, so the image of a thing
                    appears pushed away from it — and stretched across
                    the pull, which is what lensing does to a shape. */
-                const push = Math.min(PULL_MAX, PULL / Math.max(dist, 110)) * s * reach
+                const push = lensPush(dist) * s * reach
                 const near = Math.min(1, NEAR / dist) * s * reach
 
                 /* Three things at once, which is what turns a shift into
                    a bend: pushed out along the radius, stretched across
                    it, and rotated to stay square to the field — so the
                    word curves around the mass instead of sliding past. */
-                const tilt = -(dx / dist) * (dy / dist) * near * 28
+                const tilt = -(dx / dist) * (dy / dist) * near * 18
 
                 b.n.style.transform = s
-                    ? `translate(${((dx / dist) * push).toFixed(2)}px, ${((dy / dist) * push).toFixed(2)}px) ` +
+                    ? `translate(${((dx / dist) * push * hDamp).toFixed(2)}px, ${((dy / dist) * push).toFixed(2)}px) ` +
                       `rotate(${tilt.toFixed(2)}deg) ` +
                       `scale(${(1 + near * 0.05).toFixed(3)}, ${(1 + near * 0.13).toFixed(3)})`
                     : 'none'
@@ -277,19 +292,20 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                the dust flies to exactly where the type will be. */
             const s = field.ready ? field.strength : 0
             const reach = Math.min(1, window.innerWidth / 1180)
+            const hDamp = hDampFor(reach)
 
             const gt = glyphGeom.map((g) => {
                 const dx = rect.left + g.cx - field.x
                 const dy = rect.top + g.cy - field.y
                 const dist = Math.hypot(dx, dy) || 1
 
-                const push = Math.min(PULL_MAX, PULL / Math.max(dist, 110)) * s * reach
+                const push = lensPush(dist) * s * reach
                 const near = Math.min(1, NEAR / dist) * s * reach
-                const tilt = -(dx / dist) * (dy / dist) * near * 28 * (Math.PI / 180)
+                const tilt = -(dx / dist) * (dy / dist) * near * 18 * (Math.PI / 180)
 
                 return {
                     cx: g.cx, cy: g.cy,
-                    tdx: (dx / dist) * push, tdy: (dy / dist) * push,
+                    tdx: (dx / dist) * push * hDamp, tdy: (dy / dist) * push,
                     c: Math.cos(tilt), s: Math.sin(tilt),
                     sx: 1 + near * 0.05, sy: 1 + near * 0.13,
                 }

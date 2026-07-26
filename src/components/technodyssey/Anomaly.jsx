@@ -33,8 +33,8 @@ const tier = () => {
        whatever this renders at, so resolution is the first thing to
        give up on a slow device. */
     return narrow || weak
-        ? { steps: 40, scale: 0.46 }
-        : { steps: 54, scale: 0.55 }
+        ? { steps: 58, scale: 0.6, cap: 1.0 }
+        : { steps: 58, scale: 0.6, cap: 1.3 }
 }
 
 const Anomaly = ({ onFormed }) => {
@@ -47,7 +47,7 @@ const Anomaly = ({ onFormed }) => {
         if (!host) return
 
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-        const { steps, scale } = tier()
+        const { steps, scale, cap } = tier()
 
         let renderer
         try {
@@ -82,6 +82,7 @@ const Anomaly = ({ onFormed }) => {
             uReveal: { value: reduced ? 1 : 0 },
             uSeed: { value: 0 },
             uDisk: { value: reduced ? 1 : 0 },
+            uDiskGain: { value: 1 },
             uPulse: { value: 0 },
             uMouse: { value: new THREE.Vector2(0, 0) },
         }
@@ -132,7 +133,11 @@ const Anomaly = ({ onFormed }) => {
         const resize = () => {
             const w = host.clientWidth || window.innerWidth
             const h = host.clientHeight || window.innerHeight
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2) * scale)
+            /* Phones ship 3x screens. Scaling off devicePixelRatio alone
+               would quietly hand a handset four times the pixels a
+               laptop gets, so the product is capped outright. */
+            const pr = Math.min(Math.min(window.devicePixelRatio || 1, 2) * scale, cap)
+            renderer.setPixelRatio(pr)
             renderer.setSize(w, h, false)
             composer.setSize(w, h)
             uniforms.uResolution.value.set(w, h)
@@ -237,10 +242,15 @@ const Anomaly = ({ onFormed }) => {
                dead centre, cutting through the name and the button. */
             uniforms.uCamTarget.value.set(
                 (portrait ? 0.1 : 2.4) + mouse.x * 0.32,
-                portrait ? -4.6 : -0.35,
+                portrait ? -5.6 : -0.35,
                 0
             )
-            uniforms.uFov.value = portrait ? 1.02 : 1.5
+            /* A phone is a narrow window on the same object, so the
+               same field of view made it fill the screen. Widen the
+               view and take the disk down: at that size the gold was
+               the loudest thing on the page. */
+            uniforms.uFov.value = portrait ? 0.92 : 1.5
+            uniforms.uDiskGain.value = portrait ? 0.82 : 1.0
 
             /* Publish where the mass is, so the type can bend around it. */
             const proj = projectHole(uniforms.uCamPos.value, uniforms.uCamTarget.value,
