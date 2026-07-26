@@ -29,18 +29,30 @@ const HANDOFF = 0.92
    This falls off continuously, so adjacent letters always move almost
    identically and the kerning survives the bend. */
 const PULL_MAX = 26      // px at the centre of the field
-const SOFT = 300         // px, how wide the falloff is
+
 const NEAR = 340         // px, where the tangential stretch dies off
 
-const lensPush = (dist) => (PULL_MAX * SOFT * SOFT) / (dist * dist + SOFT * SOFT)
+/* The falloff width has to scale with the type. Fixed at 300px it was
+ * wider than a phone's entire wordmark, so every letter sat at
+ * effectively the same field strength and the whole word shifted as one
+ * block — a translation, not a bend. Tied to the word, the field varies
+ * across it at any size and the arc reads the same on both. */
+const softFor = (wordWidth) => Math.max(105, wordWidth * 0.45)
 
-/* The push is radial, so with the mass centred above the word the
- * letters left of centre go left and the ones right of centre go right
- * — the word splits down the middle. A wide screen absorbs that; a
- * phone, where the word nearly spans the viewport, does not. So the
- * sideways half of the displacement is damped as the screen narrows.
- * The vertical half is untouched, and that is what carries the bow. */
-const hDampFor = (reach) => Math.min(1, Math.max(0.12, (reach - 0.3) / 0.5))
+const lensPush = (dist, soft) => (PULL_MAX * soft * soft) / (dist * dist + soft * soft)
+
+/* The push is radial, so with the mass above the word the letters left
+ * of centre go left and the ones right of centre go right — the word
+ * splits down the middle. A wide screen absorbs that; a phone, where the
+ * word nearly spans the viewport, does not.
+ *
+ * So the two halves are treated separately. Sideways is damped hard as
+ * the screen narrows, because that is the half that breaks kerning.
+ * Vertical is *boosted* on narrow screens instead — it cannot separate
+ * letters, and differing drop across the word is what the eye actually
+ * reads as gravity bending the type. */
+const hDampFor = (reach) => Math.min(1, Math.max(0.1, (reach - 0.3) / 0.5))
+const vGainFor = (reach) => 0.58 + 0.42 * reach
 
 const easeOutQuint = (t) => 1 - Math.pow(1 - t, 5)
 
@@ -64,9 +76,12 @@ const StardustTitle = ({ text, active, onAssembled }) => {
         let boxes = []
         let wordWidth = 1
         /* A phone puts the type much closer to the mass, so the same
-           law would throw the letters far too far. */
+           law would throw the letters far too far sideways — but it
+           wants *more* vertical drop, not less, to read as a bend. */
         let reach = 1
         let hDamp = 1
+        let vGain = 1
+        let soft = 300
 
         const measure = () => {
             const nodes = glyphsRef.current.filter(Boolean)
@@ -78,6 +93,8 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             wordWidth = hr.width || 1
             reach = Math.min(1, window.innerWidth / 1180)
             hDamp = hDampFor(reach)
+            vGain = vGainFor(reach)
+            soft = softFor(wordWidth)
 
             boxes = nodes.map((n) => {
                 /* Measured with the transform cleared, so a previous
@@ -121,8 +138,8 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                 /* Light bends toward the mass, so the image of a thing
                    appears pushed away from it — and stretched across
                    the pull, which is what lensing does to a shape. */
-                const push = lensPush(dist) * s * reach
-                const near = Math.min(1, NEAR / dist) * s * reach
+                const push = lensPush(dist, soft) * s
+                const near = Math.min(1, NEAR / dist) * s * vGain
 
                 /* Three things at once, which is what turns a shift into
                    a bend: pushed out along the radius, stretched across
@@ -131,7 +148,7 @@ const StardustTitle = ({ text, active, onAssembled }) => {
                 const tilt = -(dx / dist) * (dy / dist) * near * 18
 
                 b.n.style.transform = s
-                    ? `translate(${((dx / dist) * push * hDamp).toFixed(2)}px, ${((dy / dist) * push).toFixed(2)}px) ` +
+                    ? `translate(${((dx / dist) * push * hDamp * reach).toFixed(2)}px, ${((dy / dist) * push * vGain).toFixed(2)}px) ` +
                       `rotate(${tilt.toFixed(2)}deg) ` +
                       `scale(${(1 + near * 0.05).toFixed(3)}, ${(1 + near * 0.13).toFixed(3)})`
                     : 'none'
@@ -293,19 +310,25 @@ const StardustTitle = ({ text, active, onAssembled }) => {
             const s = field.ready ? field.strength : 0
             const reach = Math.min(1, window.innerWidth / 1180)
             const hDamp = hDampFor(reach)
+            const vGain = vGainFor(reach)
+            /* Measured off the letters themselves, matching what the bend
+               loop derives from the word box. */
+            const soft = softFor(glyphGeom.length
+                ? glyphGeom[glyphGeom.length - 1].x1 - glyphGeom[0].x0
+                : rect.width)
 
             const gt = glyphGeom.map((g) => {
                 const dx = rect.left + g.cx - field.x
                 const dy = rect.top + g.cy - field.y
                 const dist = Math.hypot(dx, dy) || 1
 
-                const push = lensPush(dist) * s * reach
-                const near = Math.min(1, NEAR / dist) * s * reach
+                const push = lensPush(dist, soft) * s
+                const near = Math.min(1, NEAR / dist) * s * vGain
                 const tilt = -(dx / dist) * (dy / dist) * near * 18 * (Math.PI / 180)
 
                 return {
                     cx: g.cx, cy: g.cy,
-                    tdx: (dx / dist) * push * hDamp, tdy: (dy / dist) * push,
+                    tdx: (dx / dist) * push * hDamp * reach, tdy: (dy / dist) * push * vGain,
                     c: Math.cos(tilt), s: Math.sin(tilt),
                     sx: 1 + near * 0.05, sy: 1 + near * 0.13,
                 }
