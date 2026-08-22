@@ -554,56 +554,6 @@
     pointer-events: none;
 }
 
-/* ── missions ───────────────────────────────────────────────────── */
-.td__missions {
-    width: 100%;
-    max-width: 380px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
-
-.td__missions li+li {
-    border-top: 1px solid var(--hair);
-}
-
-.td__missions a {
-    display: grid;
-    grid-template-columns: 2.4rem 1fr auto;
-    align-items: baseline;
-    gap: 0.7rem;
-    padding: 0.62rem 0;
-    text-decoration: none;
-    transition: opacity 0.3s ease;
-}
-
-.td__missions a:hover {
-    opacity: 0.62;
-}
-
-.td__mission-code {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.55rem;
-    letter-spacing: 0.16em;
-    color: var(--gold);
-}
-
-.td__mission-name {
-    font-size: clamp(0.7rem, 1.75vw, 0.84rem);
-    font-weight: 500;
-    letter-spacing: 0.02em;
-    color: var(--ivory);
-}
-
-.td__mission-kind {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.5rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--mute);
-    text-align: right;
-}
-
 /* ── descend ────────────────────────────────────────────────────── */
 .td__descend {
     display: flex;
@@ -684,8 +634,7 @@
         align-items: stretch;
     }
 
-    .td-clock,
-    .td__missions {
+    .td-clock {
         max-width: none;
     }
 
@@ -697,10 +646,6 @@
 @media (max-width: 560px) {
     .td-title__text {
         font-size: clamp(1.85rem, 11.4vw, 3.3rem);
-    }
-
-    .td__mission-kind {
-        display: none;
     }
 
     /* One line, always — wrapping the venue put a ragged second line

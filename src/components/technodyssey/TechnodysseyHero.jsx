@@ -6,8 +6,6 @@ import {
     DATE_LABEL,
     VENUE_LABEL,
     CITY_LABEL,
-    TRACKS,
-    KONFHUB_URL,
 } from '../../lib/technodyssey'
 import StardustTitle from './StardustTitle'
 import LaunchClock from './LaunchClock'
@@ -94,11 +92,13 @@ const TechnodysseyHero = ({ scrollTargetId }) => {
     }, [])
 
     const launch = useCallback(() => {
-        /* The field answers the click before the tab opens. */
+        /* The field answers the click before the fall begins. */
         emitPulse()
         window.setTimeout(() => {
-            window.open(KONFHUB_URL, '_blank', 'noopener,noreferrer')
-        }, 240)
+            window.dispatchEvent(new CustomEvent('start-odyssey-transition', {
+                detail: { path: '/technodyssey' },
+            }))
+        }, 180)
     }, [])
 
     const descend = useCallback(() => {
@@ -147,25 +147,13 @@ const TechnodysseyHero = ({ scrollTargetId }) => {
                             <span className="td__launch-ring" aria-hidden="true" />
                             <span className="td__launch-face">
                                 <span className="td__launch-key" aria-hidden="true" />
-                                Begin registration
+                                Enter Technodyssey
                             </span>
                         </button>
                     </div>
 
                     <div className="td__aside">
                         <div data-late><LaunchClock /></div>
-
-                        <ul className="td__missions" data-late>
-                            {TRACKS.map((t) => (
-                                <li key={t.name}>
-                                    <a href={t.url} target="_blank" rel="noopener noreferrer">
-                                        <span className="td__mission-code">{t.code}</span>
-                                        <span className="td__mission-name">{t.name}</span>
-                                        <span className="td__mission-kind">{t.kind}</span>
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
                     </div>
                 </div>
 
