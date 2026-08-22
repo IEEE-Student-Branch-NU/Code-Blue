@@ -15,13 +15,15 @@ import NotFound from './pages/NotFound'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const CarnivalGallery = React.lazy(() => import('./pages/CarnivalGallery'))
+const Technodyssey = React.lazy(() => import('./pages/Technodyssey'))
 
 /* The two full-screen experiences stay uninterrupted. Home keeps the
  * bar but holds it back until the fest hero has scrolled away. */
-const noFestStrip = ['/carnival-gallery', '/code-blue'];
+const noFestStrip = ['/carnival-gallery', '/code-blue', '/technodyssey'];
 
 const menuItems = [
   { label: "Home", link: "/" },
+  { label: "Technodyssey", link: "/technodyssey" },
   { label: "About", link: "/about" },
   { label: "Join Us", link: "/join-us" },
   { label: "Contact", link: "/contact" },
@@ -111,6 +113,11 @@ const App = () => {
             <Route path="/carnival-gallery" element={
               <Suspense fallback={<div style={{ minHeight: '100vh', background: '#000' }} />}>
                 <CarnivalGallery />
+              </Suspense>
+            } />
+            <Route path="/technodyssey" element={
+              <Suspense fallback={<div style={{ minHeight: '100vh', background: '#05070d' }} />}>
+                <Technodyssey />
               </Suspense>
             } />
             <Route path="*" element={<NotFound />} />
