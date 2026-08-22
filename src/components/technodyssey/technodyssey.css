@@ -103,13 +103,24 @@
     position: relative;
     isolation: isolate;
     display: flex;
+    /* Hugs its own content instead of stretching to the grid column's
+       full width. A block-level flex row otherwise fills the column and
+       leaves the rule+text packed at its start — which puts the radial
+       scrim's default centre (and the closest-side ellipse's radius,
+       which is sized off this box) well past "AHMEDABAD" instead of on
+       it. Content-sized width keeps both aligned with what's on screen. */
+    width: fit-content;
     align-items: center;
     gap: 0.7rem;
     margin: 0 0 clamp(0.9rem, 2vh, 1.4rem);
     font-size: clamp(0.5rem, 1.35vw, 0.62rem);
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--mute);
+    /* This line carries the fest's dates and venue — the single most
+       important fact in the hero — so it does not get the same
+       de-emphasis as a generic instrument label (var(--mute), 44%).
+       Sat over the disk's brightest arm it needs real weight. */
+    color: rgba(247, 244, 238, 0.86);
 }
 
 /* Same wash as .td-title::before: a scrim under the line rather than a
@@ -118,13 +129,19 @@
    accretion disk behind this line — the scrim, not the ratio, is the fix.
    closest-side keeps the ellipse inscribed in the (inset-expanded) box,
    so it already matches this thin row's own wide, flat aspect — no
-   plateau of flat color, just one continuous falloff to nothing. */
+   plateau of flat color, just one continuous falloff to nothing. The
+   centre is pushed dark enough to neutralise the disk's blown-out
+   highlight outright, and the falloff is spread across three stops
+   instead of one straight-line lerp so it reads as a soft halo — never
+   a hard-edged ellipse — even this close to the brightest part of the
+   disk. */
 .td__eyebrow::before {
     content: '';
     position: absolute;
-    inset: -0.65em -1.1em;
+    inset: -1em -2.6em;
     background: radial-gradient(closest-side,
-            rgba(5, 7, 13, 0.5) 0%,
+            rgba(5, 7, 13, 0.78) 0%,
+            rgba(5, 7, 13, 0.52) 55%,
             rgba(5, 7, 13, 0) 100%);
     z-index: -1;
     pointer-events: none;
