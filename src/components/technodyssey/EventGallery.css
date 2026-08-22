@@ -1,0 +1,155 @@
+.tdgal {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 236px), 1fr));
+    gap: clamp(1rem, 2.6vw, 1.8rem);
+    perspective: 1200px;
+}
+
+.tdgal__card {
+    display: flex;
+    flex-direction: column;
+    will-change: transform, opacity;
+}
+
+/* A fixed frame the poster moves inside — the crop stays put. */
+.tdgal__frame {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border: 1px solid var(--hair);
+    background: var(--navy);
+    transition: border-color 0.35s ease;
+}
+
+.tdgal__card:hover .tdgal__frame,
+.tdgal__card:focus-within .tdgal__frame {
+    border-color: var(--accent);
+}
+
+.tdgal__frame > .tdposter__img,
+.tdgal__frame > .tdposter__plate {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tdgal__card:hover .tdposter__img,
+.tdgal__card:hover .tdposter__plate {
+    transform: scale(1.04);
+}
+
+/* The glow rises out of the bottom edge with the actions. */
+.tdgal__actions {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    gap: 0.5rem;
+    padding: clamp(0.7rem, 2vw, 1rem);
+    background: linear-gradient(0deg,
+        color-mix(in srgb, var(--accent) 26%, rgba(5, 7, 13, 0.96)) 0%,
+        rgba(5, 7, 13, 0.72) 52%,
+        transparent 100%);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.38s ease, transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tdgal__card:hover .tdgal__actions,
+.tdgal__card:focus-within .tdgal__actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tdgal__act {
+    flex: 1;
+    padding: 0.6rem 0.5rem;
+    background: rgba(5, 7, 13, 0.72);
+    border: 1px solid var(--hair);
+    color: var(--ivory);
+    cursor: pointer;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.tdgal__act:hover {
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.tdgal__act--primary {
+    border-color: color-mix(in srgb, var(--accent) 56%, transparent);
+    background: color-mix(in srgb, var(--accent) 18%, rgba(5, 7, 13, 0.8));
+}
+
+/* The whole caption is the third way into the detail panel. */
+.tdgal__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.34rem;
+    padding: 0.85rem 0 0;
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+}
+
+.tdgal__code {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.22em;
+    color: var(--accent);
+}
+
+.tdgal__name {
+    margin: 0;
+    font-size: clamp(0.8rem, 1.9vw, 0.95rem);
+    font-weight: 500;
+    line-height: 1.3;
+    color: var(--ivory);
+    transition: color 0.3s ease;
+}
+
+.tdgal__name em {
+    font-style: normal;
+    font-size: 0.62em;
+    color: var(--mute);
+}
+
+.tdgal__body:hover .tdgal__name {
+    color: color-mix(in srgb, var(--accent) 60%, #ffffff);
+}
+
+.tdgal__kind {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.46rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+/* Touch has no hover: the actions must not be unreachable. */
+@media (hover: none) {
+    .tdgal__actions {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .tdgal__frame > .tdposter__img,
+    .tdgal__frame > .tdposter__plate,
+    .tdgal__actions,
+    .tdgal__act,
+    .tdgal__name {
+        transition: none;
+    }
+
+    .tdgal__card:hover .tdposter__img,
+    .tdgal__card:hover .tdposter__plate {
+        transform: none;
+    }
+}

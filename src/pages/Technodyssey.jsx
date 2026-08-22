@@ -4,6 +4,7 @@ import {
 } from '../lib/technodyssey'
 import LaunchClock from '../components/technodyssey/LaunchClock'
 import Itinerary from '../components/technodyssey/Itinerary'
+import EventGallery from '../components/technodyssey/EventGallery'
 import '../components/technodyssey/technodyssey.css'
 import './Technodyssey.css'
 
@@ -83,7 +84,7 @@ const Technodyssey = () => {
                     <span className="tdp__sectionhead-index">02</span>
                     The events
                 </h2>
-                {/* Task 8 mounts <EventGallery /> here */}
+                <EventGallery onOpenEvent={openEvent} phase={phase} />
             </section>
 
             {/* Task 9 mounts <EventDetail /> here */}
