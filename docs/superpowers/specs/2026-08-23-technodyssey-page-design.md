@@ -211,8 +211,15 @@ the hero's sun simply climbs more slowly.
 ### 3.6 Open data question — Friday's rows
 
 The supplied screenshot is cropped: it begins mid-row above the SATURDAY
-header, so **Friday 25 September's slots are not known**. The build proceeds
-with Friday present but empty (§3.2). Filling it in is a data-only edit.
+header, so **Friday 25 September's slots are not known**.
+
+**Decided:** Friday is present with an empty `rows` array, rendering the
+"Schedule to be announced" plate of §3.2 — *not* omitted. The masthead and
+`DATE_LABEL` both say 25–27 September, so a two-day itinerary would contradict
+the page's own header. Filling Friday in later is a data-only edit; removing the
+day entirely is a one-line deletion.
+
+Saturday and Sunday are built in full from the sheet.
 
 ---
 
