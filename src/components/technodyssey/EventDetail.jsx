@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { X } from 'lucide-react'
 import { getEvent, societyOf, eventSchedule } from '../../lib/technodysseyEvents'
 import EventPoster from './EventPoster'
@@ -13,6 +13,9 @@ const FOCUSABLE =
 const EventDetail = ({ eventId, phase, onClose }) => {
     const panelRef = useRef(null)
     const returnRef = useRef(null)
+    /* Called unconditionally, before any early return, so hook order
+       stays stable across renders. */
+    const reduceMotion = useReducedMotion()
     const event = eventId ? getEvent(eventId) : null
 
     /* Remember what opened us, so focus goes back where it came from. */
@@ -75,7 +78,7 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    transition={{ duration: 0.24 }}
+                    transition={reduceMotion ? { duration: 0.12 } : { duration: 0.24 }}
                     onClick={onClose}
                 >
                     <motion.div
@@ -85,10 +88,12 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                         aria-modal="true"
                         aria-labelledby="tddet-title"
                         style={{ '--accent': society.accent }}
-                        initial={{ opacity: 0, scale: 0.94, y: 18 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.96, y: 10 }}
-                        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.94, y: 18 }}
+                        animate={reduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }}
+                        exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.96, y: 10 }}
+                        transition={reduceMotion
+                            ? { duration: 0.12 }
+                            : { duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
                         onClick={(e) => e.stopPropagation()}
                     >
                         <button className="tddet__close" type="button" onClick={onClose}
