@@ -1,0 +1,73 @@
+.tdposter__img,
+.tdposter__plate {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.tdposter__plate {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: clamp(0.9rem, 2.4vw, 1.4rem);
+    background:
+        radial-gradient(78% 58% at 64% 26%,
+            color-mix(in srgb, var(--accent) 42%, transparent) 0%,
+            color-mix(in srgb, var(--accent) 12%, transparent) 38%,
+            transparent 72%),
+        linear-gradient(168deg, #0b132b 0%, #05070d 74%);
+    overflow: hidden;
+}
+
+.tdposter__stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* The society's own initials, large enough to be architecture rather
+   than a label. */
+.tdposter__glyph {
+    position: absolute;
+    top: 46%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 14;
+    font-size: clamp(3rem, 11vw, 6.4rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: color-mix(in srgb, var(--accent) 26%, transparent);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.tdposter__label {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.tdposter__label em {
+    font-style: normal;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.56rem, 1.5vw, 0.68rem);
+    line-height: 1.4;
+    letter-spacing: 0.1em;
+    color: var(--ivory, #f7f4ee);
+}
+
+.tdposter__label i {
+    font-style: normal;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.44rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--accent) 72%, #f7f4ee);
+}
