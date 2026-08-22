@@ -7,6 +7,7 @@
 }
 
 .tdposter__plate {
+    container-type: inline-size;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -39,7 +40,7 @@
     font-family: 'Bodoni Moda', Didot, Georgia, serif;
     font-weight: 600;
     font-variation-settings: 'opsz' 14;
-    font-size: clamp(3rem, 11vw, 6.4rem);
+    font-size: calc(130cqw / var(--code-len));
     line-height: 1;
     letter-spacing: -0.02em;
     color: color-mix(in srgb, var(--accent) 26%, transparent);

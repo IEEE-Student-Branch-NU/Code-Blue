@@ -43,7 +43,10 @@ const EventPoster = ({ event }) => {
     }
 
     return (
-        <div className="tdposter__plate" style={{ '--accent': society.accent }} role="img"
+        <div
+            className="tdposter__plate"
+            style={{ '--accent': society.accent, '--code-len': society.code.length }}
+            role="img"
             aria-label={`${event.name} — poster to be released`}>
             <svg className="tdposter__stars" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
                 {stars.map((s, i) => (

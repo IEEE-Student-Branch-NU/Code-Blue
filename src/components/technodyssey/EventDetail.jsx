@@ -107,7 +107,7 @@ const EventDetail = ({ eventId, phase, onClose }) => {
 
                         <div className="tddet__info">
                             <p className="tddet__society">
-                                <img src={society.logo} alt="" width="24" height="24" />
+                                <span className="tddet__society-dot" aria-hidden="true" />
                                 <span>{society.name}</span>
                             </p>
 

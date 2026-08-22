@@ -74,10 +74,12 @@
     color: var(--accent);
 }
 
-.tddet__society img {
-    width: 20px;
-    height: auto;
-    filter: brightness(1.8) saturate(0.8);
+.tddet__society-dot {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
 }
 
 .tddet__title {
