@@ -17,39 +17,19 @@ export const FEST_YEAR = '2026'
  * nothing else. */
 export const FEST_ANNOUNCED = new Date('2026-07-01T00:00:00+05:30')
 
-export const FEST_START = new Date('2026-08-22T08:00:00+05:30')
-export const FEST_END = new Date('2026-08-23T17:00:00+05:30')
+export const FEST_START = new Date('2026-09-25T09:00:00+05:30')
+export const FEST_END = new Date('2026-09-27T14:00:00+05:30')
 
 export const KONFHUB_URL =
     'https://konfhub.com/g/ieee-student-branch-nirma-university'
 
-export const DATE_LABEL = '22–23 August 2026'
+export const DATE_LABEL = '25–27 September 2026'
 export const VENUE_LABEL = 'Nirma University'
 export const CITY_LABEL = 'Ahmedabad'
 
-/* The events listed on KonfHub so far — the organisers have more
- * marked "Coming Soon". Adding one is a single entry here.
- *
- * `code` is the host society's own short form, used as the marker in
- * the hero; `accent` is the colour that code is set in. */
-export const TRACKS = [
-    {
-        code: 'CS',
-        name: 'NovaHack 2026',
-        host: 'IEEE Computer Society',
-        kind: 'Hackathon',
-        url: 'https://konfhub.com/novahack-2026',
-        accent: '#93b6dd',
-    },
-    {
-        code: 'WIE',
-        name: 'Mirrors & Mud',
-        host: 'IEEE Women in Engineering',
-        kind: 'Lippan art workshop',
-        url: 'https://konfhub.com/mirrors-mud-a-lippan-art-workshop',
-        accent: '#d9a271',
-    },
-]
+/* The event roster lives in ./technodysseyEvents.js — it outgrew a
+ * two-field list once the itinerary needed societies, posters and
+ * per-event schedules. */
 
 const SECOND = 1000
 const MINUTE = 60 * SECOND
