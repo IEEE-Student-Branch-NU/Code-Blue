@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { societyOf } from '../../lib/technodysseyEvents'
 import './EventPoster.css'
 
@@ -25,7 +25,10 @@ const starfield = (seed, count = 34) => {
 const EventPoster = ({ event }) => {
     const society = societyOf(event)
     const [failed, setFailed] = useState(false)
-    const stars = React.useMemo(() => starfield(event.id), [event.id])
+    /* A persisting instance handed a different event must retry the image —
+       otherwise one event's missing poster would suppress the next one's. */
+    useEffect(() => { setFailed(false) }, [event.id])
+    const stars = useMemo(() => starfield(event.id), [event.id])
 
     if (!failed && event.poster) {
         return (
@@ -48,7 +51,7 @@ const EventPoster = ({ event }) => {
                 ))}
             </svg>
             <span className="tdposter__glyph" aria-hidden="true">{society.code}</span>
-            <span className="tdposter__label">
+            <span className="tdposter__label" aria-hidden="true">
                 <em>{event.name}</em>
                 <i>Poster to be released</i>
             </span>
