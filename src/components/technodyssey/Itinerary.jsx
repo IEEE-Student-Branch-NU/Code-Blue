@@ -161,6 +161,7 @@ const Itinerary = ({ onOpenEvent }) => {
                                                 gridColumn: col + 2,
                                                 gridRow: `${run.fromRow + 1} / span ${run.span}`,
                                             }}
+                                            data-reveal
                                             onClick={activate(event)}
                                             aria-current={live ? 'time' : undefined}
                                             aria-label={
@@ -192,18 +193,25 @@ const Itinerary = ({ onOpenEvent }) => {
                                         )]
                                     }
                                     return columns
-                                        .flatMap((runs) => runs.filter((run) => run.fromRow === rowIndex))
-                                        .map((run) => {
+                                        .flatMap((runs, col) => runs
+                                            .filter((run) => run.fromRow === rowIndex)
+                                            .map((run) => ({ run, col })))
+                                        .map(({ run, col }) => {
                                             const event = getEvent(run.eventId)
                                             const society = societyOf(event)
                                             const dim = filter && filter !== society.code
+                                            const live = now
+                                                && now.dayIndex === dayIndex
+                                                && now.rowIndex >= run.fromRow
+                                                && now.rowIndex < run.fromRow + run.span
                                             return (
-                                                <li key={`m-${rowIndex}-${run.eventId}`} data-reveal>
+                                                <li key={`m-${rowIndex}-${col}`} data-reveal>
                                                     <button
                                                         type="button"
-                                                        className={`itin__tile${dim ? ' is-dim' : ''}`}
+                                                        className={`itin__tile${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
                                                         style={{ '--accent': society.accent }}
                                                         onClick={activate(event)}
+                                                        aria-current={live ? 'time' : undefined}
                                                         aria-label={
                                                             `${event.name} — ${society.name}, ${day.day} ` +
                                                             `${formatRange(run.from, run.to)}` +
