@@ -1,4 +1,4 @@
-import React, { Suspense, useCallback, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import {
     FEST_NAME, FEST_YEAR, DATE_LABEL, VENUE_LABEL, CITY_LABEL, getCountdown,
 } from '../lib/technodyssey'
@@ -30,6 +30,19 @@ const Technodyssey = () => {
 
     const descend = useCallback((id) => () => {
         const target = document.getElementById(id)
+        if (!target) return
+        const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
+    }, [])
+
+    /* #itinerary / #events are meant to be deep-linkable, but the route
+       is lazy and a browser does not retry the initial hash scroll once
+       the target finally exists — so land on it ourselves, once, the
+       same way `descend` does. */
+    useEffect(() => {
+        const hash = window.location.hash.slice(1)
+        if (!hash) return
+        const target = document.getElementById(hash)
         if (!target) return
         const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
         target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })

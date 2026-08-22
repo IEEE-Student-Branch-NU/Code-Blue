@@ -36,6 +36,38 @@ const usedSocieties = () => {
     return seen.map((code) => SOCIETIES[code])
 }
 
+/* The one tile, rendered from both the grid and the list. Everything
+ * about a tile that is computed from (event, society, dim, live) lives
+ * here, so a label or a badge only ever needs to change once. The grid
+ * and the list keep their own wrappers and key strategies — only this
+ * inner markup is shared. */
+const ItineraryTile = ({ event, society, day, run, dim, live, style, onClick, ...rest }) => (
+    <button
+        type="button"
+        className={`itin__tile${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
+        style={{ '--accent': society.accent, ...style }}
+        onClick={onClick}
+        aria-current={live ? 'time' : undefined}
+        aria-label={
+            `${event.name} — ${society.name}, ${day.day} ` +
+            `${formatRange(run.from, run.to)}` +
+            (event.konfhub ? '. Opens registration in a new tab.' : '. Opens details.')
+        }
+        {...rest}
+    >
+        <span className="itin__code">{society.code}</span>
+        <span className="itin__name">
+            {event.name}
+            {event.tba && <em> · name to be announced</em>}
+        </span>
+        <span className="itin__meta">
+            <span className="itin__span">{formatRange(run.from, run.to)}</span>
+            <span className="itin__kind">{event.kind}</span>
+        </span>
+        {event.konfhub && <span className="itin__out" aria-hidden="true">↗</span>}
+    </button>
+)
+
 const Itinerary = ({ onOpenEvent }) => {
     const rootRef = useRef(null)
     const [filter, setFilter] = useState(null)
@@ -100,11 +132,18 @@ const Itinerary = ({ onOpenEvent }) => {
                         </button>
                     )
                 })}
-                {filter && (
-                    <button type="button" className="itin__chip itin__chip--clear" onClick={() => setFilter(null)}>
-                        Clear
-                    </button>
-                )}
+                {/* Always mounted, never unmounted on clear — clearing the filter
+                    must not drop keyboard focus to <body>. Inactive, it fades out
+                    and steps out of the tab order, but stays the same focused
+                    node if it was the one just clicked. */}
+                <button
+                    type="button"
+                    className={`itin__chip itin__chip--clear${filter ? '' : ' itin__chip--clear-hidden'}`}
+                    tabIndex={filter ? 0 : -1}
+                    onClick={() => setFilter(null)}
+                >
+                    Clear
+                </button>
             </div>
 
             {days.map(({ day, columns }, dayIndex) => (
@@ -152,32 +191,21 @@ const Itinerary = ({ onOpenEvent }) => {
                                         && now.rowIndex < run.fromRow + run.span
 
                                     return (
-                                        <button
-                                            type="button"
+                                        <ItineraryTile
                                             key={`${col}-${run.fromRow}`}
-                                            className={`itin__tile${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
+                                            event={event}
+                                            society={society}
+                                            day={day}
+                                            run={run}
+                                            dim={dim}
+                                            live={live}
                                             style={{
-                                                '--accent': society.accent,
                                                 gridColumn: col + 2,
                                                 gridRow: `${run.fromRow + 1} / span ${run.span}`,
                                             }}
                                             data-reveal
                                             onClick={activate(event)}
-                                            aria-current={live ? 'time' : undefined}
-                                            aria-label={
-                                                `${event.name} — ${society.name}, ${day.day} ` +
-                                                `${formatRange(run.from, run.to)}` +
-                                                (event.konfhub ? '. Opens registration in a new tab.' : '. Opens details.')
-                                            }
-                                        >
-                                            <span className="itin__code">{society.code}</span>
-                                            <span className="itin__name">{event.name}</span>
-                                            <span className="itin__meta">
-                                                <span className="itin__span">{formatRange(run.from, run.to)}</span>
-                                                <span className="itin__kind">{event.kind}</span>
-                                            </span>
-                                            {event.konfhub && <span className="itin__out" aria-hidden="true">↗</span>}
-                                        </button>
+                                        />
                                     )
                                 }))}
                             </div>
@@ -206,26 +234,15 @@ const Itinerary = ({ onOpenEvent }) => {
                                                 && now.rowIndex < run.fromRow + run.span
                                             return (
                                                 <li key={`m-${rowIndex}-${col}`} data-reveal>
-                                                    <button
-                                                        type="button"
-                                                        className={`itin__tile${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
-                                                        style={{ '--accent': society.accent }}
+                                                    <ItineraryTile
+                                                        event={event}
+                                                        society={society}
+                                                        day={day}
+                                                        run={run}
+                                                        dim={dim}
+                                                        live={live}
                                                         onClick={activate(event)}
-                                                        aria-current={live ? 'time' : undefined}
-                                                        aria-label={
-                                                            `${event.name} — ${society.name}, ${day.day} ` +
-                                                            `${formatRange(run.from, run.to)}` +
-                                                            (event.konfhub ? '. Opens registration in a new tab.' : '. Opens details.')
-                                                        }
-                                                    >
-                                                        <span className="itin__code">{society.code}</span>
-                                                        <span className="itin__name">{event.name}</span>
-                                                        <span className="itin__meta">
-                                                            <span className="itin__span">{formatRange(run.from, run.to)}</span>
-                                                            <span className="itin__kind">{event.kind}</span>
-                                                        </span>
-                                                        {event.konfhub && <span className="itin__out" aria-hidden="true">↗</span>}
-                                                    </button>
+                                                    />
                                                 </li>
                                             )
                                         })

@@ -40,6 +40,14 @@
     border-color: rgba(228, 181, 93, 0.4);
 }
 
+/* Kept mounted rather than removed, so clearing the filter never drops
+   focus to <body>. opacity, not display/visibility — either of those
+   would blur a focused element exactly the way unmounting did. */
+.itin__chip--clear-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 /* ── day ────────────────────────────────────────────────────────── */
 .itin__day + .itin__day {
     margin-top: clamp(2.4rem, 6vh, 4rem);
@@ -193,6 +201,12 @@
     font-weight: 500;
     line-height: 1.28;
     letter-spacing: 0.01em;
+}
+
+.itin__name em {
+    font-style: normal;
+    font-size: 0.7em;
+    color: var(--mute);
 }
 
 .itin__meta {

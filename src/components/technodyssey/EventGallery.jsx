@@ -36,7 +36,7 @@ const EventGallery = ({ onOpenEvent, phase }) => {
 
     const register = (event) => (e) => {
         e.stopPropagation()
-        if (!event.konfhub) { onOpenEvent(event.id); return }
+        if (phase === 'over' || !event.konfhub) { onOpenEvent(event.id); return }
         window.open(event.konfhub, '_blank', 'noopener,noreferrer')
     }
 
@@ -69,10 +69,10 @@ const EventGallery = ({ onOpenEvent, phase }) => {
 
                         <button type="button" className="tdgal__body" onClick={() => onOpenEvent(event.id)}>
                             <span className="tdgal__code">{society.code}</span>
-                            <h3 className="tdgal__name">
+                            <span className="tdgal__name">
                                 {event.name}
                                 {event.tba && <em> · name to be announced</em>}
-                            </h3>
+                            </span>
                             <span className="tdgal__kind">{event.kind}</span>
                         </button>
                     </article>

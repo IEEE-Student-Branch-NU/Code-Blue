@@ -48,7 +48,7 @@ const OdysseyGate = ({ trigger, onGateClosed, onComplete }) => {
             tl.to(root, { opacity: 1, duration: 0.2 })
                 .add(() => { if (onGateClosedRef.current) onGateClosedRef.current() })
                 .to(root, { opacity: 0, duration: 0.2 }, '+=0.05')
-            return
+            return () => { tl.kill() }
         }
 
         const tl = gsap.timeline({ onComplete: finish })

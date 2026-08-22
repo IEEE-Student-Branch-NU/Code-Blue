@@ -13,11 +13,6 @@
 }
 
 .tddet__panel {
-    --ivory: #f7f4ee;
-    --gold: #e4b55d;
-    --mute: rgba(247, 244, 238, 0.44);
-    --hair: rgba(247, 244, 238, 0.14);
-
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);

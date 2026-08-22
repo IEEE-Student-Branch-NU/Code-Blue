@@ -733,7 +733,8 @@
     .td__launch:hover .td__launch-ring,
     .td__launch-key,
     .td__launch:hover .td__launch-key::before,
-    .td__launch:hover .td__launch-face::after {
+    .td__launch:hover .td__launch-face::after,
+    .td-clock__led {
         animation: none;
     }
 

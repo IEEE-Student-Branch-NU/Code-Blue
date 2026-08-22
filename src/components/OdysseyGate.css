@@ -16,7 +16,7 @@
     width: min(52vmin, 460px);
     aspect-ratio: 1;
     margin: calc(min(52vmin, 460px) / -2) 0 0 calc(min(52vmin, 460px) / -2);
-    border: 1px solid var(--gold, #e4b55d);
+    border: 1px solid #e4b55d;
     border-radius: 50%;
     box-shadow:
         0 0 60px 6px rgba(228, 181, 93, 0.28),
