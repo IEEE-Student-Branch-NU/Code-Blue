@@ -1,0 +1,322 @@
+/* ── legend ─────────────────────────────────────────────────────── */
+.itin__legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: clamp(1.6rem, 4vh, 2.4rem);
+}
+
+.itin__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.8rem;
+    background: transparent;
+    border: 1px solid var(--hair);
+    color: var(--mute);
+    cursor: pointer;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.itin__chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.itin__chip:hover,
+.itin__chip.is-on {
+    color: var(--ivory);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.itin__chip--clear {
+    color: var(--gold);
+    border-color: rgba(228, 181, 93, 0.4);
+}
+
+/* ── day ────────────────────────────────────────────────────────── */
+.itin__day + .itin__day {
+    margin-top: clamp(2.4rem, 6vh, 4rem);
+}
+
+.itin__dayhead {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.7rem;
+    margin-bottom: clamp(1rem, 2.5vh, 1.6rem);
+    border-bottom: 1px solid rgba(228, 181, 93, 0.34);
+}
+
+.itin__dayhead h3 {
+    margin: 0;
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
+    font-weight: 500;
+    font-variation-settings: 'opsz' 14;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    color: var(--ivory);
+}
+
+.itin__dayhead span {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.48rem, 1.2vw, 0.58rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.itin__tba {
+    margin: 0;
+    padding: clamp(1.6rem, 5vh, 2.6rem);
+    border: 1px dashed var(--hair);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.55rem, 1.4vw, 0.65rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--mute);
+}
+
+/* ── grid ───────────────────────────────────────────────────────── */
+.itin__grid {
+    display: grid;
+    grid-template-columns: clamp(4.4rem, 8vw, 6.4rem) repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(clamp(76px, 9vh, 104px), auto);
+    gap: 8px;
+    align-items: stretch;
+}
+
+/* The rail: each row's own boundaries, whatever the tiles above it
+   have been merged into. */
+.itin__time {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding-right: 0.7rem;
+    border-right: 1px solid var(--hair);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.52rem, 1.3vw, 0.62rem);
+    letter-spacing: 0.1em;
+    color: var(--ivory);
+    text-align: right;
+}
+
+.itin__time i {
+    font-style: normal;
+    color: var(--mute);
+}
+
+.itin__lunch {
+    grid-column: 2 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--hair);
+    background: rgba(11, 19, 43, 0.34);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.5rem, 1.3vw, 0.6rem);
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+/* ── tile ───────────────────────────────────────────────────────── */
+.itin__tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: clamp(0.7rem, 1.8vh, 1rem) clamp(0.7rem, 1.6vw, 1.05rem);
+    background:
+        linear-gradient(158deg,
+            color-mix(in srgb, var(--accent) 13%, transparent),
+            color-mix(in srgb, var(--accent) 4%, transparent) 62%),
+        rgba(11, 19, 43, 0.5);
+    border: 1px solid var(--hair);
+    color: var(--ivory);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+}
+
+.itin__tile::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.62;
+    transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.itin__tile:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    background:
+        linear-gradient(158deg,
+            color-mix(in srgb, var(--accent) 22%, transparent),
+            color-mix(in srgb, var(--accent) 7%, transparent) 62%),
+        rgba(11, 19, 43, 0.72);
+}
+
+.itin__tile:hover::before {
+    opacity: 1;
+    width: 3px;
+}
+
+.itin__tile.is-dim {
+    opacity: 0.2;
+}
+
+.itin__code {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+}
+
+.itin__name {
+    font-size: clamp(0.76rem, 1.7vw, 0.94rem);
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: 0.01em;
+}
+
+.itin__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.itin__out {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.7rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+    opacity: 0;
+    transform: translate(-3px, 3px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.itin__tile:hover .itin__out,
+.itin__tile:focus-visible .itin__out {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ── now ────────────────────────────────────────────────────────── */
+.itin__tile.is-live {
+    border-color: var(--gold);
+}
+
+.itin__tile.is-live::after {
+    content: 'NOW';
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.6rem;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.44rem;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+    animation: itin-now 1.6s steps(1) infinite;
+}
+
+@keyframes itin-now {
+    0%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0.24; }
+}
+
+/* ── narrow: a list, not a reflowed grid ────────────────────────
+   The grid's DOM order is column-major — all of track 1, then track 2,
+   then track 3 — which cannot be made to read in schedule order in a
+   single column with CSS alone. Step 3 renders an explicit list from
+   the same data instead, and the two swap here. */
+.itin__list {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.itin__list li {
+    display: block;
+}
+
+.itin__list li + li {
+    margin-top: 10px;
+}
+
+.itin__list .itin__tile {
+    width: 100%;
+    border-left: 3px solid var(--accent);
+}
+
+.itin__list .itin__tile::before {
+    display: none;
+}
+
+.itin__listlunch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    padding: 0.9rem;
+    border: 1px solid var(--hair);
+    background: rgba(11, 19, 43, 0.34);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.5rem, 1.3vw, 0.6rem);
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.itin__listlunch span {
+    letter-spacing: 0.16em;
+    color: var(--ivory);
+}
+
+@media (max-width: 900px) {
+    .itin__grid {
+        display: none;
+    }
+
+    .itin__list {
+        display: block;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .itin__tile,
+    .itin__tile::before,
+    .itin__out {
+        transition: none;
+    }
+
+    .itin__tile:hover {
+        transform: none;
+    }
+
+    .itin__tile.is-live::after {
+        animation: none;
+    }
+}

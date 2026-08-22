@@ -3,6 +3,7 @@ import {
     FEST_NAME, FEST_YEAR, DATE_LABEL, VENUE_LABEL, CITY_LABEL, getCountdown,
 } from '../lib/technodyssey'
 import LaunchClock from '../components/technodyssey/LaunchClock'
+import Itinerary from '../components/technodyssey/Itinerary'
 import '../components/technodyssey/technodyssey.css'
 import './Technodyssey.css'
 
@@ -74,7 +75,7 @@ const Technodyssey = () => {
                     <span className="tdp__sectionhead-index">01</span>
                     The itinerary
                 </h2>
-                {/* Task 6 mounts <Itinerary /> here */}
+                <Itinerary onOpenEvent={openEvent} />
             </section>
 
             <section className="tdp__section" id="events">
