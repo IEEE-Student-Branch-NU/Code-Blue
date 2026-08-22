@@ -5,6 +5,7 @@ import {
 import LaunchClock from '../components/technodyssey/LaunchClock'
 import Itinerary from '../components/technodyssey/Itinerary'
 import EventGallery from '../components/technodyssey/EventGallery'
+import EventDetail from '../components/technodyssey/EventDetail'
 import '../components/technodyssey/technodyssey.css'
 import './Technodyssey.css'
 
@@ -87,7 +88,7 @@ const Technodyssey = () => {
                 <EventGallery onOpenEvent={openEvent} phase={phase} />
             </section>
 
-            {/* Task 9 mounts <EventDetail /> here */}
+            <EventDetail eventId={openEventId} phase={phase} onClose={closeEvent} />
         </main>
     )
 }
