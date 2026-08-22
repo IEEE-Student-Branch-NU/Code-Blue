@@ -20,7 +20,7 @@
 - **Colour is never the sole signal** — every tile that is tinted by society also prints that society's code in text.
 - **No new npm dependencies.** Everything needed is already in `package.json`.
 - **Focus rings** reuse the hero's rule: `outline: 2px solid var(--gold); outline-offset: 4px`.
-- Node's test runner is invoked as `node --test src/lib/` from the `Code-Blue` directory.
+- Node's test runner is invoked as `node --test src/lib/*.test.js` from the `Code-Blue` directory. The glob is required: passing the bare directory (`node --test src/lib/`) fails on this Node 22 / Windows setup, which tries to `require` the directory as a module.
 - All paths below are relative to `Code-Blue/`.
 
 ---
@@ -211,7 +211,7 @@ test('currentSlot returns null outside the fest', () => {
 
 - [ ] **Step 2: Run the tests to verify they fail**
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: FAIL — `Cannot find module '.../technodysseyEvents.js'`
 
 - [ ] **Step 3: Write the implementation**
@@ -519,7 +519,7 @@ export const currentSlot = (now = Date.now()) => {
 
 - [ ] **Step 4: Run the tests to verify they pass**
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: PASS — 16 tests, 0 failures.
 
 - [ ] **Step 5: Commit**
@@ -587,7 +587,7 @@ Deliberately **not** asserting `getCountdown().phase === 'upcoming'` — that re
 
 - [ ] **Step 2: Run the test to verify it fails**
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: FAIL — the ISO strings are August, and `TRACKS` is still exported.
 
 - [ ] **Step 3: Apply the edits**
@@ -619,7 +619,7 @@ Leave `FEST_ANNOUNCED`, `KONFHUB_URL`, `approachRatio`, `getCountdown` and every
 
 - [ ] **Step 4: Run the tests to verify they pass**
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: PASS — all tests from Tasks 1 and 2.
 
 - [ ] **Step 5: Commit**
@@ -636,7 +636,7 @@ there.
 TRACKS retired: EVENTS in technodysseyEvents.js supersedes it."
 ```
 
-**Note for the executor:** `npm run build` will fail after this task until Task 5 removes the `TRACKS` import from `TechnodysseyHero.jsx`. That is expected and is fixed in Task 5. Run `node --test src/lib/` to gate this task, not the build.
+**Note for the executor:** `npm run build` will fail after this task until Task 5 removes the `TRACKS` import from `TechnodysseyHero.jsx`. That is expected and is fixed in Task 5. Run `node --test src/lib/*.test.js` to gate this task, not the build.
 
 ---
 
@@ -1016,7 +1016,7 @@ Add the route inside `<Routes>`, above the `path="*"` catch-all:
 Run: `npm run build`
 Expected: FAIL — `TRACKS` is not exported (the leftover import in `TechnodysseyHero.jsx` from Task 2). This is expected; Task 5 fixes it.
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: PASS.
 
 - [ ] **Step 5: Commit**
@@ -1348,7 +1348,7 @@ Expected: PASS — this is the first green build since Task 2.
 Run: `npm run lint`
 Expected: no new errors.
 
-Run: `node --test src/lib/`
+Run: `node --test src/lib/*.test.js`
 Expected: PASS.
 
 - [ ] **Step 4: Verify by eye**
@@ -3003,7 +3003,7 @@ is locked."
 - [ ] **Step 1: Run every automated check**
 
 ```bash
-node --test src/lib/
+node --test src/lib/*.test.js
 npm run lint
 npm run build
 ```
