@@ -10,6 +10,7 @@ import BoardMembers from './pages/BoardMembers'
 import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
 import CyberGateTransition from './components/CyberGateTransition'
+import OdysseyGate from './components/OdysseyGate'
 import TechnodysseyStrip from './components/TechnodysseyStrip'
 import NotFound from './pages/NotFound'
 
@@ -41,8 +42,10 @@ const App = () => {
   const location = useLocation();
   const menuRef = useRef(null);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isOdyssey, setIsOdyssey] = useState(false);
 
   const targetPathRef = useRef('/carnival-gallery');
+  const odysseyTargetRef = useRef('/technodyssey');
 
   useEffect(() => {
     const handleTransition = (e) => {
@@ -68,15 +71,38 @@ const App = () => {
     setIsTransitioning(false);
   }, []);
 
+  useEffect(() => {
+    const handleOdyssey = (e) => {
+      odysseyTargetRef.current = (e.detail && e.detail.path) || '/technodyssey';
+      setIsOdyssey(prev => prev || true);
+    };
+    window.addEventListener('start-odyssey-transition', handleOdyssey);
+    return () => window.removeEventListener('start-odyssey-transition', handleOdyssey);
+  }, []);
+
+  const handleOdysseyClosed = useCallback(() => {
+    navigate(odysseyTargetRef.current);
+    window.scrollTo(0, 0);
+  }, [navigate]);
+
+  const handleOdysseyComplete = useCallback(() => {
+    setIsOdyssey(false);
+  }, []);
+
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#ffffff', position: 'relative' }}>
       <Analytics />
 
       {/* Persistent Global Transition - Covers route changes */}
-      <CyberGateTransition 
+      <CyberGateTransition
         trigger={isTransitioning}
         onGateClosed={handleGateClosed}
         onComplete={handleComplete}
+      />
+      <OdysseyGate
+        trigger={isOdyssey}
+        onGateClosed={handleOdysseyClosed}
+        onComplete={handleOdysseyComplete}
       />
 
       {/* StaggeredMenu Navigation */}

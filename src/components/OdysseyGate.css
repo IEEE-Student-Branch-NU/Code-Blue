@@ -1,0 +1,55 @@
+.odyssey-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    display: none;
+    background-color: rgba(5, 7, 13, 0);
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* The horizon. A ring, not a plate — the fall has a shape. */
+.odyssey-gate__ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: min(52vmin, 460px);
+    aspect-ratio: 1;
+    margin: calc(min(52vmin, 460px) / -2) 0 0 calc(min(52vmin, 460px) / -2);
+    border: 1px solid var(--gold, #e4b55d);
+    border-radius: 50%;
+    box-shadow:
+        0 0 60px 6px rgba(228, 181, 93, 0.28),
+        inset 0 0 80px 10px rgba(118, 168, 255, 0.16);
+    will-change: transform, opacity;
+}
+
+/* Light stretched by the jump: radial streaks, not a flash. */
+.odyssey-gate__jump {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 220vmax;
+    height: 220vmax;
+    transform-origin: 50% 50%;
+    margin: -110vmax 0 0 -110vmax;
+    background:
+        repeating-conic-gradient(from 0deg at 50% 50%,
+            rgba(247, 244, 238, 0) 0deg,
+            rgba(247, 244, 238, 0.5) 0.35deg,
+            rgba(247, 244, 238, 0) 1.4deg);
+    mask-image: radial-gradient(circle at 50% 50%, transparent 12%, #000 40%, transparent 72%);
+    -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent 12%, #000 40%, transparent 72%);
+    will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .odyssey-gate__ring,
+    .odyssey-gate__jump {
+        display: none;
+    }
+
+    .odyssey-gate {
+        background-color: rgba(5, 7, 13, 0.96);
+    }
+}
