@@ -267,17 +267,27 @@
   position: relative;
   color: #000;
   font-weight: 600;
-  font-size: 3.5rem;
+  /* TECHNODYSSEY is the longest label and governs the size. At a fixed 3.5rem
+     its text alone measured 391px, which overflowed twice: past a 390px
+     viewport, and past the panel above 1024px, where clamp(260px, 38vw, 420px)
+     is only 389.5px wide at 1025px. The 2.625rem cap is the largest that fits
+     the label AND its ::after index number inside that narrowest panel; below
+     ~420px the vw term takes over. */
+  font-size: clamp(1.6rem, 10vw, 2.625rem);
   cursor: pointer;
   line-height: 1;
-  letter-spacing: -2px;
+  /* was -2px; in em it stays -2px at 3.5rem but scales with the clamp above */
+  letter-spacing: -0.036em;
   text-transform: uppercase;
   transition:
     background 0.25s,
     color 0.25s;
   display: inline-block;
   text-decoration: none;
-  padding-right: 1.4em;
+  /* fixed, not 1.4em: this reserves the gutter the index number sits in, and
+     the number's own offset below is fixed too — when one scaled with the
+     label and the other did not, the number drifted onto the last glyph. */
+  padding-right: 2.5rem;
 }
 
 .staggered-menu-panel .sm-socials-list .sm-socials-link {
@@ -317,7 +327,11 @@
   content: counter(smItem, decimal-leading-zero);
   position: absolute;
   top: 0.1em;
-  right: 2.8em;
+  /* paired with padding-right: 2.5rem above, this lands the number 12px past
+     the end of the label and 12px inside the panel's content edge, at every
+     width. (Was 2.8em, which resolved against this element's own 18px font
+     rather than the label's, so the two never stayed in step.) */
+  right: 0.75rem;
   font-size: 18px;
   font-weight: 400;
   color: var(--sm-accent, #5227ff);
