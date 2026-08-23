@@ -109,7 +109,7 @@ test('eventSchedule reports every run an event has, in order', () => {
 })
 
 test('societyOf resolves an event to its society record', () => {
-    assert.equal(societyOf(getEvent('line-follower')).accent, '#9edcb8')
+    assert.equal(societyOf(getEvent('line-follower')).accent, '#5ec9d8')
     assert.equal(societyOf(getEvent('novahack')).code, 'CS')
 })
 

@@ -1,441 +1,336 @@
-/* ─── The running order, as a printed table ───────────────────────
- * 2px outer edge, 1px internal rules, no gaps between cells: a real
- * ruled timetable rather than tiles floating on a dark field.
- *
- * Each row is flooded with its society's ink at full strength and the
- * type is knocked out of it in stock indigo. That inverts the old
- * scheme — pale type on near-black, with colour surviving only as a
- * 14%-opacity border — and is the reason the schedule now reads by
- * colour at a glance.
- * ---------------------------------------------------------------- */
-
-.itin {
-    --dot: 5px;
-}
-
-/* ── halftone ───────────────────────────────────────────────────
-   Two dot grids at different pitches, cross-masked, so density falls
-   off across a panel instead of sitting flat. Painted in the stock
-   colour on top of the ink, which is how a real halftone reads. */
-.itin__row::before,
-.itin__row::after,
-.itin__band--lunch::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    pointer-events: none;
-    color: var(--stock);
-}
-
-.itin__row::before,
-.itin__band--lunch::before {
-    background-image: radial-gradient(currentColor 46%, transparent 47%);
-    background-size: var(--dot) var(--dot);
-    opacity: 0.26;
-    -webkit-mask-image: linear-gradient(100deg, #000 4%, transparent 58%);
-    mask-image: linear-gradient(100deg, #000 4%, transparent 58%);
-}
-
-.itin__row::after {
-    background-image: radial-gradient(currentColor 34%, transparent 35%);
-    background-size: calc(var(--dot) / 2) calc(var(--dot) / 2);
-    opacity: 0.2;
-    -webkit-mask-image: linear-gradient(100deg, transparent 34%, #000 76%, transparent 96%);
-    mask-image: linear-gradient(100deg, transparent 34%, #000 76%, transparent 96%);
-}
-
-/* ── legend: ink swatches, not dots on a dark chip ──────────────── */
+/* ── legend ─────────────────────────────────────────────────────── */
 .itin__legend {
     display: flex;
     flex-wrap: wrap;
-    gap: 5px;
-    margin-bottom: clamp(1.5rem, 4vw, 2.25rem);
+    gap: 0.5rem;
+    margin-bottom: clamp(1.6rem, 4vh, 2.4rem);
 }
 
 .itin__chip {
-    position: relative;
-    border: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.8rem;
+    background: transparent;
+    border: 1px solid var(--hair);
+    color: var(--mute);
     cursor: pointer;
-    background: var(--accent);
-    color: var(--stock);
     font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 0.5rem 0.8rem;
-    transition: opacity 0.25s, outline-color 0.25s;
-    outline: 2px solid transparent;
-    outline-offset: -2px;
+    font-size: 0.56rem;
+    letter-spacing: 0.18em;
+    transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
 }
 
+.itin__chip-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+.itin__chip:hover,
 .itin__chip.is-on {
-    outline-color: var(--ivory);
-}
-
-/* Only while something is filtered do the others step back. At rest
-   every ink prints at full strength — dimming them by default was what
-   made the legend read as a row of muddy swatches. */
-.itin__legend.is-filtered .itin__chip:not(.is-on):not(.itin__chip--clear) {
-    opacity: 0.32;
-}
-
-.itin__legend.is-filtered .itin__chip:hover {
-    opacity: 1;
+    color: var(--ivory);
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .itin__chip--clear {
-    background: transparent;
-    color: var(--ivory);
-    box-shadow: inset 0 0 0 1.5px var(--hair);
+    color: var(--gold);
+    border-color: rgba(228, 181, 93, 0.4);
 }
 
-/* Faded, not unmounted: clearing the filter must not drop focus. */
+/* Kept mounted rather than removed, so clearing the filter never drops
+   focus to <body>. opacity, not display/visibility — either of those
+   would blur a focused element exactly the way unmounting did. */
 .itin__chip--clear-hidden {
     opacity: 0;
     pointer-events: none;
 }
 
-/* ── the day ────────────────────────────────────────────────────── */
+/* ── day ────────────────────────────────────────────────────────── */
 .itin__day + .itin__day {
-    margin-top: clamp(2.5rem, 7vw, 4rem);
+    margin-top: clamp(2.4rem, 6vh, 4rem);
 }
 
 .itin__dayhead {
     display: flex;
     align-items: baseline;
     gap: 1rem;
-    flex-wrap: wrap;
-    padding-bottom: 0.6rem;
-    border-bottom: 2px solid var(--ivory);
+    padding-bottom: 0.7rem;
+    margin-bottom: clamp(1rem, 2.5vh, 1.6rem);
+    border-bottom: 1px solid rgba(228, 181, 93, 0.34);
 }
 
 .itin__dayhead h3 {
     margin: 0;
-    font-family: var(--display, 'Fraunces', Georgia, serif);
-    font-variation-settings: var(--display-vf, normal);
-    font-weight: 700;
-    font-size: clamp(1.75rem, 5.6vw, 2.6rem);
-    letter-spacing: -0.02em;
-    color: var(--gold);
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
+    font-weight: 500;
+    font-variation-settings: 'opsz' 14;
+    font-size: clamp(1.1rem, 3vw, 1.7rem);
+    color: var(--ivory);
 }
 
 .itin__dayhead span {
     font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.66rem;
-    letter-spacing: 0.26em;
-    text-transform: uppercase;
-    color: var(--mute);
-}
-
-.itin__dayhead b {
-    margin-left: auto;
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 400;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--mute);
-}
-
-/* ── the table ──────────────────────────────────────────────────── */
-.itin__table {
-    margin-top: 1rem;
-    border: 2px solid var(--ivory);
-    background: var(--stock);
-}
-
-.itin__head,
-.itin__row {
-    display: grid;
-    grid-template-columns: 128px 104px minmax(0, 1fr) 136px 132px;
-    align-items: stretch;
-}
-
-.itin__table.has-venue .itin__head,
-.itin__table.has-venue .itin__row {
-    grid-template-columns: 128px 104px minmax(0, 1fr) 136px 168px 132px;
-}
-
-.itin__head {
-    border-bottom: 2px solid var(--ivory);
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.55rem;
+    font-size: clamp(0.48rem, 1.2vw, 0.58rem);
     letter-spacing: 0.24em;
     text-transform: uppercase;
     color: var(--mute);
 }
 
-.itin__head span {
-    padding: 0.65rem 0.75rem;
+.itin__tba {
+    margin: 0;
+    padding: clamp(1.6rem, 5vh, 2.6rem);
+    border: 1px dashed var(--hair);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.55rem, 1.4vw, 0.65rem);
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--mute);
+}
+
+/* ── grid ───────────────────────────────────────────────────────── */
+.itin__grid {
+    display: grid;
+    grid-template-columns: clamp(4.4rem, 8vw, 6.4rem) repeat(3, minmax(0, 1fr));
+    grid-auto-rows: minmax(clamp(76px, 9vh, 104px), auto);
+    gap: 8px;
+    align-items: stretch;
+}
+
+/* The rail: each row's own boundaries, whatever the tiles above it
+   have been merged into. */
+.itin__time {
+    grid-column: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.2rem;
+    padding-right: 0.7rem;
     border-right: 1px solid var(--hair);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.52rem, 1.3vw, 0.62rem);
+    letter-spacing: 0.1em;
+    color: var(--ivory);
+    text-align: right;
 }
 
-.itin__head span:last-child {
-    border-right: 0;
+.itin__time i {
+    font-style: normal;
+    color: var(--mute);
 }
 
-/* A band for every time slot, printed on the stock itself. */
-.itin__band {
+.itin__lunch {
+    grid-column: 2 / -1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 0.9rem;
-    padding: 0.55rem 0.9rem;
-    border-top: 1px solid var(--hair);
-    border-bottom: 1px solid var(--hair);
+    justify-content: center;
+    border: 1px solid var(--hair);
+    background: rgba(11, 19, 43, 0.34);
     font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.28em;
+    font-size: clamp(0.5rem, 1.3vw, 0.6rem);
+    letter-spacing: 0.42em;
+    text-indent: 0.42em;
     text-transform: uppercase;
+    color: var(--mute);
+}
+
+/* ── tile ───────────────────────────────────────────────────────── */
+.itin__tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: clamp(0.7rem, 1.8vh, 1rem) clamp(0.7rem, 1.6vw, 1.05rem);
+    background:
+        linear-gradient(158deg,
+            color-mix(in srgb, var(--accent) 13%, transparent),
+            color-mix(in srgb, var(--accent) 4%, transparent) 62%),
+        rgba(11, 19, 43, 0.5);
+    border: 1px solid var(--hair);
+    color: var(--ivory);
+    cursor: pointer;
+    font-family: inherit;
+    text-align: left;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+        border-color 0.3s ease, background 0.3s ease, opacity 0.3s ease;
+}
+
+.itin__tile::before {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2px;
+    background: var(--accent);
+    opacity: 0.62;
+    transition: opacity 0.3s ease, width 0.3s ease;
+}
+
+.itin__tile:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+    background:
+        linear-gradient(158deg,
+            color-mix(in srgb, var(--accent) 22%, transparent),
+            color-mix(in srgb, var(--accent) 7%, transparent) 62%),
+        rgba(11, 19, 43, 0.72);
+}
+
+.itin__tile:hover::before {
+    opacity: 1;
+    width: 3px;
+}
+
+.itin__tile.is-dim {
+    opacity: 0.2;
+}
+
+.itin__code {
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+}
+
+.itin__name {
+    font-size: clamp(0.76rem, 1.7vw, 0.94rem);
+    font-weight: 500;
+    line-height: 1.28;
+    letter-spacing: 0.01em;
+}
+
+.itin__name em {
+    font-style: normal;
+    font-size: 0.7em;
+    color: var(--mute);
+}
+
+.itin__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.itin__out {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.7rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+    opacity: 0;
+    transform: translate(-3px, 3px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.itin__tile:hover .itin__out,
+.itin__tile:focus-visible .itin__out {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* ── now ────────────────────────────────────────────────────────── */
+.itin__tile.is-live {
+    border-color: var(--gold);
+}
+
+.itin__tile.is-live::after {
+    content: 'NOW';
+    position: absolute;
+    right: 0.7rem;
+    bottom: 0.6rem;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.44rem;
+    letter-spacing: 0.24em;
+    color: var(--gold);
+    animation: itin-now 1.6s steps(1) infinite;
+}
+
+@keyframes itin-now {
+    0%, 60% { opacity: 1; }
+    61%, 100% { opacity: 0.24; }
+}
+
+/* ── narrow: a list, not a reflowed grid ────────────────────────
+   The grid's DOM order is column-major — all of track 1, then track 2,
+   then track 3 — which cannot be made to read in schedule order in a
+   single column with CSS alone. Step 3 renders an explicit list from
+   the same data instead, and the two swap here. */
+.itin__list {
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.itin__list li {
+    display: block;
+}
+
+.itin__list li + li {
+    margin-top: 10px;
+}
+
+.itin__list .itin__tile {
+    width: 100%;
+    border-left: 3px solid var(--accent);
+}
+
+.itin__list .itin__tile::before {
+    display: none;
+}
+
+.itin__listlunch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    padding: 0.9rem;
+    border: 1px solid var(--hair);
+    background: rgba(11, 19, 43, 0.34);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: clamp(0.5rem, 1.3vw, 0.6rem);
+    letter-spacing: 0.34em;
+    text-transform: uppercase;
+    color: var(--mute);
+}
+
+.itin__listlunch span {
+    letter-spacing: 0.16em;
     color: var(--ivory);
 }
 
-.itin__band b {
-    font-weight: 700;
-}
-
-.itin__band em {
-    font-style: normal;
-    letter-spacing: 0.2em;
-    color: var(--mute);
-}
-
-/* Lunch is a real break, so it prints as an ink band of its own. */
-.itin__band--lunch {
-    position: relative;
-    overflow: hidden;
-    background: var(--gold);
-    color: var(--stock);
-    border-color: var(--stock);
-}
-
-.itin__band--lunch b,
-.itin__band--lunch em {
-    position: relative;
-    z-index: 4;
-}
-
-.itin__band--lunch em {
-    color: var(--stock);
-    opacity: 0.6;
-}
-
-/* ── one session ────────────────────────────────────────────────── */
-.itin__row {
-    position: relative;
-    overflow: hidden;
-    width: 100%;
-    border: 0;
-    border-top: 1px solid var(--rule);
-    background: var(--accent);
-    color: var(--stock);
-    text-align: left;
-    cursor: pointer;
-    font: inherit;
-    transition: filter 0.25s, opacity 0.25s;
-}
-
-.itin__row > span {
-    position: relative;
-    z-index: 4;
-    display: flex;
-    align-items: center;
-    padding: 0.8rem 0.75rem;
-    border-right: 1px solid var(--rule);
-}
-
-.itin__row > span:last-child {
-    border-right: 0;
-}
-
-.itin__row:hover {
-    filter: brightness(1.06);
-}
-
-/* Filtered out: pushed back toward the stock, never hidden — the shape
-   of the day should survive a filter. */
-.itin__row.is-dim {
-    opacity: 0.24;
-}
-
-/* Running now. A printed marker, not a glow — and a real element, so
-   it does not have to borrow one of the two halftone pseudo-elements. */
-.itin__now {
-    font-style: normal;
-    margin-left: 0.5rem;
-    padding: 0.15rem 0.35rem;
-    background: var(--stock);
-    color: var(--gold);
-    font-size: 0.5rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    animation: itin-live 2.4s steps(2, end) infinite;
-}
-
-@keyframes itin-live {
-    0%, 49% { opacity: 1; }
-    50%, 100% { opacity: 0.45; }
-}
-
-.itin__c-time {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.68rem;
-    letter-spacing: 0.04em;
-}
-
-.itin__c-soc {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.6rem;
-    letter-spacing: 0.22em;
-}
-
-.itin__c-name {
-    font-family: 'Manrope', 'Inter', system-ui, sans-serif;
-    font-weight: 800;
-    font-size: 0.95rem;
-    line-height: 1.24;
-    letter-spacing: -0.008em;
-}
-
-.itin__c-name em {
-    font-style: normal;
-    font-weight: 500;
-    opacity: 0.62;
-    font-size: 0.8rem;
-}
-
-.itin__c-kind,
-.itin__c-venue {
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    opacity: 0.74;
-}
-
-.itin__c-act i {
-    font-style: normal;
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.55rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    border: 1.5px solid var(--stock);
-    padding: 0.4rem 0.55rem;
-}
-
-/* Friday's empty state belongs inside the table frame, not beside it. */
-.itin__tba {
-    margin: 0;
-    padding: 1.75rem 0.9rem;
-    text-align: center;
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.6rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--mute);
-}
-
-/* ══ narrow viewports ═══════════════════════════════════════════════
-   The table keeps its outline and each session becomes one ruled
-   record, full-bleed so the ink runs edge to edge. */
-@media (max-width: 760px) {
-    .itin__table {
-        border-left: 0;
-        border-right: 0;
-        margin-left: calc(var(--bleed, 0px) * -1);
-        margin-right: calc(var(--bleed, 0px) * -1);
-    }
-
-    .itin__head {
+@media (max-width: 900px) {
+    .itin__grid {
         display: none;
     }
 
-    .itin__row,
-    .itin__table.has-venue .itin__row {
-        grid-template-columns: minmax(0, 1fr) auto;
-        grid-template-areas:
-            'time act'
-            'name name'
-            'soc  kind'
-            'venue venue';
-    }
-
-    .itin__row > span {
-        border-right: 0;
-        padding: 0 1.1rem;
-    }
-
-    .itin__c-time {
-        grid-area: time;
-        padding-top: 0.9rem;
-        font-size: 0.72rem;
-    }
-
-    .itin__c-act {
-        grid-area: act;
-        justify-content: flex-end;
-        padding-top: 0.8rem;
-    }
-
-    .itin__c-name {
-        grid-area: name;
-        padding-top: 0.45rem;
-        font-size: 1.2rem;
-    }
-
-    .itin__c-soc {
-        grid-area: soc;
-        padding-top: 0.6rem;
-    }
-
-    .itin__c-kind {
-        grid-area: kind;
-        justify-content: flex-end;
-        padding-top: 0.6rem;
-    }
-
-    .itin__c-venue {
-        grid-area: venue;
-        padding-top: 0.35rem;
-        padding-bottom: 1rem;
-    }
-
-    /* With no venue column the last row-area is empty, so the bottom
-       padding has to come from the pair above it. */
-    .itin__table:not(.has-venue) .itin__c-soc,
-    .itin__table:not(.has-venue) .itin__c-kind {
-        padding-bottom: 1rem;
-    }
-
-    .itin__band {
-        padding: 0.6rem 1.1rem;
-        letter-spacing: 0.22em;
-    }
-
-    .itin__dayhead b {
-        margin-left: 0;
-        flex-basis: 100%;
+    .itin__list {
+        display: block;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .itin__row,
-    .itin__chip,
-    .itin__chip--clear {
+    .itin__tile,
+    .itin__tile::before,
+    .itin__out {
         transition: none;
     }
 
-    .itin__row:hover {
-        filter: none;
+    .itin__tile:hover {
+        transform: none;
     }
 
-    .itin__now {
+    .itin__tile.is-live::after {
         animation: none;
     }
 }

@@ -8,59 +8,57 @@
 
 export const TRACK_COUNT = 3
 
-/* Seven Risograph inks at 40% tint. The page prints each society as a
- * flooded panel with dark indigo type knocked out of it, so these must
- * be light enough to carry that type at full contrast — the earlier
- * near-black-with-a-14%-border scheme never let the colour reach the
- * eye at all. Held at comparable lightness so no society shouts. */
+/* Seven hues held at comparable lightness, so no society shouts over
+ * the others on the void. CS and WIE carry the values the hero was
+ * already using. */
 export const SOCIETIES = {
     CS: {
         code: 'CS',
         name: 'IEEE Computer Society',
         short: 'Computer Society',
-        accent: '#a6c8f2',
+        accent: '#93b6dd',
         logo: '/ieee-cs-logo.webp',
     },
     SIGHT: {
         code: 'SIGHT',
         name: 'IEEE Special Interest Group on Humanitarian Technology',
         short: 'SIGHT',
-        accent: '#a8e6e0',
+        accent: '#79cfa4',
         logo: '/ieee-sight-logo.webp',
     },
     SPS: {
         code: 'SPS',
         name: 'IEEE Signal Processing Society',
         short: 'Signal Processing',
-        accent: '#c6b2ec',
+        accent: '#a98cf0',
         logo: '/ieee-sps-logo.webp',
     },
     WIE: {
         code: 'WIE',
         name: 'IEEE Women in Engineering',
         short: 'Women in Engineering',
-        accent: '#ffaad6',
+        accent: '#d9a271',
         logo: '/Docs/ieee-wie-logo.webp',
     },
     PELS: {
         code: 'PELS',
         name: 'IEEE Power Electronics Society',
         short: 'Power Electronics',
-        accent: '#ffbc9b',
+        accent: '#e2705f',
         logo: '/ieee-logo.webp',
     },
     ITSS: {
         code: 'ITSS',
         name: 'IEEE Intelligent Transportation Systems Society',
         short: 'Intelligent Transportation',
-        accent: '#f2e68c',
+        accent: '#c8cf72',
         logo: '/ieee-itss-logo.webp',
     },
     SBNU: {
         code: 'SBNU',
         name: 'IEEE Student Branch Nirma University',
         short: 'Student Branch',
-        accent: '#9edcb8',
+        accent: '#5ec9d8',
         logo: '/ieee-logo.webp',
     },
 }

@@ -1,21 +1,34 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { societyOf } from '../../lib/technodysseyEvents'
 import './EventPoster.css'
 
-/* The real poster if there is one, and a printed ink plate if there is
- * not — so a missing file reads as a plate awaiting its art, never as a
- * broken image.
- *
- * The plate used to be a seeded starfield over a near-black gradient.
- * With the page printed rather than lit, it is now one society ink
- * flooded edge to edge under a halftone; the stars, and the seeded RNG
- * that kept them stable between paints, are gone with it. */
+/* A deterministic starfield: seeded from the event id, so the same
+ * event gets the same sky on every render and between paints. Math.random
+ * would shift the stars on every re-render, which reads as a glitch. */
+const starfield = (seed, count = 34) => {
+    let h = 0
+    for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0
+
+    const next = () => {
+        h = (h * 1664525 + 1013904223) >>> 0
+        return h / 4294967296
+    }
+
+    return Array.from({ length: count }, () => ({
+        x: next() * 100,
+        y: next() * 100,
+        r: 0.4 + next() * 1.1,
+        o: 0.15 + next() * 0.55,
+    }))
+}
+
 const EventPoster = ({ event }) => {
     const society = societyOf(event)
     const [failed, setFailed] = useState(false)
     /* A persisting instance handed a different event must retry the image —
        otherwise one event's missing poster would suppress the next one's. */
     useEffect(() => { setFailed(false) }, [event.id])
+    const stars = useMemo(() => starfield(event.id), [event.id])
 
     if (!failed && event.poster) {
         return (
@@ -35,7 +48,11 @@ const EventPoster = ({ event }) => {
             style={{ '--accent': society.accent, '--code-len': society.code.length }}
             role="img"
             aria-label={`${event.name} — poster to be released`}>
-            <span className="tdposter__ht" aria-hidden="true" />
+            <svg className="tdposter__stars" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                {stars.map((s, i) => (
+                    <circle key={i} cx={s.x} cy={s.y} r={s.r * 0.22} fill="#f7f4ee" opacity={s.o} />
+                ))}
+            </svg>
             <span className="tdposter__glyph" aria-hidden="true">{society.code}</span>
             <span className="tdposter__label" aria-hidden="true">
                 <em>{event.name}</em>

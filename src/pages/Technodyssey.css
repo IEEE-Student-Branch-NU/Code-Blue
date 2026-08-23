@@ -4,28 +4,17 @@
  * ---------------------------------------------------------------- */
 
 .tdp {
-    /* The sheet. This section is printed, not lit: a deep indigo stock
-       carrying seven Risograph inks. --void is kept as the outer table
-       the sheet sits on. */
     --void: #05070d;
-    --stock: #1a1146;
     --navy: #0b132b;
     --ivory: #f7f4ee;
-    --gold: #f2e68c;
-    --neb: #a6c8f2;
-    --mute: rgba(247, 244, 238, 0.55);
-    --hair: rgba(247, 244, 238, 0.22);
-    /* rules printed ON an ink panel, where the type is dark */
-    --rule: rgba(26, 17, 70, 0.32);
-    /* the two drums that print behind the key layer */
-    --reg-a: #ffaad6;
-    --reg-b: #a8e6e0;
-    --display: 'Fraunces', 'Bodoni Moda', Georgia, serif;
-    --display-vf: 'SOFT' 40, 'WONK' 1, 'opsz' 120;
+    --gold: #e4b55d;
+    --neb: #76a8ff;
+    --mute: rgba(247, 244, 238, 0.44);
+    --hair: rgba(247, 244, 238, 0.14);
 
     position: relative;
     min-height: 100vh;
-    background: var(--stock);
+    background: var(--void);
     color: var(--ivory);
     font-family: 'Manrope', 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
@@ -91,53 +80,16 @@
     flex-wrap: wrap;
     gap: clamp(0.6rem, 2vw, 1.4rem);
     margin: 0;
-    font-family: var(--display, 'Fraunces', Georgia, serif);
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
     font-weight: 600;
-    font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 14;
+    font-variation-settings: 'opsz' 14;
     font-size: clamp(2.4rem, 8vw, 6rem);
     line-height: 1.12;
     letter-spacing: -0.012em;
-}
-
-/* Three passes: pink and mint laid down slightly out of register, then
-   the key layer over them. This replaces a white-to-gold gradient clipped
-   to the text — a gradient is a lighting effect, and nothing on this
-   sheet is lit. */
-.tdp__name {
-    position: relative;
-    display: inline-block;
-    color: var(--gold);
-}
-
-.tdp__name::before,
-.tdp__name::after {
-    content: attr(data-name);
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.tdp__name::before {
-    transform: translate(-4px, 3px);
-    color: var(--reg-a);
-}
-
-.tdp__name::after {
-    transform: translate(4px, -3px);
-    color: var(--reg-b);
-}
-
-/* At phone size a 4px offset reads as a rendering fault rather than a
-   print artefact, so it scales down with the type. */
-@media (max-width: 640px) {
-    .tdp__name::before {
-        transform: translate(-2px, 2px);
-    }
-
-    .tdp__name::after {
-        transform: translate(2px, -2px);
-    }
+    background-image: linear-gradient(168deg, #ffffff 0%, #f7f4ee 42%, #f0dcb4 74%, #e4b55d 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .tdp__year {
@@ -146,20 +98,15 @@
     font-weight: 400;
     letter-spacing: 0.62em;
     text-indent: 0.62em;
+    -webkit-text-fill-color: var(--gold);
     color: var(--gold);
 }
 
 .tdp__dates {
     margin: clamp(0.8rem, 2vh, 1.2rem) 0 0;
-    display: inline-block;
-    padding: 0.4rem 0.7rem;
-    background: var(--gold);
-    color: var(--stock);
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: clamp(0.6rem, 1.6vw, 0.72rem);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
+    font-size: clamp(0.78rem, 2vw, 0.95rem);
+    letter-spacing: 0.06em;
+    color: var(--ivory);
 }
 
 .tdp__clock {
@@ -176,8 +123,8 @@
 
 .tdp__jump button {
     padding: 0.7rem 1.4rem;
-    background: transparent;
-    border: 2px solid var(--ivory);
+    background: rgba(11, 19, 43, 0.55);
+    border: 1px solid var(--hair);
     color: var(--ivory);
     cursor: pointer;
     font-family: inherit;
@@ -192,19 +139,13 @@
 .tdp__jump button:hover {
     border-color: var(--gold);
     letter-spacing: 0.28em;
-    background: var(--gold);
-    color: var(--stock);
+    background: rgba(11, 19, 43, 0.9);
 }
 
 /* ── sections ───────────────────────────────────────────────────── */
 .tdp__section {
-    /* --bleed carries this section's own horizontal padding so a child
-       can cancel it and run edge to edge, which is what the itinerary
-       does on a phone. Keep the two in step. */
-    --bleed: clamp(1.2rem, 5vw, 4.5rem);
-
     position: relative;
-    padding: clamp(3rem, 9vh, 6rem) var(--bleed);
+    padding: clamp(3rem, 9vh, 6rem) clamp(1.2rem, 5vw, 4.5rem);
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -216,9 +157,9 @@
     margin: 0 0 clamp(1.8rem, 4vh, 3rem);
     padding-bottom: clamp(0.8rem, 2vh, 1.2rem);
     border-bottom: 1px solid var(--hair);
-    font-family: var(--display, 'Fraunces', Georgia, serif);
+    font-family: 'Bodoni Moda', Didot, Georgia, serif;
     font-weight: 500;
-    font-variation-settings: 'SOFT' 40, 'WONK' 1, 'opsz' 14;
+    font-variation-settings: 'opsz' 14;
     font-size: clamp(1.4rem, 4vw, 2.4rem);
     letter-spacing: -0.01em;
     color: var(--ivory);
@@ -255,124 +196,5 @@
 
     .tdp__jump button:hover {
         letter-spacing: 0.22em;
-    }
-}
-
-/* ─── press furniture ─────────────────────────────────────────────
- * The colour bar a printer runs along the edge of a sheet to check
- * each drum laid its ink down. Here it doubles as the society legend
- * for the whole page, which is why it carries the codes.
- * ---------------------------------------------------------------- */
-.tdp__colourbar {
-    position: relative;
-    z-index: 5;
-    display: flex;
-    align-items: stretch;
-    border-bottom: 2px solid var(--ivory);
-}
-
-.tdp__swatch {
-    flex: 1;
-    min-width: 0;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--accent);
-    color: var(--stock);
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.5rem;
-    letter-spacing: 0.18em;
-    white-space: nowrap;
-    overflow: hidden;
-}
-
-.tdp__reg {
-    flex: none;
-    width: 32px;
-    display: grid;
-    place-items: center;
-    background: var(--stock);
-}
-
-.tdp__reg i {
-    position: relative;
-    display: block;
-    width: 13px;
-    height: 13px;
-    border: 1.5px solid var(--ivory);
-    border-radius: 50%;
-}
-
-.tdp__reg i::before,
-.tdp__reg i::after {
-    content: '';
-    position: absolute;
-    background: var(--ivory);
-}
-
-.tdp__reg i::before {
-    left: 50%;
-    top: -5px;
-    bottom: -5px;
-    width: 1.5px;
-    transform: translateX(-50%);
-}
-
-.tdp__reg i::after {
-    top: 50%;
-    left: -5px;
-    right: -5px;
-    height: 1.5px;
-    transform: translateY(-50%);
-}
-
-/* ── the way home ───────────────────────────────────────────────
-   The page is entered through a full-screen transition from the Home
-   hero, so without this the only route back is the menu. */
-.tdp__back {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.55rem;
-    margin-bottom: clamp(1rem, 3vh, 1.6rem);
-    padding: 0.5rem 0.8rem;
-    background: var(--ivory);
-    color: var(--stock);
-    border: 2px solid var(--ivory);
-    text-decoration: none;
-    font-family: 'Space Mono', ui-monospace, monospace;
-    font-weight: 700;
-    font-size: 0.56rem;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    transition: background 0.25s ease, border-color 0.25s ease;
-}
-
-.tdp__back:hover {
-    background: var(--gold);
-    border-color: var(--gold);
-}
-
-.tdp__back span {
-    font-size: 0.8rem;
-    line-height: 1;
-}
-
-@media (max-width: 640px) {
-    .tdp__swatch {
-        height: 24px;
-        font-size: 0.42rem;
-        letter-spacing: 0.08em;
-    }
-
-    .tdp__reg {
-        width: 24px;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .tdp__back {
-        transition: none;
     }
 }

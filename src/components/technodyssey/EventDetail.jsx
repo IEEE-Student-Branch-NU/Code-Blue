@@ -96,13 +96,9 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                             : { duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Top-LEFT, and labelled. Sitting top-right it landed
-                            directly under the site's fixed Menu button on a
-                            phone, which made the overlay impossible to close. */}
                         <button className="tddet__close" type="button" onClick={onClose}
                             aria-label={`Close ${event.name}`}>
-                            <X size={14} aria-hidden="true" />
-                            Back
+                            <X size={16} />
                         </button>
 
                         <div className="tddet__poster">
