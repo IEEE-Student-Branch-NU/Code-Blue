@@ -29,9 +29,16 @@
 .tddet__close {
     position: absolute;
     top: 0.7rem;
-    right: 0.7rem;
+    left: 0.7rem;
+    z-index: 6;
     display: flex;
-    padding: 0.5rem;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.7rem;
     background: rgba(5, 7, 13, 0.7);
     border: 1px solid var(--hair);
     color: var(--mute);
@@ -54,7 +61,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    padding-right: 1.6rem;
+    padding-right: 0.4rem;
 }
 
 .tddet__society {

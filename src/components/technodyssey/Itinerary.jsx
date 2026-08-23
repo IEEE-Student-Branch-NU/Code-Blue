@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
-    SCHEDULE, SOCIETIES,
+    EVENTS, SCHEDULE, SOCIETIES,
     getEvent, societyOf, buildRuns, formatRange, formatTime, currentSlot,
 } from '../../lib/technodysseyEvents'
 import './Itinerary.css'
@@ -10,17 +10,23 @@ import './Itinerary.css'
 gsap.registerPlugin(ScrollTrigger)
 
 /* ─── The running order ───────────────────────────────────────────
- * A time rail and three tracks per day. The organisers' sheet splits a
- * continuous event across consecutive rows; buildRuns puts it back
- * together, so a tile spans what the event actually spans.
+ * A ruled table, one record per session, grouped under a band for each
+ * time slot. It replaces the old two-render-path layout — a parallel
+ * track grid for wide viewports and a separate flat list for narrow
+ * ones — with a single set of rows that restructure at 760px. One
+ * render path, so a change to a row can only ever be made once.
  *
- * A tile with a KonfHub link goes there. A tile without one opens the
+ * Colour does the work here: each row is flooded with its society's
+ * Risograph ink and the type is knocked out of it in stock indigo, so
+ * the day reads by colour before it reads by word.
+ *
+ * A row with a KonfHub link goes there. A row without one opens the
  * detail panel instead — never a dead click, and the ↗ appears only
  * when the link is real, so the affordance never lies.
  * ---------------------------------------------------------------- */
 
 /* Only societies that actually appear, in first-appearance order —
- * a legend listing societies with nothing on the grid is noise. */
+ * a legend listing societies with nothing on the schedule is noise. */
 const usedSocieties = () => {
     const seen = []
     for (const day of SCHEDULE) {
@@ -36,35 +42,47 @@ const usedSocieties = () => {
     return seen.map((code) => SOCIETIES[code])
 }
 
-/* The one tile, rendered from both the grid and the list. Everything
- * about a tile that is computed from (event, society, dim, live) lives
- * here, so a label or a badge only ever needs to change once. The grid
- * and the list keep their own wrappers and key strategies — only this
- * inner markup is shared. */
-const ItineraryTile = ({ event, society, day, run, dim, live, style, onClick, ...rest }) => (
+/* Runs keyed by the row they begin on, so the table can emit a time
+ * band followed by everything that starts in that band. */
+const runsByStartRow = (columns) => {
+    const byRow = new Map()
+    columns.forEach((runs, col) => {
+        runs.forEach((run) => {
+            if (!byRow.has(run.fromRow)) byRow.set(run.fromRow, [])
+            byRow.get(run.fromRow).push({ run, col })
+        })
+    })
+    return byRow
+}
+
+const ItineraryRow = ({ event, society, day, run, dim, live, showVenue, onClick }) => (
     <button
         type="button"
-        className={`itin__tile${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
-        style={{ '--accent': society.accent, ...style }}
+        className={`itin__row${dim ? ' is-dim' : ''}${live ? ' is-live' : ''}`}
+        style={{ '--accent': society.accent }}
         onClick={onClick}
+        data-reveal
         aria-current={live ? 'time' : undefined}
         aria-label={
             `${event.name} — ${society.name}, ${day.day} ` +
             `${formatRange(run.from, run.to)}` +
             (event.konfhub ? '. Opens registration in a new tab.' : '. Opens details.')
         }
-        {...rest}
     >
-        <span className="itin__code">{society.code}</span>
-        <span className="itin__name">
+        <span className="itin__c-time">
+            {formatRange(run.from, run.to)}
+            {live && <i className="itin__now">Now</i>}
+        </span>
+        <span className="itin__c-soc">{society.code}</span>
+        <span className="itin__c-name">
             {event.name}
             {event.tba && <em> · name to be announced</em>}
         </span>
-        <span className="itin__meta">
-            <span className="itin__span">{formatRange(run.from, run.to)}</span>
-            <span className="itin__kind">{event.kind}</span>
+        <span className="itin__c-kind">{event.kind}</span>
+        {showVenue && <span className="itin__c-venue">{event.venue || '—'}</span>}
+        <span className="itin__c-act">
+            <i>{event.konfhub ? 'Register ↗' : 'Details +'}</i>
         </span>
-        {event.konfhub && <span className="itin__out" aria-hidden="true">↗</span>}
     </button>
 )
 
@@ -74,12 +92,23 @@ const Itinerary = ({ onOpenEvent }) => {
     const legend = useMemo(usedSocieties, [])
     const [now] = useState(() => currentSlot())
 
+    /* The column exists only once a venue does. Until then it would be
+       a full column of em-dashes, and adding one to the data is still
+       the one-line edit the handoff promises. */
+    const showVenue = useMemo(() => EVENTS.some((e) => e.venue), [])
+
     const days = useMemo(
-        () => SCHEDULE.map((day) => ({ day, columns: buildRuns(day) })),
+        () => SCHEDULE.map((day) => {
+            const columns = buildRuns(day)
+            const byRow = runsByStartRow(columns)
+            let sessions = 0
+            byRow.forEach((list) => { sessions += list.length })
+            return { day, byRow, sessions }
+        }),
         [],
     )
 
-    /* Rows arrive as the reader comes down the rail. */
+    /* Rows land in sequence, like ink laid down in passes. */
     useEffect(() => {
         const root = rootRef.current
         if (!root) return
@@ -93,9 +122,9 @@ const Itinerary = ({ onOpenEvent }) => {
             root.querySelectorAll('[data-day]').forEach((dayEl) => {
                 gsap.fromTo(
                     dayEl.querySelectorAll('[data-reveal]'),
-                    { opacity: 0, y: 26 },
+                    { opacity: 0, y: 18 },
                     {
-                        opacity: 1, y: 0, duration: 0.75, stagger: 0.055, ease: 'power3.out',
+                        opacity: 1, y: 0, duration: 0.62, stagger: 0.05, ease: 'power3.out',
                         scrollTrigger: { trigger: dayEl, start: 'top 82%', once: true },
                     },
                 )
@@ -115,7 +144,11 @@ const Itinerary = ({ onOpenEvent }) => {
 
     return (
         <div className="itin" ref={rootRef}>
-            <div className="itin__legend" role="group" aria-label="Filter by society">
+            <div
+                className={`itin__legend${filter ? ' is-filtered' : ''}`}
+                role="group"
+                aria-label="Filter by society"
+            >
                 {legend.map((s) => {
                     const on = filter === s.code
                     return (
@@ -127,7 +160,6 @@ const Itinerary = ({ onOpenEvent }) => {
                             aria-pressed={on}
                             onClick={() => setFilter(on ? null : s.code)}
                         >
-                            <span className="itin__chip-dot" aria-hidden="true" />
                             {s.code}
                         </button>
                     )
@@ -146,110 +178,77 @@ const Itinerary = ({ onOpenEvent }) => {
                 </button>
             </div>
 
-            {days.map(({ day, columns }, dayIndex) => (
+            {days.map(({ day, byRow, sessions }, dayIndex) => (
                 <section className="itin__day" key={day.iso} data-day>
                     <header className="itin__dayhead" data-reveal>
                         <h3>{day.day}</h3>
                         <span>{day.date}</span>
+                        <b>
+                            {`Day 0${dayIndex + 1}`}
+                            {sessions > 0 && ` · ${sessions} session${sessions === 1 ? '' : 's'}`}
+                        </b>
                     </header>
 
-                    {day.rows.length === 0 ? (
-                        <p className="itin__tba" data-reveal>Schedule to be announced</p>
-                    ) : (
-                        <>
-                            <div className="itin__grid">
-                                {day.rows.map((row, rowIndex) => (
-                                    <div
-                                        className="itin__time"
-                                        key={`t-${rowIndex}`}
-                                        style={{ gridRow: rowIndex + 1 }}
-                                        data-reveal
-                                    >
-                                        {formatTime(row.from)}
-                                        <i aria-hidden="true">{formatTime(row.to)}</i>
+                    <div className={`itin__table${showVenue ? ' has-venue' : ''}`}>
+                        <div className="itin__head" aria-hidden="true">
+                            <span>Time</span>
+                            <span>Society</span>
+                            <span>Session</span>
+                            <span>Format</span>
+                            {showVenue && <span>Venue</span>}
+                            <span />
+                        </div>
+
+                        {day.rows.length === 0 ? (
+                            <p className="itin__tba" data-reveal>Schedule to be announced</p>
+                        ) : day.rows.map((row, rowIndex) => {
+                            if (row.lunch) {
+                                return (
+                                    <div className="itin__band itin__band--lunch" key={`l-${rowIndex}`} data-reveal>
+                                        <b>{formatRange(row.from, row.to)} · Lunch</b>
+                                        <em>All delegates</em>
                                     </div>
-                                ))}
+                                )
+                            }
 
-                                {day.rows.map((row, rowIndex) => row.lunch && (
-                                    <div
-                                        className="itin__lunch"
-                                        key={`l-${rowIndex}`}
-                                        style={{ gridRow: rowIndex + 1 }}
-                                        data-reveal
-                                    >
-                                        Lunch
+                            const here = byRow.get(rowIndex)
+                            /* A continuation row of an event that began earlier
+                               carries nothing of its own to print. */
+                            if (!here) return null
+
+                            return (
+                                <React.Fragment key={`s-${rowIndex}`}>
+                                    <div className="itin__band" data-reveal>
+                                        <b>From {formatTime(row.from)}</b>
+                                        <em>{here.length > 1 ? `${here.length} parallel` : '1 session'}</em>
                                     </div>
-                                ))}
+                                    {here.map(({ run, col }) => {
+                                        const event = getEvent(run.eventId)
+                                        const society = societyOf(event)
+                                        const dim = filter && filter !== society.code
+                                        const live = now
+                                            && now.dayIndex === dayIndex
+                                            && now.rowIndex >= run.fromRow
+                                            && now.rowIndex < run.fromRow + run.span
 
-                                {columns.map((runs, col) => runs.map((run) => {
-                                    const event = getEvent(run.eventId)
-                                    const society = societyOf(event)
-                                    const dim = filter && filter !== society.code
-                                    const live = now
-                                        && now.dayIndex === dayIndex
-                                        && now.rowIndex >= run.fromRow
-                                        && now.rowIndex < run.fromRow + run.span
-
-                                    return (
-                                        <ItineraryTile
-                                            key={`${col}-${run.fromRow}`}
-                                            event={event}
-                                            society={society}
-                                            day={day}
-                                            run={run}
-                                            dim={dim}
-                                            live={live}
-                                            style={{
-                                                gridColumn: col + 2,
-                                                gridRow: `${run.fromRow + 1} / span ${run.span}`,
-                                            }}
-                                            data-reveal
-                                            onClick={activate(event)}
-                                        />
-                                    )
-                                }))}
-                            </div>
-
-                            <ol className="itin__list">
-                                {day.rows.flatMap((row, rowIndex) => {
-                                    if (row.lunch) {
-                                        return [(
-                                            <li className="itin__listlunch" key={`ml-${rowIndex}`} data-reveal>
-                                                <span>{formatRange(row.from, row.to)}</span>
-                                                Lunch
-                                            </li>
-                                        )]
-                                    }
-                                    return columns
-                                        .flatMap((runs, col) => runs
-                                            .filter((run) => run.fromRow === rowIndex)
-                                            .map((run) => ({ run, col })))
-                                        .map(({ run, col }) => {
-                                            const event = getEvent(run.eventId)
-                                            const society = societyOf(event)
-                                            const dim = filter && filter !== society.code
-                                            const live = now
-                                                && now.dayIndex === dayIndex
-                                                && now.rowIndex >= run.fromRow
-                                                && now.rowIndex < run.fromRow + run.span
-                                            return (
-                                                <li key={`m-${rowIndex}-${col}`} data-reveal>
-                                                    <ItineraryTile
-                                                        event={event}
-                                                        society={society}
-                                                        day={day}
-                                                        run={run}
-                                                        dim={dim}
-                                                        live={live}
-                                                        onClick={activate(event)}
-                                                    />
-                                                </li>
-                                            )
-                                        })
-                                })}
-                            </ol>
-                        </>
-                    )}
+                                        return (
+                                            <ItineraryRow
+                                                key={`${col}-${run.fromRow}`}
+                                                event={event}
+                                                society={society}
+                                                day={day}
+                                                run={run}
+                                                dim={dim}
+                                                live={live}
+                                                showVenue={showVenue}
+                                                onClick={activate(event)}
+                                            />
+                                        )
+                                    })}
+                                </React.Fragment>
+                            )
+                        })}
+                    </div>
                 </section>
             ))}
         </div>

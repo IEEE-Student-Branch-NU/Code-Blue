@@ -1,8 +1,24 @@
+/* Seven events, seven plates, one row. auto-fill at 236px gave four
+   oversized cards on a wide screen and one per row on a phone; a plate
+   does not need to be that big to be read. */
 .tdgal {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 236px), 1fr));
-    gap: clamp(1rem, 2.6vw, 1.8rem);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1vw, 0.8rem);
     perspective: 1200px;
+}
+
+@media (max-width: 1100px) {
+    .tdgal {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+/* Two per row on a phone. */
+@media (max-width: 760px) {
+    .tdgal {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .tdgal__card {
@@ -87,8 +103,8 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.34rem;
-    padding: 0.85rem 0 0;
+    gap: 0.24rem;
+    padding: 0.55rem 0 0;
     background: none;
     border: 0;
     color: inherit;
@@ -106,7 +122,7 @@
 
 .tdgal__name {
     margin: 0;
-    font-size: clamp(0.8rem, 1.9vw, 0.95rem);
+    font-size: clamp(0.68rem, 1.3vw, 0.8rem);
     font-weight: 500;
     line-height: 1.3;
     color: var(--ivory);

@@ -1,4 +1,5 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
     FEST_NAME, FEST_YEAR, DATE_LABEL, VENUE_LABEL, CITY_LABEL, getCountdown,
 } from '../lib/technodyssey'
@@ -58,6 +59,11 @@ const Technodyssey = () => {
                 </div>
 
                 <div className="tdp__masthead-inner">
+                    <Link className="tdp__back" to="/">
+                        <span aria-hidden="true">&#8592;</span>
+                        Back to IEEE SBNU
+                    </Link>
+
                     <p className="tdp__callsign">
                         <span aria-hidden="true" />
                         IEEE SBNU · {VENUE_LABEL}, {CITY_LABEL}
