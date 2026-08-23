@@ -532,6 +532,27 @@
         rgba(8, 11, 22, 0.86);
 }
 
+/* On the press sheet the clock is printed rather than machined: a ruled
+   ivory cell with the digits knocked out of it in stock indigo. The
+   drum still rolls — only its surface changes. */
+.tdp .td-cell__glass {
+    border: 2px solid var(--ivory);
+    border-radius: 0;
+    background: none;
+}
+
+.tdp .td-drum {
+    border-radius: 0;
+    background: var(--ivory);
+    box-shadow: none;
+    color: var(--stock);
+}
+
+.tdp .td-drum__seam {
+    background: rgba(26, 17, 70, 0.28);
+    box-shadow: none;
+}
+
 .td-cell__label {
     display: block;
     margin-top: 0.4rem;

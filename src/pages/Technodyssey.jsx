@@ -1,7 +1,9 @@
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import {
     FEST_NAME, FEST_YEAR, DATE_LABEL, VENUE_LABEL, CITY_LABEL, getCountdown,
 } from '../lib/technodyssey'
+import { SOCIETIES } from '../lib/technodysseyEvents'
 import LaunchClock from '../components/technodyssey/LaunchClock'
 import Itinerary from '../components/technodyssey/Itinerary'
 import EventGallery from '../components/technodyssey/EventGallery'
@@ -50,6 +52,22 @@ const Technodyssey = () => {
 
     return (
         <main className="tdp" data-phase={phase}>
+            {/* The press colour bar: one swatch per society, the inks this
+                sheet is printed in, with registration targets at each end. */}
+            <div className="tdp__colourbar" aria-hidden="true">
+                <span className="tdp__reg"><i /></span>
+                {Object.values(SOCIETIES).map((s) => (
+                    <span
+                        key={s.code}
+                        className="tdp__swatch"
+                        style={{ '--accent': s.accent }}
+                    >
+                        {s.code}
+                    </span>
+                ))}
+                <span className="tdp__reg"><i /></span>
+            </div>
+
             <header className="tdp__masthead">
                 <div className="tdp__field" aria-hidden="true">
                     <Suspense fallback={null}>
@@ -58,13 +76,21 @@ const Technodyssey = () => {
                 </div>
 
                 <div className="tdp__masthead-inner">
+                    <Link className="tdp__back" to="/">
+                        <span aria-hidden="true">&#8592;</span>
+                        Back to IEEE SBNU
+                    </Link>
+
                     <p className="tdp__callsign">
                         <span aria-hidden="true" />
                         IEEE SBNU · {VENUE_LABEL}, {CITY_LABEL}
                     </p>
 
                     <h1 className="tdp__title">
-                        {FEST_NAME}
+                        {/* data-name feeds the two offset ink layers printed
+                            behind the key layer — the misregistration a real
+                            two-pass press leaves behind. */}
+                        <span className="tdp__name" data-name={FEST_NAME}>{FEST_NAME}</span>
                         <span className="tdp__year">{FEST_YEAR}</span>
                     </h1>
 
