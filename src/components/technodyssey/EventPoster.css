@@ -58,9 +58,8 @@
 .tdposter__label em {
     font-style: normal;
     font-family: 'Space Mono', ui-monospace, monospace;
-    /* sized for the smaller plate the gallery now lays out */
-    font-size: clamp(0.46rem, 1.1vw, 0.56rem);
-    line-height: 1.36;
+    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+    line-height: 1.4;
     letter-spacing: 0.1em;
     color: var(--ivory, #f7f4ee);
 }
@@ -68,8 +67,8 @@
 .tdposter__label i {
     font-style: normal;
     font-family: 'Space Mono', ui-monospace, monospace;
-    font-size: 0.4rem;
-    letter-spacing: 0.2em;
+    font-size: 0.46rem;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
     color: color-mix(in srgb, var(--accent) 72%, #f7f4ee);
 }

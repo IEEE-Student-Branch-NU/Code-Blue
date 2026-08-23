@@ -4,7 +4,6 @@ import {
     FEST_NAME, FEST_YEAR, DATE_LABEL, VENUE_LABEL, CITY_LABEL, getCountdown,
 } from '../lib/technodyssey'
 import LaunchClock from '../components/technodyssey/LaunchClock'
-import Itinerary from '../components/technodyssey/Itinerary'
 import EventGallery from '../components/technodyssey/EventGallery'
 import EventDetail from '../components/technodyssey/EventDetail'
 import '../components/technodyssey/technodyssey.css'
@@ -13,8 +12,10 @@ import './Technodyssey.css'
 const Anomaly = React.lazy(() => import('../components/technodyssey/Anomaly'))
 
 /* ─── Technodyssey ────────────────────────────────────────────────
- * Three sections in one scroll: who and when, the running order, then
- * the events themselves. The same place as the Home hero — same
+ * Two sections in one scroll: who and when, then the events themselves
+ * as full-size plates. The running order used to sit between them; it
+ * was removed, so the events now carry the page. The same place as the
+ * Home hero — same
  * palette, same type, same staged reveals — but a return to it rather
  * than a first arrival, so the anomaly is dimmed and held to a corner
  * and the name does not restage its assembly.
@@ -36,7 +37,7 @@ const Technodyssey = () => {
         target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' })
     }, [])
 
-    /* #itinerary / #events are meant to be deep-linkable, but the route
+    /* #events is meant to be deep-linkable, but the route
        is lazy and a browser does not retry the initial hash scroll once
        the target finally exists — so land on it ourselves, once, the
        same way `descend` does. */
@@ -81,9 +82,6 @@ const Technodyssey = () => {
                     )}
 
                     <nav className="tdp__jump" aria-label="Sections">
-                        <button type="button" onClick={descend('itinerary')}>
-                            The itinerary
-                        </button>
                         <button type="button" onClick={descend('events')}>
                             The events
                         </button>
@@ -91,17 +89,9 @@ const Technodyssey = () => {
                 </div>
             </header>
 
-            <section className="tdp__section" id="itinerary">
-                <h2 className="tdp__sectionhead">
-                    <span className="tdp__sectionhead-index">01</span>
-                    The itinerary
-                </h2>
-                <Itinerary onOpenEvent={openEvent} />
-            </section>
-
             <section className="tdp__section" id="events">
                 <h2 className="tdp__sectionhead">
-                    <span className="tdp__sectionhead-index">02</span>
+                    <span className="tdp__sectionhead-index">01</span>
                     The events
                 </h2>
                 <EventGallery onOpenEvent={openEvent} phase={phase} />
