@@ -30,10 +30,12 @@
     will-change: transform, opacity;
 }
 
-/* A fixed frame the poster moves inside — the crop stays put. */
+/* A fixed frame the poster moves inside — the crop stays put. 4:5
+   because that is the ratio the organisers' plates are drawn at; 3:4
+   shaved the outer logos off the poster's own header band. */
 .tdgal__frame {
     position: relative;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     border: 1px solid var(--hair);
     background: var(--navy);

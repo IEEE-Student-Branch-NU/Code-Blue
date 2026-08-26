@@ -1,5 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { existsSync } from 'node:fs'
 import {
     SOCIETIES, EVENTS, SCHEDULE, TRACK_COUNT,
     getEvent, societyOf, formatTime, formatRange,
@@ -67,7 +68,7 @@ test('buildRuns merges contiguous identical slots in a column', () => {
 
 test('buildRuns never merges across lunch', () => {
     const sunday = SCHEDULE[2]
-    const lineFollower = buildRuns(sunday)[1]
+    const lineFollower = buildRuns(sunday)[0]
     assert.equal(lineFollower.length, 2)
     assert.equal(lineFollower[0].span, 2)
     assert.equal(lineFollower[0].to, '12:00')
@@ -85,10 +86,10 @@ test('buildRuns leaves distinct neighbours unmerged', () => {
 
 test('buildRuns skips empty slots without emitting a run', () => {
     const sunday = SCHEDULE[2]
-    const [itss, , embedded] = buildRuns(sunday)
-    assert.equal(itss.length, 1)
-    assert.equal(itss[0].span, 2)
+    const [, embedded, empty] = buildRuns(sunday)
     assert.equal(embedded.length, 1)
+    assert.equal(embedded[0].span, 2)
+    assert.equal(empty.length, 0)
 })
 
 test('buildRuns returns empty columns for a day with no rows', () => {
@@ -121,4 +122,36 @@ test('currentSlot finds the row covering a moment inside the fest', () => {
 test('currentSlot returns null outside the fest', () => {
     assert.equal(currentSlot(new Date('2026-09-01T10:00:00+05:30').getTime()), null)
     assert.equal(currentSlot(new Date('2026-09-26T12:30:00+05:30').getTime()), null)
+})
+
+test('every event points at a poster that is actually on disk', () => {
+    for (const e of EVENTS) {
+        assert.ok(e.poster, `${e.id} has no poster`)
+        assert.ok(e.poster.startsWith('/technodyssey/'),
+            `${e.id} poster is outside /technodyssey/: ${e.poster}`)
+        const file = new URL(`../../public${e.poster}`, import.meta.url)
+        assert.ok(existsSync(file), `missing poster file for ${e.id}: ${e.poster}`)
+    }
+})
+
+test('no two events share a poster', () => {
+    const posters = EVENTS.map((e) => e.poster)
+    assert.equal(new Set(posters).size, posters.length)
+})
+
+/* The detail panel prints dateNote only when SCHEDULE has nothing to
+ * say. An event with both would show the note and hide its real times. */
+test('a dateNote only stands in for an event SCHEDULE cannot place', () => {
+    for (const e of EVENTS) {
+        if (!e.dateNote) continue
+        assert.equal(eventSchedule(e.id).length, 0,
+            `${e.id} carries a dateNote but is also in SCHEDULE`)
+    }
+})
+
+test('Traject IQ opens the fest on the Friday', () => {
+    const traject = getEvent('traject-iq')
+    assert.ok(traject, 'traject-iq is missing from the roster')
+    assert.equal(traject.society, 'ITSS')
+    assert.match(traject.dateNote, /25 September/)
 })

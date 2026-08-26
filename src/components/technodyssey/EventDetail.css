@@ -51,8 +51,9 @@
     border-color: var(--accent);
 }
 
+/* 4:5 — the ratio the posters are drawn at, so cover crops nothing. */
 .tddet__poster {
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 5;
     overflow: hidden;
     border: 1px solid var(--hair);
 }
@@ -230,14 +231,18 @@
         align-items: flex-start;
     }
 
+    /* Stacked, the poster is the first thing in the panel and the Back
+       button would sit on its logo band — open a gap above it. */
     .tddet__panel {
         grid-template-columns: minmax(0, 1fr);
+        padding-top: 3.1rem;
     }
 
-    .tddet__poster {
-        max-height: 46svh;
-        aspect-ratio: 4 / 3;
-    }
+    /* No override for .tddet__poster here on purpose. Stacked, it keeps
+       the 4:5 of the plate itself and takes the panel's full width: a
+       landscape band cropped the title and date clean off, and a height
+       cap re-cropped the sides by fighting the ratio. The overlay
+       scrolls, so a taller poster costs nothing. */
 
     .tddet__info {
         padding-right: 0;

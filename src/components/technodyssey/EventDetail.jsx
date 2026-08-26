@@ -118,13 +118,17 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                             <h2 className="tddet__title" id="tddet-title">{event.name}</h2>
                             <p className="tddet__kind">{event.kind}</p>
 
-                            {when.length > 0 && (
+                            {(when.length > 0 || event.dateNote) && (
                                 <dl className="tddet__when">
                                     <dt>When</dt>
                                     <dd>
-                                        {when.map((w) => (
-                                            <span key={`${w.day}-${w.from}`}>{w.label}</span>
-                                        ))}
+                                        {/* Real runs win; dateNote only speaks for an
+                                            event the running order cannot place yet. */}
+                                        {when.length > 0
+                                            ? when.map((w) => (
+                                                <span key={`${w.day}-${w.from}`}>{w.label}</span>
+                                            ))
+                                            : <span>{event.dateNote}</span>}
                                     </dd>
                                     {event.venue && (<><dt>Where</dt><dd><span>{event.venue}</span></dd></>)}
                                     {event.team && (<><dt>Format</dt><dd><span>{event.team}</span></dd></>)}

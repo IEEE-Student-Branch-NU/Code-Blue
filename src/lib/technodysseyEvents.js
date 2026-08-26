@@ -67,14 +67,17 @@ export const SOCIETIES = {
  * itinerary tile open the detail panel instead of a dead tab.
  * `poster` may point at a file that does not exist yet — EventPoster
  * falls back to a generated plate, so absence is never a broken image.
- * `tba: true` marks a name the organisers have not settled. */
+ * Posters are the organisers' own plates, 4:5, under /technodyssey/.
+ * `tba: true` marks a name the organisers have not settled.
+ * `dateNote` states a day for an event SCHEDULE cannot place yet; the
+ * detail panel prefers real runs and falls back to it. */
 export const EVENTS = [
     {
         id: 'voices-in-motion',
-        name: 'Voices in Motion',
+        name: 'Voices in Motion — A Model Lok Sabha',
         society: 'SIGHT',
-        kind: 'Workshop',
-        blurb: 'A hands-on session on communication and expression, run by SIGHT across the whole of Saturday.',
+        kind: 'Model Lok Sabha',
+        blurb: 'SIGHT convenes a full sitting of the house: motions raised, debated and put to the vote. Where ideas speak, leaders listen, and change begins.',
         poster: '/technodyssey/voices-in-motion.webp',
         konfhub: null,
         venue: null,
@@ -95,10 +98,10 @@ export const EVENTS = [
     },
     {
         id: 'stellar-shield',
-        name: 'Stellar Shield — A Lesson in Cybersecurity',
+        name: 'Stellar Shield',
         society: 'SPS',
-        kind: 'Workshop',
-        blurb: 'An introduction to the attacks that actually happen, and the defences that actually hold.',
+        kind: 'Cybersecurity workshop',
+        blurb: 'Learn, detect, investigate, defend — an introduction to the attacks that actually happen, and the defences that actually hold.',
         poster: '/technodyssey/stellar-shield.webp',
         konfhub: null,
         venue: null,
@@ -107,10 +110,10 @@ export const EVENTS = [
     },
     {
         id: 'art-workshop',
-        name: 'Art Workshop',
+        name: 'Mud & Mirrors: A Lippan Art Workshop',
         society: 'WIE',
         kind: 'Workshop',
-        blurb: 'A making session run by Women in Engineering — traditional craft, done by hand.',
+        blurb: 'Women in Engineering on Lippan — the mud-and-mirror relief craft of Kutch, made by hand.',
         poster: '/technodyssey/art-workshop.webp',
         konfhub: 'https://konfhub.com/mirrors-mud-a-lippan-art-workshop',
         venue: null,
@@ -119,10 +122,10 @@ export const EVENTS = [
     },
     {
         id: 'embedded-system',
-        name: 'Embedded System',
+        name: 'Protosphere — Embedded Systems & IoT 101',
         society: 'PELS',
         kind: 'Workshop',
-        blurb: 'Power electronics on real hardware, running from Saturday afternoon into Sunday morning.',
+        blurb: 'Power Electronics takes it from a bare board to a connected device, running from Saturday afternoon into Sunday morning.',
         poster: '/technodyssey/embedded-system.webp',
         konfhub: null,
         venue: null,
@@ -130,20 +133,24 @@ export const EVENTS = [
         tba: false,
     },
     {
-        id: 'itss-event',
-        name: 'ITSS Event',
+        id: 'traject-iq',
+        name: 'Traject IQ',
         society: 'ITSS',
-        kind: 'To be announced',
-        blurb: 'Intelligent Transportation Systems opens Sunday. The full brief lands closer to the date.',
-        poster: '/technodyssey/itss-event.webp',
+        kind: 'Workshop',
+        blurb: 'Build JARVIS for your vehicle: Intelligent Transportation Systems on a car that listens, reasons and answers back.',
+        poster: '/technodyssey/traject-iq.webp',
         konfhub: null,
         venue: null,
         team: null,
-        tba: true,
+        tba: false,
+        /* Opens the fest on the Friday. The hour-by-hour running order
+           for that day is not published yet, so this carries the day on
+           its own rather than inventing a slot in SCHEDULE. */
+        dateNote: 'Friday · 25 September',
     },
     {
         id: 'line-follower',
-        name: 'Line Follower: Labyrinth Challenge',
+        name: 'Labyrinth: The Line Follower Challenge',
         society: 'SBNU',
         kind: 'Competition',
         blurb: 'Build a bot that reads the line and solves the maze. Fastest clean run takes it.',
@@ -161,8 +168,10 @@ export const EVENTS = [
  *
  * Friday is present with no rows on purpose — the masthead says 25–27
  * September, so dropping the day would contradict the page's own
- * header. It renders a "Schedule to be announced" plate until the
- * organisers publish it. */
+ * header. Traject IQ's poster dates it to the Friday, but the hour-by-
+ * hour order for that day is unpublished, so it carries a `dateNote`
+ * instead of an invented slot here. Friday renders a "Schedule to be
+ * announced" plate until the organisers publish it. */
 export const SCHEDULE = [
     {
         day: 'Friday',
@@ -186,10 +195,10 @@ export const SCHEDULE = [
         date: '27 September 2026',
         iso: '2026-09-27',
         rows: [
-            { from: '08:00', to: '10:00', slots: ['itss-event', 'line-follower', 'embedded-system'] },
-            { from: '10:00', to: '12:00', slots: ['itss-event', 'line-follower', 'embedded-system'] },
+            { from: '08:00', to: '10:00', slots: ['line-follower', 'embedded-system', null] },
+            { from: '10:00', to: '12:00', slots: ['line-follower', 'embedded-system', null] },
             { from: '12:00', to: '13:00', lunch: true },
-            { from: '13:00', to: '14:00', slots: [null, 'line-follower', null] },
+            { from: '13:00', to: '14:00', slots: ['line-follower', null, null] },
         ],
     },
 ]
