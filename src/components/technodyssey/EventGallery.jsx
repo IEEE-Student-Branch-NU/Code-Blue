@@ -36,7 +36,7 @@ const EventGallery = ({ onOpenEvent, phase }) => {
 
     const register = (event) => (e) => {
         e.stopPropagation()
-        if (phase === 'over' || !event.konfhub) { onOpenEvent(event.id); return }
+        if (phase === 'over' || !event.konfhub || Array.isArray(event.konfhub)) { onOpenEvent(event.id); return }
         window.open(event.konfhub, '_blank', 'noopener,noreferrer')
     }
 

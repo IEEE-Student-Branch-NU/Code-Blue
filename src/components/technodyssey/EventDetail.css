@@ -140,6 +140,17 @@
 }
 
 /* Built on the hero's launch control, so the two read as one system. */
+.tddet__go-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: auto;
+}
+
+.tddet__go-group .tddet__go {
+    margin-top: 0;
+}
+
 .tddet__go {
     position: relative;
     display: inline-block;

@@ -138,16 +138,36 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                             <p className="tddet__blurb">{event.blurb}</p>
 
                             {event.konfhub && phase !== 'over' ? (
-                                <a className="tddet__go" href={event.konfhub}
-                                    target="_blank" rel="noopener noreferrer">
-                                    <span className="tddet__go-ring" aria-hidden="true" />
-                                    <span className="tddet__go-face">
-                                        <span className="tddet__go-key" aria-hidden="true" />
-                                        {registerLabel}
-                                    </span>
-                                </a>
+                                Array.isArray(event.konfhub) ? (
+                                    <div className="tddet__go-group">
+                                        {event.konfhub.map((link, i) => (
+                                            <a key={i} className="tddet__go" href={link.url}
+                                                target="_blank" rel="noopener noreferrer">
+                                                <span className="tddet__go-ring" aria-hidden="true" />
+                                                <span className="tddet__go-face">
+                                                    <span className="tddet__go-key" aria-hidden="true" />
+                                                    Register on {link.label}
+                                                </span>
+                                            </a>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <a className="tddet__go" href={event.konfhub}
+                                        target="_blank" rel="noopener noreferrer">
+                                        <span className="tddet__go-ring" aria-hidden="true" />
+                                        <span className="tddet__go-face">
+                                            <span className="tddet__go-key" aria-hidden="true" />
+                                            {registerLabel}
+                                        </span>
+                                    </a>
+                                )
                             ) : (
                                 <p className="tddet__pending">{registerLabel}</p>
+                            )}
+                            {event.registrationNote && (
+                                <p className="tddet__reg-note" style={{ fontSize: '0.7rem', color: 'var(--mute)', marginTop: '0.4rem', textAlign: 'center' }}>
+                                    {event.registrationNote}
+                                </p>
                             )}
                         </div>
                     </motion.div>
