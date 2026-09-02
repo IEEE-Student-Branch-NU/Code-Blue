@@ -67,7 +67,7 @@ const EventDetail = ({ eventId, phase, onClose }) => {
 
     const registerLabel =
         phase === 'over' ? 'Registration closed'
-            : event?.konfhub ? 'Register on KonfHub'
+            : event?.konfhub ? 'Register'
                 : 'Registration opens soon'
 
     return (
@@ -146,7 +146,7 @@ const EventDetail = ({ eventId, phase, onClose }) => {
                                                 <span className="tddet__go-ring" aria-hidden="true" />
                                                 <span className="tddet__go-face">
                                                     <span className="tddet__go-key" aria-hidden="true" />
-                                                    Register on {link.label}
+                                                    Register: {link.label}
                                                 </span>
                                             </a>
                                         ))}
