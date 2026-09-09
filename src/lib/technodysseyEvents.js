@@ -131,7 +131,7 @@ export const EVENTS = [
         kind: 'Workshop',
         blurb: 'A workshop by IEEE Women in Engineering.',
         poster: '/technodyssey/Pixels_and_perception.webp',
-        konfhub: 'https://docs.google.com/forms/d/17_N7UuWV3T47qlh837ZZ0lbsBcdska9zsbsJrAWZ2Ng/edit?chromeless=1',
+        konfhub: 'https://docs.google.com/forms/d/e/1FAIpQLSeHQVcEFvQBsXp7ndiGFsmSAoXnaL8kD5Fluj5vaf6VkurXOA/viewform?usp=sharing&ouid=109796712646993584927',
         venue: null,
         team: null,
         tba: false,
