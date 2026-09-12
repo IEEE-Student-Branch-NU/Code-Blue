@@ -48,7 +48,7 @@ const subChapterCards = [
         logo: "/ieee-itss-logo.webp",
         content: "Drives innovation in intelligent transportation systems, focusing on autonomous vehicles, smart infrastructure, and traffic safety.",
         variant: "itss",
-        link: "https://ieee-itss.vercel.app/"
+        link: "https://ieee-itss-sbnu.vercel.app/"
     },
     {
         title: "IEEE Women in Engineering (WIE)",
