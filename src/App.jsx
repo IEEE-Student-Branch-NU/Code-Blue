@@ -11,16 +11,11 @@ import JoinUs from './pages/JoinUs'
 import { Analytics } from "@vercel/analytics/react"
 import CyberGateTransition from './components/CyberGateTransition'
 import OdysseyGate from './components/OdysseyGate'
-import TechnodysseyStrip from './components/TechnodysseyStrip'
 import NotFound from './pages/NotFound'
 
 const CodeBlue = React.lazy(() => import('./pages/CodeBlue'))
 const CarnivalGallery = React.lazy(() => import('./pages/CarnivalGallery'))
 const Technodyssey = React.lazy(() => import('./pages/Technodyssey'))
-
-/* The two full-screen experiences stay uninterrupted. Home keeps the
- * bar but holds it back until the fest hero has scrolled away. */
-const noFestStrip = ['/carnival-gallery', '/code-blue', '/technodyssey'];
 
 const menuItems = [
   { label: "Home", link: "/" },
@@ -150,18 +145,6 @@ const App = () => {
           </Routes>
         </AnimatePresence>
       </div>
-
-      {/* Outside the routes wrapper so it survives navigation rather
-          than remounting — and animating — on every page change. */}
-      {!noFestStrip.includes(location.pathname) && (
-        <TechnodysseyStrip
-          /* Remount only when crossing between Home and the rest, which
-             is exactly where the reveal rule changes. Moving between two
-             ordinary pages leaves the bar alone. */
-          key={location.pathname === '/' ? 'home' : 'rest'}
-          revealAfterHero={location.pathname === '/'}
-        />
-      )}
     </div>
   )
 }
